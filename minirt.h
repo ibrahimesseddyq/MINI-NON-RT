@@ -3,15 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   minirt.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sessarhi <sessarhi@student.42.fr>          #+#  +:+       +#+        */
+/*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024-11-18 19:16:40 by sessarhi          #+#    #+#             */
-/*   Updated: 2024-11-18 19:16:40 by sessarhi         ###   ########.fr       */
+/*   Created: 2024/11/18 19:16:40 by sessarhi          #+#    #+#             */
+/*   Updated: 2024/12/12 14:56:09 by sessarhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINIRT_H
 # define MINIRT_H
+
+# include <stdio.h>
 
 
 

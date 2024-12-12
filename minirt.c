@@ -3,23 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   minirt.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sessarhi <sessarhi@student.42.fr>          #+#  +:+       +#+        */
+/*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024-11-17 13:41:03 by sessarhi          #+#    #+#             */
-/*   Updated: 2024-11-17 13:41:03 by sessarhi         ###   ########.fr       */
+/*   Created: 2024/11/17 13:41:03 by sessarhi          #+#    #+#             */
+/*   Updated: 2024/12/12 14:55:55 by sessarhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
 
-
-
-
-
 int main(int ac , char **av)
 {
-    
+    (void)av;
     if (ac == 2)
     return (0);
     return (printf("Error\n"));

@@ -1,22 +1,26 @@
 NAME=minirt
 CC=cc
 CFLAGS=-Wall -Wextra -Werror
-SRC =
-OBJ = $(SRC:.c=.o)+
+
+SRC =minirt.c
+
+OBJ = $(SRC:.c=.o)
+
 RM=rm -rf
 
-MLX = -I ./MLX/build/libmlx42.a
-MLXFLAGS =
+MLX = ./minilibx-linux/libmlx_Linux.a
+MLXFLAGS = 
 DEBUG = 
 GPROF = 
 
 all: $(NAME)
 
+
 %.o: %.c
 	$(CC) $(CFLAGS) -c $< -o $@
 	
 $(NAME): $(OBJ)
-	$(CC) $(CFLAGS) -o $(NAME) $(OBJ)  -I 
+	$(CC) $(CFLAGS) $(OBJ) $(MLX) -o $(NAME)   
 clean:
 	$(RM) $(OBJ)
 fclean: clean
