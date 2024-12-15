@@ -6,12 +6,13 @@
 /*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/13 11:26:54 by sessarhi          #+#    #+#             */
-/*   Updated: 2024/12/14 11:02:21 by sessarhi         ###   ########.fr       */
+/*   Updated: 2024/12/15 09:17:04 by sessarhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minirt.h"
+#include "../../minirt.h"
 
+//ths function is ugly 
 static size_t    ft_countwords(const char *s, size_t *i, char c)
 {
     size_t    len;
@@ -36,7 +37,7 @@ static size_t    ft_countwords(const char *s, size_t *i, char c)
     }
     return (len);
 }
-
+//to fix the fucking norm pass len by address 
 char    **ft_split(char const *s, char c)
 {
     char    **str;
@@ -46,7 +47,7 @@ char    **ft_split(char const *s, char c)
 
     if (!s)
         return (NULL);
-    len = sizeof(char *) *( ft_countwords(s, &i, c) + 1);
+    len = sizeof(char *) * (ft_countwords(s, &i, c) + 1);
     str = malloc(len + i + 1);
     if (!str)
         return (NULL);

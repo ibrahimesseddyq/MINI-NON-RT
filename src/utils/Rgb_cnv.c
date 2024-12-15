@@ -1,34 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minirt.h                                           :+:      :+:    :+:   */
+/*   Rgb_cnv.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/18 19:16:40 by sessarhi          #+#    #+#             */
-/*   Updated: 2024/12/15 12:35:54 by sessarhi         ###   ########.fr       */
+/*   Created: 2024/12/14 16:42:01 by sessarhi          #+#    #+#             */
+/*   Updated: 2024/12/15 11:42:17 by sessarhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINIRT_H
-# define MINIRT_H
+#include "../../minirt.h"
 
-# include <stdio.h>
-# include <stdlib.h>
-# include <unistd.h>
-# include <limits.h>
-# include <stdbool.h>
+int	Rgb_value(const char *str)
+{
+	register  int	nb;
 
-
-// Parsing
-bool  parse_crd(const char *str,float *x ,float *y ,float *z);
-int	parse_rgb(const char *str ,int *r ,int *g ,int *b);
-
-
-// Utils
-char    **ft_split(char const *s, char c);
-float	ft_atof(char *str);
-int	Rgb_value(const char *str);
-
-
-#endif
+	while (*str >= 48 && *str <= 57 && nb <= 255)
+		nb = (nb * 10) + (*str++ - 48);
+	if(nb > 255 || *str)
+		return (-1);
+    return (nb);
+}
