@@ -13,6 +13,7 @@
 
 #ifndef OBJECTS_H
 # define OBJECTS_H
+#include "minirt.h"
 #define FLOAT float // change this to double if you want to use double precision
 typedef struct s_Alight
 {
