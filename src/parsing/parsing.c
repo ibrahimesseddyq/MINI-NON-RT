@@ -6,7 +6,7 @@
 /*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/15 21:09:07 by sessarhi          #+#    #+#             */
-/*   Updated: 2024/12/16 10:09:20 by sessarhi         ###   ########.fr       */
+/*   Updated: 2024/12/16 10:32:23 by sessarhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,7 +112,7 @@ void splil_line(char line[])
         else if (strcmp(inf[0], "cy") == 0 && !process_cy(inf))
             i++;
         else 
-            return (printf("Error 6\n"),exit(1));
+            return (printf("Error \n"),exit(1));
     }
     printf("OK\n");
 }
