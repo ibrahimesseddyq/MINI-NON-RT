@@ -12,7 +12,7 @@
 
 #include "../../minirt.h"
 
-int ckeck_pnt(const char *str)
+int check_pnt(const char *str)
 {
     int i;
     int count;
@@ -31,7 +31,7 @@ bool	parse_rgb(const char *str ,int *r ,int *g ,int *b)
 {
     char **tab;
 
-    if (ckeck_pnt(str) != 2)
+    if (check_pnt(str) != 2)
         return (false);
     tab = ft_split(str, ',');
     if (!tab)
