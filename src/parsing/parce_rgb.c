@@ -6,13 +6,13 @@
 /*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/15 12:18:32 by sessarhi          #+#    #+#             */
-/*   Updated: 2024/12/15 12:21:10 by sessarhi         ###   ########.fr       */
+/*   Updated: 2024/12/16 09:53:50 by sessarhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minirt.h"
 
-bool ckeck_pnt(const char *str)
+int ckeck_pnt(const char *str)
 {
     int i;
     int count;
@@ -21,19 +21,19 @@ bool ckeck_pnt(const char *str)
     count = 0;
     while (str[i])
     {
-        if (str[i] == '.')
+        if (str[i] == ',')
             count++;
         i++;
     }
     return (count);
 }
-int	parse_rgb(const char *str ,int *r ,int *g ,int *b)
+bool	parse_rgb(const char *str ,int *r ,int *g ,int *b)
 {
     char **tab;
 
     if (ckeck_pnt(str) != 2)
         return (false);
-    tab = ft_split(str, '.');
+    tab = ft_split(str, ',');
     if (!tab)
         return (false);
     *r = Rgb_value(tab[0]);
