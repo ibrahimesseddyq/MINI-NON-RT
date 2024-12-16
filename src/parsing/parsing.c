@@ -6,7 +6,7 @@
 /*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/15 21:09:07 by sessarhi          #+#    #+#             */
-/*   Updated: 2024/12/16 10:32:23 by sessarhi         ###   ########.fr       */
+/*   Updated: 2024/12/16 16:47:25 by sessarhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,18 +117,23 @@ void splil_line(char line[])
     printf("OK\n");
 }
 
+// to do
+// here we can use the heap with huge size  :)
+// conting the numper of elements and preallocate the size of the the scene
+// 
 void   process_flie(char **av)
 {
     int fd;
     ssize_t ret;
-    char buffer[70000];
+    char *buffer;
     
     fd = open(av[1], O_RDONLY);
     if (fd == -1)
-        return (printf("Error\n"),exit(1));
+        return (printf("Error can´t open %s\n",*av),exit(1));
+    buffer = malloc(BUFFER_SIZE);
     ret = read(fd, buffer, 70000);
     if (ret == -1)
-        return (printf("Error\n"),exit(1));
+        return (printf("Error read faild\n"),exit(1));
     buffer[ret + 1] = '\0';
     splil_line(buffer);
     close(fd);
