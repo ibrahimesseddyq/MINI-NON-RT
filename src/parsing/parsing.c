@@ -6,7 +6,7 @@
 /*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/15 21:09:07 by sessarhi          #+#    #+#             */
-/*   Updated: 2024/12/16 16:47:25 by sessarhi         ###   ########.fr       */
+/*   Updated: 2024/12/17 17:56:58 by sessarhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 int process_A(char **inf)
 {
     int x,y,z;
-    if (!inf[1] || !inf[2])
+    if (!inf[1] || !inf[2] || inf[3])
         return (1);
    if (!parse_rgb(inf[2], &x, &y, &z) || ft_atof(inf[1]) > 1 || ft_atof(inf[1]) < 0)
         return (1);
@@ -25,7 +25,7 @@ int process_A(char **inf)
 int process_C(char **inf)
 {
     float x,y,z;
-    if (!inf[1] || !inf[2] || !inf[3])
+    if (!inf[1] || !inf[2] || !inf[3] || inf[4])
         return (1);
     if (!parse_crd(inf[1], &x, &y, &z) ||
      !parse_crd(inf[2], &x, &y, &z) || atoi(inf[3]) > 180 || atoi(inf[3]) < 0
@@ -38,7 +38,7 @@ int process_L(char **inf)
 {
     float x,y,z;
     int r,g,b;
-    if (!inf[1] || !inf[2] || !inf[3])
+    if (!inf[1] || !inf[2] || !inf[3] || inf[4])
         return (1);
     if (!parse_crd(inf[1], &x, &y, &z) ||
      !parse_rgb(inf[3], &r, &g, &b) || ft_atof(inf[2]) > 1 || ft_atof(inf[2]) < 0)
@@ -50,7 +50,7 @@ int process_sp(char **inf)
 {
     float x,y,z;
     int r,g,b;
-    if (!inf[1] || !inf[2] || !inf[3])
+    if (!inf[1] || !inf[2] || !inf[3] || inf[4])
         return (1);
     if (!parse_crd(inf[1], &x, &y, &z) ||
      !parse_rgb(inf[3], &r, &g, &b) || ft_atof(inf[2]) == (float)INT_MIN)
@@ -63,7 +63,7 @@ int process_pl(char **inf)
     float x,y,z;
     int r,g,b;
      
-    if (!inf[1] || !inf[2] || !inf[3])
+    if (!inf[1] || !inf[2] || !inf[3]   || inf[4])
         return (1);
     if (!parse_crd(inf[1], &x, &y, &z) ||
      !parse_crd(inf[2], &x, &y, &z) ||
@@ -77,7 +77,7 @@ int process_cy(char **inf)
     float x,y,z;
     int r,g,b;
    
-    if (!inf[1] || !inf[2] || !inf[3] || !inf[4] || !inf[5])
+    if (!inf[1] || !inf[2] || !inf[3] || !inf[4] || !inf[5] || inf[6])
         return (1);
     if  (!parse_crd(inf[1], &x, &y,&z) ||
      !parse_crd(inf[2], &x, &y, &z) || x < -1 || x > 1 || y < -1 || y > 1 || z < -1 || z > 1 ||
@@ -96,7 +96,7 @@ void splil_line(char line[])
     elm = ft_split(line, '\n');
     while (elm[i])
     {
-        printf("%s\n", elm[i]);
+        // printf("%s\n", elm[i]);
         inf = ft_split(elm[i], ' ');
         // all of this can be done in one if statement
         if (strcmp(inf[0] ,"A") == 0 && !process_A(inf))
