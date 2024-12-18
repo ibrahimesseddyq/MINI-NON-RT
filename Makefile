@@ -2,9 +2,8 @@ NAME=minirt
 CC=cc
 CFLAGS=-Wall -Wextra -Werror
 
-SRC =minirt.c ./src/parsing/parce_rgb.c ./src/parsing/parse_crd.c ./src/parsing/parsing.c\
-	./src/utils/ft_atof.c ./src/utils/ft_split.c ./src/utils/Rgb_cnv.c
-
+SRC = minirt.c ./src/parsing/parce_rgb.c ./src/parsing/parse_crd.c ./src/parsing/parsing.c\
+	./src/utils/ft_atof.c ./src/utils/ft_split.c ./src/utils/Rgb_cnv.c ./src/tmputils/cy_utils.c ./src/tmputils/pl_utils.c ./src/tmputils/sp_utils.c
 OBJ = $(SRC:.c=.o)
 
 RM=rm -rf

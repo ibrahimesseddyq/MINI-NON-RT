@@ -6,7 +6,7 @@
 /*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 12:56:16 by sessarhi          #+#    #+#             */
-/*   Updated: 2024/12/16 13:51:56 by sessarhi         ###   ########.fr       */
+/*   Updated: 2024/12/18 11:28:24 by sessarhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,13 @@
 #ifndef OBJECTS_H
 # define OBJECTS_H
 #define FLOAT float // change this to double if you want to use double precision
-typedef struct s_Alight
+typedef struct s_ambient
 {
     FLOAT ratio;
     int r;
     int g;
     int b;
-}__attribute__((aligned(sizeof(FLOAT)))) t_Alight;
+}__attribute__((aligned(sizeof(FLOAT)))) t_ambient;
 
 typedef struct s_camera
 {
@@ -83,11 +83,34 @@ typedef struct s_cylinder
     int b;
 }__attribute__((aligned(sizeof(FLOAT)))) t_cylinder;
 
+typedef struct s_vector
+{
+    FLOAT x;
+    FLOAT y;
+    FLOAT z;
+}__attribute__((aligned(sizeof(FLOAT)))) t_vector;
+
+typedef struct s_ray
+{
+    t_vector origin;
+    t_vector direction;
+}__attribute__((aligned(sizeof(FLOAT)))) t_ray;
+
+typedef struct t_intersection
+{
+    FLOAT t;
+    t_vector point;
+    t_vector normal;
+    int r;
+    int g;
+    int b;
+}__attribute__((aligned(sizeof(FLOAT)))) t_intersection;
+
 typedef struct s_scene
 {
     t_camera camera;
     t_light light;
-    t_Alight alight;
+    t_ambient alight;
     t_cylinder *cylinder;
     t_plane *plane;
     t_sphere *sphere;

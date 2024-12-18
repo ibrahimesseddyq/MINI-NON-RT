@@ -6,7 +6,7 @@
 /*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 19:16:40 by sessarhi          #+#    #+#             */
-/*   Updated: 2024/12/16 16:45:02 by sessarhi         ###   ########.fr       */
+/*   Updated: 2024/12/18 15:11:19 by sessarhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 # include <fcntl.h>
 #include <string.h>
 #include "./includes/objects.h"
+#include "./includes/tmpobjects.h"
 
 
 #define BUFFER_SIZE 1000000
@@ -34,7 +35,7 @@ bool	parse_rgb(const char *str ,int *r ,int *g ,int *b);
 char    **ft_split(char const *s, char c);
 float	ft_atof(char *str);
 int	Rgb_value(const char *str);
-void   process_flie( char **av);
+void   process_flie( char **av , t_scene *scene);
 
 
 #endif
