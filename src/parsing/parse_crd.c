@@ -6,13 +6,11 @@
 /*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/14 16:43:26 by sessarhi          #+#    #+#             */
-/*   Updated: 2024/12/16 10:30:14 by sessarhi         ###   ########.fr       */
+/*   Updated: 2024/12/18 11:31:15 by sessarhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minirt.h"
-
-// Parse a 3D coordinate from a string
 
 static int  cont_coor(const char *str)
 {
