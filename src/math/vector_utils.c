@@ -7,6 +7,7 @@ t_vector    vec_create(double x, double y, double z)
     v.x = x;
     v.y = y;
     v.z = z;
+    v.is_vec = 1;
     return (v);
 }
 

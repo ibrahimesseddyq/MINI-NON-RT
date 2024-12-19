@@ -6,15 +6,14 @@
 /*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 12:56:16 by sessarhi          #+#    #+#             */
-/*   Updated: 2024/12/18 11:28:24 by sessarhi         ###   ########.fr       */
+/*   Updated: 2024/12/19 19:44:46 by sessarhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 
 #ifndef OBJECTS_H
 # define OBJECTS_H
-#include "minirt.h"
-#define FLOAT float // change this to double if you want to use double precision
+#include "base.h"
 typedef struct s_ambient
 {
     FLOAT ratio;

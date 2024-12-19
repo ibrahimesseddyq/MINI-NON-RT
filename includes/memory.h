@@ -1,6 +1,6 @@
 #ifndef MEMORY_H
 #define MEMORY_H
-#include "minirt.h"
+#include "base.h"
 
 #define ARENA_ALIGNMENT 8
 #define ALIGN_UP(n, align) (((n) + (align) - 1) & ~((align) - 1))
