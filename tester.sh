@@ -26,5 +26,70 @@ while read -r line; do
         # break
     fi
 done < $inputfile
-    echo -e "${GREEN}Test passed${RESET}"
+inputfile=$file1
+   while read -r line; do
+    echo $line > temp.txt
+    output=$(./minirt  temp.txt)
+    if [ "$output" == "OK" ]; then
+        echo -e "${GREEN}Test passed${RESET}"
+    else
+        echo -e "${RED}Test failed${RESET}"
+    fi
+done < $inputfile
+
+inputfile=$file2
+   while read -r line; do
+    echo $line > temp.txt
+    output=$(./minirt  temp.txt)
+    if [ "$output" == "OK" ]; then
+        echo -e "${GREEN}Test passed${RESET}"
+    else
+        echo -e "${RED}Test failed${RESET}"
+    fi
+done < $inputfile
+
+inputfile=$file3
+   while read -r line; do
+    echo $line > temp.txt
+    output=$(./minirt  temp.txt)
+    if [ "$output" == "OK" ]; then
+        echo -e "${GREEN}Test passed${RESET}"
+    else
+        echo -e "${RED}Test failed${RESET}"
+    fi
+done < $inputfile
+
+inputfile=$file4
+   while read -r line; do
+    echo $line > temp.txt
+    output=$(./minirt  temp.txt)
+    if [ "$output" == "OK" ]; then
+        echo -e "${GREEN}Test passed${RESET}"
+    else
+        echo -e "${RED}Test failed${RESET}"
+    fi
+done < $inputfile
+
+inputfile=$file5
+   while read -r line; do
+    echo $line > temp.txt
+    output=$(./minirt  temp.txt)
+    if [ "$output" == "OK" ]; then
+        echo -e "${GREEN}Test passed${RESET}"
+    else
+        echo -e "${RED}Test failed${RESET}"
+    fi
+done < $inputfile
+
+inputfile=$file6
+   while read -r line; do
+    echo $line > temp.txt
+    output=$(./minirt  temp.txt)
+    if [ "$output" == "OK" ]; then
+        echo -e "${GREEN}Test passed${RESET}"
+    else
+        echo -e "${RED}Test failed${RESET}"
+    fi
+done < $inputfile
+
 rm temp.txt > /dev/null
