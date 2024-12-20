@@ -6,7 +6,7 @@
 /*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/15 21:09:07 by sessarhi          #+#    #+#             */
-/*   Updated: 2024/12/20 18:54:14 by sessarhi         ###   ########.fr       */
+/*   Updated: 2024/12/20 19:02:24 by sessarhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ int process_sp(char **inf ,t_tscene *t_scene)
     t_tsphere *new;
 
     new = new_sphere();
-    if (!inf || !inf[1] || !inf[2] || !inf[3] || inf[4])
+    if (!inf[1] || !inf[2] || !inf[3] || inf[4])
         return (1);
     new->diameter = ft_atof(inf[2]);
     if (!parse_crd(inf[1], &new->x, &new->y, &new->z) ||
@@ -119,6 +119,7 @@ void splil_line(char line[] , t_tscene *tscene)
     char **inf;
     int i = 0;
     
+    printf("[%s]\n", line);
     elm = ft_split(line, '\n');
     while (elm[i])
     {
@@ -326,7 +327,7 @@ void   process_flie(char **av , t_scene *scene)
     ret = read(fd, buffer, BUFFER_SIZE);
     while (ret > 0)
     {
-        buffer[ret + 1] = '\0';
+        buffer[ret] = '\0';
         splil_line(buffer, &tscene);
         ret = read(fd, buffer, BUFFER_SIZE);
     }
