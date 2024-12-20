@@ -37,3 +37,4 @@ t_arena* arena_create_with_params(size_t chunk_size, bool allow_resize,
     arena->current = chunk;
     return (arena);
 }
+

@@ -3,18 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   objects.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ibes-sed <ibes-sed@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 12:56:16 by sessarhi          #+#    #+#             */
-/*   Updated: 2024/12/18 11:28:24 by sessarhi         ###   ########.fr       */
+/*   Updated: 2024/12/19 23:18:09 by ibes-sed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 
 #ifndef OBJECTS_H
 # define OBJECTS_H
-#include "minirt.h"
-#define FLOAT float // change this to double if you want to use double precision
+#include "base.h"
+#include "math.h"
+
 typedef struct s_ambient
 {
     FLOAT ratio;
@@ -25,20 +26,14 @@ typedef struct s_ambient
 
 typedef struct s_camera
 {
-    FLOAT x;
-    FLOAT y;
-    FLOAT z;
-    FLOAT vx;
-    FLOAT vy;
-    FLOAT vz;
+    t_point *position;
+    t_vector *direction;
     int   fov;
 }__attribute__((aligned(sizeof(FLOAT)))) t_camera;
 
 typedef struct s_light
 {
-    FLOAT x;
-    FLOAT y;
-    FLOAT z;
+    t_point *position;
     FLOAT bratio;
     int r;
     int g;
@@ -47,9 +42,7 @@ typedef struct s_light
 
 typedef struct s_sphere
 {
-    FLOAT x;
-    FLOAT y;
-    FLOAT z;
+    t_point *position;
     FLOAT diameter;
     int r;
     int g;
@@ -58,9 +51,7 @@ typedef struct s_sphere
 
 typedef struct s_plane
 {
-    FLOAT x;
-    FLOAT y;
-    FLOAT z;
+    t_point *position;
     FLOAT vx;
     FLOAT vy;
     FLOAT vz;
@@ -71,9 +62,7 @@ typedef struct s_plane
 
 typedef struct s_cylinder
 {
-    FLOAT x;
-    FLOAT y;
-    FLOAT z;
+    t_point *position;
     FLOAT vx;
     FLOAT vy;
     FLOAT vz;
@@ -84,38 +73,46 @@ typedef struct s_cylinder
     int b;
 }__attribute__((aligned(sizeof(FLOAT)))) t_cylinder;
 
-typedef struct s_vector
-{
-    FLOAT x;
-    FLOAT y;
-    FLOAT z;
-}__attribute__((aligned(sizeof(FLOAT)))) t_vector;
+// typedef struct s_vector
+// {
+//     FLOAT x;
+//     FLOAT y;
+//     FLOAT z;
+// }__attribute__((aligned(sizeof(FLOAT)))) t_vector;
 
-typedef struct s_ray
-{
-    t_vector origin;
-    t_vector direction;
-}__attribute__((aligned(sizeof(FLOAT)))) t_ray;
+// typedef struct s_ray
+// {
+//     t_vector origin;
+//     t_vector direction;
+// }__attribute__((aligned(sizeof(FLOAT)))) t_ray;
 
-typedef struct t_intersection
-{
-    FLOAT t;
-    t_vector point;
-    t_vector normal;
-    int r;
-    int g;
-    int b;
-}__attribute__((aligned(sizeof(FLOAT)))) t_intersection;
 
 typedef struct s_scene
 {
     t_camera camera;
     t_light light;
-    t_ambient alight;
+    t_ambient ambient;
     t_cylinder *cylinder;
     t_plane *plane;
     t_sphere *sphere;
+    FLOAT viewport_width;
+    FLOAT viewport_height;
+    FLOAT height;
+    FLOAT width;
+    int plane_count;
+    int cylinder_count;
+    int sphere_count;
+    FLOAT viewport_dist;
 } t_scene;
 
+// typedef struct t_intersection
+// {
+//     FLOAT t;
+//     t_vector point;
+//     t_vector normal;
+//     int r;
+//     int g;
+//     int b;
+// }__attribute__((aligned(sizeof(FLOAT)))) t_intersection;
 
 #endif

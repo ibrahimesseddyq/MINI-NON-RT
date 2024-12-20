@@ -1,11 +1,11 @@
 #include "./../../includes/math.h"
 
-double      deg_to_rad(double degrees)
+FLOAT      deg_to_rad(FLOAT degrees)
 {
     return (degrees * PI / 180.0);
 }
 
-double      rad_to_deg(double radians)
+FLOAT      rad_to_deg(FLOAT radians)
 {
     return (radians * 180.0 / PI);
 }

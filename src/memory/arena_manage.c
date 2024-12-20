@@ -72,3 +72,23 @@ void arena_restore(t_arena_save save)
     arena->current = save.saved_chunk;
     arena->total_used = save.saved_total;
 }
+
+t_arena **get_arena(void)
+{
+    static t_arena *arena = NULL;
+    return &arena;
+}
+
+void set_arena(t_arena *new_arena)
+{
+    t_arena **arena = get_arena();
+    *arena = new_arena;
+}
+
+void setup_arena()
+{
+    t_arena *arena;
+
+    arena = malloc(sizeof(t_arena));
+    set_arena(arena);
+}

@@ -6,16 +6,15 @@
 /*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 13:24:29 by sessarhi          #+#    #+#             */
-/*   Updated: 2024/12/18 15:19:24 by sessarhi         ###   ########.fr       */
+/*   Updated: 2024/12/19 19:57:40 by sessarhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # ifndef TMPOBJECTS_H
 # define TMPOBJECTS_H
 
-#define FLOAT float 
 #include "objects.h"
-
+#include "base.h"
 typedef struct s_tsphere
 {
     FLOAT x;

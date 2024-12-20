@@ -1,6 +1,6 @@
 #ifndef MEMORY_H
 #define MEMORY_H
-#include "minirt.h"
+#include "base.h"
 
 #define ARENA_ALIGNMENT 8
 #define ALIGN_UP(n, align) (((n) + (align) - 1) & ~((align) - 1))
@@ -51,4 +51,6 @@ size_t arena_total_used(const t_arena* arena);
 t_arena_save arena_save(t_arena* arena);
 void arena_restore(t_arena_save save);
 void arena_restore(t_arena_save save);
+t_arena **get_arena(void);
+void setup_arena();
 #endif
