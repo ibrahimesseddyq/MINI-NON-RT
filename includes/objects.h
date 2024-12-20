@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   objects.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ibes-sed <ibes-sed@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 12:56:16 by sessarhi          #+#    #+#             */
-/*   Updated: 2024/12/19 23:18:09 by ibes-sed         ###   ########.fr       */
+/*   Updated: 2024/12/20 18:22:41 by sessarhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,14 +26,14 @@ typedef struct s_ambient
 
 typedef struct s_camera
 {
-    t_point *position;
-    t_vector *direction;
+    t_point position;
+    t_vector direction;
     int   fov;
 }__attribute__((aligned(sizeof(FLOAT)))) t_camera;
 
 typedef struct s_light
 {
-    t_point *position;
+    t_point position;
     FLOAT bratio;
     int r;
     int g;
@@ -42,7 +42,7 @@ typedef struct s_light
 
 typedef struct s_sphere
 {
-    t_point *position;
+    t_point position;
     FLOAT diameter;
     int r;
     int g;
@@ -51,7 +51,7 @@ typedef struct s_sphere
 
 typedef struct s_plane
 {
-    t_point *position;
+    t_point position;
     FLOAT vx;
     FLOAT vy;
     FLOAT vz;
@@ -62,7 +62,7 @@ typedef struct s_plane
 
 typedef struct s_cylinder
 {
-    t_point *position;
+    t_point position;
     FLOAT vx;
     FLOAT vy;
     FLOAT vz;

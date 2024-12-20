@@ -17,7 +17,7 @@ RM = rm -rf
 
 MLX = ./minilibx-linux/libmlx_Linux.a
 MLXFLAGS = -lX11 -lXext -lm  # You may need these flags for linking with minilibx
-DEBUG = -g #-fsanitize=address  # Keep optional, uncomment when debugging
+DEBUG = -g -fsanitize=address  # Keep optional, uncomment when debugging
 GPROF = # -pg  # Uncomment for profiling with gprof, optional
 
 all: $(NAME)

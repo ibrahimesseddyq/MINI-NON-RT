@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ibes-sed <ibes-sed@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/15 21:09:07 by sessarhi          #+#    #+#             */
-/*   Updated: 2024/12/20 17:26:59 by ibes-sed         ###   ########.fr       */
+/*   Updated: 2024/12/20 18:54:14 by sessarhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,11 +36,11 @@ int process_C(char **inf , t_tscene *t_scene)
     if (t_scene->is_c_set == true)
         return (printf("Error multiple Cameras\n"),1);
     t_scene->camera.fov = atoi(inf[3]);
-    if (!parse_crd(inf[1],&t_scene->camera.position->x, &t_scene->camera.position->y , &t_scene->camera.position->z) 
-    || !parse_crd(inf[2], &t_scene->camera.direction->x, &t_scene->camera.direction->y, &t_scene->camera.direction->z)
-    || t_scene->camera.fov > 180 || t_scene->camera.fov < 0 || t_scene->camera.direction->x < -1 ||
-    t_scene->camera.direction->x > 1 || t_scene->camera.direction->y < -1 || t_scene->camera.direction->y > 1 || 
-    t_scene->camera.direction->z < -1 || t_scene->camera.direction->z > 1)
+    if (!parse_crd(inf[1],&t_scene->camera.position.x, &t_scene->camera.position.y , &t_scene->camera.position.z) 
+    || !parse_crd(inf[2], &t_scene->camera.direction.x, &t_scene->camera.direction.y, &t_scene->camera.direction.z)
+    || t_scene->camera.fov > 180 || t_scene->camera.fov < 0 || t_scene->camera.direction.x < -1 ||
+    t_scene->camera.direction.x > 1 || t_scene->camera.direction.y < -1 || t_scene->camera.direction.y > 1 || 
+    t_scene->camera.direction.z < -1 || t_scene->camera.direction.z > 1)
         return (1);
     t_scene->is_c_set = true;
     return (0);
@@ -53,11 +53,10 @@ int process_L(char **inf , t_tscene *t_scene)
     if (t_scene->is_l_set == true)
         return (printf("Error multiple Lights\n"),1);
     t_scene->light.bratio = ft_atof(inf[2]);
-    if (!parse_crd(inf[1], &t_scene->light.position->x,&t_scene->light.position->y,&t_scene->light.position->z) ||
+    if (!parse_crd(inf[1], &t_scene->light.position.x,&t_scene->light.position.y,&t_scene->light.position.z) ||
      !parse_rgb(inf[3], &t_scene->light.r, &t_scene->light.g, &t_scene->light.b) ||
       t_scene->light.bratio < 0 || t_scene->light.bratio > 1)
         return (1);
-        printf("OK3\n");
 
     t_scene->is_l_set = true;
     return (0);
@@ -66,8 +65,6 @@ int process_L(char **inf , t_tscene *t_scene)
 int process_sp(char **inf ,t_tscene *t_scene)
 {
     t_tsphere *new;
-
-    printf("OK2\n");
 
     new = new_sphere();
     if (!inf || !inf[1] || !inf[2] || !inf[3] || inf[4])
@@ -127,13 +124,6 @@ void splil_line(char line[] , t_tscene *tscene)
     {
         printf("%s\n", elm[i]);
         inf = ft_split(elm[i], ' ');
-        printf("[%s]\n", inf[0]);
-            printf("[%s]\n", inf[1]);
-        printf("[%s]\n", inf[2]);
-
-            printf("OK\n");
-
-        // all of this can be done in one if statement
         if (strcmp(inf[0] ,"A") == 0 && !process_A(inf , tscene))
                 i++;
         else if (strcmp(inf[0], "C") == 0 && !process_C(inf  ,tscene))
@@ -163,10 +153,12 @@ void int_tsceen(t_tscene *tscene)
     tscene->is_c_set = false;
     tscene->is_l_set = false;
     tscene->is_a_set = false;
-       tscene->camera.position = malloc(sizeof(t_point));
-    tscene->camera.direction = malloc(sizeof(t_point));
-    if (!tscene->camera.position || !tscene->camera.direction)
-        exit(1);  // Handle allocation failure
+    tscene->camera.position.x = 0;
+    tscene->camera.position.y = 0;
+    tscene->camera.position.z = 0;
+    tscene->camera.direction.x = 0;
+    tscene->camera.direction.y = 0;
+    tscene->camera.direction.z = 0;
 }
 // void print_scene(t_tscene *tscene)
 // {
@@ -274,7 +266,9 @@ void copy_tscene(t_tscene *tscene, t_scene *scene)
     cylinder = tscene->cylinder;
     while (plane)
     {
-        scene->plane[i].position = create_point(plane->x, plane->y, plane->z);
+        scene->plane[i].position.x = plane->x;
+        scene->plane[i].position.y = plane->y;
+        scene->plane[i].position.z = plane->z;
         scene->plane[i].vx = plane->vx;
         scene->plane[i].vy = plane->vy;
         scene->plane[i].vz = plane->vz;
@@ -287,7 +281,9 @@ void copy_tscene(t_tscene *tscene, t_scene *scene)
     i = 0;
     while (sphere)
     {
-        scene->sphere[i].position = create_point(sphere->x, sphere->y, sphere->z);
+        scene->sphere[i].position.x = sphere->x;
+        scene->sphere[i].position.y = sphere->y;
+        scene->sphere[i].position.z = sphere->z;
         scene->sphere[i].diameter = sphere->diameter;
         scene->sphere[i].r = sphere->r;
         scene->sphere[i].g = sphere->g;
@@ -298,7 +294,9 @@ void copy_tscene(t_tscene *tscene, t_scene *scene)
     i = 0;
     while (cylinder)
     {
-        scene->cylinder[i].position = create_point(cylinder->x, cylinder->y, cylinder->z);
+        scene->cylinder[i].position.x = cylinder->x;
+        scene->cylinder[i].position.y = cylinder->y;
+        scene->cylinder[i].position.z = cylinder->z;
         scene->cylinder[i].vx = cylinder->vx;
         scene->cylinder[i].vy = cylinder->vy;
         scene->cylinder[i].vz = cylinder->vz;

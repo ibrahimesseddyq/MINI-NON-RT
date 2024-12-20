@@ -30,7 +30,7 @@ t_color *trace_ray(t_ray *ray, t_scene *scene)
     i = 0;
     while (i < scene->sphere_count)
     {
-        t_intersection *hit = ray_sphere_intersect(ray, scene->sphere[i].position, 
+        t_intersection *hit = ray_sphere_intersect(ray, &scene->sphere[i].position, 
                                                 scene->sphere[i].diameter);
         if (hit->hit && hit->distance < min_distance)
         {
@@ -50,7 +50,7 @@ t_color *trace_ray(t_ray *ray, t_scene *scene)
         t_vector *normal = vec_create(scene->plane[i].vx,
                                    scene->plane[i].vy,
                                    scene->plane[i].vz);
-        t_intersection *hit = ray_plane_intersect(ray, scene->plane[i].position, normal);
+        t_intersection *hit = ray_plane_intersect(ray, &scene->plane[i].position, normal);
         if (hit->hit && hit->distance < min_distance)
         {
             min_distance = hit->distance;
@@ -108,7 +108,7 @@ t_map *render_scene(t_scene *scene)
             pixel_y = (1.0 - 2.0 * y / scene->height);
             direction = vec_normalize(vec_create(pixel_x, pixel_y, scene->viewport_dist));
            
-            ray = ray_create(scene->camera.position, direction);
+            ray = ray_create(&scene->camera.position, direction);
             pixel_color = trace_ray(ray, scene);
 
             map->points[x][y] = *pixel_color;
