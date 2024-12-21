@@ -6,7 +6,7 @@
 /*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/15 21:09:07 by sessarhi          #+#    #+#             */
-/*   Updated: 2024/12/20 19:02:24 by sessarhi         ###   ########.fr       */
+/*   Updated: 2024/12/20 22:48:07 by sessarhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,7 +119,6 @@ void splil_line(char line[] , t_tscene *tscene)
     char **inf;
     int i = 0;
     
-    printf("[%s]\n", line);
     elm = ft_split(line, '\n');
     while (elm[i])
     {
