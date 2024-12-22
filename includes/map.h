@@ -1,7 +1,7 @@
 #ifndef MAP_H
 #define MAP_H
 #include "math.h"
-#include "./../minilibx-linux/mlx.h"
+#include "./../MLX/mlx.h"
 typedef struct s_map
 {
     t_color **points;
