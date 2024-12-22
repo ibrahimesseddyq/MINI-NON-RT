@@ -89,6 +89,6 @@ void setup_arena()
 {
     t_arena *arena;
 
-    arena = malloc(sizeof(t_arena));
+    arena = arena_create();
     set_arena(arena);
 }

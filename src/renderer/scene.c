@@ -1,7 +1,7 @@
 #include "../../includes/objects.h"
 #include "../../includes/map.h"
 #include "../../includes/memory.h"
-
+#include "./../../minirt.h"
 // TODO Soufiane
 void create_scene(t_scene *scene)
 {
@@ -179,7 +179,7 @@ t_mlx *init_mlx(t_scene *scene)
 {
     t_mlx *mlx;
 
-    mlx = arena_alloc(*get_arena(), sizeof(t_mlx));
+    // mlx = arena_alloc(*get_arena(), sizeof(t_mlx));
     mlx->mlx = mlx_init();
     mlx->win = mlx_new_window(mlx->mlx, scene->width, scene->height, "MiniRT");
     mlx->img.img = mlx_new_image(mlx->mlx, scene->width, scene->height);
@@ -191,23 +191,16 @@ t_mlx *init_mlx(t_scene *scene)
 void render(t_scene *scene)
 {
     t_data data;
-    t_mlx *mlx;
 
-    // Initialize MLX
-    mlx = init_mlx(scene);
-    
-    // Render the scene to our map structure
-    data.map = render_scene(scene);
     data.scene = scene;
-    data.mlx = mlx;
+    data.mlx->mlx = mlx_init();
+    data.mlx->win = mlx_new_window(data.mlx->mlx, WIDTH , HEIGHT, "MiniRT");
+    data.mlx->img.img = mlx_new_image(data.mlx->mlx, WIDTH, HEIGHT);
+    data.mlx->img.addr = mlx_get_data_addr(data.mlx->img.img, &data.mlx->img.bits_per_pixel,
+                                     &data.mlx->img.line_length, &data.mlx->img.endian);
 
-    // Render the map to the MLX window
-    render_to_window(&data);
+    mlx_put_image_to_window(data.mlx->mlx, data.mlx->win, data.mlx->img.img, 0, 0);
+    // data.map = render_scene(scene);
+    mlx_loop(data.mlx->mlx);
 
-    // Set up event hooks
-    mlx_key_hook(mlx->win, key_hook, &data);
-    mlx_hook(mlx->win, 17, 0, close_window, &data);  // Handle window close button
-    
-    // Start MLX loop
-    mlx_loop(mlx->mlx);
 }

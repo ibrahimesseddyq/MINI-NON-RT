@@ -29,6 +29,7 @@ void* arena_aligned_alloc(t_arena* arena, size_t size, size_t align)
     if (size == 0)
         return (NULL);
     if (align < ARENA_ALIGNMENT) align = ARENA_ALIGNMENT;
+    // printf("arena->current->used : %p\n", arena->current->size);
     ptr = arena_alloc_from_chunk(arena->current, size, align);
     if (ptr)
         return (arena->total_used += size, ptr);
@@ -57,9 +58,11 @@ void* arena_alloc_from_chunk(t_arena_chunk* chunk, size_t size, size_t align)
     uintptr_t aligned ;
     size_t padding;
     size_t total_size;
+    // printf("chunk->used : %zu\n", chunk->used);
 
     current = (uintptr_t)&chunk->data[chunk->used];
     aligned = ALIGN_UP(current, align);
+    
     padding = aligned - current;
     total_size = padding + size;
     if (chunk->used + total_size > chunk->size - sizeof(t_arena_chunk))

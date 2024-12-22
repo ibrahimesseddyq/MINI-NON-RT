@@ -6,7 +6,7 @@
 /*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 19:16:40 by sessarhi          #+#    #+#             */
-/*   Updated: 2024/12/18 15:11:19 by sessarhi         ###   ########.fr       */
+/*   Updated: 2024/12/22 14:22:29 by sessarhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,12 @@
 #include <string.h>
 #include "./includes/objects.h"
 #include "./includes/tmpobjects.h"
+#include "./includes/map.h"
 
 
 #define BUFFER_SIZE 1000000
+#define HEIGHT 1200
+#define WIDTH 1600
 
 // Parsing
 bool  parse_crd(const char *str,float *x ,float *y ,float *z);

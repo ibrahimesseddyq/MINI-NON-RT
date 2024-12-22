@@ -29,4 +29,6 @@ typedef struct s_data
     t_scene *scene;
     t_map   *map;
 } t_data;
+void render(t_scene *scene);
+
 #endif
