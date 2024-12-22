@@ -6,7 +6,7 @@
 /*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/15 21:09:07 by sessarhi          #+#    #+#             */
-/*   Updated: 2024/12/22 10:52:49 by sessarhi         ###   ########.fr       */
+/*   Updated: 2024/12/22 19:43:14 by sessarhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -249,6 +249,9 @@ void int_tsceen(t_tscene *tscene)
 void copy_tscene(t_tscene *tscene, t_scene *scene)
 {
     scene->ambient = tscene->ambient;
+        scene->width = 800;
+            scene->height = 800;
+
     scene->camera = tscene->camera;
     scene->light = tscene->light;
     // printf("sphere size : %d\n", tscene->sphere_size);

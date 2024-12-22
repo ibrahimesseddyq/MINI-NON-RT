@@ -5,8 +5,10 @@ t_vector    *vec_create(FLOAT x, FLOAT y, FLOAT z)
 {
     t_vector *v;
     
+    printf("x = %f y = %f z = %f\n", x, y, z);
     v = arena_alloc(*get_arena(), sizeof(t_vector));
-    v->x = x;
+
+    // v->x = x;
     v->y = y;
     v->z = z;
     v->is_vec = 1;

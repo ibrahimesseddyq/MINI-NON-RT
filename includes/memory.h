@@ -4,7 +4,7 @@
 
 #define ARENA_ALIGNMENT 8
 #define ALIGN_UP(n, align) (((n) + (align) - 1) & ~((align) - 1))
-#define DEFAULT_CHUNK_SIZE (128 * 1024 * 1024)
+#define DEFAULT_CHUNK_SIZE (130 * 15 * 1024 * 1024)
 #define MIN_CHUNK_SIZE (4 * 1024)
 
 typedef struct s_arena_chunk

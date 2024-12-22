@@ -15,6 +15,8 @@ t_color *trace_ray(t_ray *ray, t_scene *scene)
     FLOAT            min_distance;
     int              i;
 
+    closest_hit = arena_alloc(*get_arena(), sizeof(t_intersection));
+
     min_distance = INFINITY;
     closest_hit->hit = false;
     hit_color = arena_alloc(*get_arena(), sizeof(t_color));
@@ -93,6 +95,8 @@ t_map *render_scene(t_scene *scene)
 
     map = arena_alloc(*get_arena(), sizeof(t_map));
     map->points = arena_alloc(*get_arena(), sizeof(t_color *) * scene->width);
+    printf("scene->width = %d\n", scene->width);
+    printf("scene->height = %d\n", scene->height);
     for (int i = 0; i < scene->width; i++)
     {
         map->points[i] = arena_alloc(*get_arena(), sizeof(t_color) * scene->height);
@@ -110,13 +114,14 @@ t_map *render_scene(t_scene *scene)
            
             ray = ray_create(&scene->camera.position, direction);
             pixel_color = trace_ray(ray, scene);
-
+            printf("r = %d g = %d b = %d\n", pixel_color->r, pixel_color->g, pixel_color->b);
             map->points[x][y] = *pixel_color;
+            printf("point[0][0] = %d %d %d\n", map->points[0][0].r, map->points[0][0].g, map->points[0][0].b);
             x++;
         }
         y++;
     }
-
+    printf("point[0][0] = %d %d %d\n", map->points[0][0].r, map->points[0][0].g, map->points[0][0].b);
     return (map);
 }
 void    my_mlx_pixel_put(t_img *img, int x, int y, int color)
@@ -141,13 +146,13 @@ void render_to_window(t_data *data)
     int mlx_color;
 
     y = 0;
-    while (y < HEIGHT)
+    while (y < data->scene->height)
     {
         x = 0;
-        while (x < WIDTH)
+        while (x < data->scene->width)
         {
-            
-            mlx_color = create_rgb(100, 150, 200);
+            color = data->map->points[x][y];
+            mlx_color = create_rgb(color.r, color.g, color.b);
             my_mlx_pixel_put(&data->mlx->img, x, y, mlx_color);
             x++;
         }
@@ -181,8 +186,8 @@ t_mlx *init_mlx(t_scene *scene)
 
     mlx = arena_alloc(*get_arena(), sizeof(t_mlx));
     mlx->mlx = mlx_init();
-    mlx->win = mlx_new_window(mlx->mlx, WIDTH, HEIGHT, "MiniRT");
-    mlx->img.img = mlx_new_image(mlx->mlx, WIDTH, HEIGHT);
+    mlx->win = mlx_new_window(mlx->mlx, scene->width, scene->height, "MiniRT");
+    mlx->img.img = mlx_new_image(mlx->mlx, scene->width, scene->height);
     mlx->img.addr = mlx_get_data_addr(mlx->img.img, &mlx->img.bits_per_pixel,
                                      &mlx->img.line_length, &mlx->img.endian);
     return (mlx);
