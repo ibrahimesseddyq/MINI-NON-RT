@@ -27,7 +27,7 @@ typedef struct s_arena
     void (*free_fn)(void*);
 } t_arena;
 
-typedef struct
+typedef struct s_arena_save
 {
     t_arena* arena;
     t_arena_chunk* saved_chunk;

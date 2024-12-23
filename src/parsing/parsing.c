@@ -6,7 +6,11 @@
 /*   By: ibes-sed <ibes-sed@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/15 21:09:07 by sessarhi          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2024/12/22 23:08:01 by ibes-sed         ###   ########.fr       */
+=======
+/*   Updated: 2024/12/22 21:11:01 by sessarhi         ###   ########.fr       */
+>>>>>>> 6ee760cdc0f0b6a2e5147605a8e0c21d33a5ace2
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -169,7 +173,89 @@ void int_tsceen(t_tscene *tscene)
     tscene->camera.direction.y = 0;
     tscene->camera.direction.z = 0;
 }
+void print_scene(t_tscene *tscene)
+{
+    t_tsphere *sphere;
+    t_tplane *plane;
+    t_tcylinder *cylinder;
 
+    sphere = tscene->sphere;
+    plane = tscene->plane;
+    cylinder = tscene->cylinder;
+    printf("Ambient\n");
+    printf("ratio : %f\n", tscene->ambient.ratio);
+    printf("r : %d\n", tscene->ambient.r);
+    printf("g : %d\n", tscene->ambient.g);
+    printf("b : %d\n", tscene->ambient.b);
+    printf("Camera\n");
+    printf("x : %f\n", tscene->camera.position.x);
+    printf("y : %f\n", tscene->camera.position.y);
+    printf("z : %f\n", tscene->camera.position.z);
+    printf("vx : %f\n", tscene->camera.direction.x);
+    printf("vy : %f\n", tscene->camera.direction.y);
+    printf("vz : %f\n", tscene->camera.direction.z);
+    printf("fov : %d\n", tscene->camera.fov);
+    printf("Light\n");
+    printf("x : %f\n", tscene->light.position.x);
+    printf("y : %f\n", tscene->light.position.y);
+    printf("z : %f\n", tscene->light.position.z);
+    printf("bratio : %f\n", tscene->light.bratio);
+    printf("r : %d\n", tscene->light.r);
+    printf("g : %d\n", tscene->light.g);
+    printf("b : %d\n", tscene->light.b);
+    printf("Sphere size : %d\n", tscene->sphere_size);
+    printf("Plane size : %d\n", tscene->plane_size);
+    printf("Cylinder size : %d\n", tscene->cylinder_size);
+    printf("is_c_set : %d\n", tscene->is_c_set);
+    printf("is_l_set : %d\n", tscene->is_l_set);
+    printf("is_a_set : %d\n", tscene->is_a_set);
+    printf("Objects\n");
+   
+    while (plane)
+    {
+         printf("Plane\n");
+        printf("x : %f\n", plane->x);
+        printf("y : %f\n", plane->y);
+        printf("z : %f\n", plane->z);
+        printf("vx : %f\n", plane->vx);
+        printf("vy : %f\n", plane->vy);
+        printf("vz : %f\n", plane->vz);
+        printf("r : %d\n", plane->r);
+        printf("g : %d\n", plane->g);
+        printf("b : %d\n", plane->b);
+        plane = plane->next;
+    }
+    while (sphere)
+    {
+         printf("Sphere\n");
+        printf("x : %f\n", sphere->x);
+        printf("y : %f\n", sphere->y);
+        printf("z : %f\n", sphere->z);
+        printf("diameter : %f\n", sphere->diameter);
+        printf("r : %d\n", sphere->r);
+        printf("g : %d\n", sphere->g);
+        printf("b : %d\n", sphere->b);
+        sphere = sphere->next;
+    }
+    
+    while (cylinder)
+    {
+        printf("Cylinder\n");
+        printf("x : %f\n", cylinder->x);
+        printf("y : %f\n", cylinder->y);
+        printf("z : %f\n", cylinder->z);
+        printf("vx : %f\n", cylinder->vx);
+        printf("vy : %f\n", cylinder->vy);
+        printf("vz : %f\n", cylinder->vz);
+        printf("diameter : %f\n", cylinder->diameter);
+        printf("height : %f\n", cylinder->height);
+        printf("r : %d\n", cylinder->r);
+        printf("g : %d\n", cylinder->g);
+        printf("b : %d\n", cylinder->b);
+        cylinder = cylinder->next;
+    }          
+
+}
 
 void copy_tscene(t_tscene *tscene, t_scene *scene)
 {
@@ -177,7 +263,6 @@ void copy_tscene(t_tscene *tscene, t_scene *scene)
 
     scene->camera = tscene->camera;
     scene->light = tscene->light;
-    // printf("sphere size : %d\n", tscene->sphere_size);
     scene->cylinder = arena_alloc(*get_arena(), sizeof(t_cylinder) * tscene->cylinder_size);
     scene->plane = arena_alloc(*get_arena(), sizeof(t_plane) * tscene->plane_size);
     scene->sphere = arena_alloc(*get_arena(), sizeof(t_sphere) * tscene->sphere_size);
@@ -189,54 +274,50 @@ void copy_tscene(t_tscene *tscene, t_scene *scene)
     t_tplane *plane;
     t_tcylinder *cylinder;
     int i = 0;
-    sphere = tscene->sphere;
-    plane = tscene->plane;
-    cylinder = tscene->cylinder;
-    while (plane)
+    while (tscene->plane)
     {
-        scene->plane[i].position.x = plane->x;
-        scene->plane[i].position.y = plane->y;
-        scene->plane[i].position.z = plane->z;
-        scene->plane[i].vx = plane->vx;
-        scene->plane[i].vy = plane->vy;
-        scene->plane[i].vz = plane->vz;
-        scene->plane[i].r = plane->r;
-        scene->plane[i].g = plane->g;
-        scene->plane[i].b = plane->b;
-        plane = plane->next;
+        scene->plane[i].position.x = tscene->plane->x;
+        scene->plane[i].position.y = tscene->plane->y;
+        scene->plane[i].position.z = tscene->plane->z;
+        scene->plane[i].vx = tscene->plane->vx;
+        scene->plane[i].vy = tscene->plane->vy;
+        scene->plane[i].vz = tscene->plane->vz;
+        scene->plane[i].r = tscene->plane->r;
+        scene->plane[i].g = tscene->plane->g;
+        scene->plane[i].b = tscene->plane->b;
         i++;
     }
     i = 0;
-    while (sphere)
+    while (tscene->sphere)
     {
-        scene->sphere[i].position.x = sphere->x;
-        scene->sphere[i].position.y = sphere->y;
-        scene->sphere[i].position.z = sphere->z;
-        scene->sphere[i].diameter = sphere->diameter;
-        scene->sphere[i].r = sphere->r;
-        scene->sphere[i].g = sphere->g;
-        scene->sphere[i].b = sphere->b;
-        sphere = sphere->next;
+        scene->sphere[i].position.x = tscene->sphere->x;
+        scene->sphere[i].position.y = tscene->sphere->y;
+        scene->sphere[i].position.z = tscene->sphere->z;
+        scene->sphere[i].diameter = tscene->sphere->diameter;
+        scene->sphere[i].r = tscene->sphere->r;
+        scene->sphere[i].g = tscene->sphere->g;
+        scene->sphere[i].b = tscene->sphere->b;
+        tscene->sphere = tscene->sphere->next;
         i++;
     }
+
     i = 0;
-    while (cylinder)
+    while (tscene->cylinder)
     {
-        scene->cylinder[i].position.x = cylinder->x;
-        scene->cylinder[i].position.y = cylinder->y;
-        scene->cylinder[i].position.z = cylinder->z;
-        scene->cylinder[i].vx = cylinder->vx;
-        scene->cylinder[i].vy = cylinder->vy;
-        scene->cylinder[i].vz = cylinder->vz;
-        scene->cylinder[i].diameter = cylinder->diameter;
-        scene->cylinder[i].height = cylinder->height;
-        scene->cylinder[i].r = cylinder->r;
-        scene->cylinder[i].g = cylinder->g;
-        scene->cylinder[i].b = cylinder->b;
-        cylinder = cylinder->next;
+        scene->cylinder[i].position.x = tscene->cylinder->x;
+        scene->cylinder[i].position.y = tscene->cylinder->y;
+        scene->cylinder[i].position.z = tscene->cylinder->z;
+        scene->cylinder[i].vx = tscene->cylinder->vx;
+        scene->cylinder[i].vy = tscene->cylinder->vy;
+        scene->cylinder[i].vz = tscene->cylinder->vz;
+        scene->cylinder[i].diameter = tscene->cylinder->diameter;
+        scene->cylinder[i].height = tscene->cylinder->height;
+        scene->cylinder[i].r = tscene->cylinder->r;
+        scene->cylinder[i].g = tscene->cylinder->g;
+        scene->cylinder[i].b = tscene->cylinder->b;
+        tscene->cylinder = tscene->cylinder->next;
         i++;
     }
-   
 }
 
 void   process_flie(char **av , t_scene *scene)
