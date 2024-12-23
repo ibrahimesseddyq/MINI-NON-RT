@@ -10,7 +10,9 @@ t_matrix    *matrix_identity(void)
     int j;
 
     i = 0;
-    m = arena_alloc(*get_arena(), sizeof(t_matrix));
+    // m = arena_alloc(*get_arena(), sizeof(t_matrix));
+    m = malloc(sizeof(t_matrix));
+
     while (i < 4)
     {
         j = 0;
@@ -32,7 +34,9 @@ t_matrix    *matrix_multiply(t_matrix *a, t_matrix *b)
     int k;
 
     i = 0;
-    result = arena_alloc(*get_arena(), sizeof(t_matrix));
+    // result = arena_alloc(*get_arena(), sizeof(t_matrix));
+    result = malloc(sizeof(t_matrix));
+
     while (i < 4)
     {
         j = 0;

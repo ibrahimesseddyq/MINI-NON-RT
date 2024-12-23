@@ -7,7 +7,9 @@ t_vector    *vec_create(FLOAT x, FLOAT y, FLOAT z, int debug_flag)
     t_vector *v;
     
 
-    v = arena_alloc(*get_arena(), sizeof(t_vector));
+    // v = arena_alloc(*get_arena(), sizeof(t_vector));
+    v = malloc(sizeof(t_vector));
+
     v->x = x;
     v->y = y;
     v->z = z;

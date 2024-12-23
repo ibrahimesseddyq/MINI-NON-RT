@@ -135,11 +135,14 @@ t_color *trace_ray(t_ray *ray, t_scene *scene)
     FLOAT            min_distance;
     int              i;
 
-    closest_hit = arena_alloc(*get_arena(), sizeof(t_intersection));
+    // closest_hit = arena_alloc(*get_arena(), sizeof(t_intersection));
+    closest_hit = malloc(sizeof(t_intersection));
 
     min_distance = INFINITY;
     closest_hit->hit = false;
-    hit_color = arena_alloc(*get_arena(), sizeof(t_color));
+    // hit_color = arena_alloc(*get_arena(), sizeof(t_color));
+    hit_color = malloc(sizeof(t_color));
+
     if (!hit_color)
         return (NULL);
     
@@ -155,14 +158,6 @@ t_color *trace_ray(t_ray *ray, t_scene *scene)
 
         t_intersection *hit = ray_sphere_intersect(ray, &scene->sphere[i].position, 
                                                 scene->sphere[i].diameter);
-        // printf("sphere count [%d] sphere diameter [%f]\n", scene->sphere_count, scene->sphere[i].diameter);
-        // printf("ray origin [%f][%f][%f] ray direction [%f][%f][%f] sphere pos [%f][%f][%f] sphere diameter [%d][%f]\n", ray->origin->x, ray->origin->y, ray->origin->z, ray->direction->x, ray->direction->y, ray->direction->z, i, scene->sphere[i].diameter);
-        // if (hit->hit)
-        // {
-        //     printf("did SPHERE HIT\n");
-        // }
-        // else
-        //     printf("not SPHERE HIT\n");
         if (hit->hit && hit->distance < min_distance)
         {
             min_distance = hit->distance;
@@ -172,28 +167,42 @@ t_color *trace_ray(t_ray *ray, t_scene *scene)
         }
         i++;
     }
-
     // Check all planes
-    // i = 0;
-    // while (i < scene->plane_count)
-    // {
-    //     t_vector *normal = vec_create(scene->plane[i].vx,
-    //                                scene->plane[i].vy,
-    //                                scene->plane[i].vz, NO_DEBUG);
-    //     t_intersection *hit = ray_plane_intersect(ray, &scene->plane[i].position, normal);
-    //     if (hit->hit && hit->distance < min_distance)
-    //     {
-    //         min_distance = hit->distance;
-    //         closest_hit = hit;
-    //         hit_color->r = scene->plane[i].r;
-    //         hit_color->g = scene->plane[i].g;
-    //         hit_color->b = scene->plane[i].b;
-    //     }
-    //     i++;
-    // }
-
-
-
+    i = 0;
+    while (i < scene->plane_count)
+    {
+        t_vector *normal = vec_create(scene->plane[i].vx,
+                                   scene->plane[i].vy,
+                                   scene->plane[i].vz, NO_DEBUG);
+        t_intersection *hit = ray_plane_intersect(ray, &scene->plane[i].position, normal);
+        if (hit->hit && hit->distance < min_distance)
+        {
+            min_distance = hit->distance;
+            closest_hit = hit;
+            hit_color->r = scene->plane[i].r;
+            hit_color->g = scene->plane[i].g;
+            hit_color->b = scene->plane[i].b;
+        }
+        i++;
+    }
+    // Check all cylinders
+    i = 0;
+    while (i < scene->cylinder_count)
+    {
+        t_intersection *hit = ray_cylinder_intersect(ray, 
+                                                   &scene->cylinder[i].position,
+                                                   scene->cylinder[i].diameter,
+                                                   scene->cylinder[i].height);
+        if (hit->hit && hit->distance < min_distance)
+        {
+            min_distance = hit->distance;
+            closest_hit = hit;
+            hit_color->r = scene->cylinder[i].r;
+            hit_color->g = scene->cylinder[i].g;
+            hit_color->b = scene->cylinder[i].b;
+        }
+        i++;
+    }
     return (hit_color);
 }
 t_map *render_scene(t_scene *scene)
@@ -210,11 +219,14 @@ t_map *render_scene(t_scene *scene)
     x = 0;
     y = 0;
     print_scene(scene);
-    map = arena_alloc(*get_arena(), sizeof(t_map));
-    map->points = arena_alloc(*get_arena(), sizeof(t_color *) * WIDTH);
+    // map = arena_alloc(*get_arena(), sizeof(t_map));
+    // map->points = arena_alloc(*get_arena(), sizeof(t_color *) * WIDTH);
+    // for (int i = 0; i < WIDTH; i++)
+    //     map->points[i] = arena_alloc(*get_arena(), sizeof(t_color) * HEIGHT);
+    map = malloc(sizeof(t_map));
+    map->points = malloc(sizeof(t_color *) * WIDTH);
     for (int i = 0; i < WIDTH; i++)
-        map->points[i] = arena_alloc(*get_arena(), sizeof(t_color) * HEIGHT);
-
+        map->points[i] = malloc(sizeof(t_color) * HEIGHT);
     FLOAT fov_scale = tan((scene->camera.fov * PI) / 360.0);
     FLOAT aspect = (FLOAT)WIDTH / HEIGHT;
 
@@ -319,7 +331,9 @@ t_mlx *init_mlx(t_scene *scene)
 {
     t_mlx *mlx;
 
-    mlx = arena_alloc(*get_arena(), sizeof(t_mlx));
+    // mlx = arena_alloc(*get_arena(), sizeof(t_mlx));
+    mlx = malloc(sizeof(t_mlx));
+
     mlx->mlx = mlx_init();
     mlx->win = mlx_new_window(mlx->mlx, WIDTH, HEIGHT, "MiniRT");
     mlx->img.img = mlx_new_image(mlx->mlx, WIDTH, HEIGHT);

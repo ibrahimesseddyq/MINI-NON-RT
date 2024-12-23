@@ -78,6 +78,7 @@ t_vector    *matrix_multiply_vector(t_matrix *m, t_vector *v);
 t_ray       *ray_create(t_vector *origin, t_vector *direction);
 t_intersection *ray_sphere_intersect(t_ray *ray, t_vector *center, FLOAT radius);
 t_intersection *ray_plane_intersect(t_ray *ray, t_vector *point, t_vector *normal);
+t_intersection *ray_cylinder_intersect(t_ray *ray, t_vector *center, FLOAT diameter, FLOAT height);
 
 t_vector *computeReflectionRay(t_vector *incident, t_vector *normal);
 t_vector *computeRefractionRay(t_vector *incident, t_vector *normal, FLOAT n1, FLOAT n2);

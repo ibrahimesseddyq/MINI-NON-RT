@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ibes-sed <ibes-sed@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/15 21:09:07 by sessarhi          #+#    #+#             */
-/*   Updated: 2024/12/23 09:22:50 by sessarhi         ###   ########.fr       */
+/*   Updated: 2024/12/23 23:41:39 by ibes-sed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -253,68 +253,77 @@ void int_tsceen(t_tscene *tscene)
 
 // }
 
-void copy_tscene(t_tscene *tscene, t_scene *scene)
-{
+void copy_tscene(t_tscene *tscene, t_scene *scene) {
     scene->ambient = tscene->ambient;
-
     scene->camera = tscene->camera;
     scene->light = tscene->light;
-    scene->cylinder = arena_alloc(*get_arena(), sizeof(t_cylinder) * tscene->cylinder_size);
-    scene->plane = arena_alloc(*get_arena(), sizeof(t_plane) * tscene->plane_size);
-    scene->sphere = arena_alloc(*get_arena(), sizeof(t_sphere) * tscene->sphere_size);
+
+    scene->cylinder = malloc(sizeof(t_cylinder) * tscene->cylinder_size);
+    scene->plane = malloc(sizeof(t_plane) * tscene->plane_size);
+    scene->sphere = malloc(sizeof(t_sphere) * tscene->sphere_size);
+
+    if (!scene->cylinder || !scene->plane || !scene->sphere) {
+        perror("Memory allocation failed");
+        exit(EXIT_FAILURE);
+    }
+
     scene->cylinder_count = tscene->cylinder_size;
     scene->plane_count = tscene->plane_size;
     scene->sphere_count = tscene->sphere_size;
     scene->viewport_dist = 1.0;
-    t_tsphere *sphere;
-    t_tplane *plane;
-    t_tcylinder *cylinder;
+
+    // Copy planes
+    t_tplane *tmp_plane = tscene->plane;
     int i = 0;
-    while (tscene->plane)
-    {
-        scene->plane[i].position.x = tscene->plane->x;
-        scene->plane[i].position.y = tscene->plane->y;
-        scene->plane[i].position.z = tscene->plane->z;
-        scene->plane[i].vx = tscene->plane->vx;
-        scene->plane[i].vy = tscene->plane->vy;
-        scene->plane[i].vz = tscene->plane->vz;
-        scene->plane[i].r = tscene->plane->r;
-        scene->plane[i].g = tscene->plane->g;
-        scene->plane[i].b = tscene->plane->b;
+    while (tmp_plane) {
+        scene->plane[i].position.x = tmp_plane->x;
+        scene->plane[i].position.y = tmp_plane->y;
+        scene->plane[i].position.z = tmp_plane->z;
+        scene->plane[i].vx = tmp_plane->vx;
+        scene->plane[i].vy = tmp_plane->vy;
+        scene->plane[i].vz = tmp_plane->vz;
+        scene->plane[i].r = tmp_plane->r;
+        scene->plane[i].g = tmp_plane->g;
+        scene->plane[i].b = tmp_plane->b;
         i++;
-    }
-    i = 0;
-    while (tscene->sphere)
-    {
-        scene->sphere[i].position.x = tscene->sphere->x;
-        scene->sphere[i].position.y = tscene->sphere->y;
-        scene->sphere[i].position.z = tscene->sphere->z;
-        scene->sphere[i].diameter = tscene->sphere->diameter;
-        scene->sphere[i].r = tscene->sphere->r;
-        scene->sphere[i].g = tscene->sphere->g;
-        scene->sphere[i].b = tscene->sphere->b;
-        tscene->sphere = tscene->sphere->next;
-        i++;
+        tmp_plane = tmp_plane->next;
     }
 
+    // Copy spheres
+    t_tsphere *tmp_sphere = tscene->sphere;
     i = 0;
-    while (tscene->cylinder)
-    {
-        scene->cylinder[i].position.x = tscene->cylinder->x;
-        scene->cylinder[i].position.y = tscene->cylinder->y;
-        scene->cylinder[i].position.z = tscene->cylinder->z;
-        scene->cylinder[i].vx = tscene->cylinder->vx;
-        scene->cylinder[i].vy = tscene->cylinder->vy;
-        scene->cylinder[i].vz = tscene->cylinder->vz;
-        scene->cylinder[i].diameter = tscene->cylinder->diameter;
-        scene->cylinder[i].height = tscene->cylinder->height;
-        scene->cylinder[i].r = tscene->cylinder->r;
-        scene->cylinder[i].g = tscene->cylinder->g;
-        scene->cylinder[i].b = tscene->cylinder->b;
-        tscene->cylinder = tscene->cylinder->next;
+    while (tmp_sphere) {
+        scene->sphere[i].position.x = tmp_sphere->x;
+        scene->sphere[i].position.y = tmp_sphere->y;
+        scene->sphere[i].position.z = tmp_sphere->z;
+        scene->sphere[i].diameter = tmp_sphere->diameter;
+        scene->sphere[i].r = tmp_sphere->r;
+        scene->sphere[i].g = tmp_sphere->g;
+        scene->sphere[i].b = tmp_sphere->b;
         i++;
+        tmp_sphere = tmp_sphere->next;
+    }
+
+    // Copy cylinders
+    t_tcylinder *tmp_cylinder = tscene->cylinder;
+    i = 0;
+    while (tmp_cylinder) {
+        scene->cylinder[i].position.x = tmp_cylinder->x;
+        scene->cylinder[i].position.y = tmp_cylinder->y;
+        scene->cylinder[i].position.z = tmp_cylinder->z;
+        scene->cylinder[i].vx = tmp_cylinder->vx;
+        scene->cylinder[i].vy = tmp_cylinder->vy;
+        scene->cylinder[i].vz = tmp_cylinder->vz;
+        scene->cylinder[i].diameter = tmp_cylinder->diameter;
+        scene->cylinder[i].height = tmp_cylinder->height;
+        scene->cylinder[i].r = tmp_cylinder->r;
+        scene->cylinder[i].g = tmp_cylinder->g;
+        scene->cylinder[i].b = tmp_cylinder->b;
+        i++;
+        tmp_cylinder = tmp_cylinder->next;
     }
 }
+
 
 void   process_flie(char **av , t_scene *scene)
 {
