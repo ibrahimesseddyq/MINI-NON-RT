@@ -41,7 +41,7 @@ typedef struct
 } t_ray;
 
 // Vector Operations
-t_vector    *vec_create(FLOAT x, FLOAT y, FLOAT z);
+t_vector    *vec_create(FLOAT x, FLOAT y, FLOAT z, int debug_flag);
 t_vector    *vec_add(t_vector *a, t_vector *b);
 t_vector    *vec_sub(t_vector *a, t_vector *b);
 t_vector    *vec_mul(t_vector *v, FLOAT scalar);

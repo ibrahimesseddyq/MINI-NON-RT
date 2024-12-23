@@ -1,4 +1,5 @@
 #include "./../../includes/math.h"
+#include "./../../includes/base.h"
 
 FLOAT      vec_dot(t_vector *a, t_vector *b)
 {
@@ -10,5 +11,5 @@ t_vector    *vec_cross(t_vector *a, t_vector *b)
     return (vec_create(
         a->y * b->z - a->z * b->y,
         a->z * b->x - a->x * b->z,
-        a->x * b->y - a->y * b->x));
+        a->x * b->y - a->y * b->x, NO_DEBUG));
 }

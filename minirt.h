@@ -3,15 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   minirt.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ibes-sed <ibes-sed@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 19:16:40 by sessarhi          #+#    #+#             */
-/*   Updated: 2024/12/22 19:44:37 by sessarhi         ###   ########.fr       */
+/*   Updated: 2024/12/22 21:23:56 by ibes-sed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINIRT_H
 # define MINIRT_H
+
 
 # include <stdio.h>
 # include <stdlib.h>
@@ -26,6 +27,8 @@
 
 
 #define BUFFER_SIZE 1000000
+#define WIDTH 800
+#define HEIGHT 800
 
 
 // Parsing

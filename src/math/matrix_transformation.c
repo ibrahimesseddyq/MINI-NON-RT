@@ -1,5 +1,6 @@
 #include "./../../includes/math.h"
 #include "./../../includes/memory.h"
+#include "./../../includes/base.h"
 
 
 t_matrix    *matrix_identity(void)
@@ -126,7 +127,7 @@ t_vector    *matrix_multiply_vector(t_matrix *m, t_vector *v)
     t_vector *result;
     FLOAT w;
 
-    result = vec_create(0, 0, 0);
+    result = vec_create(0, 0, 0, NO_DEBUG);
     result->x = m->m[0][0] * v->x + m->m[0][1] * v->y + m->m[0][2] * v->z + m->m[0][3];
     result->y = m->m[1][0] * v->x + m->m[1][1] * v->y + m->m[1][2] * v->z + m->m[1][3];
     result->z = m->m[2][0] * v->x + m->m[2][1] * v->y + m->m[2][2] * v->z + m->m[2][3];
