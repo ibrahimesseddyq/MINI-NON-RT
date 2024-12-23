@@ -6,7 +6,7 @@
 /*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/14 16:43:26 by sessarhi          #+#    #+#             */
-/*   Updated: 2024/12/20 18:50:54 by sessarhi         ###   ########.fr       */
+/*   Updated: 2024/12/23 15:15:56 by sessarhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static int  cont_coor(const char *str)
     return (count);
 }
 
-bool  parse_crd(const char *str,float *x ,float *y ,float *z)
+bool  parse_crd(const char *str,FLOAT *x ,FLOAT *y ,FLOAT *z)
 {
     char **tab;
     if (cont_coor(str) != 2)
@@ -40,7 +40,7 @@ bool  parse_crd(const char *str,float *x ,float *y ,float *z)
     *y = ft_atof(tab[1]);
     *z = ft_atof(tab[2]);
     free(tab);
-    if (*x == (float)INT_MIN || *y == (float)INT_MIN || *z == (float)INT_MIN)
+    if (*x == (FLOAT)INT_MIN || *y == (FLOAT)INT_MIN || *z == (FLOAT)INT_MIN)
         return (false);
     return (true);
 }

@@ -6,7 +6,7 @@
 /*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/14 16:42:24 by sessarhi          #+#    #+#             */
-/*   Updated: 2024/12/16 10:30:36 by sessarhi         ###   ########.fr       */
+/*   Updated: 2024/12/23 15:16:17 by sessarhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,17 +35,17 @@ static bool check_fp_err(char *str)
     return (true);
 }
 
-float	ft_atof(char *str)
+FLOAT	ft_atof(char *str)
 {
-    float result;
+    FLOAT result;
     int sign;
-    float decimal;
+    FLOAT decimal;
 
     result = 0.0;
     sign = 1;
     decimal = 0.1;
     if (!check_fp_err(str))
-        return ((float)INT_MIN); //temproary error return value
+        return ((FLOAT)INT_MIN); //temproary error return value
     if (*str == '-')
 		sign = *str++ - 46;
 	while (*str >= '0' && *str <= '9')
@@ -53,13 +53,13 @@ float	ft_atof(char *str)
     if (*str == '.')
         str++;
     if ((*str < '0' || *str > '9') && *str != '\0')
-        return ((float)INT_MIN); //temproary error return value
+        return ((FLOAT)INT_MIN); //temproary error return value
     while (*str >= '0' && *str <= '9')
     {
         result += ((*str++ - '0') * decimal);
         decimal *= 0.1;
     }
     if (*str)
-        return ((float)INT_MIN); //temproary error return value
+        return ((FLOAT)INT_MIN); //temproary error return value
     return (result * sign);
 }

@@ -5,7 +5,7 @@
 #include <stdbool.h>
 #define PI 3.14159265358979323846
 
-typedef struct
+typedef struct s_vector
 {
     FLOAT x;
     FLOAT y;
@@ -14,7 +14,7 @@ typedef struct
 } t_vector;
 
 typedef t_vector t_point;
-typedef struct
+typedef struct s_color
 {
     FLOAT r;
     FLOAT g;
@@ -26,7 +26,7 @@ typedef struct
     FLOAT m[4][4];
 } t_matrix;
 
-typedef struct
+typedef struct s_intersection
 {
     bool hit;
     FLOAT distance;
@@ -34,7 +34,7 @@ typedef struct
     t_vector *normal;
 } t_intersection;
 
-typedef struct
+typedef struct s_ray
 {
     t_vector *origin;
     t_vector *direction;
@@ -78,4 +78,8 @@ t_vector    *matrix_multiply_vector(t_matrix *m, t_vector *v);
 t_ray       *ray_create(t_vector *origin, t_vector *direction);
 t_intersection *ray_sphere_intersect(t_ray *ray, t_vector *center, FLOAT radius);
 t_intersection *ray_plane_intersect(t_ray *ray, t_vector *point, t_vector *normal);
+
+t_vector *computeReflectionRay(t_vector *incident, t_vector *normal);
+t_vector *computeRefractionRay(t_vector *incident, t_vector *normal, FLOAT n1, FLOAT n2);
+void computeFresnel(FLOAT n1, FLOAT n2, FLOAT cos_i, FLOAT *Kr, FLOAT *Kt);
 #endif

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minirt.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ibes-sed <ibes-sed@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 19:16:40 by sessarhi          #+#    #+#             */
-/*   Updated: 2024/12/22 21:23:56 by ibes-sed         ###   ########.fr       */
+/*   Updated: 2024/12/23 15:16:04 by sessarhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,10 @@
 #include "./includes/objects.h"
 #include "./includes/tmpobjects.h"
 #include "./includes/map.h"
+#include "./includes/base.h"
+#include "./includes/math.h"
+
+
 
 
 #define BUFFER_SIZE 1000000
@@ -32,13 +36,13 @@
 
 
 // Parsing
-bool  parse_crd(const char *str,float *x ,float *y ,float *z);
+bool  parse_crd(const char *str,FLOAT *x ,FLOAT *y ,FLOAT *z);
 bool	parse_rgb(const char *str ,int *r ,int *g ,int *b);
 
 
 // Utils
 char    **ft_split(char const *s, char c);
-float	ft_atof(char *str);
+FLOAT	ft_atof(char *str);
 int	Rgb_value(const char *str);
 void   process_flie( char **av , t_scene *scene);
 

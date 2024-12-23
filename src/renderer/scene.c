@@ -94,7 +94,40 @@ void create_scene(t_scene *scene)
 {
 
 }
+t_color *color_calculate(t_color *hit_color, t_scene *scene , t_intersection *hit, t_ray *ray,int i)
+{
+            hit_color->r = scene->sphere[i].r * scene->light.bratio * scene->ambient.r;
+            hit_color->g = scene->sphere[i].g * scene->light.bratio * scene->ambient.g;
+            hit_color->b = scene->sphere[i].b * scene->light.bratio * scene->ambient.b;
+            t_vector *light_dir = vec_normalize(vec_sub(&scene->light.position, hit->point));
+            t_ray shadow_ray;
+            shadow_ray.origin = hit->point;
+            shadow_ray.direction = light_dir;
+            bool in_shadow = false;
 
+            for (int j = 0; j < scene->sphere_count; j++)
+            {
+                if (j != i)
+                {
+                    t_intersection *shadow_hit = ray_sphere_intersect(&shadow_ray, &scene->sphere[j].position, scene->sphere[j].diameter);
+                    if (shadow_hit->hit)
+                    {
+                        in_shadow = true;
+                        break;
+                    }
+                }
+            }
+            if (!in_shadow)
+            {
+               FLOAT deff = fmax(0, vec_dot(hit->normal, light_dir));
+               t_vector *reflection = computeReflectionRay(ray->direction, hit->normal);
+                FLOAT spec = fmax(0, vec_dot(reflection, light_dir));
+                hit_color->r += scene->light.bratio * scene->sphere[i].r * (deff + pow(spec,0.1)) * scene->light.r;
+                hit_color->g += scene->light.bratio * scene->sphere[i].g * (deff + pow(spec,0.1)) * scene->light.g;
+                hit_color->b += scene->light.bratio * scene->sphere[i].b * (deff + pow(spec,0.1)) * scene->light.b;
+            }
+        return (hit_color);
+}
 t_color *trace_ray(t_ray *ray, t_scene *scene)
 {
     t_intersection    *closest_hit;
@@ -134,9 +167,8 @@ t_color *trace_ray(t_ray *ray, t_scene *scene)
         {
             min_distance = hit->distance;
             closest_hit = hit;
-            hit_color->r = scene->sphere[i].r;
-            hit_color->g = scene->sphere[i].g;
-            hit_color->b = scene->sphere[i].b;
+           hit_color = color_calculate(hit_color, scene, hit, ray, i);
+            
         }
         i++;
     }

@@ -6,7 +6,7 @@
 /*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 12:56:16 by sessarhi          #+#    #+#             */
-/*   Updated: 2024/12/20 18:22:41 by sessarhi         ###   ########.fr       */
+/*   Updated: 2024/12/23 13:12:08 by sessarhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,9 @@
 # define OBJECTS_H
 #include "base.h"
 #include "math.h"
+
+
+
 
 typedef struct s_ambient
 {
