@@ -6,7 +6,7 @@
 /*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/24 17:44:32 by sessarhi          #+#    #+#             */
-/*   Updated: 2024/12/24 18:47:08 by sessarhi         ###   ########.fr       */
+/*   Updated: 2024/12/24 19:37:31 by sessarhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,43 @@ void my_mlx_pixel_put(t_data *img, int x, int y, int color)
     dst = img->addr + (y * img->line_length + x * (img->bits_per_pixel / 8));
     *(unsigned int *)dst = color;
 }
+FLOAT hip_spher(t_point *point, double radius, t_ray *ray)
+{
+    t_vector oc;
+    FLOAT a;
+    FLOAT b;
+    FLOAT c;
+    FLOAT discriminant;
+    FLOAT t;
 
+    oc = vector_sub(&ray->origin, point);
+    a = vector_dot(&ray->direction, &ray->direction);
+    b = -2.0 * vector_dot( &ray->direction,&oc);
+    c = vector_dot(&oc, &oc) - radius * radius;
+    discriminant = b * b - 4 * a * c;
+    if (discriminant < 0)
+        return (-1);
+    t = (-b - sqrt(discriminant)) / (2.0 * a);
+    
+    return (t);  
+}
 int trace_ray(t_ray *ray, t_scene *scene)
 {
-    return (0xFF0000);
+    FLOAT t;
+    t_intersection intersection;
+
+    t = hip_spher(&scene->sphere[0].position, scene->sphere[0].diameter / 2, ray);
+    intersection.hit = t > 0;
+    if (intersection.hit)
+    {
+        t_vector scl = vector_scale(&ray->direction, t);
+        intersection.distance = t;
+        intersection.point = vector_add(&ray->origin, &scl);
+        t_vector normal = vector_sub(&intersection.point, &scene->sphere[0].position);
+        intersection.normal = vector_normalize(&normal);
+        return (0.5 * (intersection.normal.x + 1) * (scene->sphere[0].r << 16 | scene->sphere[0].g << 8 | scene->sphere[0].b));
+    }
+    return (0x000000);
 }
 
 void draw(t_scene *scene)
