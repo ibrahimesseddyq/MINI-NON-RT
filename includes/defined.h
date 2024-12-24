@@ -6,7 +6,7 @@
 /*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/24 16:58:37 by sessarhi          #+#    #+#             */
-/*   Updated: 2024/12/24 17:50:57 by sessarhi         ###   ########.fr       */
+/*   Updated: 2024/12/24 18:34:43 by sessarhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # define WIDTH 1400
 # define HEIGHT 1200
 # define FLOAT double
+# define M_PI 3.14159265358979323846
 
 typedef struct _s_vector
 {
