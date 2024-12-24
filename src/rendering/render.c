@@ -6,7 +6,7 @@
 /*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/24 17:44:32 by sessarhi          #+#    #+#             */
-/*   Updated: 2024/12/24 19:37:31 by sessarhi         ###   ########.fr       */
+/*   Updated: 2024/12/24 21:00:41 by sessarhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,11 +40,17 @@ FLOAT hip_spher(t_point *point, double radius, t_ray *ray)
     
     return (t);  
 }
+int color (int r, int g, int b)
+{
+    return (r << 16 | g << 8 | b);
+}
+
 int trace_ray(t_ray *ray, t_scene *scene)
 {
     FLOAT t;
     t_intersection intersection;
 
+    // Check intersection with the first sphere
     t = hip_spher(&scene->sphere[0].position, scene->sphere[0].diameter / 2, ray);
     intersection.hit = t > 0;
     if (intersection.hit)
@@ -54,10 +60,15 @@ int trace_ray(t_ray *ray, t_scene *scene)
         intersection.point = vector_add(&ray->origin, &scl);
         t_vector normal = vector_sub(&intersection.point, &scene->sphere[0].position);
         intersection.normal = vector_normalize(&normal);
-        return (0.5 * (intersection.normal.x + 1) * (scene->sphere[0].r << 16 | scene->sphere[0].g << 8 | scene->sphere[0].b));
+        int r = (int)((intersection.normal.x + 1.0f) * 0.5f * 255) + scene->sphere[0].r;
+        int g = (int)((intersection.normal.y + 1.0f) * 0.5f * 255) + scene->sphere[0].g;
+        int b = (int)((intersection.normal.z + 1.0f) * 0.5f * 255) + scene->sphere[0].b;
+
+        return color(r, g, b);
     }
-    return (0x000000);
+    return 0x000000;
 }
+
 
 void draw(t_scene *scene)
 {
