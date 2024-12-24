@@ -6,16 +6,16 @@
 /*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 12:56:16 by sessarhi          #+#    #+#             */
-/*   Updated: 2024/12/24 14:10:04 by sessarhi         ###   ########.fr       */
+/*   Updated: 2024/12/24 17:49:29 by sessarhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 
 #ifndef OBJECTS_H
 # define OBJECTS_H
-
-#include "./../minirt.h"
-
+#include "defined.h"
+typedef t_vector t_point;
+#include "./../MLX/mlx.h"
 
 typedef struct s_ambient
 {
@@ -74,19 +74,14 @@ typedef struct s_cylinder
     int b;
 }__attribute__((aligned(sizeof(FLOAT)))) t_cylinder;
 
-// typedef struct s_vector
-// {
-//     FLOAT x;
-//     FLOAT y;
-//     FLOAT z;
-// }__attribute__((aligned(sizeof(FLOAT)))) t_vector;
 
-// typedef struct s_ray
-// {
-//     t_vector origin;
-//     t_vector direction;
-// }__attribute__((aligned(sizeof(FLOAT)))) t_ray;
-
+typedef struct	s_data {
+	void	*img;
+	char	*addr;
+	int		bits_per_pixel;
+	int		line_length;
+	int		endian;
+}				t_data;
 
 typedef struct s_scene
 {
@@ -104,16 +99,17 @@ typedef struct s_scene
     int cylinder_count;
     int sphere_count;
     FLOAT viewport_dist;
+    void *mlx;
+    void *win;
+    t_data img;
+    
 } t_scene;
 
-// typedef struct t_intersection
-// {
-//     FLOAT t;
-//     t_vector point;
-//     t_vector normal;
-//     int r;
-//     int g;
-//     int b;
-// }__attribute__((aligned(sizeof(FLOAT)))) t_intersection;
+typedef struct s_ray
+{
+    t_point origin;
+    t_vector direction;
+} t_ray;
+
 
 #endif

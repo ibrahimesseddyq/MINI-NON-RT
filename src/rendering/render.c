@@ -1,26 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minirt.c                                           :+:      :+:    :+:   */
+/*   render.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/17 13:41:03 by sessarhi          #+#    #+#             */
-/*   Updated: 2024/12/24 17:44:08 by sessarhi         ###   ########.fr       */
+/*   Created: 2024/12/24 17:44:32 by sessarhi          #+#    #+#             */
+/*   Updated: 2024/12/24 17:51:30 by sessarhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minirt.h"
-#include "./includes/memory.h"
+#include "../../minirt.h"
 
-int main(int ac , char **av)
+
+
+
+
+
+
+
+
+
+
+void render(t_scene *scene)
 {
-    t_scene scene;
-    setup_arena();
-    if (ac != 2)
-        return (printf("Error bad arguments\n"));
-    process_flie(av , &scene);
-    render(&scene);
-    return 0;
+   
+   scene->mlx = mlx_init();
+    scene->win = mlx_new_window(scene->mlx, WIDTH, HEIGHT, "MiniRT");
+    scene->img.img = mlx_new_image(scene->mlx, WIDTH, HEIGHT);
+    scene->img.addr = mlx_get_data_addr(scene->img.img, &scene->img.bits_per_pixel, &scene->img.line_length, &scene->img.endian);
+    
+    mlx_loop(scene->mlx);
     
 }
