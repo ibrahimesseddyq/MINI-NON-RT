@@ -1,26 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minirt.c                                           :+:      :+:    :+:   */
+/*   defined.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/17 13:41:03 by sessarhi          #+#    #+#             */
-/*   Updated: 2024/12/24 17:44:08 by sessarhi         ###   ########.fr       */
+/*   Created: 2024/12/24 16:58:37 by sessarhi          #+#    #+#             */
+/*   Updated: 2024/12/24 17:50:57 by sessarhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minirt.h"
-#include "./includes/memory.h"
+# ifndef DEFINED_H
+# define DEFINED_H
 
-int main(int ac , char **av)
+# define BUFFER_SIZE 1000000
+# define WIDTH 1400
+# define HEIGHT 1200
+# define FLOAT double
+
+typedef struct _s_vector
 {
-    t_scene scene;
-    setup_arena();
-    if (ac != 2)
-        return (printf("Error bad arguments\n"));
-    process_flie(av , &scene);
-    render(&scene);
-    return 0;
-    
-}
+    double x;
+    double y;
+    double z;
+} t_vector;
+
+typedef t_vector t_point;
+
+#endif

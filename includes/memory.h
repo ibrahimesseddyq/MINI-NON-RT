@@ -1,6 +1,11 @@
 #ifndef MEMORY_H
 #define MEMORY_H
 
+#include <stddef.h>
+#include <stdint.h>
+#include <stdbool.h>
+#include <stdlib.h>
+
 #define ARENA_ALIGNMENT 8
 #define ALIGN_UP(n, align) (((n) + (align) - 1) & ~((align) - 1))
 #define DEFAULT_CHUNK_SIZE (130 * 15 * 1024 * 1024)

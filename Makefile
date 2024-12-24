@@ -7,7 +7,7 @@ SRC = minirt.c \
 	./src/utils/ft_atof.c ./src/utils/ft_split.c ./src/utils/Rgb_cnv.c \
 	./src/tmputils/cy_utils.c ./src/tmputils/pl_utils.c ./src/tmputils/sp_utils.c \
 	./src/memory/arena_alloc.c ./src/memory/arena_create.c ./src/memory/arena_manage.c \
-
+	./src/math/math.c ./src/rendering/render.c
 OBJ = $(SRC:.c=.o)
 
 RM = rm -rf

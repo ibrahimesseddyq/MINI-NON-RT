@@ -6,7 +6,7 @@
 /*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/15 21:09:07 by sessarhi          #+#    #+#             */
-/*   Updated: 2024/12/24 14:07:40 by sessarhi         ###   ########.fr       */
+/*   Updated: 2024/12/24 17:30:27 by sessarhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,10 +39,10 @@ int process_C(char **inf , t_tscene *t_scene)
         return (1);
 
     // Add normalization here, after parsing the direction but before the range check
-    t_vector *normalized_dir = vec_normalize(&t_scene->camera.direction);
-    t_scene->camera.direction.x = normalized_dir->x;
-    t_scene->camera.direction.y = normalized_dir->y;
-    t_scene->camera.direction.z = normalized_dir->z;
+    t_vector normalized_dir = vector_normalize(&t_scene->camera.direction);
+    t_scene->camera.direction.x = normalized_dir.x;
+    t_scene->camera.direction.y = normalized_dir.y;
+    t_scene->camera.direction.z = normalized_dir.z;
 
     // Then continue with your FOV and range checks
     if (t_scene->camera.fov > 180 || t_scene->camera.fov < 0 || t_scene->camera.direction.x < -1 ||

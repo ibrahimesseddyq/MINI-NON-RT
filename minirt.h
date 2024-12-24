@@ -6,7 +6,7 @@
 /*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 19:16:40 by sessarhi          #+#    #+#             */
-/*   Updated: 2024/12/24 14:09:50 by sessarhi         ###   ########.fr       */
+/*   Updated: 2024/12/24 17:51:51 by sessarhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,15 +24,9 @@
 #include <stdint.h>
 #include "./includes/objects.h"
 #include "./includes/tmpobjects.h"
-
-
-
-
-
-#define BUFFER_SIZE 1000000
-#define WIDTH 800
-#define HEIGHT 800
-#define FLOAT double
+#include "./includes/defined.h"
+#include "./includes/math.h"
+#include "./includes/memory.h"
 
 
 // Parsing
@@ -45,6 +39,8 @@ char    **ft_split(char const *s, char c);
 FLOAT	ft_atof(char *str);
 int	Rgb_value(const char *str);
 void   process_flie( char **av , t_scene *scene);
+
+void render(t_scene *scene);
 
 
 #endif
