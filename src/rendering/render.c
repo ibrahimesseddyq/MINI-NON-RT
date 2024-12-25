@@ -6,7 +6,7 @@
 /*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/24 17:44:32 by sessarhi          #+#    #+#             */
-/*   Updated: 2024/12/24 21:00:41 by sessarhi         ###   ########.fr       */
+/*   Updated: 2024/12/25 13:07:52 by sessarhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ void draw(t_scene *scene)
     FLOAT fov_scale;
 
     aspect_ratio = (FLOAT)WIDTH / (FLOAT)HEIGHT;
-    fov_scale = tan((scene->camera.fov * M_PI / 180) / 2);
+    fov_scale = tan((scene->camera.fov * M_PI / 360) / 2);
     y = 0;
     while (y < HEIGHT)
     {
