@@ -6,7 +6,7 @@
 /*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/24 17:44:32 by sessarhi          #+#    #+#             */
-/*   Updated: 2024/12/26 11:04:55 by sessarhi         ###   ########.fr       */
+/*   Updated: 2024/12/26 21:21:59 by sessarhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,15 +111,24 @@ void draw(t_scene *scene)
 
 
 
+#include <sys/time.h> 
+
 void render(t_scene *scene)
 {
+    struct timeval start, end;
+    double time_taken;
    
     scene->mlx = mlx_init();
     scene->win = mlx_new_window(scene->mlx, WIDTH, HEIGHT, "MiniRT");
     scene->img.img = mlx_new_image(scene->mlx, WIDTH, HEIGHT);
     scene->img.addr = mlx_get_data_addr(scene->img.img,
          &scene->img.bits_per_pixel, &scene->img.line_length, &scene->img.endian);
+    gettimeofday(&start, NULL);
     draw(scene);
-    mlx_loop(scene->mlx);
+    gettimeofday(&end, NULL);
+    time_taken = (end.tv_sec - start.tv_sec) * 1e6;
+    time_taken = (time_taken + (end.tv_usec - start.tv_usec)) * 1e-6;
+    printf("Render time: %.6f seconds\n", time_taken);
     
+    mlx_loop(scene->mlx);
 }
