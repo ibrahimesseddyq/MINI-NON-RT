@@ -6,7 +6,7 @@
 /*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 13:58:26 by sessarhi          #+#    #+#             */
-/*   Updated: 2024/12/18 13:58:45 by sessarhi         ###   ########.fr       */
+/*   Updated: 2024/12/26 10:11:39 by sessarhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,16 +18,17 @@ t_tcylinder* new_cylinder()
     t_tcylinder *cylinder;
     
     cylinder = malloc(sizeof(t_tcylinder));
-    cylinder->x = 0;
-    cylinder->y = 0;
-    cylinder->z = 0;
-    cylinder->vx = 0;
-    cylinder->vy = 0;
-    cylinder->vz = 0;
+    cylinder->position.x = 0;
+    cylinder->position.y = 0;
+    cylinder->position.z = 0;
+    cylinder->direction.x = 0;
+    cylinder->direction.y = 0;
+    cylinder->direction.z = 0;
     cylinder->diameter = 0;
-    cylinder->r = 0;
-    cylinder->g = 0;
-    cylinder->b = 0;
+    cylinder->height = 0;
+    cylinder->color.r = 0;
+    cylinder->color.g = 0;
+    cylinder->color.b = 0;
     cylinder->next = NULL;
     return (cylinder);
 }

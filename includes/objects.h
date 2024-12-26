@@ -6,23 +6,30 @@
 /*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 12:56:16 by sessarhi          #+#    #+#             */
-/*   Updated: 2024/12/24 17:49:29 by sessarhi         ###   ########.fr       */
+/*   Updated: 2024/12/26 10:24:14 by sessarhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 
 #ifndef OBJECTS_H
 # define OBJECTS_H
+
 #include "defined.h"
 typedef t_vector t_point;
 #include "./../MLX/mlx.h"
 
+
+
+typedef struct s_color
+{
+    FLOAT r;
+    FLOAT g;
+    FLOAT b;
+} t_color;
 typedef struct s_ambient
 {
     FLOAT ratio;
-    int r;
-    int g;
-    int b;
+    t_color color;
 }__attribute__((aligned(sizeof(FLOAT)))) t_ambient;
 
 typedef struct s_camera
@@ -36,42 +43,30 @@ typedef struct s_light
 {
     t_point position;
     FLOAT bratio;
-    int r;
-    int g;
-    int b;
+    t_color color;
 }__attribute__((aligned(sizeof(FLOAT)))) t_light;
 
 typedef struct s_sphere
 {
     t_point position;
     FLOAT diameter;
-    int r;
-    int g;
-    int b;
+    t_color color;
 }__attribute__((aligned(sizeof(FLOAT)))) t_sphere;
 
 typedef struct s_plane
 {
     t_point position;
-    FLOAT vx;
-    FLOAT vy;
-    FLOAT vz;
-    int r;
-    int g;
-    int b;
+    t_vector direction;
+    t_color color;
 }__attribute__((aligned(sizeof(FLOAT)))) t_plane;
 
 typedef struct s_cylinder
 {
     t_point position;
-    FLOAT vx;
-    FLOAT vy;
-    FLOAT vz;
+    t_vector direction;
     FLOAT diameter;
     FLOAT height;
-    int r;
-    int g;
-    int b;
+    t_color color;
 }__attribute__((aligned(sizeof(FLOAT)))) t_cylinder;
 
 
@@ -110,6 +105,7 @@ typedef struct s_ray
     t_point origin;
     t_vector direction;
 } t_ray;
+
 
 
 #endif
