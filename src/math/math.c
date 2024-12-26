@@ -6,11 +6,11 @@
 /*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/24 17:05:04 by sessarhi          #+#    #+#             */
-/*   Updated: 2024/12/24 17:35:07 by sessarhi         ###   ########.fr       */
+/*   Updated: 2024/12/26 10:30:43 by sessarhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/math.h"
+#include "./../../includes/math.h"
 
 t_vector vector_add(t_vector *a, t_vector *b)
 {

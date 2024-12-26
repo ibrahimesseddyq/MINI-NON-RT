@@ -6,7 +6,7 @@
 /*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/24 16:58:37 by sessarhi          #+#    #+#             */
-/*   Updated: 2024/12/24 18:34:43 by sessarhi         ###   ########.fr       */
+/*   Updated: 2024/12/26 09:37:03 by sessarhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,5 +27,4 @@ typedef struct _s_vector
 } t_vector;
 
 typedef t_vector t_point;
-
 #endif

@@ -6,7 +6,7 @@
 /*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/15 21:09:07 by sessarhi          #+#    #+#             */
-/*   Updated: 2024/12/24 17:30:27 by sessarhi         ###   ########.fr       */
+/*   Updated: 2024/12/26 10:03:57 by sessarhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int process_A(char **inf , t_tscene *tscene)
     if (tscene->is_a_set == true)
         return (printf("Error multiple Ambient lights\n"),1);
     tscene->ambient.ratio = ft_atof(inf[1]);
-    if (!parse_rgb(inf[2], &tscene->ambient.r, &tscene->ambient.g, &tscene->ambient.b)
+    if (!parse_rgb(inf[2],&tscene->ambient.color)
     || tscene->ambient.ratio < 0 || tscene->ambient.ratio > 1)
         return (1);
     tscene->is_a_set = true;
@@ -34,8 +34,8 @@ int process_C(char **inf , t_tscene *t_scene)
     if (t_scene->is_c_set == true)
         return (printf("Error multiple Cameras\n"),1);
     t_scene->camera.fov = atoi(inf[3]);
-    if (!parse_crd(inf[1],&t_scene->camera.position.x, &t_scene->camera.position.y , &t_scene->camera.position.z) 
-    || !parse_crd(inf[2], &t_scene->camera.direction.x, &t_scene->camera.direction.y, &t_scene->camera.direction.z))
+    if (!parse_crd(inf[1],&t_scene->camera.position) 
+    || !parse_crd(inf[2], &t_scene->camera.direction))
         return (1);
 
     // Add normalization here, after parsing the direction but before the range check
@@ -61,8 +61,8 @@ int process_L(char **inf , t_tscene *t_scene)
     if (t_scene->is_l_set == true)
         return (printf("Error multiple Lights\n"),1);
     t_scene->light.bratio = ft_atof(inf[2]);
-    if (!parse_crd(inf[1], &t_scene->light.position.x,&t_scene->light.position.y,&t_scene->light.position.z) ||
-     !parse_rgb(inf[3], &t_scene->light.r, &t_scene->light.g, &t_scene->light.b) ||
+    if (!parse_crd(inf[1], &t_scene->light.position) ||
+     !parse_rgb(inf[3], &t_scene->light.color) ||
       t_scene->light.bratio < 0 || t_scene->light.bratio > 1)
         return (1);
 
@@ -78,8 +78,8 @@ int process_sp(char **inf ,t_tscene *t_scene)
     if (!inf[1] || !inf[2] || !inf[3] || inf[4])
         return (1);
     new->diameter = ft_atof(inf[2]);
-    if (!parse_crd(inf[1], &new->x, &new->y, &new->z) ||
-        !parse_rgb(inf[3], &new->r, &new->g, &new->b) ||
+    if (!parse_crd(inf[1],&new->position) ||
+        !parse_rgb(inf[3], &new->color) ||
          new->diameter == (float)INT_MIN)
             return (1);
     sphere_add_front(&t_scene->sphere, new);
@@ -94,9 +94,9 @@ int process_pl(char **inf , t_tscene *t_scene)
     new = new_plane();
     if (!inf[1] || !inf[2] || !inf[3] || inf[4])
         return (1);
-    if (!parse_crd(inf[1], &new->x, &new->y, &new->z) ||
-     !parse_crd(inf[2], &new->vx, &new->vy, &new->vz) ||
-     !parse_rgb(inf[3], &new->r, &new->g, &new->b))
+    if (!parse_crd(inf[1], &new->position) ||
+     !parse_crd(inf[2], &new->direction) ||
+     !parse_rgb(inf[3], &new->color))
         return (1);
     plane_add_front(&t_scene->plane, new);
     t_scene->plane_size++;
@@ -112,9 +112,9 @@ int process_cy(char **inf , t_tscene *t_scene)
         return (1);
     new->diameter = ft_atof(inf[3]);
     new->height = ft_atof(inf[4]);
-    if  (!parse_crd(inf[1], &new->x, &new->y, &new->z) ||
-     !parse_crd(inf[2], &new->vx, &new->vy, &new->vz) ||
-     !parse_rgb(inf[5], &new->r, &new->g, &new->b) ||
+    if  (!parse_crd(inf[1], &new->position) ||
+     !parse_crd(inf[2], &new->direction) ||
+     !parse_rgb(inf[5], &new->color) ||
       new->diameter == (float)INT_MIN || new->height == (float)INT_MIN)
         return (1);
     cylinder_add_front(&t_scene->cylinder, new);
@@ -271,27 +271,17 @@ void copy_tscene(t_tscene *tscene, t_scene *scene)
     int i = 0;
     while (tscene->plane)
     {
-        scene->plane[i].position.x = tscene->plane->x;
-        scene->plane[i].position.y = tscene->plane->y;
-        scene->plane[i].position.z = tscene->plane->z;
-        scene->plane[i].vx = tscene->plane->vx;
-        scene->plane[i].vy = tscene->plane->vy;
-        scene->plane[i].vz = tscene->plane->vz;
-        scene->plane[i].r = tscene->plane->r;
-        scene->plane[i].g = tscene->plane->g;
-        scene->plane[i].b = tscene->plane->b;
+        scene->plane[i].position = tscene->plane->position;
+        scene->plane[i].direction = tscene->plane->direction;
+        scene->plane[i].color = tscene->plane->color;
         i++;
     }
     i = 0;
     while (tscene->sphere)
     {
-        scene->sphere[i].position.x = tscene->sphere->x;
-        scene->sphere[i].position.y = tscene->sphere->y;
-        scene->sphere[i].position.z = tscene->sphere->z;
+        scene->sphere[i].position = tscene->sphere->position;
         scene->sphere[i].diameter = tscene->sphere->diameter;
-        scene->sphere[i].r = tscene->sphere->r;
-        scene->sphere[i].g = tscene->sphere->g;
-        scene->sphere[i].b = tscene->sphere->b;
+        scene->sphere[i].color = tscene->sphere->color;
         tscene->sphere = tscene->sphere->next;
         i++;
     }
@@ -299,17 +289,11 @@ void copy_tscene(t_tscene *tscene, t_scene *scene)
     i = 0;
     while (tscene->cylinder)
     {
-        scene->cylinder[i].position.x = tscene->cylinder->x;
-        scene->cylinder[i].position.y = tscene->cylinder->y;
-        scene->cylinder[i].position.z = tscene->cylinder->z;
-        scene->cylinder[i].vx = tscene->cylinder->vx;
-        scene->cylinder[i].vy = tscene->cylinder->vy;
-        scene->cylinder[i].vz = tscene->cylinder->vz;
+        scene->cylinder[i].position = tscene->cylinder->position;
+        scene->cylinder[i].direction = tscene->cylinder->direction;
         scene->cylinder[i].diameter = tscene->cylinder->diameter;
         scene->cylinder[i].height = tscene->cylinder->height;
-        scene->cylinder[i].r = tscene->cylinder->r;
-        scene->cylinder[i].g = tscene->cylinder->g;
-        scene->cylinder[i].b = tscene->cylinder->b;
+        scene->cylinder[i].color = tscene->cylinder->color;
         tscene->cylinder = tscene->cylinder->next;
         i++;
     }

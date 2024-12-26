@@ -6,7 +6,7 @@
 /*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 14:02:07 by sessarhi          #+#    #+#             */
-/*   Updated: 2024/12/18 14:02:25 by sessarhi         ###   ########.fr       */
+/*   Updated: 2024/12/26 10:12:42 by sessarhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +17,13 @@ t_tsphere* new_sphere()
     t_tsphere *sphere;
     
     sphere = malloc(sizeof(t_tsphere));
-    sphere->x = 0;
-    sphere->y = 0;
-    sphere->z = 0;
+    sphere->position.x = 0;
+    sphere->position.y = 0;
+    sphere->position.z = 0;
     sphere->diameter = 0;
-    sphere->r = 0;
-    sphere->g = 0;
-    sphere->b = 0;
+    sphere->color.r = 0;
+    sphere->color.g = 0;
+    sphere->color.b = 0;
     sphere->next = NULL;
     return (sphere);
 }

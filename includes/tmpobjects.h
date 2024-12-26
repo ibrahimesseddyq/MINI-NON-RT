@@ -6,7 +6,7 @@
 /*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 13:24:29 by sessarhi          #+#    #+#             */
-/*   Updated: 2024/12/24 14:03:58 by sessarhi         ###   ########.fr       */
+/*   Updated: 2024/12/26 09:58:34 by sessarhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,44 +17,28 @@
 
 typedef struct s_tsphere
 {
-    FLOAT x;
-    FLOAT y;
-    FLOAT z;
+    t_point position;
     FLOAT diameter;
-    int r;
-    int g;
-    int b;
+    t_color color;
     struct s_tsphere *next;
 }__attribute__((aligned(sizeof(FLOAT)))) t_tsphere;
 
 typedef struct s_tplane
 {
-    FLOAT x;
-    FLOAT y;
-    FLOAT z;
-    FLOAT vx;
-    FLOAT vy;
-    FLOAT vz;
-    int r;
-    int g;
-    int b;
+    t_point position;
+    t_vector direction;
+    t_color color;
     struct s_tplane *next;
 }__attribute__((aligned(sizeof(FLOAT)))) t_tplane;
 
 typedef struct s_tcylinder
 {
     int  size; 
-    FLOAT x;
-    FLOAT y;
-    FLOAT z;
-    FLOAT vx;
-    FLOAT vy;
-    FLOAT vz;
+    t_point position;
+    t_vector direction;
     FLOAT diameter;
     FLOAT height;
-    int r;
-    int g;
-    int b;
+    t_color color;
     struct s_tcylinder *next;
 }__attribute__((aligned(sizeof(FLOAT)))) t_tcylinder;
 

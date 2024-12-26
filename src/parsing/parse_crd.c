@@ -6,7 +6,7 @@
 /*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/14 16:43:26 by sessarhi          #+#    #+#             */
-/*   Updated: 2024/12/24 14:07:28 by sessarhi         ###   ########.fr       */
+/*   Updated: 2024/12/26 09:54:49 by sessarhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static int  cont_coor(const char *str)
     return (count);
 }
 
-bool  parse_crd(const char *str,FLOAT *x ,FLOAT *y ,FLOAT *z)
+bool  parse_crd(const char *str,t_vector *vector)
 {
     char **tab;
     if (cont_coor(str) != 2)
@@ -36,11 +36,12 @@ bool  parse_crd(const char *str,FLOAT *x ,FLOAT *y ,FLOAT *z)
     tab = ft_split(str, ',');
     if (!tab || !tab[0] || !tab[1] || !tab[2])
         return (false);
-    *x = ft_atof(tab[0]);
-    *y = ft_atof(tab[1]);
-    *z = ft_atof(tab[2]);
+    vector->x = ft_atof(tab[0]);
+    vector->y = ft_atof(tab[1]);
+    vector->z = ft_atof(tab[2]);
     free(tab);
-    if (*x == (FLOAT)INT_MIN || *y == (FLOAT)INT_MIN || *z == (FLOAT)INT_MIN)
+    if (vector->x == (FLOAT)INT_MIN ||
+            vector->y == (FLOAT)INT_MIN || vector->z == (FLOAT)INT_MIN)
         return (false);
     return (true);
 }
