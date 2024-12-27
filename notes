@@ -62,3 +62,27 @@ bool trace(const Vec3f &orig, const Vec3f &dir, float tNear, ...)
 
     return (hitObject != NULL);
 }
+
+
+//comera configuration
+
+float imageAspectRatio = imageWidth / (float)imageHeight; // assuming width > height
+float Px = (2 * ((x + 0.5) / imageWidth) - 1) * tan(fov / 2 * M_PI / 180) * imageAspectRatio;
+float Py = (1 - 2 * ((y + 0.5) / imageHeight) * tan(fov / 2 * M_PI / 180);
+Vec3f rayOrigin(0);
+Vec3f rayDirection = Vec3f(Px, Py, -1) - rayOrigin; // note that this just equal to Vec3f(Px, Py, -1);
+rayDirection = normalize(rayDirection); // it's a direction so don't forget to normalize
+
+//Note how the camera coordinate system moves with the camera. Our pseudo code can easily be modified to account for camera transformation (rotation and translation, scaling a camera are not particularly recommended):
+
+float imageAspectRatio = imageWidth / imageHeight; // assuming width > height
+float Px = (2 * ((x + 0.5) / imageWidth) - 1) * tan(fov / 2 * M_PI / 180) * imageAspectRatio;
+float Py = (1 - 2 * ((y + 0.5) / imageHeight) * tan(fov / 2 * M_PI / 180);
+Vec3f rayOrigin = Point3(0, 0, 0);
+Matrix44f cameraToWorld;
+cameraToWorld.set(...); // set matrix
+Vec3f rayOriginWorld, rayPWorld;
+cameraToWorld.multVectMatrix(rayOrigin, rayOriginWorld);
+cameraToWorld.multVectMatrix(Vec3f(Px, Py, -1), rayPWorld);
+Vec3f rayDirection = rayPWorld - rayOriginWorld;
+rayDirection.normalize(); // it's a direction so don't forget to normalize
