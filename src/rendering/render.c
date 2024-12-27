@@ -6,7 +6,7 @@
 /*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/24 17:44:32 by sessarhi          #+#    #+#             */
-/*   Updated: 2024/12/26 21:21:59 by sessarhi         ###   ########.fr       */
+/*   Updated: 2024/12/27 23:42:36 by sessarhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ void draw(t_scene *scene)
             pixel_x = (2 * ((x + 0.5) / WIDTH) - 1) * aspect_ratio * fov_scale;
             pixel_y = (1 - 2 * ((y + 0.5) / HEIGHT)) * fov_scale;
             direction.x = pixel_x;
-            direction.y = -pixel_y;
+            direction.y = pixel_y;
             direction.z = -1;
             ray = (t_ray){scene->camera.position, vector_normalize(&direction)};
             my_mlx_pixel_put(&scene->img, x, y, trace_ray(&ray, scene));
@@ -129,6 +129,5 @@ void render(t_scene *scene)
     time_taken = (end.tv_sec - start.tv_sec) * 1e6;
     time_taken = (time_taken + (end.tv_usec - start.tv_usec)) * 1e-6;
     printf("Render time: %.6f seconds\n", time_taken);
-    
     mlx_loop(scene->mlx);
 }
