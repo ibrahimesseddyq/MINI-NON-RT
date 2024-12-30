@@ -1,30 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   defined.h                                          :+:      :+:    :+:   */
+/*   ft_strcmp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/24 16:58:37 by sessarhi          #+#    #+#             */
-/*   Updated: 2024/12/29 14:15:16 by sessarhi         ###   ########.fr       */
+/*   Created: 2024/12/28 23:06:59 by sessarhi          #+#    #+#             */
+/*   Updated: 2024/12/29 14:07:56 by sessarhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# ifndef DEFINED_H
-# define DEFINED_H
 
-# define BUFFER_SIZE 2048
-# define WIDTH 1400
-# define HEIGHT 1200
-# define FLOAT double
-# define M_PI 3.14159265358979323846
+#include <stdio.h>
+#include <stddef.h>
+#include <string.h>
 
-typedef struct _s_vector
+int	ft_strcmp(const char *s1, const char *s2)
 {
-    double x;
-    double y;
-    double z;
-} t_vector;
+	size_t	i;
 
-typedef t_vector t_point;
-#endif
+	i = 0;
+	if (!s1 || !s2)
+		return (1);
+	while (s1[i] && s2[i] && s1[i] == s2[i])
+		i++;
+	return ((unsigned char)s1[i] - (unsigned char)s2[i]);
+}

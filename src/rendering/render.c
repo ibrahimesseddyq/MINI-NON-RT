@@ -6,7 +6,7 @@
 /*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/24 17:44:32 by sessarhi          #+#    #+#             */
-/*   Updated: 2024/12/27 23:42:36 by sessarhi         ###   ########.fr       */
+/*   Updated: 2024/12/30 11:12:16 by sessarhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,9 +84,14 @@ void draw(t_scene *scene)
     t_ray ray;
     FLOAT aspect_ratio;
     FLOAT fov_scale;
+    t_vector right;
 
     aspect_ratio = (FLOAT)WIDTH / (FLOAT)HEIGHT;
     fov_scale = tan((scene->camera.fov * M_PI / 180.f) / 2);
+    t_vector  forword = vector_normalize(&scene->camera.direction);
+    t_vector up = {0, 1, 0};
+    right = vector_cross(&forword,&up );
+    up = vector_cross(&right, &forword);
     y = 0;
     while (y < HEIGHT)
     {
@@ -95,10 +100,12 @@ void draw(t_scene *scene)
         {
             pixel_x = (2 * ((x + 0.5) / WIDTH) - 1) * aspect_ratio * fov_scale;
             pixel_y = (1 - 2 * ((y + 0.5) / HEIGHT)) * fov_scale;
-            direction.x = pixel_x;
-            direction.y = pixel_y;
-            direction.z = -1;
-            ray = (t_ray){scene->camera.position, vector_normalize(&direction)};
+            t_vector sclx = vector_scale(&right, pixel_x);
+            t_vector scly = vector_scale(&up, pixel_y);
+            t_vector add = vector_add(&sclx, &scly);
+            direction = vector_add(&add,&forword );
+            ray.origin = scene->camera.position;
+            ray.direction = vector_normalize(&direction);
             my_mlx_pixel_put(&scene->img, x, y, trace_ray(&ray, scene));
             x++;
         }
@@ -106,12 +113,6 @@ void draw(t_scene *scene)
     }
     mlx_put_image_to_window(scene->mlx, scene->win, scene->img.img, 0, 0);
 }
-
-
-
-
-
-#include <sys/time.h> 
 
 void render(t_scene *scene)
 {

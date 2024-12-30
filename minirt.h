@@ -6,7 +6,7 @@
 /*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 19:16:40 by sessarhi          #+#    #+#             */
-/*   Updated: 2024/12/26 10:15:12 by sessarhi         ###   ########.fr       */
+/*   Updated: 2024/12/29 14:13:39 by sessarhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 # include <fcntl.h>
 #include <string.h>
 #include <stdint.h>
+#include <sys/time.h> 
 #include "./includes/objects.h"
 #include "./includes/tmpobjects.h"
 #include "./includes/defined.h"
@@ -37,7 +38,7 @@ bool	parse_rgb(const char *str ,t_color *color);
 
 // Utils
 char    **ft_split(char const *s, char c);
-FLOAT	ft_atof(char *str);
+FLOAT	ft_atof(const char *str);
 int	Rgb_value(const char *str);
 void   process_flie( char **av , t_scene *scene);
 void render(t_scene *scene);
