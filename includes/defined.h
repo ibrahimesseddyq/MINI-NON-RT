@@ -6,16 +6,16 @@
 /*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/24 16:58:37 by sessarhi          #+#    #+#             */
-/*   Updated: 2024/12/29 14:15:16 by sessarhi         ###   ########.fr       */
+/*   Updated: 2024/12/30 13:50:34 by sessarhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # ifndef DEFINED_H
 # define DEFINED_H
 
-# define BUFFER_SIZE 2048
-# define WIDTH 1400
-# define HEIGHT 1200
+# define BUFFER_SIZE 4000
+# define WIDTH 4000
+# define HEIGHT 2000
 # define FLOAT double
 # define M_PI 3.14159265358979323846
 
