@@ -6,30 +6,20 @@
 /*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 19:16:40 by sessarhi          #+#    #+#             */
-/*   Updated: 2024/12/29 14:13:39 by sessarhi         ###   ########.fr       */
+/*   Updated: 2025/01/01 15:33:24 by sessarhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINIRT_H
 # define MINIRT_H
 
-
-# include <stdio.h>
-# include <stdlib.h>
-# include <unistd.h>
-# include <limits.h>
-# include <stdbool.h>
-# include <fcntl.h>
-#include <string.h>
-#include <stdint.h>
-#include <sys/time.h> 
 #include "./includes/objects.h"
 #include "./includes/tmpobjects.h"
 #include "./includes/defined.h"
 #include "./includes/math.h"
 #include "./includes/memory.h"
 #include "./includes/color.h"
-
+#include "./includes/includes.h"
 
 // Parsing
 bool  parse_crd(const char *str, t_vector *vector);

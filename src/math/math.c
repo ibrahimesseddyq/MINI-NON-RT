@@ -6,7 +6,7 @@
 /*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/24 17:05:04 by sessarhi          #+#    #+#             */
-/*   Updated: 2024/12/29 17:48:11 by sessarhi         ###   ########.fr       */
+/*   Updated: 2025/01/01 15:54:00 by sessarhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,8 +70,6 @@ t_vector vector_normalize(t_vector *a)
 {
     FLOAT len = vector_length(a);
     t_vector res;
-    if (len < 1e-6)
-        return (*a);
     res.x = a->x / len;
     res.y = a->y / len;
     res.z = a->z / len;

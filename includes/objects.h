@@ -6,7 +6,7 @@
 /*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 12:56:16 by sessarhi          #+#    #+#             */
-/*   Updated: 2024/12/26 10:24:14 by sessarhi         ###   ########.fr       */
+/*   Updated: 2025/01/01 15:45:47 by sessarhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,8 @@
 # define OBJECTS_H
 
 #include "defined.h"
+#include "includes.h"
 typedef t_vector t_point;
-#include "./../MLX/mlx.h"
-
 
 
 typedef struct s_color
@@ -51,6 +50,7 @@ typedef struct s_sphere
     t_point position;
     FLOAT diameter;
     t_color color;
+    int id;
 }__attribute__((aligned(sizeof(FLOAT)))) t_sphere;
 
 typedef struct s_plane
@@ -58,6 +58,7 @@ typedef struct s_plane
     t_point position;
     t_vector direction;
     t_color color;
+     int id;
 }__attribute__((aligned(sizeof(FLOAT)))) t_plane;
 
 typedef struct s_cylinder
@@ -67,6 +68,7 @@ typedef struct s_cylinder
     FLOAT diameter;
     FLOAT height;
     t_color color;
+    int id;
 }__attribute__((aligned(sizeof(FLOAT)))) t_cylinder;
 
 

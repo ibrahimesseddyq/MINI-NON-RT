@@ -6,7 +6,7 @@
 /*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/15 21:09:07 by sessarhi          #+#    #+#             */
-/*   Updated: 2024/12/29 14:19:40 by sessarhi         ###   ########.fr       */
+/*   Updated: 2025/01/01 15:41:32 by sessarhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -164,6 +164,28 @@ void int_tsceen(t_tscene *tscene)
     tscene->camera.direction.y = 0;
     tscene->camera.direction.z = 0;
 }
+void print_data(t_scene *scene)
+{
+    int i = 0;
+    while (scene->plane_count--)
+    {
+        printf("Plane id %d\n", scene->plane[i].id);
+        i++;
+    }
+    i = 0;
+    while (scene->sphere_count--)
+    {
+        printf("Sphere id %d\n", scene->sphere[i].id);
+        i++;
+    }
+    i = 0;
+    while (scene->cylinder_count--)
+    {
+        printf("Cylinder id %d\n", scene->cylinder[i].id);
+        i++;
+    }
+    
+}
 
 void copy_tscene(t_tscene *tscene, t_scene *scene)
 {
@@ -178,6 +200,7 @@ void copy_tscene(t_tscene *tscene, t_scene *scene)
     scene->plane_count = tscene->plane_size;
     scene->sphere_count = tscene->sphere_size;
     scene->viewport_dist = 1.0;
+    int id = 0;
     t_tsphere *sphere;
     t_tplane *plane;
     t_tcylinder *cylinder;
@@ -187,6 +210,8 @@ void copy_tscene(t_tscene *tscene, t_scene *scene)
         scene->plane[i].position = tscene->plane->position;
         scene->plane[i].direction = tscene->plane->direction;
         scene->plane[i].color = tscene->plane->color;
+        scene->plane[i].id = id++;
+        tscene->plane = tscene->plane->next;
         i++;
     }
     i = 0;
@@ -195,6 +220,7 @@ void copy_tscene(t_tscene *tscene, t_scene *scene)
         scene->sphere[i].position = tscene->sphere->position;
         scene->sphere[i].diameter = tscene->sphere->diameter;
         scene->sphere[i].color = tscene->sphere->color;
+        scene->sphere[i].id = id++;
         tscene->sphere = tscene->sphere->next;
         i++;
     }
@@ -207,9 +233,11 @@ void copy_tscene(t_tscene *tscene, t_scene *scene)
         scene->cylinder[i].diameter = tscene->cylinder->diameter;
         scene->cylinder[i].height = tscene->cylinder->height;
         scene->cylinder[i].color = tscene->cylinder->color;
+        scene->cylinder[i].id = id++;
         tscene->cylinder = tscene->cylinder->next;
         i++;
     }
+    print_data(scene);
 }
 
 void   process_flie(char **av , t_scene *scene)
@@ -231,7 +259,6 @@ void   process_flie(char **av , t_scene *scene)
         splil_line(buffer, &tscene);
         ret = read(fd, buffer, BUFFER_SIZE);
     }
-    // print_scene(&tscene);
     free(buffer);
     copy_tscene(&tscene, scene);
     (void)scene;

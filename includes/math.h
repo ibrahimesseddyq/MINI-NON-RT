@@ -6,7 +6,7 @@
 /*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/24 17:01:10 by sessarhi          #+#    #+#             */
-/*   Updated: 2024/12/24 19:33:53 by sessarhi         ###   ########.fr       */
+/*   Updated: 2025/01/01 15:52:00 by sessarhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,15 +15,17 @@
 # define MATH_H
 
 #include "defined.h"
-#include <math.h>
-#include <stdbool.h>
+#include "includes.h"
+#include "objects.h"
 typedef struct s_intersection
 {
     bool hit;
     FLOAT distance;
     t_point point;
     t_vector normal;
+    t_color color;
     FLOAT t;
+    int id;
 } t_intersection;
 
 
