@@ -6,7 +6,7 @@
 /*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/24 17:44:32 by sessarhi          #+#    #+#             */
-/*   Updated: 2025/01/01 15:49:24 by sessarhi         ###   ########.fr       */
+/*   Updated: 2025/01/02 11:31:52 by sessarhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,29 @@ FLOAT hit_cylinder(t_scene *scene, t_ray *ray, t_cylinder *cylinder)
     normal = vector_normalize(&normal);
     return (t);
 }
+bool sphere_intersection(t_scene *scene , t_intersection *intersection , t_ray *ray)
+{
+    int i;
+    FLOAT t;
+    t_vector tmp;
+    
+    i = scene->sphere_count;
+    while (i--)
+    {
+        t = hit_spher(&scene->sphere[i].position, scene->sphere[i].diameter, ray);
+        if (t > 0 && t < intersection->distance)
+        {
+            intersection->hit = true;
+            intersection->id = scene->sphere[i].id;
+            intersection->distance = t;
+            //(sessarhi note) the following three lines can be moved out f the loop for optimization
+            intersection->color = scene->sphere[i].color;
+            tmp = vector_sub(&ray->origin, &scene->sphere[i].position);
+            intersection->normal = vector_normalize(&tmp);
+        }
+    }
+    return (intersection->hit);
+}
 FLOAT hip_spher(t_point *point, double radius, t_ray *ray)
 {
     t_vector oc;
@@ -76,7 +99,13 @@ int trace_ray(t_ray *ray, t_scene *scene)
 {
     t_intersection intersection;
     intersection.distance = INFINITY;
-    
+    intersection.hit = spher_intersection(scene, &intersection, ray);
+    intersection.hit = cylinder_intersection(scene, &intersection, ray);
+    intersection.hit = spher_intersection(scene, &intersection, ray);
+    if (intersection.hit)
+    {
+        //clculate the color
+    }
     return 0x000000;
 }
 
