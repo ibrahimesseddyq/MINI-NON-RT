@@ -6,7 +6,7 @@
 /*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/15 21:09:07 by sessarhi          #+#    #+#             */
-/*   Updated: 2025/01/01 15:41:32 by sessarhi         ###   ########.fr       */
+/*   Updated: 2025/01/02 16:14:27 by sessarhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -237,7 +237,6 @@ void copy_tscene(t_tscene *tscene, t_scene *scene)
         tscene->cylinder = tscene->cylinder->next;
         i++;
     }
-    print_data(scene);
 }
 
 void   process_flie(char **av , t_scene *scene)

@@ -1,6 +1,6 @@
 NAME = minirt
 CC = cc
-CFLAGS = -o3 #-Wall -Wextra -Werror  # Uncommented this for standard warning flags
+CFLAGS =  #-Wall -Wextra -Werror  # Uncommented this for standard warning flags
 
 SRC = minirt.c \
 	./src/parsing/parce_rgb.c ./src/parsing/parse_crd.c ./src/parsing/parsing.c \

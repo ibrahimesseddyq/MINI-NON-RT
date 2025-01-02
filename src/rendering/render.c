@@ -6,7 +6,7 @@
 /*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/24 17:44:32 by sessarhi          #+#    #+#             */
-/*   Updated: 2025/01/02 11:31:52 by sessarhi         ###   ########.fr       */
+/*   Updated: 2025/01/02 16:12:00 by sessarhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void my_mlx_pixel_put(t_data *img, int x, int y, int color)
     *(unsigned int *)dst = color;
 }
 
-FLOAT hit_cylinder(t_scene *scene, t_ray *ray, t_cylinder *cylinder)
+FLOAT hit_cylinder(t_intersection *intersection, t_ray *ray, t_cylinder *cylinder)
 {
     t_vector oc;
     FLOAT a;
@@ -46,36 +46,11 @@ FLOAT hit_cylinder(t_scene *scene, t_ray *ray, t_cylinder *cylinder)
     FLOAT height = vector_dot(&cp, &cylinder->direction);
     if (height < 0 || height > cylinder->height)
         return (-1);
-    FLOAT proj_len = vector_dot(&cp, &cylinder->direction);
-    t_vector proj = vector_scale(&cylinder->direction, proj_len);
-    t_vector normal = vector_sub(&cp, &proj);
-    normal = vector_normalize(&normal);
+    t_vector proj = vector_scale(&cylinder->direction, height);
+    intersection->normal = vector_sub(&cp, &proj);
     return (t);
 }
-bool sphere_intersection(t_scene *scene , t_intersection *intersection , t_ray *ray)
-{
-    int i;
-    FLOAT t;
-    t_vector tmp;
-    
-    i = scene->sphere_count;
-    while (i--)
-    {
-        t = hit_spher(&scene->sphere[i].position, scene->sphere[i].diameter, ray);
-        if (t > 0 && t < intersection->distance)
-        {
-            intersection->hit = true;
-            intersection->id = scene->sphere[i].id;
-            intersection->distance = t;
-            //(sessarhi note) the following three lines can be moved out f the loop for optimization
-            intersection->color = scene->sphere[i].color;
-            tmp = vector_sub(&ray->origin, &scene->sphere[i].position);
-            intersection->normal = vector_normalize(&tmp);
-        }
-    }
-    return (intersection->hit);
-}
-FLOAT hip_spher(t_point *point, double radius, t_ray *ray)
+FLOAT hit_sphere(t_point *point, double radius, t_ray *ray)
 {
     t_vector oc;
     FLOAT a;
@@ -92,19 +67,103 @@ FLOAT hip_spher(t_point *point, double radius, t_ray *ray)
     if (discriminant < 0)
         return (-1);
     t = (-b - sqrt(discriminant)) / (2.0 * a);
-    
     return (t);  
 }
+FLOAT hit_plane(t_vector *point, t_vector *normal, t_ray *ray)
+{
+    FLOAT t;
+    FLOAT denom;
+    t_vector tmp;
+
+    denom = vector_dot(normal, &ray->direction);
+    if (denom > 1e-6)
+    {
+        tmp = vector_sub(point, &ray->origin);
+        t = vector_dot(&tmp, normal) / denom;
+        if (t >= 0)
+            return (t);
+    }
+    return (-1);
+}
+bool sphere_intersection(t_scene *scene , t_intersection *intersection , t_ray *ray)
+{
+    int i;
+    FLOAT t;
+    t_vector tmp;
+    
+    i = scene->sphere_count;
+    while (i)
+    {
+        t = hit_sphere(&scene->sphere[i].position, scene->sphere[i].diameter, ray);
+        if (t > 0 && t < intersection->distance)
+        {
+            intersection->hit = true;
+            intersection->id = scene->sphere[i].id;
+            intersection->distance = t;
+            //(sessarhi note) the following three lines can be moved out f the loop for optimization
+            intersection->color = scene->sphere[i].color;
+            tmp = vector_sub(&ray->origin, &scene->sphere[i].position);
+            intersection->normal = vector_normalize(&tmp);
+        }
+        i--;
+    }
+    return (intersection->hit);
+}
+bool cylinder_intersection(t_scene *scene, t_intersection *intersection, t_ray *ray)
+{
+    int i;
+    FLOAT t;
+    t_vector tmp;
+    
+    i = scene->cylinder_count;
+    while (i--)
+    {
+        t = hit_cylinder(intersection, ray, &scene->cylinder[i]);
+        if (t > 0 && t < intersection->distance)
+        {
+            intersection->hit = true;
+            intersection->id = scene->cylinder[i].id;
+            intersection->distance = t;
+            //(sessarhi note) the following three lines can be moved out f the loop for optimization
+            intersection->color = scene->cylinder[i].color;
+            intersection->normal = vector_normalize(&intersection->normal);
+        }
+    }
+    return (intersection->hit);
+}
+bool plane_intersection(t_scene *scene, t_intersection *intersection, t_ray *ray)
+{
+    int i;
+    FLOAT t;
+    t_vector tmp;
+    
+    i = scene->plane_count;
+    while (i--)
+    {
+        t = hit_plane(&scene->plane[i].position, &scene->plane[i].direction, ray);
+        if (t > 0 && t < intersection->distance)
+        {
+            intersection->hit = true;
+            intersection->id = scene->plane[i].id;
+            intersection->distance = t;
+            //(sessarhi note) the following three lines can be moved out f the loop for optimization
+            intersection->color = scene->plane[i].color;
+            intersection->normal = scene->plane[i].direction;
+        }
+    }
+    return (intersection->hit);
+}
+
 int trace_ray(t_ray *ray, t_scene *scene)
 {
     t_intersection intersection;
     intersection.distance = INFINITY;
-    intersection.hit = spher_intersection(scene, &intersection, ray);
+    intersection.hit = sphere_intersection(scene, &intersection, ray);
     intersection.hit = cylinder_intersection(scene, &intersection, ray);
-    intersection.hit = spher_intersection(scene, &intersection, ray);
+    intersection.hit = plane_intersection(scene, &intersection, ray);
     if (intersection.hit)
     {
-        //clculate the color
+        return (colorToRgb(&intersection.color));
     }
     return 0x000000;
 }
