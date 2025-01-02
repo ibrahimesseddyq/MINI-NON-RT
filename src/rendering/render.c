@@ -6,7 +6,7 @@
 /*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/24 17:44:32 by sessarhi          #+#    #+#             */
-/*   Updated: 2025/01/02 16:12:00 by sessarhi         ###   ########.fr       */
+/*   Updated: 2025/01/02 17:55:04 by sessarhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ FLOAT hit_sphere(t_point *point, double radius, t_ray *ray)
     FLOAT c;
     FLOAT discriminant;
     FLOAT t;
-
+// this function must be checked for the other root
     oc = vector_sub(&ray->origin, point);
     a = vector_dot(&ray->direction, &ray->direction);
     b = -2.0 * vector_dot( &ray->direction,&oc);
@@ -66,7 +66,9 @@ FLOAT hit_sphere(t_point *point, double radius, t_ray *ray)
     discriminant = b * b - 4 * a * c;
     if (discriminant < 0)
         return (-1);
-    t = (-b - sqrt(discriminant)) / (2.0 * a);
+    t = (b - sqrt(discriminant)) / (2.0 * a);
+    if (t < 0)
+        return (-1);
     return (t);  
 }
 FLOAT hit_plane(t_vector *point, t_vector *normal, t_ray *ray)
@@ -76,7 +78,7 @@ FLOAT hit_plane(t_vector *point, t_vector *normal, t_ray *ray)
     t_vector tmp;
 
     denom = vector_dot(normal, &ray->direction);
-    if (denom > 1e-6)
+    if (fabs(denom) > 1e-6)
     {
         tmp = vector_sub(point, &ray->origin);
         t = vector_dot(&tmp, normal) / denom;
@@ -92,9 +94,10 @@ bool sphere_intersection(t_scene *scene , t_intersection *intersection , t_ray *
     t_vector tmp;
     
     i = scene->sphere_count;
-    while (i)
+    while (i--)
     {
-        t = hit_sphere(&scene->sphere[i].position, scene->sphere[i].diameter, ray);
+        t = hit_sphere(&scene->sphere[i].position, scene->sphere[i].diameter / 2.0, ray);
+        
         if (t > 0 && t < intersection->distance)
         {
             intersection->hit = true;
@@ -102,10 +105,9 @@ bool sphere_intersection(t_scene *scene , t_intersection *intersection , t_ray *
             intersection->distance = t;
             //(sessarhi note) the following three lines can be moved out f the loop for optimization
             intersection->color = scene->sphere[i].color;
-            tmp = vector_sub(&ray->origin, &scene->sphere[i].position);
-            intersection->normal = vector_normalize(&tmp);
+            tmp = vector_scale(&ray->direction, t);
+    
         }
-        i--;
     }
     return (intersection->hit);
 }
@@ -158,10 +160,11 @@ int trace_ray(t_ray *ray, t_scene *scene)
 {
     t_intersection intersection;
     intersection.distance = INFINITY;
+    intersection.hit = false;
     intersection.hit = sphere_intersection(scene, &intersection, ray);
     intersection.hit = cylinder_intersection(scene, &intersection, ray);
     intersection.hit = plane_intersection(scene, &intersection, ray);
-    if (intersection.hit)
+    if (intersection.hit == true)
     {
         return (colorToRgb(&intersection.color));
     }
@@ -198,7 +201,7 @@ void draw(t_scene *scene)
             t_vector sclx = vector_scale(&right, pixel_x);
             t_vector scly = vector_scale(&up, pixel_y);
             t_vector add = vector_add(&sclx, &scly);
-            direction = vector_add(&add,&forword );
+            direction = vector_add(&add,&forword);
             ray.origin = scene->camera.position;
             ray.direction = vector_normalize(&direction);
             my_mlx_pixel_put(&scene->img, x, y, trace_ray(&ray, scene));
@@ -212,7 +215,7 @@ void draw(t_scene *scene)
 void render(t_scene *scene)
 {
     struct timeval start, end;
-    double time_taken;
+    FLOAT time_taken;
    
     scene->mlx = mlx_init();
     scene->win = mlx_new_window(scene->mlx, WIDTH, HEIGHT, "MiniRT");
