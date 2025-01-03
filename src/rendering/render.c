@@ -6,7 +6,7 @@
 /*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/24 17:44:32 by sessarhi          #+#    #+#             */
-/*   Updated: 2025/01/02 17:55:04 by sessarhi         ###   ########.fr       */
+/*   Updated: 2025/01/03 17:56:07 by sessarhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,17 +58,17 @@ FLOAT hit_sphere(t_point *point, double radius, t_ray *ray)
     FLOAT c;
     FLOAT discriminant;
     FLOAT t;
-// this function must be checked for the other root
     oc = vector_sub(&ray->origin, point);
     a = vector_dot(&ray->direction, &ray->direction);
-    b = -2.0 * vector_dot( &ray->direction,&oc);
+    b = 2.0 * vector_dot(&ray->direction,&oc);
     c = vector_dot(&oc, &oc) - radius * radius;
-    discriminant = b * b - 4 * a * c;
+    discriminant = b * b - 4.0 * a * c;
     if (discriminant < 0)
         return (-1);
-    t = (b - sqrt(discriminant)) / (2.0 * a);
-    if (t < 0)
-        return (-1);
+    t = (-b - sqrt(discriminant)) / (2.0 * a);
+    if (t > 0)
+        return (t);
+    t = (-b + sqrt(discriminant)) / (2.0 * a);
     return (t);  
 }
 FLOAT hit_plane(t_vector *point, t_vector *normal, t_ray *ray)
@@ -96,8 +96,8 @@ bool sphere_intersection(t_scene *scene , t_intersection *intersection , t_ray *
     i = scene->sphere_count;
     while (i--)
     {
-        t = hit_sphere(&scene->sphere[i].position, scene->sphere[i].diameter / 2.0, ray);
-        
+        tmp = vector_normalize(&scene->sphere[i].position);
+        t = hit_sphere(&tmp, scene->sphere[i].diameter / 2.0, ray);
         if (t > 0 && t < intersection->distance)
         {
             intersection->hit = true;
@@ -105,7 +105,7 @@ bool sphere_intersection(t_scene *scene , t_intersection *intersection , t_ray *
             intersection->distance = t;
             //(sessarhi note) the following three lines can be moved out f the loop for optimization
             intersection->color = scene->sphere[i].color;
-            tmp = vector_scale(&ray->direction, t);
+            // tmp = vector_scale(&ray->direction, t);
     
         }
     }
