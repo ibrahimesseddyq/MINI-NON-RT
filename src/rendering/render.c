@@ -6,7 +6,7 @@
 /*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/24 17:44:32 by sessarhi          #+#    #+#             */
-/*   Updated: 2025/01/03 17:56:07 by sessarhi         ###   ########.fr       */
+/*   Updated: 2025/01/04 15:04:08 by sessarhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,8 +68,7 @@ FLOAT hit_sphere(t_point *point, double radius, t_ray *ray)
     t = (-b - sqrt(discriminant)) / (2.0 * a);
     if (t > 0)
         return (t);
-    t = (-b + sqrt(discriminant)) / (2.0 * a);
-    return (t);  
+    return (-1);  
 }
 FLOAT hit_plane(t_vector *point, t_vector *normal, t_ray *ray)
 {
@@ -91,13 +90,11 @@ bool sphere_intersection(t_scene *scene , t_intersection *intersection , t_ray *
 {
     int i;
     FLOAT t;
-    t_vector tmp;
     
     i = scene->sphere_count;
     while (i--)
     {
-        tmp = vector_normalize(&scene->sphere[i].position);
-        t = hit_sphere(&tmp, scene->sphere[i].diameter / 2.0, ray);
+        t = hit_sphere(&scene->sphere->position, scene->sphere[i].diameter / 2.0, ray);
         if (t > 0 && t < intersection->distance)
         {
             intersection->hit = true;
