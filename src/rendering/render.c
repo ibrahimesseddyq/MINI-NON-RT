@@ -6,7 +6,7 @@
 /*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/24 17:44:32 by sessarhi          #+#    #+#             */
-/*   Updated: 2025/01/04 15:04:08 by sessarhi         ###   ########.fr       */
+/*   Updated: 2025/01/05 10:19:41 by sessarhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ bool sphere_intersection(t_scene *scene , t_intersection *intersection , t_ray *
     i = scene->sphere_count;
     while (i--)
     {
-        t = hit_sphere(&scene->sphere->position, scene->sphere[i].diameter / 2.0, ray);
+        t = hit_sphere(&scene->sphere[i].position, scene->sphere[i].diameter / 2.0, ray);
         if (t > 0 && t < intersection->distance)
         {
             intersection->hit = true;
