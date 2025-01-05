@@ -1,9 +1,0 @@
-{
-    "files.associations": {
-        "memory.h": "c",
-        "minirt.h": "c",
-        "color.h": "c",
-        "objects.h": "c",
-        "defined.h": "c"
-    }
-}
