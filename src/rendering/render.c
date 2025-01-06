@@ -6,7 +6,7 @@
 /*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/24 17:44:32 by sessarhi          #+#    #+#             */
-/*   Updated: 2025/01/06 16:43:24 by sessarhi         ###   ########.fr       */
+/*   Updated: 2025/01/06 17:35:31 by sessarhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -158,6 +158,46 @@ bool plane_intersection(t_scene *scene, t_intersection *intersection, t_ray *ray
     }
     return (intersection->hit);
 }
+bool check_shadow(t_scene *scene, t_ray *ray,t_intersection *intersection)
+{
+    int i;
+    t_intersection shadow_intersection;
+    t_vector tmp;
+    FLOAT d;
+
+    tmp = vector_sub(&scene->light.position, &intersection->point);
+    d = vector_length(&tmp);
+    
+    shadow_intersection.distance = INFINITY;
+    i = scene->sphere_count;
+    while(i--)
+    {
+        if (sphere_intersection(scene, &shadow_intersection, ray) && 
+        shadow_intersection.id != intersection->id
+        && 
+        shadow_intersection.distance < d)
+            return (true);
+    }
+    shadow_intersection.distance = INFINITY;
+    i = scene->cylinder_count;
+    while(i--)
+    {
+        if (cylinder_intersection(scene, &shadow_intersection, ray) && 
+        shadow_intersection.id != intersection->id && 
+        shadow_intersection.distance < d)
+            return (true);
+    }
+    shadow_intersection.distance = INFINITY;
+    i = scene->plane_count;
+    while(i--)
+    {
+        if (plane_intersection(scene, &shadow_intersection, ray) && 
+        shadow_intersection.id != intersection->id&& 
+        shadow_intersection.distance < d)
+            return (true);
+    }
+    return (false);
+}
 int pixel_color(t_scene *scene , t_intersection *intersection, t_ray *ray)
 {
     t_color ambient;
@@ -170,11 +210,8 @@ int pixel_color(t_scene *scene , t_intersection *intersection, t_ray *ray)
     shadow_ray.origin = intersection->point;
     shadow_ray.direction = vector_sub(&scene->light.position, &intersection->point);
     shadow_ray.direction = vector_normalize(&shadow_ray.direction);
-    // if (sphere_intersection(scene, intersection, &shadow_ray) ||
-    //  cylinder_intersection(scene, intersection, &shadow_ray) ||
-    //   plane_intersection(scene, intersection, &shadow_ray))
-    //     return 0x000000;
-
+    if (check_shadow(scene, &shadow_ray, intersection))
+        return 0x000000;
     ambient = color_scale(&scene->ambient.color, scene->ambient.ratio);
     light_dir = vector_sub(&scene->light.position, &intersection->point);
     light_dir = vector_normalize(&light_dir);
@@ -189,6 +226,7 @@ int trace_ray(t_ray *ray, t_scene *scene)
     t_intersection intersection;
     intersection.distance = INFINITY;
     intersection.hit = false;
+    intersection.id = -1;
     intersection.hit = sphere_intersection(scene, &intersection, ray);
     intersection.hit = cylinder_intersection(scene, &intersection, ray);
     intersection.hit = plane_intersection(scene, &intersection, ray);
