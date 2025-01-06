@@ -6,7 +6,7 @@
 /*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/24 17:44:32 by sessarhi          #+#    #+#             */
-/*   Updated: 2025/01/05 10:19:41 by sessarhi         ###   ########.fr       */
+/*   Updated: 2025/01/06 16:43:24 by sessarhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,7 @@ bool sphere_intersection(t_scene *scene , t_intersection *intersection , t_ray *
 {
     int i;
     FLOAT t;
+    t_vector tmp;
     
     i = scene->sphere_count;
     while (i--)
@@ -102,7 +103,10 @@ bool sphere_intersection(t_scene *scene , t_intersection *intersection , t_ray *
             intersection->distance = t;
             //(sessarhi note) the following three lines can be moved out f the loop for optimization
             intersection->color = scene->sphere[i].color;
-            // tmp = vector_scale(&ray->direction, t);
+            tmp = vector_scale(&ray->direction, t);
+            intersection->point = vector_add(&ray->origin, &tmp);
+            intersection->normal = vector_sub(&intersection->point, &scene->sphere[i].position);
+            intersection->normal = vector_normalize(&intersection->normal);
     
         }
     }
@@ -148,11 +152,38 @@ bool plane_intersection(t_scene *scene, t_intersection *intersection, t_ray *ray
             //(sessarhi note) the following three lines can be moved out f the loop for optimization
             intersection->color = scene->plane[i].color;
             intersection->normal = scene->plane[i].direction;
+            tmp = vector_scale(&ray->direction, t);
+            intersection->point = vector_add(&ray->origin, &tmp);
         }
     }
     return (intersection->hit);
 }
+int pixel_color(t_scene *scene , t_intersection *intersection, t_ray *ray)
+{
+    t_color ambient;
+    t_color diffuse;
+    t_color final_color;
+    t_vector light_dir;
+    FLOAT diff;
+    t_ray shadow_ray;
 
+    shadow_ray.origin = intersection->point;
+    shadow_ray.direction = vector_sub(&scene->light.position, &intersection->point);
+    shadow_ray.direction = vector_normalize(&shadow_ray.direction);
+    // if (sphere_intersection(scene, intersection, &shadow_ray) ||
+    //  cylinder_intersection(scene, intersection, &shadow_ray) ||
+    //   plane_intersection(scene, intersection, &shadow_ray))
+    //     return 0x000000;
+
+    ambient = color_scale(&scene->ambient.color, scene->ambient.ratio);
+    light_dir = vector_sub(&scene->light.position, &intersection->point);
+    light_dir = vector_normalize(&light_dir);
+    diff = fmax(0.0, vector_dot(&intersection->normal, &light_dir));
+    diffuse = color_scale(&scene->light.color, scene->light.bratio * diff);
+    final_color = color_add(&ambient, &diffuse);
+    final_color = color_mul(&final_color, &intersection->color);
+    return (colorToRgb(&final_color));
+}
 int trace_ray(t_ray *ray, t_scene *scene)
 {
     t_intersection intersection;
@@ -163,7 +194,7 @@ int trace_ray(t_ray *ray, t_scene *scene)
     intersection.hit = plane_intersection(scene, &intersection, ray);
     if (intersection.hit == true)
     {
-        return (colorToRgb(&intersection.color));
+        return (pixel_color(scene, &intersection, ray));
     }
     return 0x000000;
 }
