@@ -6,14 +6,11 @@
 /*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/28 23:06:59 by sessarhi          #+#    #+#             */
-/*   Updated: 2024/12/29 14:07:56 by sessarhi         ###   ########.fr       */
+/*   Updated: 2025/01/09 20:20:16 by sessarhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-
-#include <stdio.h>
-#include <stddef.h>
-#include <string.h>
+#include "../../includes/includes.h"
 
 int	ft_strcmp(const char *s1, const char *s2)
 {

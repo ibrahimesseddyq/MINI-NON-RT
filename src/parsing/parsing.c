@@ -6,7 +6,7 @@
 /*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/15 21:09:07 by sessarhi          #+#    #+#             */
-/*   Updated: 2025/01/02 16:14:27 by sessarhi         ###   ########.fr       */
+/*   Updated: 2025/01/09 20:23:22 by sessarhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int process_C(char **inf , t_tscene *t_scene)
         return (1);
     if (t_scene->is_c_set == true)
         return (printf("Error multiple Cameras\n"),1);
-    t_scene->camera.fov = atoi(inf[3]);
+    t_scene->camera.fov = ft_atoi(inf[3]);
     if (!parse_crd(inf[1],&t_scene->camera.position) 
     || !parse_crd(inf[2], &t_scene->camera.direction))
         return (1);
@@ -126,19 +126,18 @@ void splil_line(const char *line , t_tscene *tscene)
     elm = ft_split(line, '\n');
     while (elm[i])
     {
-        // printf("%s\n", elm[i]);
         inf = ft_split(elm[i], ' ');
-        if (strcmp(inf[0] ,"A") == 0 && !process_A(inf , tscene))
+        if (ft_strcmp(inf[0] ,"A") == 0 && !process_A(inf , tscene))
                 i++;
-        else if (strcmp(inf[0], "C") == 0 && !process_C(inf  ,tscene))
+        else if (ft_strcmp(inf[0], "C") == 0 && !process_C(inf  ,tscene))
                 i++;
-        else if (strcmp(inf[0], "L") == 0 && !process_L(inf ,tscene))
+        else if (ft_strcmp(inf[0], "L") == 0 && !process_L(inf ,tscene))
                 i++;
-        else if (strcmp(inf[0], "sp") == 0 && !process_sp(inf ,tscene))
+        else if (ft_strcmp(inf[0], "sp") == 0 && !process_sp(inf ,tscene))
                 i++;
-        else if (strcmp(inf[0], "pl") == 0 && !process_pl(inf ,tscene))
+        else if (ft_strcmp(inf[0], "pl") == 0 && !process_pl(inf ,tscene))
             i++;
-        else if (strcmp(inf[0], "cy") == 0 && !process_cy(inf ,tscene))
+        else if (ft_strcmp(inf[0], "cy") == 0 && !process_cy(inf ,tscene))
             i++;
         else 
             return (printf("Error \n"),exit(1));

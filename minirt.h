@@ -6,7 +6,7 @@
 /*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 19:16:40 by sessarhi          #+#    #+#             */
-/*   Updated: 2025/01/01 15:33:24 by sessarhi         ###   ########.fr       */
+/*   Updated: 2025/01/09 20:17:55 by sessarhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ FLOAT	ft_atof(const char *str);
 int	Rgb_value(const char *str);
 void   process_flie( char **av , t_scene *scene);
 void render(t_scene *scene);
-
+int    ft_strcmp(const char *s1, const char *s2);
+int    ft_atoi(const char *str);
 
 #endif
