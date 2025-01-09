@@ -6,7 +6,7 @@
 /*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/24 17:44:32 by sessarhi          #+#    #+#             */
-/*   Updated: 2025/01/09 17:37:07 by sessarhi         ###   ########.fr       */
+/*   Updated: 2025/01/09 21:33:04 by sessarhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ FLOAT hit_cylinder(t_intersection *intersection, t_ray *ray, t_cylinder *cylinde
     t_vector point = vector_add(&ray->origin, &scl);
     t_vector cp = vector_sub(&point, &cylinder->position);
     FLOAT height = vector_dot(&cp, &cylinder->direction);
-    if (height > 0 && height < cylinder->height)
+    if (height >= 0 && height <= cylinder->height)
     {
         proj = vector_scale(&cylinder->direction, height);
         proj = vector_sub(&cp, &proj);
@@ -68,30 +68,30 @@ FLOAT hit_cylinder(t_intersection *intersection, t_ray *ray, t_cylinder *cylinde
         intersection->color = cylinder->color;
         return (t);
     }
-    t_vector tmp =  vector_scale(&cylinder->direction, cylinder->height);
-    t_point top = vector_add(&cylinder->position,&tmp);
-    t = hit_plane(&cylinder->position, &cylinder->direction, ray);
-    scl = vector_scale(&ray->direction, t);
-    point = vector_add(&ray->origin, &scl);
-    cp = vector_sub(&point,&cylinder->position);
-    height = vector_dot(&cp, &cylinder->direction);
-    if (height <= cylinder->diameter/2.)
-    {
-        intersection->normal = cylinder->direction;
-        intersection->color = cylinder->color;
-        return (t);
-    }
-    t = hit_plane(&top, &cylinder->direction, ray);
-    scl = vector_scale(&ray->direction, t);
-    point = vector_add(&ray->origin, &scl);
-    cp = vector_sub(&point, &top);
-    height = vector_dot(&cp, &cylinder->direction);
-    if (height <= cylinder->diameter/2. )
-    {
-        intersection->normal = vector_scale(&cylinder->direction, -1);
-        intersection->color = cylinder->color;
-        return (t);
-    }
+    // t_vector tmp =  vector_scale(&cylinder->direction, cylinder->height);
+    // t_point top = vector_add(&cylinder->position,&tmp);
+    // t = hit_plane(&cylinder->position, &cylinder->direction, ray);
+    // scl = vector_scale(&ray->direction, t);
+    // point = vector_add(&ray->origin, &scl);
+    // cp = vector_sub(&point,&cylinder->position);
+    // height = vector_dot(&cp, &cylinder->direction);
+    // if (height <= cylinder->diameter/2.)
+    // {
+    //     intersection->normal = cylinder->direction;
+    //     intersection->color = cylinder->color;
+    //     return (t);
+    // }
+    // t = hit_plane(&top, &cylinder->direction, ray);
+    // scl = vector_scale(&ray->direction, t);
+    // point = vector_add(&ray->origin, &scl);
+    // cp = vector_sub(&point, &top);
+    // height = vector_dot(&cp, &cylinder->direction);
+    // if (height <= cylinder->diameter/2. )
+    // {
+    //     intersection->normal = vector_scale(&cylinder->direction, -1);
+    //     intersection->color = cylinder->color;
+    //     return (t);
+    // }
     return (-1);
 }
 bool cylinder_intersection(t_scene *scene, t_intersection *intersection, t_ray *ray)
@@ -248,8 +248,8 @@ int pixel_color(t_scene *scene , t_intersection *intersection, t_ray *ray)
     shadow_ray.origin = intersection->point;
     shadow_ray.direction = vector_sub(&scene->light.position, &intersection->point);
     shadow_ray.direction = vector_normalize(&shadow_ray.direction);
-    // if (check_shadow(scene, &shadow_ray, intersection))
-    //     return 0x000000;
+    if (check_shadow(scene, &shadow_ray, intersection))
+        return 0x000000;
     ambient = color_scale(&scene->ambient.color, scene->ambient.ratio);
     light_dir = vector_sub(&scene->light.position, &intersection->point);
     light_dir = vector_normalize(&light_dir);
