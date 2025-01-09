@@ -6,12 +6,28 @@
 /*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/24 17:44:32 by sessarhi          #+#    #+#             */
-/*   Updated: 2025/01/06 17:35:31 by sessarhi         ###   ########.fr       */
+/*   Updated: 2025/01/09 15:59:30 by sessarhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minirt.h"
 
+FLOAT hit_plane(t_vector *point, t_vector *normal, t_ray *ray)
+{
+    FLOAT t;
+    FLOAT denom;
+    t_vector tmp;
+
+    denom = vector_dot(normal, &ray->direction);
+    if (fabs(denom) > 1e-6)
+    {
+        tmp = vector_sub(point, &ray->origin);
+        t = vector_dot(&tmp, normal) / denom;
+        if (t >= 0)
+            return (t);
+    }
+    return (-1);
+}
 
 void my_mlx_pixel_put(t_data *img, int x, int y, int color)
 {
@@ -29,6 +45,7 @@ FLOAT hit_cylinder(t_intersection *intersection, t_ray *ray, t_cylinder *cylinde
     FLOAT c;
     FLOAT discriminant;
     FLOAT t;
+    t_vector proj;
     
     oc = vector_sub(&ray->origin, &cylinder->position);
     a = vector_dot(&ray->direction, &ray->direction) - pow(vector_dot(&ray->direction, &cylinder->direction), 2);
@@ -39,16 +56,41 @@ FLOAT hit_cylinder(t_intersection *intersection, t_ray *ray, t_cylinder *cylinde
         return (-1);
     t = (-b - sqrt(discriminant)) / (2.0 * a);
     if (t < 0)
-        return (-1);
+    t = (-b + sqrt(discriminant)) / (2.0 * a);
     t_vector scl = vector_scale(&ray->direction, t);
     t_vector point = vector_add(&ray->origin, &scl);
     t_vector cp = vector_sub(&point, &cylinder->position);
     FLOAT height = vector_dot(&cp, &cylinder->direction);
-    if (height < 0 || height > cylinder->height)
-        return (-1);
-    t_vector proj = vector_scale(&cylinder->direction, height);
-    intersection->normal = vector_sub(&cp, &proj);
-    return (t);
+    if (height >= 0 && height <= cylinder->height)
+    {
+        proj = vector_scale(&cylinder->direction, height);
+        proj = vector_sub(&cp, &proj);
+        intersection->normal = vector_normalize(&proj);
+        return (t);
+    }
+    t_vector tmp =  vector_scale(&cylinder->direction, cylinder->height);
+    t_point top = vector_add(&cylinder->position,&tmp);
+    t = hit_plane(&cylinder->position, &cylinder->direction, ray);
+    scl = vector_scale(&ray->direction, t);
+    point = vector_add(&ray->origin, &scl);
+    cp = vector_sub(&point,&cylinder->position);
+    height = vector_dot(&cp, &cylinder->direction);
+    if (height <= cylinder->diameter/2 )
+    {
+        intersection->normal = cylinder->direction;
+        return (t);
+    }
+    t = hit_plane(&top, &cylinder->direction, ray);
+    scl = vector_scale(&ray->direction, t);
+    point = vector_add(&ray->origin, &scl);
+    cp = vector_sub(&point, &top);
+    height = vector_dot(&cp, &cylinder->direction);
+    if (height <= cylinder->diameter/2 )
+    {
+        intersection->normal = cylinder->direction;
+        return (t);
+    }
+    return (-1);
 }
 FLOAT hit_sphere(t_point *point, double radius, t_ray *ray)
 {
@@ -62,30 +104,23 @@ FLOAT hit_sphere(t_point *point, double radius, t_ray *ray)
     a = vector_dot(&ray->direction, &ray->direction);
     b = 2.0 * vector_dot(&ray->direction,&oc);
     c = vector_dot(&oc, &oc) - radius * radius;
-    discriminant = b * b - 4.0 * a * c;
-    if (discriminant < 0)
-        return (-1);
-    t = (-b - sqrt(discriminant)) / (2.0 * a);
-    if (t > 0)
-        return (t);
-    return (-1);  
-}
-FLOAT hit_plane(t_vector *point, t_vector *normal, t_ray *ray)
-{
-    FLOAT t;
-    FLOAT denom;
-    t_vector tmp;
+    discriminant = b * b - 4 * a * c;
+if (discriminant < 0)
+    return -1;
 
-    denom = vector_dot(normal, &ray->direction);
-    if (fabs(denom) > 1e-6)
-    {
-        tmp = vector_sub(point, &ray->origin);
-        t = vector_dot(&tmp, normal) / denom;
-        if (t >= 0)
-            return (t);
-    }
-    return (-1);
+    FLOAT t1 = (-b - sqrt(discriminant)) / (2.0 * a);
+    FLOAT t2 = (-b + sqrt(discriminant)) / (2.0 * a);
+
+    if (t1 > 0 && t2 > 0)
+        t = fmin(t1, t2);
+    else if (t1 > 0)
+        t = t1;
+    else if (t2 > 0)
+        t = t2;
+    else
+        return -1;
 }
+
 bool sphere_intersection(t_scene *scene , t_intersection *intersection , t_ray *ray)
 {
     int i;
