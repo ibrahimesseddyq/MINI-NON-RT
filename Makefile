@@ -8,6 +8,7 @@ SRC = minirt.c \
 	./src/tmputils/cy_utils.c ./src/tmputils/pl_utils.c ./src/tmputils/sp_utils.c \
 	./src/memory/arena_alloc.c ./src/memory/arena_create.c ./src/memory/arena_manage.c \
 	./src/math/math.c ./src/rendering/render.c ./src/coloring/coloring.c\
+	./src/utils/ft_atoi.c ./src/utils/ft_strcmp.c\
 	
 OBJ = $(SRC:.c=.o)
 
