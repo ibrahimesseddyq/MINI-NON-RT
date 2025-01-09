@@ -6,14 +6,14 @@
 /*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 13:24:29 by sessarhi          #+#    #+#             */
-/*   Updated: 2024/12/26 09:58:34 by sessarhi         ###   ########.fr       */
+/*   Updated: 2025/01/01 15:33:03 by sessarhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # ifndef TMPOBJECTS_H
 # define TMPOBJECTS_H
 
-#include "./../minirt.h"
+#include "includes.h"
 
 typedef struct s_tsphere
 {

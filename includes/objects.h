@@ -6,7 +6,7 @@
 /*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 12:56:16 by sessarhi          #+#    #+#             */
-/*   Updated: 2024/12/26 10:24:14 by sessarhi         ###   ########.fr       */
+/*   Updated: 2025/01/05 19:41:19 by sessarhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,8 @@
 # define OBJECTS_H
 
 #include "defined.h"
+#include "includes.h"
 typedef t_vector t_point;
-#include "./../MLX/mlx.h"
-
 
 
 typedef struct s_color
@@ -25,40 +24,42 @@ typedef struct s_color
     FLOAT r;
     FLOAT g;
     FLOAT b;
-} t_color;
+}t_color;
 typedef struct s_ambient
 {
     FLOAT ratio;
     t_color color;
-}__attribute__((aligned(sizeof(FLOAT)))) t_ambient;
+} t_ambient;
 
 typedef struct s_camera
 {
     t_point position;
     t_vector direction;
     int   fov;
-}__attribute__((aligned(sizeof(FLOAT)))) t_camera;
+} t_camera;
 
 typedef struct s_light
 {
     t_point position;
     FLOAT bratio;
     t_color color;
-}__attribute__((aligned(sizeof(FLOAT)))) t_light;
+} t_light;
 
 typedef struct s_sphere
 {
     t_point position;
     FLOAT diameter;
     t_color color;
-}__attribute__((aligned(sizeof(FLOAT)))) t_sphere;
+    int id;
+} t_sphere;
 
 typedef struct s_plane
 {
     t_point position;
     t_vector direction;
     t_color color;
-}__attribute__((aligned(sizeof(FLOAT)))) t_plane;
+     int id;
+} t_plane;
 
 typedef struct s_cylinder
 {
@@ -67,7 +68,8 @@ typedef struct s_cylinder
     FLOAT diameter;
     FLOAT height;
     t_color color;
-}__attribute__((aligned(sizeof(FLOAT)))) t_cylinder;
+    int id;
+} t_cylinder;
 
 
 typedef struct	s_data {
@@ -76,13 +78,14 @@ typedef struct	s_data {
 	int		bits_per_pixel;
 	int		line_length;
 	int		endian;
-}				t_data;
+}t_data;
 
 typedef struct s_scene
 {
     t_camera camera;
     t_light light;
     t_ambient ambient;
+    t_data img;
     t_cylinder *cylinder;
     t_plane *plane;
     t_sphere *sphere;
@@ -90,21 +93,20 @@ typedef struct s_scene
     FLOAT viewport_height;
     FLOAT height;
     FLOAT width;
-    int plane_count;
-    int cylinder_count;
-    int sphere_count;
     FLOAT viewport_dist;
     void *mlx;
     void *win;
-    t_data img;
+    int plane_count;
+    int cylinder_count;
+    int sphere_count;
     
-} t_scene;
+}t_scene;
 
 typedef struct s_ray
 {
     t_point origin;
     t_vector direction;
-} t_ray;
+}t_ray;
 
 
 

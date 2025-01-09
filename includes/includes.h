@@ -1,30 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   defined.h                                          :+:      :+:    :+:   */
+/*   includes.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/24 16:58:37 by sessarhi          #+#    #+#             */
-/*   Updated: 2025/01/05 14:58:29 by sessarhi         ###   ########.fr       */
+/*   Created: 2025/01/01 15:29:51 by sessarhi          #+#    #+#             */
+/*   Updated: 2025/01/01 15:32:41 by sessarhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# ifndef DEFINED_H
-# define DEFINED_H
+#ifndef INCLUDES_H
+# define INCLUDES_H
 
-# define BUFFER_SIZE 4000
-# define WIDTH 2000
-# define HEIGHT 1800
-# define FLOAT double
-# define M_PI 3.14159265358979323846
 
-typedef struct _s_vector
-{
-    double x;
-    double y;
-    double z;
-} t_vector;
+# include <stdio.h>
+# include <unistd.h>
+# include <limits.h>
+# include <fcntl.h>
+#include <string.h>
+#include <sys/time.h> 
+#include <stddef.h>
+#include <stdint.h>
+#include <stdbool.h>
+#include <stdlib.h>
+#include <math.h>
+#include "./../MLX/mlx.h"
 
-typedef t_vector t_point;
+
+
 #endif
