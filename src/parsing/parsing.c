@@ -6,7 +6,7 @@
 /*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/15 21:09:07 by sessarhi          #+#    #+#             */
-/*   Updated: 2024/12/26 10:03:57 by sessarhi         ###   ########.fr       */
+/*   Updated: 2025/01/02 16:14:27 by sessarhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,14 +37,10 @@ int process_C(char **inf , t_tscene *t_scene)
     if (!parse_crd(inf[1],&t_scene->camera.position) 
     || !parse_crd(inf[2], &t_scene->camera.direction))
         return (1);
-
-    // Add normalization here, after parsing the direction but before the range check
     t_vector normalized_dir = vector_normalize(&t_scene->camera.direction);
     t_scene->camera.direction.x = normalized_dir.x;
     t_scene->camera.direction.y = normalized_dir.y;
     t_scene->camera.direction.z = normalized_dir.z;
-
-    // Then continue with your FOV and range checks
     if (t_scene->camera.fov > 180 || t_scene->camera.fov < 0 || t_scene->camera.direction.x < -1 ||
     t_scene->camera.direction.x > 1 || t_scene->camera.direction.y < -1 || t_scene->camera.direction.y > 1 || 
     t_scene->camera.direction.z < -1 || t_scene->camera.direction.z > 1)
@@ -121,7 +117,7 @@ int process_cy(char **inf , t_tscene *t_scene)
     t_scene->cylinder_size++;
     return (0);
 }
-void splil_line(char line[] , t_tscene *tscene)
+void splil_line(const char *line , t_tscene *tscene)
 {
     char **elm;
     char **inf;
@@ -168,89 +164,28 @@ void int_tsceen(t_tscene *tscene)
     tscene->camera.direction.y = 0;
     tscene->camera.direction.z = 0;
 }
-// void print_scene(t_tscene *tscene)
-// {
-//     t_tsphere *sphere;
-//     t_tplane *plane;
-//     t_tcylinder *cylinder;
-
-//     sphere = tscene->sphere;
-//     plane = tscene->plane;
-//     cylinder = tscene->cylinder;
-//     printf("Ambient\n");
-//     printf("ratio : %f\n", tscene->ambient.ratio);
-//     printf("r : %d\n", tscene->ambient.r);
-//     printf("g : %d\n", tscene->ambient.g);
-//     printf("b : %d\n", tscene->ambient.b);
-//     printf("Camera\n");
-//     printf("x : %f\n", tscene->camera.position.x);
-//     printf("y : %f\n", tscene->camera.position.y);
-//     printf("z : %f\n", tscene->camera.position.z);
-//     printf("vx : %f\n", tscene->camera.direction.x);
-//     printf("vy : %f\n", tscene->camera.direction.y);
-//     printf("vz : %f\n", tscene->camera.direction.z);
-//     printf("fov : %d\n", tscene->camera.fov);
-//     printf("Light\n");
-//     printf("x : %f\n", tscene->light.position.x);
-//     printf("y : %f\n", tscene->light.position.y);
-//     printf("z : %f\n", tscene->light.position.z);
-//     printf("bratio : %f\n", tscene->light.bratio);
-//     printf("r : %d\n", tscene->light.r);
-//     printf("g : %d\n", tscene->light.g);
-//     printf("b : %d\n", tscene->light.b);
-//     printf("Sphere size : %d\n", tscene->sphere_size);
-//     printf("Plane size : %d\n", tscene->plane_size);
-//     printf("Cylinder size : %d\n", tscene->cylinder_size);
-//     printf("is_c_set : %d\n", tscene->is_c_set);
-//     printf("is_l_set : %d\n", tscene->is_l_set);
-//     printf("is_a_set : %d\n", tscene->is_a_set);
-//     printf("Objects\n");
-   
-//     while (plane)
-//     {
-//          printf("Plane\n");
-//         printf("x : %f\n", plane->x);
-//         printf("y : %f\n", plane->y);
-//         printf("z : %f\n", plane->z);
-//         printf("vx : %f\n", plane->vx);
-//         printf("vy : %f\n", plane->vy);
-//         printf("vz : %f\n", plane->vz);
-//         printf("r : %d\n", plane->r);
-//         printf("g : %d\n", plane->g);
-//         printf("b : %d\n", plane->b);
-//         plane = plane->next;
-//     }
-//     while (sphere)
-//     {
-//          printf("Sphere\n");
-//         printf("x : %f\n", sphere->x);
-//         printf("y : %f\n", sphere->y);
-//         printf("z : %f\n", sphere->z);
-//         printf("diameter : %f\n", sphere->diameter);
-//         printf("r : %d\n", sphere->r);
-//         printf("g : %d\n", sphere->g);
-//         printf("b : %d\n", sphere->b);
-//         sphere = sphere->next;
-//     }
+void print_data(t_scene *scene)
+{
+    int i = 0;
+    while (scene->plane_count--)
+    {
+        printf("Plane id %d\n", scene->plane[i].id);
+        i++;
+    }
+    i = 0;
+    while (scene->sphere_count--)
+    {
+        printf("Sphere id %d\n", scene->sphere[i].id);
+        i++;
+    }
+    i = 0;
+    while (scene->cylinder_count--)
+    {
+        printf("Cylinder id %d\n", scene->cylinder[i].id);
+        i++;
+    }
     
-//     while (cylinder)
-//     {
-//         printf("Cylinder\n");
-//         printf("x : %f\n", cylinder->x);
-//         printf("y : %f\n", cylinder->y);
-//         printf("z : %f\n", cylinder->z);
-//         printf("vx : %f\n", cylinder->vx);
-//         printf("vy : %f\n", cylinder->vy);
-//         printf("vz : %f\n", cylinder->vz);
-//         printf("diameter : %f\n", cylinder->diameter);
-//         printf("height : %f\n", cylinder->height);
-//         printf("r : %d\n", cylinder->r);
-//         printf("g : %d\n", cylinder->g);
-//         printf("b : %d\n", cylinder->b);
-//         cylinder = cylinder->next;
-//     }          
-
-// }
+}
 
 void copy_tscene(t_tscene *tscene, t_scene *scene)
 {
@@ -265,6 +200,7 @@ void copy_tscene(t_tscene *tscene, t_scene *scene)
     scene->plane_count = tscene->plane_size;
     scene->sphere_count = tscene->sphere_size;
     scene->viewport_dist = 1.0;
+    int id = 0;
     t_tsphere *sphere;
     t_tplane *plane;
     t_tcylinder *cylinder;
@@ -274,6 +210,8 @@ void copy_tscene(t_tscene *tscene, t_scene *scene)
         scene->plane[i].position = tscene->plane->position;
         scene->plane[i].direction = tscene->plane->direction;
         scene->plane[i].color = tscene->plane->color;
+        scene->plane[i].id = id++;
+        tscene->plane = tscene->plane->next;
         i++;
     }
     i = 0;
@@ -282,6 +220,7 @@ void copy_tscene(t_tscene *tscene, t_scene *scene)
         scene->sphere[i].position = tscene->sphere->position;
         scene->sphere[i].diameter = tscene->sphere->diameter;
         scene->sphere[i].color = tscene->sphere->color;
+        scene->sphere[i].id = id++;
         tscene->sphere = tscene->sphere->next;
         i++;
     }
@@ -294,6 +233,7 @@ void copy_tscene(t_tscene *tscene, t_scene *scene)
         scene->cylinder[i].diameter = tscene->cylinder->diameter;
         scene->cylinder[i].height = tscene->cylinder->height;
         scene->cylinder[i].color = tscene->cylinder->color;
+        scene->cylinder[i].id = id++;
         tscene->cylinder = tscene->cylinder->next;
         i++;
     }
@@ -318,7 +258,6 @@ void   process_flie(char **av , t_scene *scene)
         splil_line(buffer, &tscene);
         ret = read(fd, buffer, BUFFER_SIZE);
     }
-    // print_scene(&tscene);
     free(buffer);
     copy_tscene(&tscene, scene);
     (void)scene;

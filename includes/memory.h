@@ -1,10 +1,7 @@
 #ifndef MEMORY_H
 #define MEMORY_H
 
-#include <stddef.h>
-#include <stdint.h>
-#include <stdbool.h>
-#include <stdlib.h>
+#include "includes.h"
 
 #define ARENA_ALIGNMENT 8
 #define ALIGN_UP(n, align) (((n) + (align) - 1) & ~((align) - 1))

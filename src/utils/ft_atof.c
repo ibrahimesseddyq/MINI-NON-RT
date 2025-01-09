@@ -6,14 +6,14 @@
 /*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/14 16:42:24 by sessarhi          #+#    #+#             */
-/*   Updated: 2024/12/23 15:16:17 by sessarhi         ###   ########.fr       */
+/*   Updated: 2024/12/29 14:12:57 by sessarhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 
 #include "../../minirt.h"
 
-static bool check_fp_err(char *str)
+static bool check_fp_err(const char *str)
 {
     int i;
     bool flag;
@@ -35,7 +35,7 @@ static bool check_fp_err(char *str)
     return (true);
 }
 
-FLOAT	ft_atof(char *str)
+FLOAT	ft_atof(const char *str)
 {
     FLOAT result;
     int sign;
