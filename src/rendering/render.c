@@ -6,11 +6,12 @@
 /*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/24 17:44:32 by sessarhi          #+#    #+#             */
-/*   Updated: 2025/01/09 15:59:30 by sessarhi         ###   ########.fr       */
+/*   Updated: 2025/01/09 17:37:07 by sessarhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minirt.h"
+
 
 FLOAT hit_plane(t_vector *point, t_vector *normal, t_ray *ray)
 {
@@ -28,15 +29,13 @@ FLOAT hit_plane(t_vector *point, t_vector *normal, t_ray *ray)
     }
     return (-1);
 }
-
 void my_mlx_pixel_put(t_data *img, int x, int y, int color)
 {
     char *dst;
 
-    dst = img->addr + (y * img->line_length + x * (img->bits_per_pixel / 8));
+    dst = img->addr + (int)(y * img->line_length + x * (img->bits_per_pixel * 0.125));
     *(unsigned int *)dst = color;
 }
-
 FLOAT hit_cylinder(t_intersection *intersection, t_ray *ray, t_cylinder *cylinder)
 {
     t_vector oc;
@@ -56,16 +55,17 @@ FLOAT hit_cylinder(t_intersection *intersection, t_ray *ray, t_cylinder *cylinde
         return (-1);
     t = (-b - sqrt(discriminant)) / (2.0 * a);
     if (t < 0)
-    t = (-b + sqrt(discriminant)) / (2.0 * a);
+        t = (-b + sqrt(discriminant)) / (2.0 * a);
     t_vector scl = vector_scale(&ray->direction, t);
     t_vector point = vector_add(&ray->origin, &scl);
     t_vector cp = vector_sub(&point, &cylinder->position);
     FLOAT height = vector_dot(&cp, &cylinder->direction);
-    if (height >= 0 && height <= cylinder->height)
+    if (height > 0 && height < cylinder->height)
     {
         proj = vector_scale(&cylinder->direction, height);
         proj = vector_sub(&cp, &proj);
         intersection->normal = vector_normalize(&proj);
+        intersection->color = cylinder->color;
         return (t);
     }
     t_vector tmp =  vector_scale(&cylinder->direction, cylinder->height);
@@ -75,9 +75,10 @@ FLOAT hit_cylinder(t_intersection *intersection, t_ray *ray, t_cylinder *cylinde
     point = vector_add(&ray->origin, &scl);
     cp = vector_sub(&point,&cylinder->position);
     height = vector_dot(&cp, &cylinder->direction);
-    if (height <= cylinder->diameter/2 )
+    if (height <= cylinder->diameter/2.)
     {
         intersection->normal = cylinder->direction;
+        intersection->color = cylinder->color;
         return (t);
     }
     t = hit_plane(&top, &cylinder->direction, ray);
@@ -85,12 +86,35 @@ FLOAT hit_cylinder(t_intersection *intersection, t_ray *ray, t_cylinder *cylinde
     point = vector_add(&ray->origin, &scl);
     cp = vector_sub(&point, &top);
     height = vector_dot(&cp, &cylinder->direction);
-    if (height <= cylinder->diameter/2 )
+    if (height <= cylinder->diameter/2. )
     {
-        intersection->normal = cylinder->direction;
+        intersection->normal = vector_scale(&cylinder->direction, -1);
+        intersection->color = cylinder->color;
         return (t);
     }
     return (-1);
+}
+bool cylinder_intersection(t_scene *scene, t_intersection *intersection, t_ray *ray)
+{
+    int i;
+    FLOAT t;
+    t_vector tmp;
+    
+    i = scene->cylinder_count;
+    while (i--)
+    {
+        t = hit_cylinder(intersection, ray, &scene->cylinder[i]);
+        if (t > 0 && t < intersection->distance)
+        {
+            intersection->hit = true;
+            intersection->id = scene->cylinder[i].id;
+            intersection->distance = t;
+            //(sessarhi note) the following three lines can be moved out f the loop for optimization
+            intersection->color = scene->cylinder[i].color;
+            // intersection->normal = vector_normalize(&intersection->normal);
+        }
+    }
+    return (intersection->hit);
 }
 FLOAT hit_sphere(t_point *point, double radius, t_ray *ray)
 {
@@ -105,12 +129,11 @@ FLOAT hit_sphere(t_point *point, double radius, t_ray *ray)
     b = 2.0 * vector_dot(&ray->direction,&oc);
     c = vector_dot(&oc, &oc) - radius * radius;
     discriminant = b * b - 4 * a * c;
-if (discriminant < 0)
-    return -1;
+    if (discriminant < 0)
+        return -1;
 
     FLOAT t1 = (-b - sqrt(discriminant)) / (2.0 * a);
     FLOAT t2 = (-b + sqrt(discriminant)) / (2.0 * a);
-
     if (t1 > 0 && t2 > 0)
         t = fmin(t1, t2);
     else if (t1 > 0)
@@ -119,6 +142,7 @@ if (discriminant < 0)
         t = t2;
     else
         return -1;
+    return t;
 }
 
 bool sphere_intersection(t_scene *scene , t_intersection *intersection , t_ray *ray)
@@ -147,28 +171,7 @@ bool sphere_intersection(t_scene *scene , t_intersection *intersection , t_ray *
     }
     return (intersection->hit);
 }
-bool cylinder_intersection(t_scene *scene, t_intersection *intersection, t_ray *ray)
-{
-    int i;
-    FLOAT t;
-    t_vector tmp;
-    
-    i = scene->cylinder_count;
-    while (i--)
-    {
-        t = hit_cylinder(intersection, ray, &scene->cylinder[i]);
-        if (t > 0 && t < intersection->distance)
-        {
-            intersection->hit = true;
-            intersection->id = scene->cylinder[i].id;
-            intersection->distance = t;
-            //(sessarhi note) the following three lines can be moved out f the loop for optimization
-            intersection->color = scene->cylinder[i].color;
-            intersection->normal = vector_normalize(&intersection->normal);
-        }
-    }
-    return (intersection->hit);
-}
+
 bool plane_intersection(t_scene *scene, t_intersection *intersection, t_ray *ray)
 {
     int i;
@@ -245,8 +248,8 @@ int pixel_color(t_scene *scene , t_intersection *intersection, t_ray *ray)
     shadow_ray.origin = intersection->point;
     shadow_ray.direction = vector_sub(&scene->light.position, &intersection->point);
     shadow_ray.direction = vector_normalize(&shadow_ray.direction);
-    if (check_shadow(scene, &shadow_ray, intersection))
-        return 0x000000;
+    // if (check_shadow(scene, &shadow_ray, intersection))
+    //     return 0x000000;
     ambient = color_scale(&scene->ambient.color, scene->ambient.ratio);
     light_dir = vector_sub(&scene->light.position, &intersection->point);
     light_dir = vector_normalize(&light_dir);

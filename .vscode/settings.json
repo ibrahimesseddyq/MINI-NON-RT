@@ -1,0 +1,9 @@
+{
+  "files.associations": {
+    "memory.h": "c",
+    "minirt.h": "c",
+    "color.h": "c",
+    "objects.h": "c"
+  },
+  "C_Cpp_Runner.msvcBatchPath": ""
+}
