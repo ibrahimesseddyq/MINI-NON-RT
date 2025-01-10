@@ -6,7 +6,7 @@
 /*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/24 16:58:37 by sessarhi          #+#    #+#             */
-/*   Updated: 2025/01/05 14:58:29 by sessarhi         ###   ########.fr       */
+/*   Updated: 2025/01/10 17:04:18 by sessarhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 # define HEIGHT 1800
 # define FLOAT double
 # define M_PI 3.14159265358979323846
-
+#define EPSILON 1e-6
 typedef struct _s_vector
 {
     double x;

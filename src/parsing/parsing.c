@@ -6,7 +6,7 @@
 /*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/15 21:09:07 by sessarhi          #+#    #+#             */
-/*   Updated: 2025/01/09 20:23:22 by sessarhi         ###   ########.fr       */
+/*   Updated: 2025/01/10 17:09:28 by sessarhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,6 @@ int process_C(char **inf , t_tscene *t_scene)
     t_scene->camera.direction.x > 1 || t_scene->camera.direction.y < -1 || t_scene->camera.direction.y > 1 || 
     t_scene->camera.direction.z < -1 || t_scene->camera.direction.z > 1)
         return (1);
-        
     t_scene->is_c_set = true;
     return (0);
 }
