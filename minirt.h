@@ -6,7 +6,7 @@
 /*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 19:16:40 by sessarhi          #+#    #+#             */
-/*   Updated: 2025/01/11 17:25:03 by sessarhi         ###   ########.fr       */
+/*   Updated: 2025/01/11 20:47:35 by sessarhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,4 +34,10 @@ bool plane_intersection(t_scene *scene, t_intersection *intersection, t_ray *ray
 bool sphere_intersection(t_scene *scene , t_intersection *intersection , t_ray *ray);
 bool cylinder_intersection(t_scene *scene, t_intersection *intersection, t_ray *ray);
 FLOAT hit_plane(t_vector *point, t_vector *normal, t_ray *ray);
+int process_L(char **inf , t_tscene *t_scene);
+int process_C(char **inf , t_tscene *t_scene);
+int process_A(char **inf , t_tscene *tscene);
+int process_sp(char **inf ,t_tscene *t_scene);
+int process_pl(char **inf , t_tscene *t_scene);
+int process_cy(char **inf , t_tscene *t_scene);
 #endif

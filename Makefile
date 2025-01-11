@@ -9,8 +9,8 @@ SRC = minirt.c \
 	./mand/src/memory/arena_alloc.c ./mand/src/memory/arena_create.c ./mand/src/memory/arena_manage.c \
 	./mand/src/math/math.c ./mand/src/rendering/render.c ./mand/src/coloring/coloring.c\
 	./mand/src/utils/ft_atoi.c ./mand/src/utils/ft_strcmp.c ./mand/src/rendering/ray_sphere.c ./mand/src/rendering/ray_plane.c \
-	./mand/src/rendering/ray_cylinder.c
-	
+	./mand/src/rendering/ray_cylinder.c ./mand/src/parsing/env_obj.c ./mand/src/parsing/scene_obj.c
+
 OBJ = $(SRC:.c=.o)
 
 RM = rm -rf
