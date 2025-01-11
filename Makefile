@@ -3,13 +3,13 @@ CC = cc
 CFLAGS = -std=c23 -o3 #-Wall -Wextra -Werror  # Uncommented this for standard warning flags
 
 SRC = minirt.c \
-	./src/parsing/parce_rgb.c ./src/parsing/parse_crd.c ./src/parsing/parsing.c \
-	./src/utils/ft_atof.c ./src/utils/ft_split.c ./src/utils/Rgb_cnv.c \
-	./src/tmputils/cy_utils.c ./src/tmputils/pl_utils.c ./src/tmputils/sp_utils.c \
-	./src/memory/arena_alloc.c ./src/memory/arena_create.c ./src/memory/arena_manage.c \
-	./src/math/math.c ./src/rendering/render.c ./src/coloring/coloring.c\
-	./src/utils/ft_atoi.c ./src/utils/ft_strcmp.c ./src/rendering/ray_sphere.c ./src/rendering/ray_plane.c \
-	./src/rendering/ray_cylinder.c
+	./mand/src/parsing/parce_rgb.c ./mand/src/parsing/parse_crd.c ./mand/src/parsing/parsing.c \
+	./mand/src/utils/ft_atof.c ./mand/src/utils/ft_split.c ./mand/src/utils/Rgb_cnv.c \
+	./mand/src/tmputils/cy_utils.c ./mand/src/tmputils/pl_utils.c ./mand/src/tmputils/sp_utils.c \
+	./mand/src/memory/arena_alloc.c ./mand/src/memory/arena_create.c ./mand/src/memory/arena_manage.c \
+	./mand/src/math/math.c ./mand/src/rendering/render.c ./mand/src/coloring/coloring.c\
+	./mand/src/utils/ft_atoi.c ./mand/src/utils/ft_strcmp.c ./mand/src/rendering/ray_sphere.c ./mand/src/rendering/ray_plane.c \
+	./mand/src/rendering/ray_cylinder.c
 	
 OBJ = $(SRC:.c=.o)
 
