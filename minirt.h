@@ -6,7 +6,7 @@
 /*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 19:16:40 by sessarhi          #+#    #+#             */
-/*   Updated: 2025/01/10 17:08:12 by sessarhi         ###   ########.fr       */
+/*   Updated: 2025/01/10 17:15:15 by sessarhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,8 @@
 #include "./includes/color.h"
 #include "./includes/includes.h"
 
-// Parsing
 bool  parse_crd(const char *str, t_vector *vector);
 bool	parse_rgb(const char *str ,t_color *color);
-
-
-// Utils
 char    **ft_split(char const *s, char c);
 FLOAT	ft_atof(const char *str);
 int	Rgb_value(const char *str);

@@ -6,7 +6,7 @@
 /*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/24 17:44:32 by sessarhi          #+#    #+#             */
-/*   Updated: 2025/01/10 17:10:54 by sessarhi         ###   ########.fr       */
+/*   Updated: 2025/01/11 13:22:19 by sessarhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,9 @@ int pixel_color(t_scene *scene , t_intersection *intersection, t_ray *ray)
     diffuse = color_scale(&scene->light.color, scene->light.bratio * diff);
     final_color = color_add(&ambient, &diffuse);
     final_color = color_mul(&final_color, &intersection->color);
+    final_color.r = fmin(final_color.r, 1.0);
+    final_color.g = fmin(final_color.g, 1.0);
+    final_color.b = fmin(final_color.b, 1.0);
     return (colorToRgb(&final_color));
 }
 int trace_ray(t_ray *ray, t_scene *scene)
