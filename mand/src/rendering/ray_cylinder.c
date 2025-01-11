@@ -6,7 +6,7 @@
 /*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/10 17:02:06 by sessarhi          #+#    #+#             */
-/*   Updated: 2025/01/11 17:31:23 by sessarhi         ###   ########.fr       */
+/*   Updated: 2025/01/11 21:26:32 by sessarhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@ FLOAT hit_cylinder(t_intersection *intersection, t_ray *ray, t_cylinder *cylinde
     FLOAT t;
     t_vector proj;
     t_vector tmp;
+
+    cylinder->direction = vector_normalize(&cylinder->direction);
     oc = vector_sub(&ray->origin, &cylinder->position);
     a = vector_dot(&ray->direction, &ray->direction) - 
         pow(vector_dot(&ray->direction, &cylinder->direction), 2);
@@ -51,6 +53,7 @@ FLOAT hit_cylinder(t_intersection *intersection, t_ray *ray, t_cylinder *cylinde
         proj = vector_sub(&cp, &proj);
         intersection->normal = vector_normalize(&proj);
         intersection->color = cylinder->color;
+        intersection->point = point;
         return (t);
     }
     t = hit_plane(&cylinder->position, &cylinder->direction, ray);
@@ -65,6 +68,7 @@ FLOAT hit_cylinder(t_intersection *intersection, t_ray *ray, t_cylinder *cylinde
         {
             intersection->normal = cylinder->direction;
             intersection->color = cylinder->color;
+            intersection->point = point;
             return (t);
         }
     }
@@ -82,6 +86,7 @@ FLOAT hit_cylinder(t_intersection *intersection, t_ray *ray, t_cylinder *cylinde
         {
             intersection->normal = vector_scale(&cylinder->direction, -1);
             intersection->color = cylinder->color;
+            intersection->point = point;
             return (t);
         }
     }
@@ -104,7 +109,7 @@ bool cylinder_intersection(t_scene *scene, t_intersection *intersection, t_ray *
             intersection->distance = t;
             //(sessarhi note) the following three lines can be moved out f the loop for optimization
             intersection->color = scene->cylinder[i].color;
-            // intersection->normal = vector_normalize(&intersection->normal);
+            intersection->normal = vector_normalize(&intersection->normal);
         }
     }
     return (intersection->hit);
