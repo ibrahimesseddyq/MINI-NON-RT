@@ -6,7 +6,7 @@
 /*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/10 17:02:02 by sessarhi          #+#    #+#             */
-/*   Updated: 2025/01/11 17:31:28 by sessarhi         ###   ########.fr       */
+/*   Updated: 2025/01/12 14:17:09 by sessarhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ bool plane_intersection(t_scene *scene, t_intersection *intersection, t_ray *ray
             intersection->distance = t;
             //(sessarhi note) the following three lines can be moved out f the loop for optimization
             intersection->color = scene->plane[i].color;
-            intersection->normal = scene->plane[i].direction;
+            intersection->normal = vector_normalize(&scene->plane[i].direction);
             tmp = vector_scale(&ray->direction, t);
             intersection->point = vector_add(&ray->origin, &tmp);
         }
