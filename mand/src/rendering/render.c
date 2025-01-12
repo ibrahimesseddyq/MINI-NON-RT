@@ -6,7 +6,7 @@
 /*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/24 17:44:32 by sessarhi          #+#    #+#             */
-/*   Updated: 2025/01/12 14:37:23 by sessarhi         ###   ########.fr       */
+/*   Updated: 2025/01/12 15:40:01 by sessarhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,6 +140,21 @@ void draw(t_scene *scene)
     mlx_put_image_to_window(scene->mlx, scene->win, scene->img.img, 0, 0);
 }
 
+int key_hook(int keycode, t_scene *scene)
+{
+    if (keycode == 65307)
+    {
+        mlx_destroy_window(scene->mlx, scene->win);
+        exit(0);
+    }
+    return (0);
+}
+int hook(t_scene *scene)
+{
+    mlx_destroy_window(scene->mlx, scene->win);
+    exit(0);
+    return (0);
+}
 void render(t_scene *scene)
 {
     struct timeval start, end;
@@ -156,5 +171,7 @@ void render(t_scene *scene)
     time_taken = (end.tv_sec - start.tv_sec) * 1e6;
     time_taken = (time_taken + (end.tv_usec - start.tv_usec)) * 1e-6;
     printf("Render time: %.6f seconds\n", time_taken);
+    mlx_key_hook(scene->win, key_hook, scene);
+    mlx_hook(scene->win, 17, 0, hook, scene);
     mlx_loop(scene->mlx);
 }
