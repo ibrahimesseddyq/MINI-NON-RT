@@ -1,24 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minirt.c                                           :+:      :+:    :+:   */
+/*   includes.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/17 13:41:03 by sessarhi          #+#    #+#             */
-/*   Updated: 2024/12/26 21:36:14 by sessarhi         ###   ########.fr       */
+/*   Created: 2025/01/01 15:29:51 by sessarhi          #+#    #+#             */
+/*   Updated: 2025/01/01 15:32:41 by sessarhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minirt.h"
+#ifndef INCLUDES_H
+# define INCLUDES_H
 
-int main(int ac , char **av)
-{
-    t_scene scene;
-    setup_arena();
-    if (ac != 2)
-        return (printf("Error bad arguments\n"));
-    process_flie(av , &scene);
-    render(&scene);
-    return 0;
-}
+
+# include <stdio.h>
+# include <unistd.h>
+# include <limits.h>
+# include <fcntl.h>
+#include <string.h>
+#include <sys/time.h> 
+#include <stddef.h>
+#include <stdint.h>
+#include <stdbool.h>
+#include <stdlib.h>
+#include <math.h>
+#include "./../MLX/mlx.h"
+
+
+
+#endif

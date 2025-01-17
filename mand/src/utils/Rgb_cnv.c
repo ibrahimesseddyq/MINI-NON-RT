@@ -1,24 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minirt.c                                           :+:      :+:    :+:   */
+/*   Rgb_cnv.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/17 13:41:03 by sessarhi          #+#    #+#             */
-/*   Updated: 2024/12/26 21:36:14 by sessarhi         ###   ########.fr       */
+/*   Created: 2024/12/14 16:42:01 by sessarhi          #+#    #+#             */
+/*   Updated: 2025/01/11 17:32:30 by sessarhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minirt.h"
+#include "./../../../minirt.h"
 
-int main(int ac , char **av)
+int	Rgb_value(const char *str)
 {
-    t_scene scene;
-    setup_arena();
-    if (ac != 2)
-        return (printf("Error bad arguments\n"));
-    process_flie(av , &scene);
-    render(&scene);
-    return 0;
+	register  int	nb;
+
+	nb = 0;
+	while (*str >= 48 && *str <= 57 && nb <= 255)
+		nb = (nb * 10) + (*str++ - 48);
+	if(nb > 255 || *str)
+		return (-1);
+    return (nb);
 }

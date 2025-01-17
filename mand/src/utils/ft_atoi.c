@@ -1,24 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minirt.c                                           :+:      :+:    :+:   */
+/*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/17 13:41:03 by sessarhi          #+#    #+#             */
-/*   Updated: 2024/12/26 21:36:14 by sessarhi         ###   ########.fr       */
+/*   Created: 2024/12/29 14:10:28 by sessarhi          #+#    #+#             */
+/*   Updated: 2025/01/09 20:14:03 by sessarhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minirt.h"
+#define MAX 922337203685477580
 
-int main(int ac , char **av)
+int	ft_atoi(const char *str)
 {
-    t_scene scene;
-    setup_arena();
-    if (ac != 2)
-        return (printf("Error bad arguments\n"));
-    process_flie(av , &scene);
-    render(&scene);
-    return 0;
+	long long	nb;
+	long	s;
+
+	nb = 0;
+	s = 1;
+	while ((*str == 32) || ((*str >= 9) && (*str <= 13)))
+		str++;
+	if ((*str == 45) || (*str == 43))
+		s = 44 - *str++;
+	while (*str >= 48 && *str <= 57)
+	{
+		if ((nb > MAX) || ((nb == MAX) && ((*str - 48) >= 8)))
+			return (-0.5 * (s + 1));
+		nb = (nb * 10) + (*str++ - 48);
+	}
+	return (s * nb);
 }
