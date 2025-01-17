@@ -13,6 +13,25 @@
 
 #ifndef OBJECTS_H
 # define OBJECTS_H
+# define ALT_KEY 65513
+# define LEFT_ROW_KEY 65361
+# define RIGHT_ROW_KEY 65363
+# define UPPER_ROW_KEY 65362
+# define DOWN_ROW_KEY 65364
+# define ESC_KEY 65307
+# define R_KEY 114
+# define KEY_1 65436
+# define KEY_2 65433
+# define KEY_3 65435
+# define KEY_4 65430
+# define KEY_5 65437
+# define KEY_6 65432
+# define KEY_7 65429
+# define KEY_8 65431
+# define KEY_9 65434
+# define KEY_X 120
+# define KEY_Y 121
+# define KEY_Z 119
 
 #include "defined.h"
 #include "includes.h"
@@ -24,26 +43,26 @@ typedef struct s_color
     FLOAT r;
     FLOAT g;
     FLOAT b;
-}t_color;
+}   t_color;
 typedef struct s_ambient
 {
     FLOAT ratio;
     t_color color;
-} t_ambient;
+}   t_ambient;
 
 typedef struct s_camera
 {
     t_point position;
     t_vector direction;
     int   fov;
-} t_camera;
+}   t_camera;
 
 typedef struct s_light
 {
     t_point position;
     FLOAT bratio;
     t_color color;
-} t_light;
+}   t_light;
 
 typedef struct s_sphere
 {
@@ -51,7 +70,7 @@ typedef struct s_sphere
     FLOAT diameter;
     t_color color;
     int id;
-} t_sphere;
+}   t_sphere;
 
 typedef struct s_plane
 {
