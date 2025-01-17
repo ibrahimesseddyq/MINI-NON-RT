@@ -71,8 +71,8 @@ int pixel_color(t_scene *scene , t_intersection *intersection, t_ray *ray)
     shadow_ray.origin = intersection->point;
     shadow_ray.direction = vector_sub(&scene->light.position, &intersection->point);
     shadow_ray.direction = vector_normalize(&shadow_ray.direction);
-    // if (check_shadow(scene, &shadow_ray, intersection))
-    //     return 0x000000;
+    if (check_shadow(scene, &shadow_ray, intersection))
+        return 0x000000;
     ambient = color_scale(&scene->ambient.color, scene->ambient.ratio);
     light_dir = vector_sub(&scene->light.position, &intersection->point);
     light_dir = vector_normalize(&light_dir);
@@ -142,11 +142,7 @@ void draw(t_scene *scene)
 
 int key_hook(int keycode, t_scene *scene)
 {
-    if (keycode == 65307)
-    {
-        mlx_destroy_window(scene->mlx, scene->win);
-        exit(0);
-    }
+
     return (0);
 }
 int hook(t_scene *scene)
@@ -155,6 +151,246 @@ int hook(t_scene *scene)
     exit(0);
     return (0);
 }
+char get_ascii(int key)
+{
+    if (key == KEY_1)
+        return '1';
+    else if (key == KEY_2)
+        return '2';
+    else if (key == KEY_3)
+        return '3';
+    else if (key == KEY_4)
+        return '4';
+    else if (key == KEY_5)
+        return '5';
+    else if (key == KEY_6)
+        return '6';
+    else if (key == KEY_7)
+        return '7';
+    else if (key == KEY_8)
+        return '8';
+    else if (key == KEY_9)
+        return '9';
+    else
+        return '\0'; // Return a null character if no match is found.
+
+}
+int my_atoi(int *keys, int start)
+{
+    int i;
+    char array[9] = {0};
+    int array_index = 0;
+
+    i = start; 
+    while (i < 8)
+    {
+        char ascii = get_ascii(keys[i]);
+        if (ascii == '\0')
+            break;     
+        array[array_index++] = ascii;
+        i++;
+    }
+    array[array_index] = '\0';
+    printf("atoi [%d]\n", array);
+    return ft_atoi(array);
+}
+
+void rotate_point(t_point *p, t_vector axis, FLOAT angle)
+{
+    FLOAT cos_angle = cos(angle);
+    FLOAT sin_angle = sin(angle);
+    FLOAT dot = axis.x * p->x + axis.y * p->y + axis.z * p->z;
+    t_point temp;
+
+    temp.x = (cos_angle + (1 - cos_angle) * axis.x * axis.x) * p->x +
+             ((1 - cos_angle) * axis.x * axis.y - axis.z * sin_angle) * p->y +
+             ((1 - cos_angle) * axis.x * axis.z + axis.y * sin_angle) * p->z;
+
+    temp.y = ((1 - cos_angle) * axis.y * axis.x + axis.z * sin_angle) * p->x +
+             (cos_angle + (1 - cos_angle) * axis.y * axis.y) * p->y +
+             ((1 - cos_angle) * axis.y * axis.z - axis.x * sin_angle) * p->z;
+
+    temp.z = ((1 - cos_angle) * axis.z * axis.x - axis.y * sin_angle) * p->x +
+             ((1 - cos_angle) * axis.z * axis.y + axis.x * sin_angle) * p->y +
+             (cos_angle + (1 - cos_angle) * axis.z * axis.z) * p->z;
+
+    p->x = temp.x;
+    p->y = temp.y;
+    p->z = temp.z;
+}
+void rotate(int *keys, t_scene *scene)
+{
+    int obj_id = my_atoi(keys, 2);
+    printf("obj_id: [%d]\n", obj_id);
+    if (obj_id == -1) 
+        return;
+
+    for (int i = 0; i < scene->cylinder_count; i++)
+    {
+        printf("cylinder id [%d]\n", scene->cylinder[i].id);
+        if (scene->cylinder[i].id == obj_id)
+        {
+            // Assuming keys[1] holds the rotation axis (X, Y, or Z)
+            t_vector axis = {0, 0, 0};  // Default (Z axis)
+            FLOAT angle = M_PI / 4;     // Default rotation angle (45 degrees)
+
+            if (keys[1] == KEY_X)
+            {
+                axis.x = 1;
+            }
+            else if (keys[1] == KEY_Y)
+            {
+                axis.y = 1;
+            }
+            else if (keys[1] == KEY_Z)
+            {
+                axis.z = 1;
+            }
+
+            rotate_point(&scene->cylinder[i].position, axis, angle);
+            rotate_point((t_point *)&scene->cylinder[i].direction, axis, angle);
+            return ; 
+        }
+    }
+}
+void move_cylinder(int *keys, t_cylinder *cylinder)
+{
+    if (keys[0] == LEFT_ROW_KEY)
+    {
+        cylinder->position.x--;
+    }
+    else if (keys[0] == RIGHT_ROW_KEY)
+    {
+        cylinder->position.x++;
+    }
+    else if (keys[0] == UPPER_ROW_KEY)
+    {
+        cylinder->position.y++;
+    }
+    else if (keys[0] == DOWN_ROW_KEY)
+    {
+        cylinder->position.y--;
+    }
+}
+
+void move_plane(int *keys, t_plane *plane)
+{
+    if (keys[0] == LEFT_ROW_KEY)
+    {
+        plane->position.x--;
+    }
+    else if (keys[0] == RIGHT_ROW_KEY)
+    {
+        plane->position.x++;
+    }
+    else if (keys[0] == UPPER_ROW_KEY)
+    {
+        plane->position.y++;
+    }
+    else if (keys[0] == DOWN_ROW_KEY)
+    {
+        plane->position.y--;
+    }
+}
+
+void move_sphere(int *keys, t_sphere *sphere)
+{
+    if (keys[0] == LEFT_ROW_KEY)
+    {
+        sphere->position.x--;
+    }
+    else if (keys[0] == RIGHT_ROW_KEY)
+    {
+        sphere->position.x++;
+    }
+    else if (keys[0] == UPPER_ROW_KEY)
+    {
+        sphere->position.y++;
+    }
+    else if (keys[0] == DOWN_ROW_KEY)
+    {
+        sphere->position.y--;
+    }
+}
+
+void translate(int *keys, t_scene *scene)
+{
+    int obj_id = my_atoi(keys, 1);
+                     printf("obj_id: [%d]\n", obj_id);
+
+    if (obj_id == -1) 
+        return;
+
+    for (int i = 0; i < scene->sphere_count; i++)
+    {
+        if (scene->sphere[i].id == obj_id)
+        {
+            move_sphere(keys, &scene->sphere[i]);
+            return; 
+        }
+    }
+    for (int i = 0; i < scene->cylinder_count; i++)
+    {
+        if (scene->cylinder[i].id == obj_id)
+        {
+            move_cylinder(keys, &scene->cylinder[i]);
+            return; 
+        }
+    }
+    for (int i = 0; i < scene->plane_count; i++)
+    {
+        if (scene->plane[i].id == obj_id)
+        {
+            move_plane(keys, &scene->plane[i]);
+            return; 
+        }
+    }
+}
+
+int transformation(int keycode, t_scene *scene)
+{
+    static int keys[10] = {0};
+    static int cursor = 0;
+
+    printf("hi\n");
+    if (cursor < 10) 
+        keys[cursor++] = keycode;
+
+    if (keycode == ALT_KEY)
+    {
+        printf("ALT_KEY\n");
+        for(int i = 0;i < 10; i++)
+        {
+            printf("key [%d]\n",keys[i]);
+        }
+        if (keys[0] == LEFT_ROW_KEY || keys[0] == UPPER_ROW_KEY ||
+            keys[0] == RIGHT_ROW_KEY || keys[0] == DOWN_ROW_KEY)
+        {
+                    printf("Translate\n");
+
+            translate(keys, scene);
+        }
+        else if (keys[0] == R_KEY)
+        {
+            rotate(keys, scene);
+        }
+        cursor = 0;
+        for(int i = 0;i < 10; i++)
+        {
+            keys[i] = 0;
+        }
+    }
+
+    if (keycode == ESC_KEY)
+    {
+        mlx_destroy_window(scene->mlx, scene->win);
+        exit(0);
+    }
+
+    draw(scene);
+    return 0;
+}
+
 void render(t_scene *scene)
 {
     struct timeval start, end;
@@ -172,6 +408,7 @@ void render(t_scene *scene)
     time_taken = (time_taken + (end.tv_usec - start.tv_usec)) * 1e-6;
     printf("Render time: %.6f seconds\n", time_taken);
     mlx_key_hook(scene->win, key_hook, scene);
+    mlx_key_hook(scene->win, transformation, scene);
     mlx_hook(scene->win, 17, 0, hook, scene);
     mlx_loop(scene->mlx);
 }
