@@ -6,7 +6,7 @@
 /*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/10 17:02:06 by sessarhi          #+#    #+#             */
-/*   Updated: 2025/01/11 21:26:32 by sessarhi         ###   ########.fr       */
+/*   Updated: 2025/01/17 15:40:38 by sessarhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,6 @@ FLOAT hit_cylinder(t_intersection *intersection, t_ray *ray, t_cylinder *cylinde
     FLOAT t;
     t_vector proj;
     t_vector tmp;
-
-    cylinder->direction = vector_normalize(&cylinder->direction);
     oc = vector_sub(&ray->origin, &cylinder->position);
     a = vector_dot(&ray->direction, &ray->direction) - 
         pow(vector_dot(&ray->direction, &cylinder->direction), 2);
@@ -47,12 +45,11 @@ FLOAT hit_cylinder(t_intersection *intersection, t_ray *ray, t_cylinder *cylinde
     t_vector point = vector_add(&ray->origin, &scl);
     t_vector cp = vector_sub(&point, &cylinder->position);
     FLOAT height = vector_dot(&cp, &cylinder->direction);
-    if (height >= 0 && height <= cylinder->height)
+    if (height > 0 && height < cylinder->height)
     {
         proj = vector_scale(&cylinder->direction, height);
         proj = vector_sub(&cp, &proj);
         intersection->normal = vector_normalize(&proj);
-        intersection->color = cylinder->color;
         intersection->point = point;
         return (t);
     }
@@ -67,7 +64,6 @@ FLOAT hit_cylinder(t_intersection *intersection, t_ray *ray, t_cylinder *cylinde
         if (vector_length(&radial_vector) <= cylinder->diameter/2.0)
         {
             intersection->normal = cylinder->direction;
-            intersection->color = cylinder->color;
             intersection->point = point;
             return (t);
         }
@@ -85,7 +81,6 @@ FLOAT hit_cylinder(t_intersection *intersection, t_ray *ray, t_cylinder *cylinde
         if (vector_length(&radial_vector) <= cylinder->diameter/2.0)
         {
             intersection->normal = vector_scale(&cylinder->direction, -1);
-            intersection->color = cylinder->color;
             intersection->point = point;
             return (t);
         }
