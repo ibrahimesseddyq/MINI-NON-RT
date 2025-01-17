@@ -6,7 +6,7 @@
 /*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/15 21:09:07 by sessarhi          #+#    #+#             */
-/*   Updated: 2025/01/11 18:15:30 by sessarhi         ###   ########.fr       */
+/*   Updated: 2025/01/17 15:29:57 by sessarhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,6 @@ void int_tsceen(t_tscene *tscene)
 void copy_tscene(t_tscene *tscene, t_scene *scene)
 {
     scene->ambient = tscene->ambient;
-
     scene->camera = tscene->camera;
     scene->light = tscene->light;
     scene->cylinder = arena_alloc(*get_arena(), sizeof(t_cylinder) * tscene->cylinder_size);
@@ -96,9 +95,6 @@ void copy_tscene(t_tscene *tscene, t_scene *scene)
     scene->sphere_count = tscene->sphere_size;
     scene->viewport_dist = 1.0;
     int id = 0;
-    t_tsphere *sphere;
-    t_tplane *plane;
-    t_tcylinder *cylinder;
     int i = 0;
     while (tscene->plane)
     {
@@ -124,7 +120,7 @@ void copy_tscene(t_tscene *tscene, t_scene *scene)
     while (tscene->cylinder)
     {
         scene->cylinder[i].position = tscene->cylinder->position;
-        scene->cylinder[i].direction = tscene->cylinder->direction;
+        scene->cylinder[i].direction = vector_normalize(&tscene->cylinder->direction);
         scene->cylinder[i].diameter = tscene->cylinder->diameter;
         scene->cylinder[i].height = tscene->cylinder->height;
         scene->cylinder[i].color = tscene->cylinder->color;
