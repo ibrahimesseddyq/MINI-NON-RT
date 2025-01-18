@@ -57,6 +57,16 @@ bool check_shadow(t_scene *scene, t_ray *ray,t_intersection *intersection)
         shadow_intersection.distance < d)
             return (true);
     }
+
+    shadow_intersection.distance = INFINITY;
+    i = scene->cone_count;
+    while(i--)
+    {
+        if (cone_intersection(scene, &shadow_intersection, ray) && 
+        shadow_intersection.id != intersection->id && 
+        shadow_intersection.distance < d)
+            return (true);
+    }
     return (false);
 }
 int pixel_color(t_scene *scene , t_intersection *intersection, t_ray *ray)
@@ -94,6 +104,7 @@ int trace_ray(t_ray *ray, t_scene *scene)
     intersection.hit = sphere_intersection(scene, &intersection, ray);
     intersection.hit = cylinder_intersection(scene, &intersection, ray);
     intersection.hit = plane_intersection(scene, &intersection, ray);
+    intersection.hit = cone_intersection(scene, &intersection, ray);
     if (intersection.hit == true)
         return (pixel_color(scene, &intersection, ray));
     return 0x000000;

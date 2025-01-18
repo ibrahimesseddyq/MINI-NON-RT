@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "./../../../minirt.h"
+void cone_add_front(t_tcone **head, t_tcone *new);
 
 int process_sp(char **inf ,t_tscene *t_scene)
 {
@@ -61,5 +62,21 @@ int process_cy(char **inf , t_tscene *t_scene)
         return (1);
     cylinder_add_front(&t_scene->cylinder, new);
     t_scene->cylinder_size++;
+    return (0);
+}
+
+int process_co(char **inf , t_tscene *t_scene)
+{
+    t_tcone *new;
+
+    new = new_cone();
+    new->angle = ft_atof(inf[3]);
+    new->height = ft_atof(inf[4]);
+    if (!parse_crd(inf[1], &new->vertex) || !parse_crd(inf[2], &new->axis)
+        || !parse_rgb(inf[5], &new->color) ||
+      new->angle == (float)INT_MIN || new->height == (float)INT_MIN)
+      return (1);
+    cone_add_front(&t_scene->cone, new);
+    t_scene->cone_size++;
     return (0);
 }
