@@ -10,6 +10,7 @@ t_vector point_to_vector(t_point *point)
 }
 FLOAT hit_cone(t_point *vertex, t_vector *axis, double angle, t_ray *ray)
 {
+
     t_vector oc = vector_sub(&ray->origin, vertex);
     double cos2 = cos(angle) * cos(angle);
     double sin2 = sin(angle) * sin(angle);
@@ -55,7 +56,9 @@ bool cone_intersection(t_scene *scene, t_intersection *intersection, t_ray *ray)
     i = scene->cone_count;
     while (i--)
     {
+
         t = hit_cone(&scene->cone[i].vertex, &scene->cone[i].axis, scene->cone[i].angle, ray);
+
         if (t > 0 && t < intersection->distance)
         {
             intersection->hit = true;
@@ -73,5 +76,6 @@ bool cone_intersection(t_scene *scene, t_intersection *intersection, t_ray *ray)
             intersection->normal = vector_normalize(&subs_vec);
         }
     }
+
     return (intersection->hit);
 }

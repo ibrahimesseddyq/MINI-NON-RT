@@ -65,7 +65,10 @@ bool check_shadow(t_scene *scene, t_ray *ray,t_intersection *intersection)
         if (cone_intersection(scene, &shadow_intersection, ray) && 
         shadow_intersection.id != intersection->id&& 
         shadow_intersection.distance < d)
+        {
+            printf("hitted\n");
             return (true);
+        }
     }
     return (false);
 }
