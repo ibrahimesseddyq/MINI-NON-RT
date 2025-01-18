@@ -27,5 +27,6 @@ t_tcone* new_cone()
     cone->color.r = 0;
     cone->color.g = 0;
     cone->color.b = 0;
+    cone->next = NULL;
     return (cone);
 }

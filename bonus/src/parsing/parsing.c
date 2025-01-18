@@ -197,6 +197,7 @@ void copy_tscene(t_tscene *tscene, t_scene *scene)
     scene->cylinder_count = tscene->cylinder_size;
     scene->plane_count = tscene->plane_size;
     scene->sphere_count = tscene->sphere_size;
+    scene->cone_count = tscene->cone_size;
     scene->viewport_dist = 1.0;
     int id = 0;
     t_tsphere *sphere;

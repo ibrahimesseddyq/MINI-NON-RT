@@ -41,6 +41,7 @@ void splil_line(const char *line , t_tscene *tscene)
         else 
             return (printf("Error \n"),exit(1));
     }
+    printf("cylinder position [%f]\n", tscene->cone->vertex.z);
     printf("OK\n");
 }
 
@@ -51,6 +52,8 @@ void int_tsceen(t_tscene *tscene)
     tscene->sphere = NULL;
     tscene->plane_size = 0;
     tscene->cylinder_size = 0;
+    tscene->cone_size = 0;
+
     tscene->sphere_size = 0;
     tscene->is_c_set = false;
     tscene->is_l_set = false;
@@ -93,14 +96,20 @@ void copy_tscene(t_tscene *tscene, t_scene *scene)
     scene->cylinder = arena_alloc(*get_arena(), sizeof(t_cylinder) * tscene->cylinder_size);
     scene->plane = arena_alloc(*get_arena(), sizeof(t_plane) * tscene->plane_size);
     scene->sphere = arena_alloc(*get_arena(), sizeof(t_sphere) * tscene->sphere_size);
+    printf("cone size [%d]\n", tscene->cone_size);
+    scene->cone = arena_alloc(*get_arena(), sizeof(t_cone) * tscene->cone_size);
+
     scene->cylinder_count = tscene->cylinder_size;
     scene->plane_count = tscene->plane_size;
     scene->sphere_count = tscene->sphere_size;
+    scene->cone_count = tscene->cone_size;
     scene->viewport_dist = 1.0;
     int id = 0;
     int i = 0;
     while (tscene->plane)
     {
+                printf("hi2\n");
+
         scene->plane[i].position = tscene->plane->position;
         scene->plane[i].direction = tscene->plane->direction;
         scene->plane[i].color = tscene->plane->color;
@@ -111,6 +120,8 @@ void copy_tscene(t_tscene *tscene, t_scene *scene)
     i = 0;
     while (tscene->sphere)
     {
+                        printf("hi5\n");
+
         scene->sphere[i].position = tscene->sphere->position;
         scene->sphere[i].diameter = tscene->sphere->diameter;
         scene->sphere[i].color = tscene->sphere->color;
@@ -129,6 +140,22 @@ void copy_tscene(t_tscene *tscene, t_scene *scene)
         scene->cylinder[i].color = tscene->cylinder->color;
         scene->cylinder[i].id = id++;
         tscene->cylinder = tscene->cylinder->next;
+        i++;
+    }
+
+    i = 0;
+    while (i < scene->cone_count )
+    {
+        printf("hi3\n");
+        scene->cone[i].vertex = tscene->cone->vertex;
+        scene->cone[i].axis = tscene->cone->axis;
+
+        scene->cone[i].angle = tscene->cone->angle;
+
+        scene->cone[i].height = tscene->cone->height;
+        scene->cone[i].color = tscene->cone->color;
+        scene->cone[i].id = id++;
+        tscene->cone = tscene->cone->next;
         i++;
     }
 }
