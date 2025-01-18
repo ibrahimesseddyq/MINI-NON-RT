@@ -42,6 +42,16 @@ typedef struct s_tcylinder
     struct s_tcylinder *next;
 }__attribute__((aligned(sizeof(FLOAT)))) t_tcylinder;
 
+typedef struct s_tcone
+{
+    t_point vertex;
+    t_vector axis;
+    FLOAT angle;
+    FLOAT height;
+    t_color color;
+    int id;
+    struct s_tcone *next;
+} t_tcone;
 typedef struct s_tsceen
 {
     t_camera camera;
@@ -53,6 +63,8 @@ typedef struct s_tsceen
     int plane_size;
     int cylinder_size;
     int sphere_size;
+    int cone_size;
+    t_tcone *cone;
     bool is_c_set;
     bool is_l_set;
     bool is_a_set;
@@ -61,6 +73,8 @@ typedef struct s_tsceen
 t_tsphere *new_sphere(void);
 t_tcylinder *new_cylinder(void);
 t_tplane *new_plane(void);
+t_tcone *new_cone(void);
+
 void  cylinder_add_front(t_tcylinder **cylinder, t_tcylinder *new);
 void  plane_add_front(t_tplane **plane, t_tplane *new);
 void  sphere_add_front(t_tsphere **sphere, t_tsphere *new);

@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "./../../../minirt.h"
+bool cone_intersection(t_scene *scene, t_intersection *intersection, t_ray *ray);
 
 void my_mlx_pixel_put(t_data *img, int x, int y, int color)
 {
@@ -57,6 +58,15 @@ bool check_shadow(t_scene *scene, t_ray *ray,t_intersection *intersection)
         shadow_intersection.distance < d)
             return (true);
     }
+    shadow_intersection.distance = INFINITY;
+    i = scene->cone_count;
+    while(i--)
+    {
+        if (cone_intersection(scene, &shadow_intersection, ray) && 
+        shadow_intersection.id != intersection->id&& 
+        shadow_intersection.distance < d)
+            return (true);
+    }
     return (false);
 }
 int pixel_color(t_scene *scene , t_intersection *intersection, t_ray *ray)
@@ -94,6 +104,8 @@ int trace_ray(t_ray *ray, t_scene *scene)
     intersection.hit = sphere_intersection(scene, &intersection, ray);
     intersection.hit = cylinder_intersection(scene, &intersection, ray);
     intersection.hit = plane_intersection(scene, &intersection, ray);
+    intersection.hit = cone_intersection(scene, &intersection, ray);
+
     if (intersection.hit == true)
         return (pixel_color(scene, &intersection, ray));
     return 0x000000;
@@ -218,6 +230,45 @@ void rotate_point(t_point *p, t_vector axis, FLOAT angle)
     p->y = temp.y;
     p->z = temp.z;
 }
+void resize(int *keys, t_scene *scene)
+{
+    int obj_id = my_atoi(keys, 2);
+    FLOAT ratio;
+
+    if (keys[1] == KEY_PLUS)
+        ratio = 1.1;
+    else if (keys[1] == KEY_MINUS)
+        ratio = 0.9;
+
+    printf("obj_id: [%d]\n", obj_id);
+    if (obj_id == -1) 
+        return;
+    for( int i = 0; i < scene->sphere_count; i++)
+    {
+        if (scene->sphere[i].id == obj_id)
+        {
+            scene->sphere[i].diameter *= ratio;
+        }
+    }
+    for (int i = 0; i < scene->cylinder_count; i++)
+    {
+        if (scene->cylinder[i].id == obj_id)
+        {
+            scene->cylinder[i].height *= ratio;
+            scene->cylinder[i].diameter *= ratio;
+        }
+    }
+    for (int i = 0; i < scene->plane_count; i++)
+    {
+        if (scene->plane[i].id == obj_id)
+        {
+            scene->plane[i].direction.x *= ratio;
+            scene->plane[i].direction.y *= ratio;
+            scene->plane[i].direction.z *= ratio;
+
+        }
+    }
+}
 void rotate(int *keys, t_scene *scene)
 {
     int obj_id = my_atoi(keys, 2);
@@ -230,25 +281,38 @@ void rotate(int *keys, t_scene *scene)
         printf("cylinder id [%d]\n", scene->cylinder[i].id);
         if (scene->cylinder[i].id == obj_id)
         {
-            // Assuming keys[1] holds the rotation axis (X, Y, or Z)
-            t_vector axis = {0, 0, 0};  // Default (Z axis)
-            FLOAT angle = M_PI / 4;     // Default rotation angle (45 degrees)
+            t_vector axis = {0, 0, 0};
+            FLOAT angle = M_PI / 4;
 
             if (keys[1] == KEY_X)
-            {
                 axis.x = 1;
-            }
             else if (keys[1] == KEY_Y)
-            {
                 axis.y = 1;
-            }
             else if (keys[1] == KEY_Z)
-            {
                 axis.z = 1;
-            }
 
             rotate_point(&scene->cylinder[i].position, axis, angle);
             rotate_point((t_point *)&scene->cylinder[i].direction, axis, angle);
+            return ; 
+        }
+    }
+    for (int i = 0; i < scene->plane_count; i++)
+    {
+        if (scene->plane[i].id == obj_id)
+        {
+
+            t_vector axis = {0, 0, 0};
+            FLOAT angle = M_PI / 4;
+
+            if (keys[1] == KEY_X)
+                axis.x = 1;
+            else if (keys[1] == KEY_Y)
+                axis.y = 1;
+            else if (keys[1] == KEY_Z)
+                axis.z = 1;
+
+            rotate_point(&scene->plane[i].position, axis, angle);
+            rotate_point((t_point *)&scene->plane[i].direction, axis, angle);
             return ; 
         }
     }
@@ -373,6 +437,10 @@ int transformation(int keycode, t_scene *scene)
         else if (keys[0] == R_KEY)
         {
             rotate(keys, scene);
+        }
+        else if (keys[0] == S_KEY)
+        {
+            resize(keys, scene);
         }
         cursor = 0;
         for(int i = 0;i < 10; i++)

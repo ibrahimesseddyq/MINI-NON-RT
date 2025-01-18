@@ -20,6 +20,7 @@
 # define DOWN_ROW_KEY 65364
 # define ESC_KEY 65307
 # define R_KEY 114
+# define S_KEY 115
 # define KEY_1 65436
 # define KEY_2 65433
 # define KEY_3 65435
@@ -32,6 +33,8 @@
 # define KEY_X 120
 # define KEY_Y 121
 # define KEY_Z 119
+# define KEY_MINUS 65453
+# define KEY_PLUS 65451
 
 #include "defined.h"
 #include "includes.h"
@@ -90,6 +93,15 @@ typedef struct s_cylinder
     int id;
 } t_cylinder;
 
+typedef struct s_cone
+{
+    t_point vertex;         // The apex (tip) of the cone
+    t_vector axis;          // The direction vector of the cone's axis (normalized)
+    FLOAT angle;            // Half-angle of the cone's opening in radians
+    FLOAT height;           // The height of the finite cone
+    t_color color;          // The color of the cone
+    int id;                 // Unique ID for the cone object
+} t_cone;
 
 typedef struct	s_data {
 	void	*img;
@@ -108,6 +120,7 @@ typedef struct s_scene
     t_cylinder *cylinder;
     t_plane *plane;
     t_sphere *sphere;
+    t_cone *cone;
     FLOAT viewport_width;
     FLOAT viewport_height;
     FLOAT height;
@@ -118,6 +131,7 @@ typedef struct s_scene
     int plane_count;
     int cylinder_count;
     int sphere_count;
+    int cone_count;
     
 }t_scene;
 
