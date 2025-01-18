@@ -6,7 +6,7 @@
 /*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/24 17:44:32 by sessarhi          #+#    #+#             */
-/*   Updated: 2025/01/17 15:25:15 by sessarhi         ###   ########.fr       */
+/*   Updated: 2025/01/18 22:37:07 by sessarhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,8 +71,8 @@ int pixel_color(t_scene *scene , t_intersection *intersection, t_ray *ray)
     shadow_ray.origin = intersection->point;
     shadow_ray.direction = vector_sub(&scene->light.position, &intersection->point);
     shadow_ray.direction = vector_normalize(&shadow_ray.direction);
-    // if (check_shadow(scene, &shadow_ray, intersection))
-    //     return 0x000000;
+    if (check_shadow(scene, &shadow_ray, intersection))
+        return 0x000000;
     ambient = color_scale(&scene->ambient.color, scene->ambient.ratio);
     light_dir = vector_sub(&scene->light.position, &intersection->point);
     light_dir = vector_normalize(&light_dir);
