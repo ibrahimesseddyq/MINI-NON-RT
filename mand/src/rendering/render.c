@@ -6,7 +6,7 @@
 /*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/24 17:44:32 by sessarhi          #+#    #+#             */
-/*   Updated: 2025/01/19 20:06:39 by sessarhi         ###   ########.fr       */
+/*   Updated: 2025/01/19 21:27:53 by sessarhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,65 +24,20 @@ void my_mlx_pixel_put(t_data *img, int x, int y, int color)
 
 bool check_shadow(t_scene *scene, t_ray *ray, t_intersection *intersection)
 {
-    int i;
     t_vector tmp;
-    t_vector hit_point;
-    t_vector to_original;
-    t_vector scaled_dir;
     t_intersection shadow_intersection;
-    FLOAT t;
     FLOAT d;
 
     tmp = vector_sub(&scene->light.position, &intersection->point);
     d = vector_length(&tmp);
-
-    i = scene->sphere_count;
-    while(i--)
-    {
-        if (scene->sphere[i].id == intersection->id)
-            continue;
-        t = hit_sphere(&scene->sphere[i].position, scene->sphere[i].diameter / 2.0, ray);
-        if (t > EPSILON && t < d - EPSILON)
-        {
-            scaled_dir = vector_scale(&ray->direction, t);
-            hit_point = vector_add(&ray->origin, &scaled_dir);
-            to_original = vector_sub(&hit_point, &intersection->point);
-            if (vector_length(&to_original) > SHADOW_BIAS)
-                return (true);
-        }
-    }
-
-    i = scene->cylinder_count;
-    while(i--)
-    {
-        if (scene->cylinder[i].id == intersection->id)
-            continue;
-        t = hit_cylinder(&shadow_intersection, ray, &scene->cylinder[i], d);
-        if (t > EPSILON && t < d - EPSILON)
-        {
-            scaled_dir = vector_scale(&ray->direction, t);
-            hit_point = vector_add(&ray->origin, &scaled_dir);
-            to_original = vector_sub(&hit_point, &intersection->point);
-            if (vector_length(&to_original) > SHADOW_BIAS)
-                return (true);
-        }
-    }
-
-    i = scene->plane_count;
-    while(i--)
-    {
-        if (scene->plane[i].id == intersection->id)
-            continue;
-        t = hit_plane(&scene->plane[i].position, &scene->plane[i].direction, ray);
-        if (t > EPSILON && t < d - EPSILON)
-        {
-            scaled_dir = vector_scale(&ray->direction, t);
-            hit_point = vector_add(&ray->origin, &scaled_dir);
-            to_original = vector_sub(&hit_point, &intersection->point);
-            if (vector_length(&to_original) > SHADOW_BIAS)
-                return (true);
-        }
-    }
+    shadow_intersection.distance = d;
+    shadow_intersection.hit = false;
+    shadow_intersection.id = -1;
+    shadow_intersection.hit = sphere_intersection(scene, &shadow_intersection, ray);
+    shadow_intersection.hit = cylinder_intersection(scene, &shadow_intersection, ray);
+    shadow_intersection.hit = plane_intersection(scene, &shadow_intersection, ray);
+    if (shadow_intersection.hit && intersection->id != shadow_intersection.id)
+        return (true);
     return (false);
 }
 
