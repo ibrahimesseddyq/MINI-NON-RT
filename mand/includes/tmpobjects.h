@@ -19,6 +19,8 @@ typedef struct s_tsphere
 {
     t_point position;
     FLOAT diameter;
+    char *texture_name;
+
     t_color color;
     struct s_tsphere *next;
 }__attribute__((aligned(sizeof(FLOAT)))) t_tsphere;
@@ -27,6 +29,8 @@ typedef struct s_tplane
 {
     t_point position;
     t_vector direction;
+    char *texture_name;
+
     t_color color;
     struct s_tplane *next;
 }__attribute__((aligned(sizeof(FLOAT)))) t_tplane;
@@ -36,6 +40,8 @@ typedef struct s_tcylinder
     int  size; 
     t_point position;
     t_vector direction;
+    char *texture_name;
+
     FLOAT diameter;
     FLOAT height;
     t_color color;
@@ -48,6 +54,8 @@ typedef struct s_tcone
     t_vector axis;
     FLOAT angle;
     FLOAT height;
+    char *texture_name;
+
     t_color color;
     int id;
     struct s_tcone *next;
@@ -60,6 +68,7 @@ typedef struct s_tsceen
     t_tcylinder *cylinder;
     t_tplane *plane;
     t_tsphere *sphere;
+
     int plane_size;
     int cylinder_size;
     int sphere_size;

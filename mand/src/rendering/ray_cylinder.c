@@ -22,6 +22,8 @@ FLOAT hit_cylinder(t_intersection *intersection, t_ray *ray, t_cylinder *cylinde
     FLOAT t;
     t_vector proj;
     t_vector tmp;
+    // printf("direction x[%f] y[%f] z[%f]\n", cylinder->direction.x, cylinder->direction.y, cylinder->direction.z);
+
     oc = vector_sub(&ray->origin, &cylinder->position);
     a = vector_dot(&ray->direction, &ray->direction) - 
         pow(vector_dot(&ray->direction, &cylinder->direction), 2);
