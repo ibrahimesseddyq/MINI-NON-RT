@@ -60,6 +60,17 @@ typedef struct s_camera
     int   fov;
 }   t_camera;
 
+typedef struct s_texture
+{
+    void    *data;          // MLX image pointer
+    char    *addr;          // Image data address
+    int     width;
+    int     height;
+    int     bits_per_pixel;
+    int     line_length;
+    int     endian;
+} t_texture;
+
 typedef struct s_light
 {
     t_point position;
@@ -71,7 +82,9 @@ typedef struct s_sphere
 {
     t_point position;
     FLOAT diameter;
+    t_texture texture;
     t_color color;
+    char *texture_name;
     int id;
 }   t_sphere;
 
@@ -79,6 +92,8 @@ typedef struct s_plane
 {
     t_point position;
     t_vector direction;
+    t_texture texture;
+    char *texture_name;
     t_color color;
      int id;
 } t_plane;
@@ -89,18 +104,22 @@ typedef struct s_cylinder
     t_vector direction;
     FLOAT diameter;
     FLOAT height;
+    t_texture texture;
+    char *texture_name;
     t_color color;
     int id;
 } t_cylinder;
 
 typedef struct s_cone
 {
-    t_point vertex;         // The apex (tip) of the cone
-    t_vector axis;          // The direction vector of the cone's axis (normalized)
-    FLOAT angle;            // Half-angle of the cone's opening in radians
-    FLOAT height;           // The height of the finite cone
-    t_color color;          // The color of the cone
-    int id;                 // Unique ID for the cone object
+    t_point vertex;
+    t_vector axis;
+    FLOAT angle;
+    FLOAT height;
+    char *texture_name;
+
+    t_color color;
+    int id;
 } t_cone;
 
 typedef struct	s_data {
@@ -109,7 +128,7 @@ typedef struct	s_data {
 	int		bits_per_pixel;
 	int		line_length;
 	int		endian;
-}t_data;
+}   t_data;
 
 typedef struct s_scene
 {
@@ -132,7 +151,6 @@ typedef struct s_scene
     int cylinder_count;
     int sphere_count;
     int cone_count;
-    
 }t_scene;
 
 typedef struct s_ray

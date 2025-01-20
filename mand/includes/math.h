@@ -26,6 +26,8 @@ typedef struct s_intersection
     FLOAT t;
     int id;
     bool hit;
+    FLOAT u;
+    FLOAT v;
 } t_intersection;
 
 

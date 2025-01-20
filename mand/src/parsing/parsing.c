@@ -21,9 +21,12 @@ void splil_line(const char *line , t_tscene *tscene)
     int i = 0;
     
     elm = ft_split(line, '\n');
+    printf("sefv3\n");
+
     while (elm[i])
     {
         inf = ft_split(elm[i], ' ');
+    printf("sefv4\n");
         if (ft_strcmp(inf[0] ,"A") == 0 && !process_A(inf , tscene))
                 i++;
         else if (ft_strcmp(inf[0], "C") == 0 && !process_C(inf  ,tscene))
@@ -41,6 +44,8 @@ void splil_line(const char *line , t_tscene *tscene)
         else 
             return (printf("Error \n"),exit(1));
     }
+    printf("sefv5\n");
+
     printf("cylinder position [%f]\n", tscene->cone->vertex.z);
     printf("OK\n");
 }
@@ -113,6 +118,7 @@ void copy_tscene(t_tscene *tscene, t_scene *scene)
         scene->plane[i].position = tscene->plane->position;
         scene->plane[i].direction = tscene->plane->direction;
         scene->plane[i].color = tscene->plane->color;
+        scene->plane[i].texture_name = tscene->plane->texture_name;
         scene->plane[i].id = id++;
         tscene->plane = tscene->plane->next;
         i++;
@@ -125,6 +131,7 @@ void copy_tscene(t_tscene *tscene, t_scene *scene)
         scene->sphere[i].position = tscene->sphere->position;
         scene->sphere[i].diameter = tscene->sphere->diameter;
         scene->sphere[i].color = tscene->sphere->color;
+        scene->sphere[i].texture_name = tscene->sphere->texture_name;
         scene->sphere[i].id = id++;
         tscene->sphere = tscene->sphere->next;
         i++;
@@ -137,6 +144,7 @@ void copy_tscene(t_tscene *tscene, t_scene *scene)
         scene->cylinder[i].direction = vector_normalize(&tscene->cylinder->direction);
         scene->cylinder[i].diameter = tscene->cylinder->diameter;
         scene->cylinder[i].height = tscene->cylinder->height;
+        scene->cylinder[i].texture_name = tscene->cylinder->texture_name;
         scene->cylinder[i].color = tscene->cylinder->color;
         scene->cylinder[i].id = id++;
         tscene->cylinder = tscene->cylinder->next;
@@ -149,9 +157,8 @@ void copy_tscene(t_tscene *tscene, t_scene *scene)
         printf("hi3\n");
         scene->cone[i].vertex = tscene->cone->vertex;
         scene->cone[i].axis = tscene->cone->axis;
-
         scene->cone[i].angle = tscene->cone->angle;
-
+        scene->cone[i].texture_name = tscene->cone->texture_name;
         scene->cone[i].height = tscene->cone->height;
         scene->cone[i].color = tscene->cone->color;
         scene->cone[i].id = id++;
@@ -166,7 +173,8 @@ void   process_flie(char **av , t_scene *scene)
     ssize_t ret;
     char *buffer;
     t_tscene tscene;
-    
+
+
     int_tsceen(&tscene);
     fd = open(av[1], O_RDONLY);
     if (fd == -1)

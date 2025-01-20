@@ -72,7 +72,166 @@ bool check_shadow(t_scene *scene, t_ray *ray,t_intersection *intersection)
     }
     return (false);
 }
-int pixel_color(t_scene *scene , t_intersection *intersection, t_ray *ray)
+
+t_color sample_texture(t_texture *texture, FLOAT u, FLOAT v)
+{
+    t_color color;
+    int x;
+    int y;
+    int pixel;
+    char *dest;
+    
+    // Convert UV coordinates to pixel coordinates
+    x = (int)(u * (texture->width - 1));
+    y = (int)(v * (texture->height - 1));
+    
+    // Clamp coordinates
+    x = fmin(fmax(x, 0), texture->width - 1);
+    y = fmin(fmax(y, 0), texture->height - 1);
+    
+    // Get pixel from MLX image data
+    dest = texture->addr + (y * texture->line_length + x * (texture->bits_per_pixel / 8));
+    pixel = *(unsigned int *)dest;
+    
+    // Convert MLX color format (int) to RGB float values
+    color.r = ((pixel & 0xFF0000) >> 16) / 255.0;
+    color.g = ((pixel & 0x00FF00) >> 8) / 255.0;
+    color.b = (pixel & 0x0000FF) / 255.0;
+    
+    return (color);
+}
+bool load_texture(t_texture *texture, void *mlx, char *filename)
+{
+    int width;
+    int height;
+
+    // Load XPM file
+    texture->data = mlx_xpm_file_to_image(mlx, filename, &width, &height);
+    if (!texture->data)
+    {
+        printf("Failed to load texture: %s\n", filename);
+        return false;
+    }
+    
+    texture->width = width;
+    texture->height = height;
+    
+    // Get image data address and properties
+    texture->addr = mlx_get_data_addr(texture->data, 
+                                     &texture->bits_per_pixel,
+                                     &texture->line_length,
+                                     &texture->endian);
+    if (!texture->addr)
+    {
+        printf("Failed to get texture data address for: %s\n", filename);
+        return false;
+    }
+
+    printf("Successfully loaded texture: %s (width: %d, height: %d)\n", 
+           filename, width, height);
+    return true;
+}
+t_vector calculate_bump_normal(t_texture *bump_map, FLOAT u, FLOAT v, t_vector *original_normal)
+{
+    t_color bump_sample;
+    t_vector tangent, bitangent, modified_normal;
+    FLOAT strength = 1.0;  // Adjust bump strength
+
+    // Sample bump map
+    if (!bump_map->addr)
+        return *original_normal;
+
+    // Sample neighboring points for gradient
+    FLOAT step = 1.0 / bump_map->width;
+    t_color c = sample_texture(bump_map, u, v);
+    t_color cx = sample_texture(bump_map, u + step, v);
+    t_color cy = sample_texture(bump_map, u, v + step);
+    
+    // Calculate height gradients
+    FLOAT dx = (cx.r - c.r) * strength;
+    FLOAT dy = (cy.r - c.r) * strength;
+
+    // Calculate tangent and bitangent vectors
+    // These should be perpendicular to the normal
+    if (fabs(original_normal->y) < 0.99)
+        tangent = vector_cross(original_normal, &(t_vector){0, 1, 0});
+    else
+        tangent = vector_cross(original_normal, &(t_vector){1, 0, 0});
+    tangent = vector_normalize(&tangent);
+    bitangent = vector_cross(&tangent, original_normal);
+    bitangent = vector_normalize(&bitangent);
+
+    // Modify normal based on bump map gradients
+    modified_normal = *original_normal;
+    t_vector scaled_tan = vector_scale(&tangent, dx);
+    modified_normal = vector_add(&modified_normal, 
+                               &scaled_tan);
+    t_vector scaled_bitan = vector_scale(&bitangent, dy);
+
+    modified_normal = vector_add(&modified_normal, 
+                               &scaled_bitan);
+    modified_normal = vector_normalize(&modified_normal);
+
+    return modified_normal;
+}
+void calculate_surface_properties(t_scene *scene, t_intersection *intersection, t_color *texture_color, t_vector *out_normal)
+{
+    t_vector normal = intersection->normal;
+    int set;
+
+    set = 0;
+    for (int i = 0; i < scene->plane_count; i++)
+    {
+        if (intersection->id == scene->plane[i].id)
+        {
+            if (scene->plane[i].texture_name)
+            {
+                *texture_color = sample_texture(&scene->plane[i].texture, intersection->u, intersection->v);
+                normal = calculate_bump_normal(&scene->sphere[i].texture,
+                                                 intersection->u, intersection->v,
+                                                 &intersection->normal);
+                set = 1;
+            }
+        }
+    }
+    for (int i = 0; i < scene->sphere_count; i++)
+    {
+        if (intersection->id == scene->sphere[i].id)
+        {
+
+            if (scene->sphere[i].texture_name)
+            {
+                *texture_color = sample_texture(&scene->sphere[i].texture, intersection->u, intersection->v);
+                normal = calculate_bump_normal(&scene->sphere[i].texture,
+                                                 intersection->u, intersection->v,
+                                                 &intersection->normal);
+                set = 1;
+            }
+        }
+    }
+    for (int i = 0; i < scene->cylinder_count; i++)
+    {
+        if (intersection->id == scene->cylinder[i].id)
+        {
+            if (scene->cylinder[i].texture_name)
+            {
+                *texture_color = sample_texture(&scene->cylinder[i].texture, intersection->u, intersection->v);
+                normal = calculate_bump_normal(&scene->sphere[i].texture,
+                                                 intersection->u, intersection->v,
+                                                 &intersection->normal);
+                set = 1;
+            }
+        }
+    }
+    printf("sefv2\n");
+
+    if (!set)
+    {
+        *texture_color = intersection->color;
+    }
+    *out_normal = normal;
+}
+int pixel_color(t_scene *scene, t_intersection *intersection, t_ray *ray)
 {
     t_color ambient;
     t_color diffuse;
@@ -80,24 +239,63 @@ int pixel_color(t_scene *scene , t_intersection *intersection, t_ray *ray)
     t_vector light_dir;
     FLOAT diff;
     t_ray shadow_ray;
+    t_vector surface_normal;
 
+    // Shadow check
     shadow_ray.origin = intersection->point;
     shadow_ray.direction = vector_sub(&scene->light.position, &intersection->point);
     shadow_ray.direction = vector_normalize(&shadow_ray.direction);
     if (check_shadow(scene, &shadow_ray, intersection))
         return 0x000000;
+
+    // Instead of using intersection->color directly,
+    // sample the texture using the UV coordinates from the intersection
+    
+    t_color texture_color;
+    calculate_surface_properties(scene, intersection, &texture_color, &surface_normal);
+
+    // Rest of your lighting calculations
     ambient = color_scale(&scene->ambient.color, scene->ambient.ratio);
     light_dir = vector_sub(&scene->light.position, &intersection->point);
     light_dir = vector_normalize(&light_dir);
-    diff = fmax(0.0, vector_dot(&intersection->normal, &light_dir));
+    diff = fmax(0.0, vector_dot(&surface_normal, &light_dir));
     diffuse = color_scale(&scene->light.color, scene->light.bratio * diff);
+    
     final_color = color_add(&ambient, &diffuse);
-    final_color = color_mul(&final_color, &intersection->color);
+    // Use texture_color instead of intersection->color
+    final_color = color_mul(&final_color, &texture_color);
+    
     final_color.r = fmin(final_color.r, 1.0);
     final_color.g = fmin(final_color.g, 1.0);
     final_color.b = fmin(final_color.b, 1.0);
     return (colorToRgb(&final_color));
 }
+// int pixel_color(t_scene *scene , t_intersection *intersection, t_ray *ray)
+// {
+//     t_color ambient;
+//     t_color diffuse;
+//     t_color final_color;
+//     t_vector light_dir;
+//     FLOAT diff;
+//     t_ray shadow_ray;
+
+//     shadow_ray.origin = intersection->point;
+//     shadow_ray.direction = vector_sub(&scene->light.position, &intersection->point);
+//     shadow_ray.direction = vector_normalize(&shadow_ray.direction);
+//     if (check_shadow(scene, &shadow_ray, intersection))
+//         return 0x000000;
+//     ambient = color_scale(&scene->ambient.color, scene->ambient.ratio);
+//     light_dir = vector_sub(&scene->light.position, &intersection->point);
+//     light_dir = vector_normalize(&light_dir);
+//     diff = fmax(0.0, vector_dot(&intersection->normal, &light_dir));
+//     diffuse = color_scale(&scene->light.color, scene->light.bratio * diff);
+//     final_color = color_add(&ambient, &diffuse);
+//     final_color = color_mul(&final_color, &intersection->color);
+//     final_color.r = fmin(final_color.r, 1.0);
+//     final_color.g = fmin(final_color.g, 1.0);
+//     final_color.b = fmin(final_color.b, 1.0);
+//     return (colorToRgb(&final_color));
+// }
 int trace_ray(t_ray *ray, t_scene *scene)
 {
     t_intersection intersection;
@@ -216,7 +414,20 @@ void rotate_point(t_point *p, t_vector axis, FLOAT angle)
     FLOAT sin_angle = sin(angle);
     FLOAT dot = axis.x * p->x + axis.y * p->y + axis.z * p->z;
     t_point temp;
-
+    if (axis.x == 0 && axis.y == 0 && axis.z == 1)
+    {
+        FLOAT cos_angle = cos(angle);
+        FLOAT sin_angle = sin(angle);
+        
+        // 2D rotation in XY plane
+        FLOAT new_x = p->x * cos_angle - p->y * sin_angle;
+        FLOAT new_y = p->x * sin_angle + p->y * cos_angle;
+        
+        p->x = new_x;
+        p->y = new_y;
+        // Z remains unchanged
+        return;
+    }
     temp.x = (cos_angle + (1 - cos_angle) * axis.x * axis.x) * p->x +
              ((1 - cos_angle) * axis.x * axis.y - axis.z * sin_angle) * p->y +
              ((1 - cos_angle) * axis.x * axis.z + axis.y * sin_angle) * p->z;
@@ -272,16 +483,63 @@ void resize(int *keys, t_scene *scene)
         }
     }
 }
+// void rotate(int *keys, t_scene *scene)
+// {
+//     int obj_id = my_atoi(keys, 2);
+//     printf("obj_id: [%d]\n", obj_id);
+//     if (obj_id == -1) 
+//         return;
+
+//     for (int i = 0; i < scene->cylinder_count; i++)
+//     {
+//         printf("cylinder id [%d]\n", scene->cylinder[i].id);
+//         if (scene->cylinder[i].id == obj_id)
+//         {
+//             t_vector axis = {0, 0, 0};
+//             FLOAT angle = M_PI / 4;
+
+//             if (keys[1] == KEY_X)
+//                 axis.x = 1;
+//             else if (keys[1] == KEY_Y)
+//                 axis.y = 1;
+//             else if (keys[1] == KEY_Z)
+//                 axis.z = 1;
+//             rotate_point(&scene->cylinder[i].position, axis, angle);
+//             rotate_point((t_point *)&scene->cylinder[i].direction, axis, angle);
+//             printf("direction x[%f] y[%f] z[%f]\n", scene->cylinder[i].direction.x, scene->cylinder[i].direction.y, scene->cylinder[i].direction.z);
+//             return ; 
+//         }
+//     }
+//     for (int i = 0; i < scene->plane_count; i++)
+//     {
+//         if (scene->plane[i].id == obj_id)
+//         {
+
+//             t_vector axis = {0, 0, 0};
+//             FLOAT angle = M_PI / 4;
+
+//             if (keys[1] == KEY_X)
+//                 axis.x = 1;
+//             else if (keys[1] == KEY_Y)
+//                 axis.y = 1;
+//             else if (keys[1] == KEY_Z)
+//                 axis.z = 1;
+
+//             rotate_point(&scene->plane[i].position, axis, angle);
+//             rotate_point((t_point *)&scene->plane[i].direction, axis, angle);
+//             return ; 
+//         }
+//     }
+// }
+
 void rotate(int *keys, t_scene *scene)
 {
     int obj_id = my_atoi(keys, 2);
-    printf("obj_id: [%d]\n", obj_id);
     if (obj_id == -1) 
         return;
 
     for (int i = 0; i < scene->cylinder_count; i++)
     {
-        printf("cylinder id [%d]\n", scene->cylinder[i].id);
         if (scene->cylinder[i].id == obj_id)
         {
             t_vector axis = {0, 0, 0};
@@ -294,29 +552,27 @@ void rotate(int *keys, t_scene *scene)
             else if (keys[1] == KEY_Z)
                 axis.z = 1;
 
+            // Rotate position
             rotate_point(&scene->cylinder[i].position, axis, angle);
+            
+            // Rotate direction, but ensure it remains a unit vector
+            t_vector original_direction = scene->cylinder[i].direction;
             rotate_point((t_point *)&scene->cylinder[i].direction, axis, angle);
-            return ; 
-        }
-    }
-    for (int i = 0; i < scene->plane_count; i++)
-    {
-        if (scene->plane[i].id == obj_id)
-        {
+            
+            // Normalize the direction to ensure it's a unit vector
+            FLOAT length = sqrt(
+                scene->cylinder[i].direction.x * scene->cylinder[i].direction.x +
+                scene->cylinder[i].direction.y * scene->cylinder[i].direction.y +
+                scene->cylinder[i].direction.z * scene->cylinder[i].direction.z
+            );
+            
+            if (length > 0) {
+                scene->cylinder[i].direction.x /= length;
+                scene->cylinder[i].direction.y /= length;
+                scene->cylinder[i].direction.z /= length;
+            }
 
-            t_vector axis = {0, 0, 0};
-            FLOAT angle = M_PI / 4;
-
-            if (keys[1] == KEY_X)
-                axis.x = 1;
-            else if (keys[1] == KEY_Y)
-                axis.y = 1;
-            else if (keys[1] == KEY_Z)
-                axis.z = 1;
-
-            rotate_point(&scene->plane[i].position, axis, angle);
-            rotate_point((t_point *)&scene->plane[i].direction, axis, angle);
-            return ; 
+            return; 
         }
     }
 }
@@ -461,7 +717,30 @@ int transformation(int keycode, t_scene *scene)
     draw(scene);
     return 0;
 }
-
+void init_textures(t_scene *scene)
+{
+    for (int i = 0; i < scene->plane_count; i++)
+    {
+            if (scene->plane[i].texture_name)
+            {
+                load_texture(&scene->plane[i].texture, scene->mlx, scene->plane[i].texture_name);
+            }
+    }
+    for (int i = 0; i < scene->sphere_count; i++)
+    {
+            if (scene->sphere[i].texture_name)
+            {
+                load_texture(&scene->sphere[i].texture, scene->mlx, scene->sphere[i].texture_name);
+            }
+    }
+    for (int i = 0; i < scene->cylinder_count; i++)
+    {
+            if (scene->cylinder[i].texture_name)
+            {
+                load_texture(&scene->cylinder[i].texture, scene->mlx, scene->cylinder[i].texture_name);
+            }
+    }
+}
 void render(t_scene *scene)
 {
     struct timeval start, end;
@@ -473,6 +752,7 @@ void render(t_scene *scene)
     scene->img.addr = mlx_get_data_addr(scene->img.img,
          &scene->img.bits_per_pixel, &scene->img.line_length, &scene->img.endian);
     gettimeofday(&start, NULL);
+    init_textures(scene);
     draw(scene);
     gettimeofday(&end, NULL);
     time_taken = (end.tv_sec - start.tv_sec) * 1e6;

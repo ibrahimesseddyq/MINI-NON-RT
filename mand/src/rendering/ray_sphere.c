@@ -63,7 +63,9 @@ bool sphere_intersection(t_scene *scene , t_intersection *intersection , t_ray *
             intersection->point = vector_add(&ray->origin, &tmp);
             intersection->normal = vector_sub(&intersection->point, &scene->sphere[i].position);
             intersection->normal = vector_normalize(&intersection->normal);
-    
+            t_vector normalized = vector_normalize(&intersection->point);
+            intersection->u = 0.5 + (atan2(normalized.z, normalized.x) / (2 * M_PI));
+            intersection->v = 0.5 - (asin(normalized.y) / M_PI);
         }
     }
     return (intersection->hit);
