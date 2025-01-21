@@ -6,7 +6,7 @@
 /*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 12:56:16 by sessarhi          #+#    #+#             */
-/*   Updated: 2025/01/05 19:41:19 by sessarhi         ###   ########.fr       */
+/*   Updated: 2025/01/21 16:39:17 by sessarhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,8 @@ typedef struct s_camera
 {
     t_point position;
     t_vector direction;
+    t_vector up;
+    t_vector right;
     int   fov;
 }   t_camera;
 
@@ -118,7 +120,6 @@ typedef struct s_scene
     int plane_count;
     int cylinder_count;
     int sphere_count;
-    
 }t_scene;
 
 typedef struct s_ray

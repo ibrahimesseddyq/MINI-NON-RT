@@ -6,7 +6,7 @@
 /*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/17 13:41:03 by sessarhi          #+#    #+#             */
-/*   Updated: 2025/01/19 18:17:56 by sessarhi         ###   ########.fr       */
+/*   Updated: 2025/01/21 17:11:17 by sessarhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,5 +20,5 @@ int main(int ac , char **av)
         return (printf("Error bad arguments\n"));
     process_flie(av , &scene);
     render(&scene);
-    return 0;
+    return SUCCESS;
 }
