@@ -6,7 +6,7 @@
 /*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/24 17:44:32 by sessarhi          #+#    #+#             */
-/*   Updated: 2025/01/21 15:40:24 by sessarhi         ###   ########.fr       */
+/*   Updated: 2025/01/19 21:27:53 by sessarhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,12 @@
 void my_mlx_pixel_put(t_data *img, int x, int y, int color)
 {
     char *dst;
+
     dst = img->addr + (int)(y * img->line_length + x * (img->bits_per_pixel * 0.125));
     *(unsigned int *)dst = color;
 }
+
+#define SHADOW_BIAS 0.0001f
 
 bool check_shadow(t_scene *scene, t_ray *ray, t_intersection *intersection)
 {
@@ -58,8 +61,10 @@ int pixel_color(t_scene *scene, t_intersection *intersection, t_ray *ray)
     shadow_ray.origin = ray_origin;
     shadow_ray.direction = vector_sub(&scene->light.position, &ray_origin);
     shadow_ray.direction = vector_normalize(&shadow_ray.direction);
+
     if (check_shadow(scene, &shadow_ray, intersection))
         return 0x000000;
+
     ambient = color_scale(&scene->ambient.color, scene->ambient.ratio);
     light_dir = vector_sub(&scene->light.position, &intersection->point);
     light_dir = vector_normalize(&light_dir);
@@ -71,6 +76,7 @@ int pixel_color(t_scene *scene, t_intersection *intersection, t_ray *ray)
     final_color.r = fmin(final_color.r, 1.0);
     final_color.g = fmin(final_color.g, 1.0);
     final_color.b = fmin(final_color.b, 1.0);
+
     return (colorToRgb(&final_color));
 }
 int trace_ray(t_ray *ray, t_scene *scene)
