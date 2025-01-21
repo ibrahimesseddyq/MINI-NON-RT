@@ -119,6 +119,7 @@ void copy_tscene(t_tscene *tscene, t_scene *scene)
         scene->plane[i].direction = tscene->plane->direction;
         scene->plane[i].color = tscene->plane->color;
         scene->plane[i].texture_name = tscene->plane->texture_name;
+        scene->plane[i].has_checkerboard = tscene->plane->has_checkerboard;
         scene->plane[i].id = id++;
         tscene->plane = tscene->plane->next;
         i++;
@@ -132,6 +133,8 @@ void copy_tscene(t_tscene *tscene, t_scene *scene)
         scene->sphere[i].diameter = tscene->sphere->diameter;
         scene->sphere[i].color = tscene->sphere->color;
         scene->sphere[i].texture_name = tscene->sphere->texture_name;
+        scene->sphere[i].has_checkerboard = tscene->sphere->has_checkerboard;
+
         scene->sphere[i].id = id++;
         tscene->sphere = tscene->sphere->next;
         i++;
@@ -146,6 +149,8 @@ void copy_tscene(t_tscene *tscene, t_scene *scene)
         scene->cylinder[i].height = tscene->cylinder->height;
         scene->cylinder[i].texture_name = tscene->cylinder->texture_name;
         scene->cylinder[i].color = tscene->cylinder->color;
+        // scene->cylinder[i].has_checkerboard = tscene->cylinder->has_checkerboard;
+
         scene->cylinder[i].id = id++;
         tscene->cylinder = tscene->cylinder->next;
         i++;
@@ -161,6 +166,8 @@ void copy_tscene(t_tscene *tscene, t_scene *scene)
         scene->cone[i].texture_name = tscene->cone->texture_name;
         scene->cone[i].height = tscene->cone->height;
         scene->cone[i].color = tscene->cone->color;
+        // scene->cone[i].has_checkerboard = tscene->cone->has_checkerboard;
+
         scene->cone[i].id = id++;
         tscene->cone = tscene->cone->next;
         i++;

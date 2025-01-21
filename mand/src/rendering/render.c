@@ -174,9 +174,24 @@ t_vector calculate_bump_normal(t_texture *bump_map, FLOAT u, FLOAT v, t_vector *
 
     return modified_normal;
 }
+t_color get_checkerboard_color(t_color color1, t_color color2, FLOAT u, FLOAT v, FLOAT size)
+{
+    FLOAT scaled_u = u * size;
+    FLOAT scaled_v = v * size;
+    
+    int u_int = (int)floor(scaled_u);
+    int v_int = (int)floor(scaled_v);
+    
+    if ((u_int + v_int) % 2 == 0)
+        return color1;
+    return color2;
+}
 void calculate_surface_properties(t_scene *scene, t_intersection *intersection, t_color *texture_color, t_vector *out_normal)
 {
     t_vector normal = intersection->normal;
+    t_color checker_board1 = {0,0,0};
+    t_color checker_board2 = {255, 255, 255};
+    int checker_size = 4;
     int set;
 
     set = 0;
@@ -184,10 +199,21 @@ void calculate_surface_properties(t_scene *scene, t_intersection *intersection, 
     {
         if (intersection->id == scene->plane[i].id)
         {
-            if (scene->plane[i].texture_name)
+            if (scene->plane[i].has_checkerboard)
+            {
+                *texture_color = get_checkerboard_color(
+                    checker_board1,
+                    checker_board2,
+                    intersection->u,
+                    intersection->v,
+                    checker_size
+                );
+                set = 1;
+            }
+            else if (scene->plane[i].texture_name)
             {
                 *texture_color = sample_texture(&scene->plane[i].texture, intersection->u, intersection->v);
-                normal = calculate_bump_normal(&scene->sphere[i].texture,
+                normal = calculate_bump_normal(&scene->plane[i].texture,
                                                  intersection->u, intersection->v,
                                                  &intersection->normal);
                 set = 1;
@@ -198,8 +224,18 @@ void calculate_surface_properties(t_scene *scene, t_intersection *intersection, 
     {
         if (intersection->id == scene->sphere[i].id)
         {
-
-            if (scene->sphere[i].texture_name)
+            if (scene->sphere[i].has_checkerboard)
+            {
+                *texture_color = get_checkerboard_color(
+                    checker_board1,
+                    checker_board2,
+                    intersection->u,
+                    intersection->v,
+                    checker_size
+                );
+                set = 1;
+            }
+            else if (scene->sphere[i].texture_name)
             {
                 *texture_color = sample_texture(&scene->sphere[i].texture, intersection->u, intersection->v);
                 normal = calculate_bump_normal(&scene->sphere[i].texture,
@@ -213,18 +249,27 @@ void calculate_surface_properties(t_scene *scene, t_intersection *intersection, 
     {
         if (intersection->id == scene->cylinder[i].id)
         {
-            if (scene->cylinder[i].texture_name)
+            if (scene->cylinder[i].has_checkerboard)
+            {
+                *texture_color = get_checkerboard_color(
+                    checker_board1,
+                    checker_board2,
+                    intersection->u,
+                    intersection->v,
+                    checker_size
+                );
+                set = 1;
+            }
+            else if (scene->cylinder[i].texture_name)
             {
                 *texture_color = sample_texture(&scene->cylinder[i].texture, intersection->u, intersection->v);
-                normal = calculate_bump_normal(&scene->sphere[i].texture,
+                normal = calculate_bump_normal(&scene->cylinder[i].texture,
                                                  intersection->u, intersection->v,
                                                  &intersection->normal);
                 set = 1;
             }
         }
     }
-    printf("sefv2\n");
-
     if (!set)
     {
         *texture_color = intersection->color;
@@ -540,6 +585,8 @@ void rotate(int *keys, t_scene *scene)
 
     for (int i = 0; i < scene->cylinder_count; i++)
     {
+        printf("0 direction x[%f] y[%f] z[%f]\n", scene->cylinder[i].direction);
+
         if (scene->cylinder[i].id == obj_id)
         {
             t_vector axis = {0, 0, 0};
@@ -553,12 +600,14 @@ void rotate(int *keys, t_scene *scene)
                 axis.z = 1;
 
             // Rotate position
-            rotate_point(&scene->cylinder[i].position, axis, angle);
+            // rotate_point(&scene->cylinder[i].position, axis, angle);
             
             // Rotate direction, but ensure it remains a unit vector
             t_vector original_direction = scene->cylinder[i].direction;
+            printf("direction x[%f] y[%f] z[%f]\n", original_direction);
             rotate_point((t_point *)&scene->cylinder[i].direction, axis, angle);
-            
+            printf("2 direction x[%f] y[%f] z[%f]\n", scene->cylinder[i].direction);
+
             // Normalize the direction to ensure it's a unit vector
             FLOAT length = sqrt(
                 scene->cylinder[i].direction.x * scene->cylinder[i].direction.x +

@@ -84,6 +84,10 @@ typedef struct s_sphere
     FLOAT diameter;
     t_texture texture;
     t_color color;
+    int has_checkerboard;
+    t_color checker_color1;
+    t_color checker_color2;
+    FLOAT checker_size;
     char *texture_name;
     int id;
 }   t_sphere;
@@ -93,6 +97,10 @@ typedef struct s_plane
     t_point position;
     t_vector direction;
     t_texture texture;
+    int has_checkerboard;
+    t_color checker_color1;
+    t_color checker_color2;
+    FLOAT checker_size;
     char *texture_name;
     t_color color;
      int id;
@@ -104,6 +112,10 @@ typedef struct s_cylinder
     t_vector direction;
     FLOAT diameter;
     FLOAT height;
+    int has_checkerboard;
+    t_color checker_color1;
+    t_color checker_color2;
+    FLOAT checker_size;
     t_texture texture;
     char *texture_name;
     t_color color;
@@ -116,7 +128,12 @@ typedef struct s_cone
     t_vector axis;
     FLOAT angle;
     FLOAT height;
+    int has_checkerboard;
+    t_color checker_color1;
+    t_color checker_color2;
+    FLOAT checker_size;
     char *texture_name;
+    t_texture texture;
 
     t_color color;
     int id;

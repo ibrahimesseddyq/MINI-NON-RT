@@ -51,6 +51,10 @@ int process_sp(char **inf, t_tscene *t_scene)
     if (arg_count == 5)
     {
         new->texture_name = strdup(inf[4]);
+        if (strcmp(new->texture_name, "CHECK") == 0)
+        {
+            new->has_checkerboard = true;
+        }
         if (!new->texture_name)
         {
             free(new);
@@ -93,6 +97,10 @@ int process_pl(char **inf, t_tscene *t_scene)
     if (arg_count == 5)  // Has texture
     {
         new->texture_name = strdup(inf[4]);
+        if (strcmp(new->texture_name, "CHECK") == 0)
+        {
+            new->has_checkerboard = true;
+        }
         if (!new->texture_name)
         {
             free(new);
@@ -134,6 +142,10 @@ int process_cy(char **inf, t_tscene *t_scene)
     if (arg_count == 7)  // Has texture
     {
         new->texture_name = strdup(inf[6]);
+        if (strcmp(new->texture_name, "CHECK") == 0)
+        {
+            new->has_checkerboard = true;
+        }
         if (!new->texture_name)
         {
             free(new);
@@ -180,6 +192,10 @@ int process_co(char **inf, t_tscene *t_scene)
     if (arg_count == 7)  // Has texture
     {
         new->texture_name = strdup(inf[6]);
+        if (strcmp(new->texture_name, "CHECK") == 0)
+        {
+            new->has_checkerboard = true;
+        }
         if (!new->texture_name)
         {
             free(new);
