@@ -6,11 +6,12 @@
 /*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/24 17:44:32 by sessarhi          #+#    #+#             */
-/*   Updated: 2025/01/22 13:43:48 by sessarhi         ###   ########.fr       */
+/*   Updated: 2025/01/22 14:57:34 by sessarhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "./../../../minirt.h"
+#include "./../../../minirt_bonus.h"
+
 bool cone_intersection(t_scene *scene, t_intersection *intersection, t_ray *ray);
 
 void my_mlx_pixel_put(t_data *img, int x, int y, int color)
