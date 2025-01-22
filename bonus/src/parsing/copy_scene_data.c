@@ -6,11 +6,11 @@
 /*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 16:42:51 by sessarhi          #+#    #+#             */
-/*   Updated: 2025/01/21 16:44:23 by sessarhi         ###   ########.fr       */
+/*   Updated: 2025/01/22 14:55:33 by sessarhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "./../../../minirt.h"
+#include "./../../../minirt_bonus.h"
 
 void copy_tscene(t_tscene *tscene, t_scene *scene)
 {

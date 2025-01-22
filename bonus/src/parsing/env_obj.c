@@ -6,11 +6,11 @@
 /*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/11 18:09:02 by sessarhi          #+#    #+#             */
-/*   Updated: 2025/01/11 18:12:27 by sessarhi         ###   ########.fr       */
+/*   Updated: 2025/01/22 14:55:45 by sessarhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "./../../../minirt.h"
+#include "./../../../minirt_bonus.h"
 
 int process_A(char **inf , t_tscene *tscene)
 {
