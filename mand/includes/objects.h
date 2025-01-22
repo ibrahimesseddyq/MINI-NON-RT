@@ -6,7 +6,7 @@
 /*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 12:56:16 by sessarhi          #+#    #+#             */
-/*   Updated: 2025/01/21 16:39:17 by sessarhi         ###   ########.fr       */
+/*   Updated: 2025/01/21 20:59:03 by sessarhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,7 +127,5 @@ typedef struct s_ray
     t_point origin;
     t_vector direction;
 }t_ray;
-
-
 
 #endif
