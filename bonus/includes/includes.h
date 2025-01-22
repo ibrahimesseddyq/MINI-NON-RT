@@ -6,7 +6,7 @@
 /*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/01 15:29:51 by sessarhi          #+#    #+#             */
-/*   Updated: 2025/01/01 15:32:41 by sessarhi         ###   ########.fr       */
+/*   Updated: 2025/01/11 17:29:26 by sessarhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@
 #include <stdbool.h>
 #include <stdlib.h>
 #include <math.h>
-#include "./../MLX/mlx.h"
+#include "./../../MLX/mlx.h"
 
 
 

@@ -6,11 +6,11 @@
 /*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/13 11:26:54 by sessarhi          #+#    #+#             */
-/*   Updated: 2024/12/15 09:17:04 by sessarhi         ###   ########.fr       */
+/*   Updated: 2025/01/11 17:32:22 by sessarhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../minirt.h"
+#include "./../../../minirt.h"
 
 //ths function is ugly 
 static size_t    ft_countwords(const char *s, size_t *i, char c)
