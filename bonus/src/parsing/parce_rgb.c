@@ -6,11 +6,11 @@
 /*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/15 12:18:32 by sessarhi          #+#    #+#             */
-/*   Updated: 2024/12/26 09:46:49 by sessarhi         ###   ########.fr       */
+/*   Updated: 2025/01/11 17:30:40 by sessarhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "./../../minirt.h"
+#include "./../../../minirt.h"
 
 int check_pnt(const char *str)
 {

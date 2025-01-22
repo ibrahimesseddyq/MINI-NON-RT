@@ -6,11 +6,11 @@
 /*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/14 16:43:26 by sessarhi          #+#    #+#             */
-/*   Updated: 2024/12/26 09:54:49 by sessarhi         ###   ########.fr       */
+/*   Updated: 2025/01/11 17:30:49 by sessarhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "./../../minirt.h"
+#include "./../../../minirt.h"
 
 static int  cont_coor(const char *str)
 {

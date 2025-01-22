@@ -6,11 +6,11 @@
 /*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/10 17:01:12 by sessarhi          #+#    #+#             */
-/*   Updated: 2025/01/10 17:03:38 by sessarhi         ###   ########.fr       */
+/*   Updated: 2025/01/17 15:26:54 by sessarhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../minirt.h"
+#include "./../../../minirt.h"
 
 
 FLOAT hit_sphere(t_point *point, double radius, t_ray *ray)
@@ -63,7 +63,9 @@ bool sphere_intersection(t_scene *scene , t_intersection *intersection , t_ray *
             intersection->point = vector_add(&ray->origin, &tmp);
             intersection->normal = vector_sub(&intersection->point, &scene->sphere[i].position);
             intersection->normal = vector_normalize(&intersection->normal);
-    
+            t_vector normalized = vector_normalize(&intersection->point);
+            intersection->u = 0.5 + (atan2(normalized.z, normalized.x) / (2 * M_PI));
+            intersection->v = 0.5 - (asin(normalized.y) / M_PI);
         }
     }
     return (intersection->hit);
