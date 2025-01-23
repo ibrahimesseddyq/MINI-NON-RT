@@ -6,7 +6,7 @@
 /*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 15:38:19 by sessarhi          #+#    #+#             */
-/*   Updated: 2025/01/22 14:56:19 by sessarhi         ###   ########.fr       */
+/*   Updated: 2025/01/23 11:36:07 by sessarhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ void restor_line(char **buffer, int *ret, int *backup)
 void   process_flie(char **av , t_scene *scene)
 {
     int fd;
-    ssize_t ret;
+    int ret;
     char *buffer;
     t_tscene tscene;
     int backup;

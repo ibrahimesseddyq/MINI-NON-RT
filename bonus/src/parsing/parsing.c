@@ -6,13 +6,12 @@
 /*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/15 21:09:07 by sessarhi          #+#    #+#             */
-/*   Updated: 2025/01/22 14:56:10 by sessarhi         ###   ########.fr       */
+/*   Updated: 2025/01/22 21:58:08 by sessarhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 
 #include "./../../../minirt_bonus.h"
-
 int process_co(char **inf , t_tscene *t_scene);
 
 void splil_line(const char *line , t_tscene *tscene)
