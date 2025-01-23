@@ -6,7 +6,7 @@
 /*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/11 18:11:36 by sessarhi          #+#    #+#             */
-/*   Updated: 2025/01/22 14:56:26 by sessarhi         ###   ########.fr       */
+/*   Updated: 2025/01/23 11:58:05 by sessarhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,66 +14,44 @@
 
 void cone_add_front(t_tcone **head, t_tcone *new);
 
-// int process_sp(char **inf ,t_tscene *t_scene)
-// {
-//     t_tsphere *new;
+int count_args(const char** inf)
+{
+    int arg_count;
+    arg_count = 0;
+    while (inf[arg_count] != NULL)
+        arg_count++;
+    return (arg_count);
+}
+int parse_material(const char *mat, t_material *material)
+{
+  char **tab;
+  tab = ft_split(mat, ',');
+    if (count_args(tab) != 4)
+        clean_exit("Error: Material has wrong number of arguments");
+    material->ka = ft_atof(tab[0]);
+    material->kd = ft_atof(tab[1]);
+    material->ks = ft_atof(tab[2]);
+    material->n = ft_atoi(tab[3]);
+    if (material->ka > 1 || material->kd > 1 || material->ks > 1
+    || material->n < 0 || material->ka < 0 || material->kd < 0
+    || material->ks < 0)
+    clean_exit("Error: Material has wrong arguments");
+    return (0);
+}
 
-//     new = new_sphere();
-//     if (!inf[1] || !inf[2] || !inf[3] || inf[4])
-//         return (1);
-//     // if (inf[5])
-//     // {
-//     //     new->texture_name = strdup(inf[5]);
-//     // }
-//     new->diameter = ft_atof(inf[2]);
-//     if (!parse_crd(inf[1],&new->position) ||
-//         !parse_rgb(inf[3], &new->color) ||
-//          new->diameter == (float)INT_MIN)
-//             return (1);
-//     sphere_add_front(&t_scene->sphere, new);
-//     t_scene->sphere_size++;
-//     return (0);
-// }
 int process_sp(char **inf, t_tscene *t_scene)
 {
     t_tsphere *new;
     
-    int arg_count = 0;
-    while (inf[arg_count] != NULL)
-        arg_count++;
-        
-    if (arg_count < 4) 
-        return (1);
-        
+    if (count_args(inf) != 6)
+      clean_exit("Error: Sphere has wrong number of arguments");
     new = new_sphere();
-    if (!new)
-        return (1);
-        
-    if (arg_count == 5)
-    {
-        new->texture_name = strdup(inf[4]);
-        if (strcmp(new->texture_name, "CHECK") == 0)
-        {
-            new->has_checkerboard = true;
-        }
-        if (!new->texture_name)
-        {
-            free(new);
-            return (1);
-        }
-    }
-    
+    new->texture_name = strdup(inf[5]);
     new->diameter = ft_atof(inf[2]);
     if (!parse_crd(inf[1], &new->position) ||
-        !parse_rgb(inf[3], &new->color) ||
-        new->diameter == (float)INT_MIN)
-    {
-        if (new->texture_name)
-            free(new->texture_name);
-        free(new);
-        return (1);
-    }
-    
+        !parse_rgb(inf[3], &new->color) || new->texture_name == NULL)
+    clean_exit("Error: Sphere has wrong arguments");
+    parse_material(inf[4], &new->material);
     sphere_add_front(&t_scene->sphere, new);
     t_scene->sphere_size++;
     return (0);
@@ -82,43 +60,15 @@ int process_sp(char **inf, t_tscene *t_scene)
 int process_pl(char **inf, t_tscene *t_scene)
 {
     t_tplane *new;
-    int arg_count = 0;
-
-    while (inf[arg_count] != NULL)
-        arg_count++;
-
-    if (arg_count < 4)  // Minimum required arguments
-        return (1);
-
+    if (count_args(inf) != 6)
+        clean_exit("Error: Plane has wrong number of arguments");
     new = new_plane();
-    if (!new)
-        return (1);
-
-    // Handle optional texture
-    if (arg_count == 5)  // Has texture
-    {
-        new->texture_name = strdup(inf[4]);
-        if (strcmp(new->texture_name, "CHECK") == 0)
-        {
-            new->has_checkerboard = true;
-        }
-        if (!new->texture_name)
-        {
-            free(new);
-            return (1);
-        }
-    }
-
+    new->texture_name = strdup(inf[5]);
     if (!parse_crd(inf[1], &new->position) ||
         !parse_crd(inf[2], &new->direction) ||
-        !parse_rgb(inf[3], &new->color))
-    {
-        if (new->texture_name)
-            free(new->texture_name);
-        free(new);
-        return (1);
-    }
-
+        !parse_rgb(inf[3], &new->color) || new->texture_name == NULL)
+        clean_exit("Error: Plane has wrong arguments");
+    parse_material(inf[4], &new->material);
     plane_add_front(&t_scene->plane, new);
     t_scene->plane_size++;
     return (0);
@@ -127,48 +77,18 @@ int process_pl(char **inf, t_tscene *t_scene)
 int process_cy(char **inf, t_tscene *t_scene)
 {
     t_tcylinder *new;
-    int arg_count = 0;
-
-    while (inf[arg_count] != NULL)
-        arg_count++;
-
-    if (arg_count < 6)  // Minimum required arguments
-        return (1);
-
+    
     new = new_cylinder();
-    if (!new)
-        return (1);
-
-    // Handle optional texture
-    if (arg_count == 7)  // Has texture
-    {
-        new->texture_name = strdup(inf[6]);
-        if (strcmp(new->texture_name, "CHECK") == 0)
-        {
-            new->has_checkerboard = true;
-        }
-        if (!new->texture_name)
-        {
-            free(new);
-            return (1);
-        }
-    }
-
+    if (count_args(inf) != 8)
+        clean_exit("Error: Cylinder has wrong number of arguments");
+    new->texture_name = strdup(inf[7]);
     new->diameter = ft_atof(inf[3]);
     new->height = ft_atof(inf[4]);
-    
     if (!parse_crd(inf[1], &new->position) ||
         !parse_crd(inf[2], &new->direction) ||
-        !parse_rgb(inf[5], &new->color) ||
-        new->diameter == (float)INT_MIN || 
-        new->height == (float)INT_MIN)
-    {
-        if (new->texture_name)
-            free(new->texture_name);
-        free(new);
-        return (1);
-    }
-
+        !parse_rgb(inf[5], &new->color))
+        clean_exit("Error: Cylinder has wrong arguments");
+    parse_material(inf[6], &new->material);
     cylinder_add_front(&t_scene->cylinder, new);
     t_scene->cylinder_size++;
     return (0);

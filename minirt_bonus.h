@@ -6,7 +6,7 @@
 /*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 14:53:30 by sessarhi          #+#    #+#             */
-/*   Updated: 2025/01/22 14:59:57 by sessarhi         ###   ########.fr       */
+/*   Updated: 2025/01/23 11:37:22 by sessarhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,10 @@
 # include "./bonus/includes/color.h"
 # include "./bonus/includes/includes.h"
 
-bool  parse_crd(const char *str, t_vector *vector);
+bool    parse_crd(const char *str, t_vector *vector);
 bool	parse_rgb(const char *str ,t_color *color);
 char    **ft_split(char const *s, char c);
+void    splil_line(const char *line , t_tscene *tscene);
 FLOAT	ft_atof(const char *str);
 int	Rgb_value(const char *str);
 void   process_flie( char **av , t_scene *scene);
@@ -43,5 +44,5 @@ FLOAT hit_cylinder(t_intersection *intersection, const t_ray *ray, const t_cylin
 FLOAT hit_sphere(t_point *point, double radius, t_ray *ray);
 FLOAT hit_plane(const t_vector *point, const t_vector *normal, const t_ray *ray);
 void copy_tscene(t_tscene *tscene, t_scene *scene);
-
+void clean_exit(const char *msg);
 #endif

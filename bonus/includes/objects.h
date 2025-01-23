@@ -6,7 +6,7 @@
 /*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 12:56:16 by sessarhi          #+#    #+#             */
-/*   Updated: 2025/01/22 13:23:14 by sessarhi         ###   ########.fr       */
+/*   Updated: 2025/01/23 11:34:04 by sessarhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,9 +38,16 @@
 
 #include "defined.h"
 #include "includes.h"
+
 typedef t_vector t_point;
 
-
+typedef struct s_material
+{
+    FLOAT ka;
+    FLOAT kd;
+    FLOAT ks;
+    int n;
+}t_material;
 typedef struct s_color
 {
     FLOAT r;
@@ -64,8 +71,8 @@ typedef struct s_camera
 
 typedef struct s_texture
 {
-    void    *data;          // MLX image pointer
-    char    *addr;          // Image data address
+    void    *data;
+    char    *addr;
     int     width;
     int     height;
     int     bits_per_pixel;
@@ -91,6 +98,7 @@ typedef struct s_sphere
     t_color checker_color2;
     FLOAT checker_size;
     char *texture_name;
+    t_material material;
     int id;
 }   t_sphere;
 
@@ -104,6 +112,7 @@ typedef struct s_plane
     t_color checker_color2;
     FLOAT checker_size;
     char *texture_name;
+    t_material material;
     t_color color;
      int id;
 } t_plane;
@@ -121,6 +130,7 @@ typedef struct s_cylinder
     t_texture texture;
     char *texture_name;
     t_color color;
+    t_material material;
     int id;
 } t_cylinder;
 
@@ -136,7 +146,7 @@ typedef struct s_cone
     FLOAT checker_size;
     char *texture_name;
     t_texture texture;
-
+    t_material material;
     t_color color;
     int id;
 } t_cone;
@@ -177,5 +187,7 @@ typedef struct s_ray
     t_point origin;
     t_vector direction;
 }t_ray;
+
+
 
 #endif

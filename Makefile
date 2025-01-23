@@ -17,7 +17,7 @@ BONUS_SRC = minirt_bonus.c  $(BNS)parsing/parce_rgb.c $(BNS)parsing/parse_crd.c 
 	$(BNS)memory/arena_create.c $(BNS)memory/arena_manage.c $(BNS)math/math.c $(BNS)rendering/render.c\
 	 $(BNS)coloring/coloring.c $(BNS)utils/ft_atoi.c $(BNS)utils/ft_strcmp.c $(BNS)rendering/ray_sphere.c\
 	 $(BNS)rendering/ray_plane.c $(BNS)rendering/ray_cylinder.c $(BNS)parsing/env_obj.c $(BNS)parsing/scene_obj.c\
-	$(BNS)parsing/read_line.c $(BNS)parsing/copy_scene_data.c\
+	$(BNS)parsing/read_line.c $(BNS)parsing/copy_scene_data.c $(BNS)parsing/err_cleanup.c\
 
 OBJ = $(SRC:.c=.o)
 BONUS_OBJ = $(BONUS_SRC:.c=.o)
