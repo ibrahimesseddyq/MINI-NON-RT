@@ -6,13 +6,11 @@
 /*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/11 18:11:36 by sessarhi          #+#    #+#             */
-/*   Updated: 2025/01/23 11:58:05 by sessarhi         ###   ########.fr       */
+/*   Updated: 2025/01/23 13:48:39 by sessarhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./../../../minirt_bonus.h"
-
-void cone_add_front(t_tcone **head, t_tcone *new);
 
 int count_args(const char** inf)
 {
@@ -97,48 +95,17 @@ int process_cy(char **inf, t_tscene *t_scene)
 int process_co(char **inf, t_tscene *t_scene)
 {
     t_tcone *new;
-    int arg_count = 0;
-
-    while (inf[arg_count] != NULL)
-        arg_count++;
-
-    if (arg_count < 6)  // Minimum required arguments
-        return (1);
-
+   if (count_args(inf) != 8)
+        clean_exit("Error: Cone has wrong number of arguments");
     new = new_cone();
-    if (!new)
-        return (1);
-
-    // Handle optional texture
-    if (arg_count == 7)  // Has texture
-    {
-        new->texture_name = strdup(inf[6]);
-        if (strcmp(new->texture_name, "CHECK") == 0)
-        {
-            new->has_checkerboard = true;
-        }
-        if (!new->texture_name)
-        {
-            free(new);
-            return (1);
-        }
-    }
-
     new->angle = ft_atof(inf[3]);
     new->height = ft_atof(inf[4]);
-
+    new->texture_name = strdup(inf[7]);
     if (!parse_crd(inf[1], &new->vertex) ||
         !parse_crd(inf[2], &new->axis) ||
-        !parse_rgb(inf[5], &new->color) ||
-        new->angle == (float)INT_MIN ||
-        new->height == (float)INT_MIN)
-    {
-        if (new->texture_name)
-            free(new->texture_name);
-        free(new);
-        return (1);
-    }
-
+        !parse_rgb(inf[5], &new->color))
+        clean_exit("Error: Cone has wrong arguments");
+    parse_material(inf[6], &new->material);
     cone_add_front(&t_scene->cone, new);
     t_scene->cone_size++;
     return (0);
