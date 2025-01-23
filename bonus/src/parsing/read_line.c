@@ -6,7 +6,7 @@
 /*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 15:38:19 by sessarhi          #+#    #+#             */
-/*   Updated: 2025/01/23 11:36:07 by sessarhi         ###   ########.fr       */
+/*   Updated: 2025/01/23 15:44:25 by sessarhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,11 @@ void int_tsceen(t_tscene *tscene)
     tscene->cylinder = NULL;
     tscene->plane = NULL;
     tscene->sphere = NULL;
+    tscene->light = NULL;
     tscene->plane_size = 0;
     tscene->cylinder_size = 0;
     tscene->sphere_size = 0;
+    tscene->light_size = 0;
     tscene->is_c_set = false;
     tscene->is_l_set = false;
     tscene->is_a_set = false;

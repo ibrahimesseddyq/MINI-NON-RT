@@ -6,7 +6,7 @@
 /*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/23 13:51:47 by sessarhi          #+#    #+#             */
-/*   Updated: 2025/01/23 14:00:26 by sessarhi         ###   ########.fr       */
+/*   Updated: 2025/01/23 15:24:52 by sessarhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ t_tlight *new_light()
 {
     t_tlight *tlight;
     
-    tlight = malloc(sizeof(t_light));
+    tlight = malloc(sizeof(t_tlight));
     tlight->position.x = 0;
     tlight->position.y = 0;
     tlight->position.z = 0;

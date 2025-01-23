@@ -6,7 +6,7 @@
 /*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/11 18:11:36 by sessarhi          #+#    #+#             */
-/*   Updated: 2025/01/22 13:24:10 by sessarhi         ###   ########.fr       */
+/*   Updated: 2025/01/23 15:27:37 by sessarhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -149,7 +149,6 @@ int process_cy(char **inf, t_tscene *t_scene)
         }
         if (!new->texture_name)
         {
-            free(new);
             return (1);
         }
     }

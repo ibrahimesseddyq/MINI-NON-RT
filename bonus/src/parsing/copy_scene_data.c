@@ -6,7 +6,7 @@
 /*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 16:42:51 by sessarhi          #+#    #+#             */
-/*   Updated: 2025/01/22 21:57:39 by sessarhi         ###   ########.fr       */
+/*   Updated: 2025/01/23 16:08:16 by sessarhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,14 @@ void copy_tscene(t_tscene *tscene, t_scene *scene)
 {
     scene->ambient = tscene->ambient;
     scene->camera = tscene->camera;
-    scene->light = tscene->light;
     scene->cylinder = arena_alloc(*get_arena(), sizeof(t_cylinder) * tscene->cylinder_size);
     scene->plane = arena_alloc(*get_arena(), sizeof(t_plane) * tscene->plane_size);
     scene->sphere = arena_alloc(*get_arena(), sizeof(t_sphere) * tscene->sphere_size);
+    scene->light = arena_alloc(*get_arena(), sizeof(t_light) * tscene->light_size);
     scene->cylinder_count = tscene->cylinder_size;
     scene->plane_count = tscene->plane_size;
     scene->sphere_count = tscene->sphere_size;
+    scene->light_count = tscene->light_size;
     scene->viewport_dist = 1.0;
     int id = 0;
     int i = 0;
@@ -45,7 +46,6 @@ void copy_tscene(t_tscene *tscene, t_scene *scene)
         tscene->sphere = tscene->sphere->next;
         i++;
     }
-
     i = 0;
     while (tscene->cylinder)
     {
@@ -56,6 +56,16 @@ void copy_tscene(t_tscene *tscene, t_scene *scene)
         scene->cylinder[i].color = tscene->cylinder->color;
         scene->cylinder[i].id = id++;
         tscene->cylinder = tscene->cylinder->next;
+        i++;
+    }
+    i = 0;
+    while(tscene->light)
+    {
+        scene->light[i].position = tscene->light->position;
+        scene->light[i].bratio = tscene->light->bratio;
+        scene->light[i].color = tscene->light->color;
+        scene->light[i].id = id++;
+        tscene->light = tscene->light->next;
         i++;
     }
 }

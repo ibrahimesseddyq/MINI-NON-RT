@@ -6,13 +6,12 @@
 /*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/24 17:44:32 by sessarhi          #+#    #+#             */
-/*   Updated: 2025/01/22 14:57:34 by sessarhi         ###   ########.fr       */
+/*   Updated: 2025/01/23 16:18:15 by sessarhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./../../../minirt_bonus.h"
 
-bool cone_intersection(t_scene *scene, t_intersection *intersection, t_ray *ray);
 
 void my_mlx_pixel_put(t_data *img, int x, int y, int color)
 {
@@ -27,7 +26,7 @@ bool check_shadow(t_scene *scene, t_ray *ray, t_intersection *intersection)
     t_intersection shadow_intersection;
     FLOAT d;
 
-    tmp = vector_sub(&scene->light.position, &intersection->point);
+    tmp = vector_sub(&scene->light[0].position, &intersection->point);
     d = vector_length(&tmp);
     shadow_intersection.distance = d;
     shadow_intersection.hit = false;
@@ -75,7 +74,7 @@ bool load_texture(t_texture *texture, void *mlx, char *filename)
     texture->data = mlx_xpm_file_to_image(mlx, filename, &width, &height);
     if (!texture->data)
     {
-        printf("Failed to load texture: %s\n", filename);
+        // printf("Failed to load texture: %s\n", filename);
         return false;
     }
     
@@ -89,12 +88,12 @@ bool load_texture(t_texture *texture, void *mlx, char *filename)
                                      &texture->endian);
     if (!texture->addr)
     {
-        printf("Failed to get texture data address for: %s\n", filename);
+        // printf("Failed to get texture data address for: %s\n", filename);
         return false;
     }
 
-    printf("Successfully loaded texture: %s (width: %d, height: %d)\n", 
-           filename, width, height);
+    // printf("Successfully loaded texture: %s (width: %d, height: %d)\n", 
+        //    filename, width, height);
     return true;
 }
 t_vector calculate_bump_normal(t_texture *bump_map, FLOAT u, FLOAT v, t_vector *original_normal)
@@ -261,7 +260,7 @@ int pixel_color(t_scene *scene, t_intersection *intersection, t_ray *ray)
     ray_origin = vector_add(&intersection->point, &offset);
     
     shadow_ray.origin = ray_origin;
-    shadow_ray.direction = vector_sub(&scene->light.position, &ray_origin);
+    shadow_ray.direction = vector_sub(&scene->light[0].position, &ray_origin);
     shadow_ray.direction = vector_normalize(&shadow_ray.direction);
     if (check_shadow(scene, &shadow_ray, intersection))
         return 0x000000;
@@ -274,10 +273,10 @@ int pixel_color(t_scene *scene, t_intersection *intersection, t_ray *ray)
 
     // Rest of your lighting calculations
     ambient = color_scale(&scene->ambient.color, scene->ambient.ratio);
-    light_dir = vector_sub(&scene->light.position, &intersection->point);
+    light_dir = vector_sub(&scene->light[0].position, &intersection->point);
     light_dir = vector_normalize(&light_dir);
     diff = fmax(0.0, vector_dot(&surface_normal, &light_dir));
-    diffuse = color_scale(&scene->light.color, scene->light.bratio * diff);
+    diffuse = color_scale(&scene->light[0].color, scene->light[0].bratio * diff);
 
     
     final_color = color_add(&ambient, &diffuse);
@@ -321,7 +320,7 @@ int trace_ray(t_ray *ray, t_scene *scene)
     intersection.distance = INFINITY;
     intersection.hit = false;
     intersection.id = -1;
-    intersection.hit = sphere_intersection(scene, &intersection, ray);
+    // intersection.hit = sphere_intersection(scene, &intersection, ray);
     intersection.hit = cylinder_intersection(scene, &intersection, ray);
     intersection.hit = plane_intersection(scene, &intersection, ray);
     // intersection.hit = cone_intersection(scene, &intersection, ray);
