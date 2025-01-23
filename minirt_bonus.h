@@ -6,7 +6,7 @@
 /*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 14:53:30 by sessarhi          #+#    #+#             */
-/*   Updated: 2025/01/23 11:37:22 by sessarhi         ###   ########.fr       */
+/*   Updated: 2025/01/23 13:54:59 by sessarhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,4 +45,5 @@ FLOAT hit_sphere(t_point *point, double radius, t_ray *ray);
 FLOAT hit_plane(const t_vector *point, const t_vector *normal, const t_ray *ray);
 void copy_tscene(t_tscene *tscene, t_scene *scene);
 void clean_exit(const char *msg);
+
 #endif

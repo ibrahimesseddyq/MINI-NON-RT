@@ -6,7 +6,7 @@
 /*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 13:24:29 by sessarhi          #+#    #+#             */
-/*   Updated: 2025/01/23 11:24:50 by sessarhi         ###   ########.fr       */
+/*   Updated: 2025/01/23 13:55:50 by sessarhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,13 @@
 
 #include "includes.h"
 
+typedef struct s_tlight
+{
+    t_point position;
+    FLOAT bratio;
+    t_color color;
+    struct s_tlight *next;
+}__attribute__((aligned(sizeof(FLOAT)))) t_tlight;
 typedef struct s_tsphere
 {
     t_point position;
@@ -89,5 +96,8 @@ t_tcone *new_cone(void);
 void  cylinder_add_front(t_tcylinder **cylinder, t_tcylinder *new);
 void  plane_add_front(t_tplane **plane, t_tplane *new);
 void  sphere_add_front(t_tsphere **sphere, t_tsphere *new);
+void light_add_front(t_tlight **head, t_tlight *new);
+void cone_add_front(t_tcone **head, t_tcone *new);
+t_tlight *new_light();
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/11 18:09:02 by sessarhi          #+#    #+#             */
-/*   Updated: 2025/01/22 21:57:45 by sessarhi         ###   ########.fr       */
+/*   Updated: 2025/01/23 13:57:59 by sessarhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,16 +50,15 @@ int process_C(char **inf , t_tscene *t_scene)
 
 int process_L(char **inf , t_tscene *t_scene)
 {
+    t_tlight *new;
     if (!inf[1] || !inf[2] || !inf[3] || inf[4])
         return (1);
-    if (t_scene->is_l_set == true)
-        return (printf("Error multiple Lights\n"),1);
+    new = new_light();
     t_scene->light.bratio = ft_atof(inf[2]);
     if (!parse_crd(inf[1], &t_scene->light.position) ||
      !parse_rgb(inf[3], &t_scene->light.color) ||
       t_scene->light.bratio < 0 || t_scene->light.bratio > 1)
         return (1);
-
-    t_scene->is_l_set = true;
+    light_add_front(&t_scene->light, new);
     return (0);
 }
