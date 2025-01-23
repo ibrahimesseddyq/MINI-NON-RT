@@ -6,7 +6,7 @@
 /*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/10 17:01:12 by sessarhi          #+#    #+#             */
-/*   Updated: 2025/01/17 15:26:54 by sessarhi         ###   ########.fr       */
+/*   Updated: 2025/01/23 16:15:53 by sessarhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,6 @@ bool sphere_intersection(t_scene *scene , t_intersection *intersection , t_ray *
     int i;
     FLOAT t;
     t_vector tmp;
-    
     i = scene->sphere_count;
     while (i--)
     {
@@ -57,7 +56,7 @@ bool sphere_intersection(t_scene *scene , t_intersection *intersection , t_ray *
             intersection->hit = true;
             intersection->id = scene->sphere[i].id;
             intersection->distance = t;
-            //(sessarhi note) the following three lines can be moved out f the loop for optimization
+
             intersection->color = scene->sphere[i].color;
             tmp = vector_scale(&ray->direction, t);
             intersection->point = vector_add(&ray->origin, &tmp);

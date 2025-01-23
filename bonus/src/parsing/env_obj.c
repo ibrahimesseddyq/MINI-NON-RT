@@ -6,7 +6,7 @@
 /*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/11 18:09:02 by sessarhi          #+#    #+#             */
-/*   Updated: 2025/01/23 13:57:59 by sessarhi         ###   ########.fr       */
+/*   Updated: 2025/01/23 15:45:52 by sessarhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,11 +54,12 @@ int process_L(char **inf , t_tscene *t_scene)
     if (!inf[1] || !inf[2] || !inf[3] || inf[4])
         return (1);
     new = new_light();
-    t_scene->light.bratio = ft_atof(inf[2]);
-    if (!parse_crd(inf[1], &t_scene->light.position) ||
-     !parse_rgb(inf[3], &t_scene->light.color) ||
-      t_scene->light.bratio < 0 || t_scene->light.bratio > 1)
+    new->bratio = ft_atof(inf[2]);
+    if (!parse_crd(inf[1], &new->position) ||
+     !parse_rgb(inf[3], &new->color) ||
+      new->bratio < 0 || new->bratio > 1)
         return (1);
     light_add_front(&t_scene->light, new);
+    t_scene->light_size++;
     return (0);
 }

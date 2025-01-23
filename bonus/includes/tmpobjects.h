@@ -6,7 +6,7 @@
 /*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 13:24:29 by sessarhi          #+#    #+#             */
-/*   Updated: 2025/01/23 13:55:50 by sessarhi         ###   ########.fr       */
+/*   Updated: 2025/01/23 15:23:51 by sessarhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ typedef struct s_tlight
     t_point position;
     FLOAT bratio;
     t_color color;
+    int id;
+    int light_count;
     struct s_tlight *next;
 }__attribute__((aligned(sizeof(FLOAT)))) t_tlight;
 typedef struct s_tsphere
@@ -74,7 +76,7 @@ typedef struct s_tcone
 typedef struct s_tsceen
 {
     t_camera camera;
-    t_light light;
+    t_tlight *light;
     t_ambient ambient;
     t_tcylinder *cylinder;
     t_tplane *plane;
@@ -83,6 +85,7 @@ typedef struct s_tsceen
     int cylinder_size;
     int sphere_size;
     int cone_size;
+    int light_size;
     t_tcone *cone;
     bool is_c_set;
     bool is_l_set;
