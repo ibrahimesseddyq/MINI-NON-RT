@@ -6,7 +6,7 @@
 /*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/24 17:44:32 by sessarhi          #+#    #+#             */
-/*   Updated: 2025/01/22 13:43:48 by sessarhi         ###   ########.fr       */
+/*   Updated: 2025/01/23 20:29:16 by sessarhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,7 +118,8 @@ t_vector calculate_bump_normal(t_texture *bump_map, FLOAT u, FLOAT v, t_vector *
 
     // Calculate tangent and bitangent vectors
     // These should be perpendicular to the normal
-    if (fabs(original_normal->y) < 0.99)
+    if (fabs(original_normal->y)
+        < 0.99)
         tangent = vector_cross(original_normal, &(t_vector){0, 1, 0});
     else
         tangent = vector_cross(original_normal, &(t_vector){1, 0, 0});
@@ -450,7 +451,8 @@ void rotate_point(t_point *p, t_vector axis, FLOAT angle)
              ((1 - cos_angle) * axis.x * axis.y - axis.z * sin_angle) * p->y +
              ((1 - cos_angle) * axis.x * axis.z + axis.y * sin_angle) * p->z;
 
-    temp.y = ((1 - cos_angle) * axis.y * axis.x + axis.z * sin_angle) * p->x +
+    temp.y = ((1 - cos_angle) * axis
+       .y * axis.x + axis.z * sin_angle) * p->x +
              (cos_angle + (1 - cos_angle) * axis.y * axis.y) * p->y +
              ((1 - cos_angle) * axis.y * axis.z - axis.x * sin_angle) * p->z;
 

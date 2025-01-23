@@ -6,11 +6,11 @@
 /*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/10 17:02:06 by sessarhi          #+#    #+#             */
-/*   Updated: 2025/01/22 13:30:42 by sessarhi         ###   ########.fr       */
+/*   Updated: 2025/01/23 20:31:48 by sessarhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "./../../../minirt.h"
+#include "./../../../minirt_bonus.h"
 
 static FLOAT calculate_body_intersection(const t_ray *ray, const t_cylinder *cylinder)
 {

@@ -1,4 +1,4 @@
-#include "./../../../minirt.h"
+#include "./../../../minirt_bonus.h"
 
 t_vector point_to_vector(t_point *point)
 {
