@@ -6,11 +6,11 @@
 /*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/10 17:02:02 by sessarhi          #+#    #+#             */
-/*   Updated: 2025/01/21 17:09:40 by sessarhi         ###   ########.fr       */
+/*   Updated: 2025/01/23 20:31:59 by sessarhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "./../../../minirt.h"
+#include "./../../../minirt_bonus.h"
 
 FLOAT hit_plane(const t_vector *point, const t_vector *normal, const t_ray *ray)
 {

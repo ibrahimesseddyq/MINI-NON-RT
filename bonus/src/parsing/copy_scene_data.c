@@ -6,7 +6,7 @@
 /*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 16:42:51 by sessarhi          #+#    #+#             */
-/*   Updated: 2025/01/23 16:08:16 by sessarhi         ###   ########.fr       */
+/*   Updated: 2025/01/23 20:24:22 by sessarhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,13 +59,13 @@ void copy_tscene(t_tscene *tscene, t_scene *scene)
         i++;
     }
     i = 0;
-    while(tscene->light)
-    {
-        scene->light[i].position = tscene->light->position;
-        scene->light[i].bratio = tscene->light->bratio;
-        scene->light[i].color = tscene->light->color;
-        scene->light[i].id = id++;
-        tscene->light = tscene->light->next;
-        i++;
-    }
+    // while(tscene->light)
+    // {
+    //     scene->light[i].position = tscene->light->position;
+    //     scene->light[i].bratio = tscene->light->bratio;
+    //     scene->light[i].color = tscene->light->color;
+    //     scene->light[i].id = id++;
+    //     tscene->light = tscene->light->next;
+    //     i++;
+    // }
 }

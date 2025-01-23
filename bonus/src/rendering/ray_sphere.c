@@ -6,11 +6,11 @@
 /*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/10 17:01:12 by sessarhi          #+#    #+#             */
-/*   Updated: 2025/01/23 16:15:53 by sessarhi         ###   ########.fr       */
+/*   Updated: 2025/01/23 20:32:07 by sessarhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "./../../../minirt.h"
+#include "./../../../minirt_bonus.h"
 
 
 FLOAT hit_sphere(t_point *point, double radius, t_ray *ray)

@@ -6,7 +6,7 @@
 /*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/24 17:44:32 by sessarhi          #+#    #+#             */
-/*   Updated: 2025/01/23 16:18:15 by sessarhi         ###   ########.fr       */
+/*   Updated: 2025/01/23 20:22:28 by sessarhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -320,7 +320,7 @@ int trace_ray(t_ray *ray, t_scene *scene)
     intersection.distance = INFINITY;
     intersection.hit = false;
     intersection.id = -1;
-    // intersection.hit = sphere_intersection(scene, &intersection, ray);
+    intersection.hit = sphere_intersection(scene, &intersection, ray);
     intersection.hit = cylinder_intersection(scene, &intersection, ray);
     intersection.hit = plane_intersection(scene, &intersection, ray);
     // intersection.hit = cone_intersection(scene, &intersection, ray);
@@ -774,7 +774,7 @@ void render(t_scene *scene)
     scene->img.addr = mlx_get_data_addr(scene->img.img,
          &scene->img.bits_per_pixel, &scene->img.line_length, &scene->img.endian);
     gettimeofday(&start, NULL);
-    init_textures(scene);
+    // init_textures(scene);
     draw(scene);
     gettimeofday(&end, NULL);
     time_taken = (end.tv_sec - start.tv_sec) * 1e6;
