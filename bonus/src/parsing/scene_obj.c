@@ -6,7 +6,7 @@
 /*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/11 18:11:36 by sessarhi          #+#    #+#             */
-/*   Updated: 2025/01/23 13:48:39 by sessarhi         ###   ########.fr       */
+/*   Updated: 2025/01/24 10:39:19 by sessarhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,9 @@ int count_args(const char** inf)
 }
 int parse_material(const char *mat, t_material *material)
 {
-  char **tab;
-  tab = ft_split(mat, ',');
+    char **tab;
+    
+    tab = ft_split(mat, ',');
     if (count_args(tab) != 4)
         clean_exit("Error: Material has wrong number of arguments");
     material->ka = ft_atof(tab[0]);

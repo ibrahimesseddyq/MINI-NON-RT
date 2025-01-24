@@ -6,19 +6,20 @@
 /*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/17 13:41:03 by sessarhi          #+#    #+#             */
-/*   Updated: 2025/01/21 17:11:17 by sessarhi         ###   ########.fr       */
+/*   Updated: 2025/01/24 11:27:43 by sessarhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-int main(int ac , char **av)
+int	main(int ac, char **av)
 {
-    t_scene scene;
-    setup_arena();
-    if (ac != 2)
-        return (printf("Error bad arguments\n"));
-    process_flie(av , &scene);
-    render(&scene);
-    return SUCCESS;
+	t_scene	scene;
+
+	setup_arena();
+	if (ac != 2)
+		return (printf("Error bad arguments\n"));
+	process_flie(av , &scene);
+	render(&scene);
+	return (SUCCESS);
 }

@@ -6,7 +6,7 @@
 /*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/24 16:58:37 by sessarhi          #+#    #+#             */
-/*   Updated: 2025/01/21 15:36:02 by sessarhi         ###   ########.fr       */
+/*   Updated: 2025/01/24 11:30:21 by sessarhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,14 +20,15 @@
 # define M_PI 3.14159265358979323846
 # define EPSILON 1e-6
 # define SHADOW_BIAS 0.0001f
-#define SUCCESS 0
-#define ERROR -1
-typedef struct _s_vector
-{
-    double x;
-    double y;
-    double z;
-} t_vector;
+# define SUCCESS 0
+# define ERROR -1
 
-typedef t_vector t_point;
+typedef struct s_vector
+{
+	double	x;
+	double	y;
+	double	z;
+}	t_vector;
+
+typedef t_vector	t_point;
 #endif

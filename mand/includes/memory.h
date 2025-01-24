@@ -1,12 +1,25 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   memory.h                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/01/24 11:33:14 by sessarhi          #+#    #+#             */
+/*   Updated: 2025/01/24 11:33:30 by sessarhi         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+
 #ifndef MEMORY_H
-#define MEMORY_H
+# define MEMORY_H
 
-#include "includes.h"
+# include "includes.h"
 
-#define ARENA_ALIGNMENT 8
-#define ALIGN_UP(n, align) (((n) + (align) - 1) & ~((align) - 1))
-#define DEFAULT_CHUNK_SIZE (130 * 15 * 1024 * 1024)
-#define MIN_CHUNK_SIZE (4 * 1024)
+# define ARENA_ALIGNMENT 8
+# define ALIGN_UP(n, align) (((n) + (align) - 1) & ~((align) - 1))
+# define DEFAULT_CHUNK_SIZE (130 * 15 * 1024 * 1024)
+# define MIN_CHUNK_SIZE (4 * 1024)
 
 typedef struct s_arena_chunk
 {
