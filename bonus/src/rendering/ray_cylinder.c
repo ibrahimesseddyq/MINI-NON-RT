@@ -6,7 +6,7 @@
 /*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/10 17:02:06 by sessarhi          #+#    #+#             */
-/*   Updated: 2025/01/23 20:31:48 by sessarhi         ###   ########.fr       */
+/*   Updated: 2025/01/24 20:13:07 by sessarhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,6 +107,7 @@ bool cylinder_intersection(t_scene *scene, t_intersection *intersection, t_ray *
                              intersection->distance);
         if (t > 0 && t < intersection->distance)
         {
+			intersection->material = scene->cylinder[i].material;
             intersection->hit = true;
             intersection->id = scene->cylinder[i].id;
             intersection->distance = t;

@@ -4,6 +4,7 @@ CC = cc
 CFLAGS =  #-Wall -Wextra -Werror  # Uncommented this for standard warning flags
 MND=./mand/src/
 BNS=./bonus/src/
+
 SRC = minirt.c $(MND)parsing/parce_rgb.c $(MND)parsing/parse_crd.c $(MND)parsing/parsing.c $(MND)utils/ft_atof.c \
 	$(MND)utils/ft_split.c $(MND)utils/Rgb_cnv.c $(MND)tmputils/cy_utils.c  $(MND)tmputils/pl_utils.c \
 	$(MND)tmputils/sp_utils.c $(MND)memory/arena_alloc.c $(MND)memory/arena_create.c $(MND)memory/arena_manage.c \
@@ -15,8 +16,8 @@ BONUS_SRC = minirt_bonus.c  $(BNS)parsing/parce_rgb.c $(BNS)parsing/parse_crd.c 
 	$(BNS)utils/ft_atof.c $(BNS)utils/ft_split.c $(BNS)utils/Rgb_cnv.c $(BNS)tmputils/cy_utils.c \
 	$(BNS)tmputils/co_utils.c $(BNS)tmputils/pl_utils.c $(BNS)tmputils/sp_utils.c $(BNS)memory/arena_alloc.c \
 	$(BNS)memory/arena_create.c $(BNS)memory/arena_manage.c $(BNS)math/math.c $(BNS)rendering/render.c\
-	 $(BNS)coloring/coloring.c $(BNS)utils/ft_atoi.c $(BNS)utils/ft_strcmp.c $(BNS)rendering/ray_sphere.c\
-	 $(BNS)rendering/ray_plane.c $(BNS)rendering/ray_cylinder.c $(BNS)parsing/env_obj.c $(BNS)parsing/scene_obj.c\
+	$(BNS)coloring/coloring.c $(BNS)utils/ft_atoi.c $(BNS)utils/ft_strcmp.c $(BNS)rendering/ray_sphere.c\
+	$(BNS)rendering/ray_plane.c $(BNS)rendering/ray_cylinder.c $(BNS)parsing/env_obj.c $(BNS)parsing/scene_obj.c\
 	$(BNS)parsing/read_line.c $(BNS)parsing/copy_scene_data.c $(BNS)parsing/err_cleanup.c $(BNS)tmputils/light_utils.c\
 
 OBJ = $(SRC:.c=.o)

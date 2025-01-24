@@ -6,7 +6,7 @@
 /*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/24 17:01:10 by sessarhi          #+#    #+#             */
-/*   Updated: 2025/01/17 15:31:17 by sessarhi         ###   ########.fr       */
+/*   Updated: 2025/01/24 20:10:53 by sessarhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ typedef struct s_intersection
     t_point point;
     t_vector normal;
     t_color color;
+	t_material material;
     FLOAT distance;
     FLOAT t;
     int id;
