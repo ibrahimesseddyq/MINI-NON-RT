@@ -6,7 +6,7 @@
 /*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/10 17:01:12 by sessarhi          #+#    #+#             */
-/*   Updated: 2025/01/23 20:32:07 by sessarhi         ###   ########.fr       */
+/*   Updated: 2025/01/24 20:11:21 by sessarhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ bool sphere_intersection(t_scene *scene , t_intersection *intersection , t_ray *
             intersection->hit = true;
             intersection->id = scene->sphere[i].id;
             intersection->distance = t;
-
+			intersection->material = scene->sphere[i].material;
             intersection->color = scene->sphere[i].color;
             tmp = vector_scale(&ray->direction, t);
             intersection->point = vector_add(&ray->origin, &tmp);

@@ -6,7 +6,7 @@
 /*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 16:42:51 by sessarhi          #+#    #+#             */
-/*   Updated: 2025/01/23 20:51:00 by sessarhi         ###   ########.fr       */
+/*   Updated: 2025/01/24 20:54:45 by sessarhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ void copy_tscene(t_tscene *tscene, t_scene *scene)
         scene->plane[i].position = tscene->plane->position;
         scene->plane[i].direction = tscene->plane->direction;
         scene->plane[i].color = tscene->plane->color;
+		scene->plane[i].material = tscene->plane->material;
         scene->plane[i].id = id++;
         tscene->plane = tscene->plane->next;
         i++;
@@ -41,6 +42,7 @@ void copy_tscene(t_tscene *tscene, t_scene *scene)
     {
         scene->sphere[i].position = tscene->sphere->position;
         scene->sphere[i].diameter = tscene->sphere->diameter;
+		scene->sphere[i].material = tscene->sphere->material;
         scene->sphere[i].color = tscene->sphere->color;
         scene->sphere[i].id = id++;
         tscene->sphere = tscene->sphere->next;
@@ -53,6 +55,7 @@ void copy_tscene(t_tscene *tscene, t_scene *scene)
         scene->cylinder[i].direction = vector_normalize(&tscene->cylinder->direction);
         scene->cylinder[i].diameter = tscene->cylinder->diameter;
         scene->cylinder[i].height = tscene->cylinder->height;
+		scene->cylinder[i].material = tscene->cylinder->material;
         scene->cylinder[i].color = tscene->cylinder->color;
         scene->cylinder[i].id = id++;
         tscene->cylinder = tscene->cylinder->next;

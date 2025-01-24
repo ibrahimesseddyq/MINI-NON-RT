@@ -6,7 +6,7 @@
 /*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/24 17:44:32 by sessarhi          #+#    #+#             */
-/*   Updated: 2025/01/23 21:04:10 by sessarhi         ###   ########.fr       */
+/*   Updated: 2025/01/24 20:09:03 by sessarhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,7 +122,6 @@ void draw(t_scene *scene)
 
 int key_hook(int keycode, t_scene *scene)
 {
-
     return (0);
 }
 int hook(t_scene *scene)
@@ -474,9 +473,7 @@ int transformation(int keycode, t_scene *scene)
         }
         cursor = 0;
         for(int i = 0;i < 10; i++)
-        {
             keys[i] = 0;
-        }
     }
 
     if (keycode == ESC_KEY)
@@ -484,7 +481,6 @@ int transformation(int keycode, t_scene *scene)
         mlx_destroy_window(scene->mlx, scene->win);
         exit(0);
     }
-
     draw(scene);
     return 0;
 }

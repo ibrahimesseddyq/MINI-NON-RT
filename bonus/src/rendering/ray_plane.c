@@ -6,7 +6,7 @@
 /*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/10 17:02:02 by sessarhi          #+#    #+#             */
-/*   Updated: 2025/01/23 20:31:59 by sessarhi         ###   ########.fr       */
+/*   Updated: 2025/01/24 20:11:47 by sessarhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ bool plane_intersection(const t_scene *scene, t_intersection *intersection,const
         {
             intersection->hit = true;
             intersection->id = scene->plane[i].id;
+			intersection->material = scene->plane[i].material;
             intersection->distance = t;
             intersection->color = scene->plane[i].color;
             intersection->normal = scene->plane[i].direction;
