@@ -6,7 +6,7 @@
 /*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 12:56:16 by sessarhi          #+#    #+#             */
-/*   Updated: 2025/01/22 13:23:14 by sessarhi         ###   ########.fr       */
+/*   Updated: 2025/01/24 15:19:00 by sessarhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,41 +36,42 @@
 # define KEY_MINUS 65453
 # define KEY_PLUS 65451
 
-#include "defined.h"
-#include "includes.h"
-typedef t_vector t_point;
+# include "defined.h"
+# include "includes.h"
+
+typedef t_vector	t_point;
 
 
 typedef struct s_color
 {
-    FLOAT r;
-    FLOAT g;
-    FLOAT b;
-}   t_color;
+	FLOAT	r;
+	FLOAT	g;
+	FLOAT	b;
+}	t_color;
 typedef struct s_ambient
 {
-    FLOAT ratio;
-    t_color color;
-}   t_ambient;
+	FLOAT	ratio;
+	t_color	color;
+}	t_ambient;
 
 typedef struct s_camera
 {
-    t_point position;
-    t_vector direction;
-    t_vector up;
-    t_vector right;
-    int   fov;
-}   t_camera;
+	t_point		position;
+	t_vector	direction;
+	t_vector	up;
+	t_vector	right;
+	int			fov;
+}  	t_camera;
 
 typedef struct s_texture
 {
-    void    *data;          // MLX image pointer
-    char    *addr;          // Image data address
-    int     width;
-    int     height;
-    int     bits_per_pixel;
-    int     line_length;
-    int     endian;
+	void	*data;
+	char	*addr;
+	int		 width;
+	int		 height;
+	int		 bits_per_pixel;
+	int		 line_length;
+	int		 endian;
 } t_texture;
 
 typedef struct s_light
