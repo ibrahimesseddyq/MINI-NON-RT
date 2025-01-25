@@ -6,7 +6,7 @@
 /*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/24 17:44:32 by sessarhi          #+#    #+#             */
-/*   Updated: 2025/01/25 11:58:29 by sessarhi         ###   ########.fr       */
+/*   Updated: 2025/01/25 18:24:32 by sessarhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -250,76 +250,54 @@ int pixel_color(t_scene *scene, t_intersection *intersection, t_ray *ray)
     t_vector offset;
     t_vector ray_origin;
     t_ray shadow_ray;
-	t_color texture_color;
+    t_color texture_color;
     FLOAT diff;
     FLOAT offset_direction;
     t_vector surface_normal;
-	t_vector view_dir;
-	t_vector reflection_dir;
-	t_color specular;
-	FLOAT spec;
-	
-	view_dir = vector_scale(&ray->direction, -1);
-	view_dir = vector_normalize(&view_dir);
+    t_vector view_dir;
+    t_vector reflection_dir;
+    t_color specular;
+    FLOAT spec;
+    FLOAT spec2;
+
+    view_dir = vector_scale(&ray->direction, -1);
+    view_dir = vector_normalize(&view_dir);
+    ambient = color_scale(&scene->ambient.color, scene->ambient.ratio * intersection->material.ka);
     bool is_inside = vector_dot(&intersection->normal, &ray->direction) > 0;
     offset_direction = is_inside ? -1.0 : 1.0;
     offset = vector_scale(&intersection->normal, SHADOW_BIAS * offset_direction);
     ray_origin = vector_add(&intersection->point, &offset);
     shadow_ray.origin = ray_origin;
-    shadow_ray.direction = vector_sub(&scene->light[0].position, &ray_origin);
-    shadow_ray.direction = vector_normalize(&shadow_ray.direction);
-    if (check_shadow(scene, &shadow_ray, intersection))
-        return 0x000000;
-	spec = vector_dot(&shadow_ray.direction, &intersection->normal);
-    reflection_dir = vector_scale(&intersection->normal, 2.0 * spec);
-	reflection_dir = vector_sub(&reflection_dir, &shadow_ray.direction);
-	reflection_dir = vector_normalize(&reflection_dir);
-	spec = fmax(0.0, vector_dot(&view_dir, &reflection_dir));
-	spec = pow(spec, intersection->material.n);
-	specular = color_scale(&scene->light[0].color, scene->light[0].bratio * spec * 
-	intersection->material.ks);
-	calculate_surface_properties(scene, intersection, &texture_color, &surface_normal);
-    ambient = color_scale(&scene->ambient.color, scene->ambient.ratio * intersection->material.ka);
-    light_dir = vector_sub(&scene->light[0].position, &intersection->point);
-    light_dir = vector_normalize(&light_dir);
-    diff = fmax(0.0, vector_dot(&surface_normal, &light_dir));
-    diffuse = color_scale(&scene->light[0].color, scene->light[0].bratio * diff * 
-	intersection->material.kd);
+    spec = 0.0;
+    diff = 0.0;
+    calculate_surface_properties(scene, intersection, &texture_color, &surface_normal);
+    for (int i = 0; i < scene->light_count; i++)
+    {
+        shadow_ray.direction = vector_sub(&scene->light[i].position, &ray_origin);
+        shadow_ray.direction = vector_normalize(&shadow_ray.direction);
+        if (check_shadow(scene, &shadow_ray, intersection))
+            continue;
+        spec2 = vector_dot(&shadow_ray.direction, &intersection->normal);
+        reflection_dir = vector_scale(&intersection->normal, 2.0 * spec2);
+        reflection_dir = vector_sub(&reflection_dir, &shadow_ray.direction);
+        reflection_dir = vector_normalize(&reflection_dir);
+        spec2 = fmax(0.0, vector_dot(&view_dir, &reflection_dir));
+        spec += pow(spec2, intersection->material.n) * scene->light[i].bratio;
+        light_dir = vector_sub(&scene->light[i].position, &intersection->point);
+        light_dir = vector_normalize(&light_dir);
+        diff += fmax(0.0, vector_dot(&surface_normal, &light_dir)) * scene->light[i].bratio;
+    }
+	// if (spec == 0.0 && diff == 0.0)
+	// 	return 0x000000;
+	spec = fmin(1.0, spec);
+	diff = fmin(1.0, diff);
+    specular = color_scale(&scene->light[0].color, spec * intersection->material.ks);
+    diffuse = color_scale(&scene->light[0].color, diff * intersection->material.kd);
     final_color = color_add(&ambient, &diffuse);
     final_color = color_mul(&final_color, &texture_color);
-	final_color = color_add(&final_color, &specular);
-	
-    final_color.r = fmin(final_color.r, 1.0);
-    final_color.g = fmin(final_color.g, 1.0);
-    final_color.b = fmin(final_color.b, 1.0);
+    final_color = color_add(&final_color, &specular);
     return (colortorgb(&final_color));
 }
-// int pixel_color(t_scene *scene , t_intersection *intersection, t_ray *ray)
-// {
-//     t_color ambient;
-//     t_color diffuse;
-//     t_color final_color;
-//     t_vector light_dir;
-//     FLOAT diff;
-//     t_ray shadow_ray;
-
-//     shadow_ray.origin = intersection->point;
-//     shadow_ray.direction = vector_sub(&scene->light.position, &intersection->point);
-//     shadow_ray.direction = vector_normalize(&shadow_ray.direction);
-//     if (check_shadow(scene, &shadow_ray, intersection))
-//         return 0x000000;
-//     ambient = color_scale(&scene->ambient.color, scene->ambient.ratio);
-//     light_dir = vector_sub(&scene->light.position, &intersection->point);
-//     light_dir = vector_normalize(&light_dir);
-//     diff = fmax(0.0, vector_dot(&intersection->normal, &light_dir));
-//     diffuse = color_scale(&scene->light.color, scene->light.bratio * diff);
-//     final_color = color_add(&ambient, &diffuse);
-//     final_color = color_mul(&final_color, &intersection->color);
-//     final_color.r = fmin(final_color.r, 1.0);
-//     final_color.g = fmin(final_color.g, 1.0);
-//     final_color.b = fmin(final_color.b, 1.0);
-//     return (colortorgb(&final_color));
-// }
 int trace_ray(t_ray *ray, t_scene *scene)
 {
     t_intersection intersection;
