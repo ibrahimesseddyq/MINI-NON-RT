@@ -6,7 +6,7 @@
 /*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/24 17:44:32 by sessarhi          #+#    #+#             */
-/*   Updated: 2025/01/24 20:55:37 by sessarhi         ###   ########.fr       */
+/*   Updated: 2025/01/25 11:18:55 by sessarhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -286,8 +286,9 @@ int pixel_color(t_scene *scene, t_intersection *intersection, t_ray *ray)
     diffuse = color_scale(&scene->light[0].color, scene->light[0].bratio * diff * 
 	intersection->material.kd);
     final_color = color_add(&ambient, &diffuse);
-	final_color = color_add(&final_color, &specular);
     final_color = color_mul(&final_color, &texture_color);
+	final_color = color_add(&final_color, &specular);
+	
     final_color.r = fmin(final_color.r, 1.0);
     final_color.g = fmin(final_color.g, 1.0);
     final_color.b = fmin(final_color.b, 1.0);
