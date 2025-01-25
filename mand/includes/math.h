@@ -6,7 +6,7 @@
 /*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/24 17:01:10 by sessarhi          #+#    #+#             */
-/*   Updated: 2025/01/24 11:32:49 by sessarhi         ###   ########.fr       */
+/*   Updated: 2025/01/25 13:53:04 by sessarhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,15 +33,15 @@ typedef struct s_intersection
 
 
 
-t_vector	vector_add(t_vector *a, t_vector *b);
-t_vector	vector_sub(t_vector *a, t_vector *b);
-t_vector	vector_mul(t_vector *a, t_vector *b);
-t_vector	vector_div(t_vector *a, t_vector *b);
-t_vector	vector_cross(t_vector *a, t_vector *b);
-FLOAT		vector_dot(t_vector *a, t_vector *b);
-FLOAT		vector_length(t_vector *a);
-t_vector	vector_normalize(t_vector *a);
-t_vector	vector_scale(t_vector *a, FLOAT scale);
+t_vector	vector_add(const t_vector *a, const t_vector *b);
+t_vector	vector_sub(const t_vector *a, const t_vector *b);
+t_vector	vector_mul(const t_vector *a, const t_vector *b);
+t_vector	vector_div(const t_vector *a, const t_vector *b);
+t_vector	vector_cross(const t_vector *a, const t_vector *b);
+FLOAT		vector_dot(const t_vector *a, const t_vector *b);
+FLOAT		vector_length(const t_vector *a);
+t_vector	vector_normalize(const t_vector *a);
+t_vector	vector_scale(const t_vector *a, const FLOAT scale);
 
 #endif
 
