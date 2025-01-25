@@ -6,7 +6,7 @@
 /*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/26 09:26:20 by sessarhi          #+#    #+#             */
-/*   Updated: 2025/01/25 15:24:38 by sessarhi         ###   ########.fr       */
+/*   Updated: 2025/01/25 21:43:12 by sessarhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,9 @@ t_color color_add(t_color *a, t_color *b)
 {
     t_color c;
 
-    c.r = a->r + b->r;
-    c.g = a->g + b->g;
-    c.b = a->b + b->b;
+    c.r = fmin(a->r + b->r, 1.0);
+    c.g = fmin(a->g + b->g, 1.0);
+    c.b = fmin(a->b + b->b, 1.0);
     return (c);
 }
 
