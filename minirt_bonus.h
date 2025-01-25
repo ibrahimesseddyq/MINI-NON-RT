@@ -6,7 +6,7 @@
 /*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 14:53:30 by sessarhi          #+#    #+#             */
-/*   Updated: 2025/01/23 13:54:59 by sessarhi         ###   ########.fr       */
+/*   Updated: 2025/01/25 22:39:18 by sessarhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,9 +34,9 @@ int    ft_atoi(const char *str);
 bool plane_intersection(const t_scene *scene, t_intersection *intersection,const t_ray *ray);
 bool sphere_intersection(t_scene *scene , t_intersection *intersection , t_ray *ray);
 bool cylinder_intersection(t_scene *scene, t_intersection *intersection, t_ray *ray);
-int process_L(char **inf , t_tscene *t_scene);
-int process_C(char **inf , t_tscene *t_scene);
-int process_A(char **inf , t_tscene *tscene);
+int process_l(char **inf , t_tscene *t_scene);
+int process_c(char **inf , t_tscene *t_scene);
+int process_a(char **inf , t_tscene *tscene);
 int process_sp(char **inf ,t_tscene *t_scene);
 int process_pl(char **inf , t_tscene *t_scene);
 int process_cy(char **inf , t_tscene *t_scene);

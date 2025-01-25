@@ -6,7 +6,7 @@
 /*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 19:16:40 by sessarhi          #+#    #+#             */
-/*   Updated: 2025/01/25 13:59:48 by sessarhi         ###   ########.fr       */
+/*   Updated: 2025/01/25 22:39:18 by sessarhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,9 +36,9 @@ bool	sphere_intersection(t_scene *scene,
 			t_intersection *intersection, t_ray *ray);
 bool	cylinder_intersection(t_scene *scene,
 			t_intersection *intersection, t_ray *ray);
-int		process_L(char **inf, t_tscene *t_scene);
-int		process_C(char **inf, t_tscene *t_scene);
-int		process_A(char **inf, t_tscene *tscene);
+int		process_l(char **inf, t_tscene *t_scene);
+int		process_c(char **inf, t_tscene *t_scene);
+int		process_a(char **inf, t_tscene *tscene);
 int		process_sp(char **inf, t_tscene *t_scene);
 int		process_pl(char **inf, t_tscene *t_scene);
 int		process_cy(char **inf, t_tscene *t_scene);

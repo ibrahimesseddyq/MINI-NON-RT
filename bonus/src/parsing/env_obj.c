@@ -6,13 +6,13 @@
 /*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/11 18:09:02 by sessarhi          #+#    #+#             */
-/*   Updated: 2025/01/23 15:45:52 by sessarhi         ###   ########.fr       */
+/*   Updated: 2025/01/25 22:39:18 by sessarhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./../../../minirt_bonus.h"
 
-int process_A(char **inf , t_tscene *tscene)
+int process_a(char **inf , t_tscene *tscene)
 {
     if (!inf[1] || !inf[2] || inf[3])
         return (1);
@@ -26,7 +26,7 @@ int process_A(char **inf , t_tscene *tscene)
     return (0);
 }
 
-int process_C(char **inf , t_tscene *t_scene)
+int process_c(char **inf , t_tscene *t_scene)
 {
     if (!inf[1] || !inf[2] || !inf[3] || inf[4])
         return (1);
@@ -48,7 +48,7 @@ int process_C(char **inf , t_tscene *t_scene)
     return (0);
 }
 
-int process_L(char **inf , t_tscene *t_scene)
+int process_l(char **inf , t_tscene *t_scene)
 {
     t_tlight *new;
     if (!inf[1] || !inf[2] || !inf[3] || inf[4])
