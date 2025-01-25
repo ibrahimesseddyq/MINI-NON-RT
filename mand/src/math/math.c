@@ -6,7 +6,7 @@
 /*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/24 17:05:04 by sessarhi          #+#    #+#             */
-/*   Updated: 2025/01/25 13:51:18 by sessarhi         ###   ########.fr       */
+/*   Updated: 2025/01/25 22:23:36 by sessarhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,4 +61,3 @@ t_vector	vector_cross(const t_vector *a, const t_vector *b)
 	res.z = a->x * b->y - a->y * b->x;
 	return (res);
 }
-

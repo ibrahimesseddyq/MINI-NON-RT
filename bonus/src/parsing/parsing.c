@@ -6,7 +6,7 @@
 /*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/15 21:09:07 by sessarhi          #+#    #+#             */
-/*   Updated: 2025/01/22 21:58:08 by sessarhi         ###   ########.fr       */
+/*   Updated: 2025/01/25 22:39:18 by sessarhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,11 +27,11 @@ void splil_line(const char *line , t_tscene *tscene)
     {
         inf = ft_split(elm[i], ' ');
     printf("sefv4\n");
-        if (ft_strcmp(inf[0] ,"A") == 0 && !process_A(inf , tscene))
+        if (ft_strcmp(inf[0] ,"A") == 0 && !process_a(inf , tscene))
                 i++;
-        else if (ft_strcmp(inf[0], "C") == 0 && !process_C(inf  ,tscene))
+        else if (ft_strcmp(inf[0], "C") == 0 && !process_c(inf  ,tscene))
                 i++;
-        else if (ft_strcmp(inf[0], "L") == 0 && !process_L(inf ,tscene))
+        else if (ft_strcmp(inf[0], "L") == 0 && !process_l(inf ,tscene))
                 i++;
         else if (ft_strcmp(inf[0], "sp") == 0 && !process_sp(inf ,tscene))
                 i++;
