@@ -6,7 +6,7 @@
 /*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/24 17:44:32 by sessarhi          #+#    #+#             */
-/*   Updated: 2025/01/25 11:58:29 by sessarhi         ###   ########.fr       */
+/*   Updated: 2025/01/25 13:58:14 by sessarhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -169,7 +169,6 @@ int my_atoi(int *keys, int start)
         i++;
     }
     array[array_index] = '\0';
-    printf("atoi [%d]\n", array);
     return ft_atoi(array);
 }
 
