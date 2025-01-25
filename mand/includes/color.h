@@ -6,7 +6,7 @@
 /*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/26 09:21:08 by sessarhi          #+#    #+#             */
-/*   Updated: 2025/01/24 16:01:24 by sessarhi         ###   ########.fr       */
+/*   Updated: 2025/01/25 11:59:42 by sessarhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@
 
 t_color	color_add(t_color *a, t_color *b);
 t_color	color_mul(t_color *a, t_color *b);
-t_color	RgbToColor(int r, int g, int b);
-int		colorToRgb(t_color *a);
+t_color	rgbtocolor(int r, int g, int b);
+int		colortorgb(t_color *a);
 t_color	color_scale(t_color *a, FLOAT scale);
 
 #endif

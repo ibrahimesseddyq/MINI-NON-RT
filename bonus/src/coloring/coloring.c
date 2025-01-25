@@ -6,7 +6,7 @@
 /*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/26 09:26:20 by sessarhi          #+#    #+#             */
-/*   Updated: 2024/12/26 10:08:52 by sessarhi         ###   ########.fr       */
+/*   Updated: 2025/01/25 11:59:42 by sessarhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ t_color color_scale(t_color *a, FLOAT scale)
     return (c);
 }
 
-int colorToRgb(t_color *a)
+int colortorgb(t_color *a)
 {
     int r;
     int g;
@@ -54,7 +54,7 @@ int colorToRgb(t_color *a)
     return (r << 16 | g << 8 | b);
 }
 
-t_color RgbToColor(int r, int g, int b)
+t_color rgbtocolor(int r, int g, int b)
 {
     t_color c;
 

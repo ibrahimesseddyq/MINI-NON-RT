@@ -6,7 +6,7 @@
 /*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/24 17:44:32 by sessarhi          #+#    #+#             */
-/*   Updated: 2025/01/24 20:09:03 by sessarhi         ###   ########.fr       */
+/*   Updated: 2025/01/25 11:58:29 by sessarhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ int pixel_color(t_scene *scene , t_intersection *intersection, t_ray *ray)
     final_color.r = fmin(final_color.r, 1.0);
     final_color.g = fmin(final_color.g, 1.0);
     final_color.b = fmin(final_color.b, 1.0);
-    return (colorToRgb(&final_color));
+    return (colortorgb(&final_color));
 }
 int trace_ray(t_ray *ray, t_scene *scene)
 {

@@ -6,7 +6,7 @@
 /*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/15 12:18:32 by sessarhi          #+#    #+#             */
-/*   Updated: 2025/01/22 21:57:58 by sessarhi         ###   ########.fr       */
+/*   Updated: 2025/01/25 11:59:42 by sessarhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ bool	parse_rgb(const char *str ,t_color *color)
     r = Rgb_value(tab[0]);
     g = Rgb_value(tab[1]);
     b = Rgb_value(tab[2]);
-    *color = RgbToColor(r, g, b);
+    *color = rgbtocolor(r, g, b);
     free(tab);
     if (r == -1 || g == -1 || b == -1)
         return (false);
