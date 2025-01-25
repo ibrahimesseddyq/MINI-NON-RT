@@ -6,7 +6,7 @@
 /*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/24 17:01:10 by sessarhi          #+#    #+#             */
-/*   Updated: 2025/01/24 20:10:53 by sessarhi         ###   ########.fr       */
+/*   Updated: 2025/01/25 15:45:39 by sessarhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ FLOAT vector_dot(t_vector *a, t_vector *b);
 FLOAT vector_length(t_vector *a);
 t_vector vector_normalize(t_vector *a);
 t_vector vector_scale(t_vector *a, FLOAT scale);
+t_vector vector_reflect(t_vector *incident, t_vector *normal);
 
 #endif
 
