@@ -6,11 +6,11 @@
 /*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/14 16:42:01 by sessarhi          #+#    #+#             */
-/*   Updated: 2025/01/22 14:59:28 by sessarhi         ###   ########.fr       */
+/*   Updated: 2025/01/26 11:12:51 by sessarhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int	Rgb_value(const char *str)
+int	rgb_value(const char *str)
 {
 	register  int	nb;
 

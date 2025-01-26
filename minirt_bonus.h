@@ -6,7 +6,7 @@
 /*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 14:53:30 by sessarhi          #+#    #+#             */
-/*   Updated: 2025/01/25 22:39:18 by sessarhi         ###   ########.fr       */
+/*   Updated: 2025/01/26 11:12:51 by sessarhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ bool	parse_rgb(const char *str ,t_color *color);
 char    **ft_split(char const *s, char c);
 void    splil_line(const char *line , t_tscene *tscene);
 FLOAT	ft_atof(const char *str);
-int	Rgb_value(const char *str);
+int	rgb_value(const char *str);
 void   process_flie( char **av , t_scene *scene);
 void render(t_scene *scene);
 int    ft_strcmp(const char *s1, const char *s2);

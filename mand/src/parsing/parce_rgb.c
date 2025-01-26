@@ -6,7 +6,7 @@
 /*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/15 12:18:32 by sessarhi          #+#    #+#             */
-/*   Updated: 2025/01/25 22:41:59 by sessarhi         ###   ########.fr       */
+/*   Updated: 2025/01/26 11:14:48 by sessarhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,12 +40,9 @@ bool	parse_rgb(const char *str, t_color *color)
 	tab = ft_split(str, ',');
 	if (!tab)
 		return (false);
-	r = Rgb_value(tab[0]);
-	g = Rgb_value(tab[1]);
-	b = Rgb_value(tab[2]);
+	r = rgb_value(tab[0]);
+	g = rgb_value(tab[1]);
+	b = rgb_value(tab[2]);
 	*color = rgbtocolor(r, g, b);
-	free(tab);
-	if (r == -1 || g == -1 || b == -1)
-		return (false);
 	return (true);
 }
