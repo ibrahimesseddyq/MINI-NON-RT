@@ -6,7 +6,7 @@
 /*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 12:56:16 by sessarhi          #+#    #+#             */
-/*   Updated: 2025/01/26 17:58:47 by sessarhi         ###   ########.fr       */
+/*   Updated: 2025/01/26 20:23:23 by sessarhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -152,7 +152,14 @@ typedef struct s_cyhit
 	FLOAT		bottom;
 	t_vector	top_offset;
 	t_point		top_center;
-	FLOAT		top
+	FLOAT		top;
 }	t_cyhit;
+
+typedef struct s_caps
+{
+	t_ray		ray;
+	t_cylinder cylinder;
+	FLOAT		dmin;
+}t_caps;
 
 #endif
