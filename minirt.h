@@ -6,7 +6,7 @@
 /*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 19:16:40 by sessarhi          #+#    #+#             */
-/*   Updated: 2025/01/26 11:12:51 by sessarhi         ###   ########.fr       */
+/*   Updated: 2025/01/26 13:08:01 by sessarhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,9 +42,6 @@ int		process_a(char **inf, t_tscene *tscene);
 int		process_sp(char **inf, t_tscene *t_scene);
 int		process_pl(char **inf, t_tscene *t_scene);
 int		process_cy(char **inf, t_tscene *t_scene);
-FLOAT	hit_cylinder(t_intersection *intersection,
-			const t_ray *ray, const t_cylinder *cylinder, FLOAT	dmin);
-FLOAT	hit_sphere(t_point *point, double radius, t_ray *ray);
 FLOAT	hit_plane(const t_vector *point,
 			const t_vector *normal, const t_ray *ray);
 void	copy_tscene(t_tscene *tscene, t_scene *scene);
