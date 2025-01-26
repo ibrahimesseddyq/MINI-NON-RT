@@ -12,7 +12,7 @@
 
 #include "./../../../minirt.h"
 
-void	splil_line(const char *line , t_tscene *tscene)
+void	splil_line(const char *line, t_tscene *tscene)
 {
 	char	**elm;
 	char	**inf;
@@ -23,7 +23,7 @@ void	splil_line(const char *line , t_tscene *tscene)
 	while (elm[i])
 	{
 		inf = ft_split(elm[i], ' ');
-		if (ft_strcmp(inf[0] ,"A") == 0 && !process_a(inf, tscene))
+		if (ft_strcmp(inf[0], "A") == 0 && !process_a(inf, tscene))
 			i++;
 		else if (ft_strcmp(inf[0], "C") == 0 && !process_c(inf, tscene))
 			i++;
