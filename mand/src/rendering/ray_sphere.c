@@ -6,40 +6,35 @@
 /*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/10 17:01:12 by sessarhi          #+#    #+#             */
-/*   Updated: 2025/01/26 13:09:30 by sessarhi         ###   ########.fr       */
+/*   Updated: 2025/01/26 17:21:17 by sessarhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./../../../minirt.h"
 
 
-static FLOAT	hit_sphere(t_point *point, double radius, t_ray *ray)
+static inline FLOAT	hit_sphere(t_point *point, double radius, t_ray *ray)
 {
-	t_vector	oc;
-	FLOAT		a;
-	FLOAT		b;
-	FLOAT		c;
-	FLOAT		discriminant;
-	FLOAT		t;
+	t_descriminant	dscr;
 
-	oc = vector_sub(&ray->origin, point);
-	a = vector_dot(&ray->direction, &ray->direction);
-	b = 2.0 * vector_dot(&ray->direction,&oc);
-	c = vector_dot(&oc, &oc) - radius * radius;
-	discriminant = b * b - 4 * a * c;
-	if (discriminant < 0)
-		return -1;
-	FLOAT t1 = (-b - sqrt(discriminant)) / (2.0 * a);
-	FLOAT t2 = (-b + sqrt(discriminant)) / (2.0 * a);
-	if (t1 > 0 && t2 > 0)
-		t = fmin(t1, t2);
-	else if (t1 > 0)
-		t = t1;
-	else if (t2 > 0)
-		t = t2;
+	dscr.oc = vector_sub(&ray->origin, point);
+	dscr.a = vector_dot(&ray->direction, &ray->direction);
+	dscr.b = 2.0 * vector_dot(&ray->direction, &dscr.oc);
+	dscr.c = vector_dot(&dscr.oc, &dscr.oc) - radius * radius;
+	dscr.discriminant = dscr.b * dscr.b - 4 * dscr.a * dscr.c;
+	if (dscr.discriminant < 0)
+		return (-1);
+	dscr.t1 = (-dscr.b - sqrt(dscr.discriminant)) / (2.0 * dscr.a);
+	dscr.t2 = (-dscr.b + sqrt(dscr.discriminant)) / (2.0 * dscr.a);
+	if (dscr.t1 > 0 && dscr.t2 > 0)
+		dscr.t = fmin(dscr.t1, dscr.t2);
+	else if (dscr.t1 > 0)
+		dscr.t = dscr.t1;
+	else if (dscr.t2 > 0)
+		dscr.t = dscr.t2;
 	else
 		return (-1);
-	return (t);
+	return (dscr.t);
 }
 
 bool	sphere_intersection(t_scene *scene,

@@ -6,7 +6,7 @@
 /*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 12:56:16 by sessarhi          #+#    #+#             */
-/*   Updated: 2025/01/26 13:12:59 by sessarhi         ###   ########.fr       */
+/*   Updated: 2025/01/26 17:58:47 by sessarhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,5 +144,15 @@ typedef struct s_descriminant
 	FLOAT		t1;
 	FLOAT		t2;
 }	t_descriminant;
+
+typedef struct s_cyhit
+{
+	FLOAT		body;
+	t_vector	bottom_normal;
+	FLOAT		bottom;
+	t_vector	top_offset;
+	t_point		top_center;
+	FLOAT		top
+}	t_cyhit;
 
 #endif
