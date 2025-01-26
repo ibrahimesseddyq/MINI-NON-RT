@@ -51,36 +51,49 @@ static bool	is_within_cylinder_height(const t_vector *point,
 	return (height >= 0 && height <= cylinder->height);
 }
 
-static bool get_body_hit_info(t_intersection *intersection, const t_ray *ray, 
+static bool	get_body_hit_info(t_intersection *intersection, const t_ray *ray,
 							const t_cylinder *cylinder, FLOAT t)
 {
-	t_vector scaled_dir = vector_scale(&ray->direction, t);
-	t_vector hit_point = vector_add(&ray->origin, &scaled_dir);
-	if (!is_within_cylinder_height(&hit_point, cylinder) || t >= intersection->distance)
+	t_vector	scl_rad;
+	t_vector	hit_point ;
+	t_vector	cp;
+	FLOAT		height;
+	t_vector	proj;
+
+	scl_rad = vector_scale(&ray->direction, t);
+	hit_point = vector_add(&ray->origin, &scl_rad);
+	if (!is_within_cylinder_height(&hit_point, cylinder)
+		|| t >= intersection->distance)
 		return (false);
-	t_vector cp = vector_sub(&hit_point, &cylinder->position);
-	FLOAT height = vector_dot(&cp, &cylinder->direction);
-	t_vector proj = vector_scale(&cylinder->direction, height);
-	t_vector radial = vector_sub(&cp, &proj);
-	intersection->normal = vector_normalize(&radial);
+	cp = vector_sub(&hit_point, &cylinder->position);
+	height = vector_dot(&cp, &cylinder->direction);
+	proj = vector_scale(&cylinder->direction, height);
+	scl_rad = vector_sub(&cp, &proj);
+	intersection->normal = vector_normalize(&scl_rad);
 	intersection->point = hit_point;
 	return (true);
 }
-static FLOAT get_cap_intersection(t_intersection *intersection, const t_ray *ray,
-								const t_cylinder *cylinder, const t_vector *cap_center,
-								const t_vector *cap_normal, FLOAT dmin)
+
+static FLOAT	get_cap_intersection(t_intersection *intersection, t_caps *caps,
+		const t_vector *cap_center, const t_vector *cap_normal)
 {
-	FLOAT t = hit_plane(cap_center, cap_normal, ray);
-	if (t <= EPSILON || t >= dmin)
-		return (-1);  
-	t_vector scaled_dir = vector_scale(&ray->direction, t);
-	t_vector hit_point = vector_add(&ray->origin, &scaled_dir);
-	t_vector cp = vector_sub(&hit_point, &cylinder->position);
-	t_vector proj = vector_scale(&cylinder->direction, 
-							   vector_dot(&cp, &cylinder->direction));
-	t_vector radial = vector_sub(&cp, &proj);
-	if (vector_length(&radial) > cylinder->diameter / 2.0)
-		return (-1); 
+	FLOAT		t;
+	t_vector	scl_rad;
+	t_vector	hit_point;
+	t_vector	cp;
+	t_vector	proj;
+
+	t = hit_plane(cap_center, cap_normal, &caps->ray);
+	if (t <= EPSILON || t >= caps->dmin)
+		return (-1);
+	scl_rad = vector_scale(&caps->ray.direction, t);
+	hit_point = vector_add(&caps->ray.origin, &scl_rad);
+	cp = vector_sub(&hit_point, &caps->cylinder.position);
+	proj = vector_scale(&caps->cylinder.direction,
+			vector_dot(&cp, &caps->cylinder.direction));
+	scl_rad = vector_sub(&cp, &proj);
+	if (vector_length(&scl_rad) > caps->cylinder.diameter * 0.5)
+		return (-1);
 	intersection->normal = *cap_normal;
 	intersection->point = hit_point;
 	return (t);
@@ -90,24 +103,28 @@ FLOAT	hit_cylinder(t_intersection *intersection, const t_ray *ray,
 				const t_cylinder *cylinder, FLOAT dmin)
 {
 	t_cyhit		hit;
+	t_caps		caps;
 
+	caps.ray = *ray;
+	caps.cylinder = *cylinder;
+	caps.dmin = dmin;
 	hit.body = calculate_body_intersection(ray, cylinder);
-	if (hit.body > EPSILON && hit.body < dmin)
+	if (hit.body > EPSILON && hit.body < caps.dmin)
 		if (get_body_hit_info(intersection, ray, cylinder, hit.body))
-			dmin = hit.body;
+			caps.dmin = hit.body;
 	hit.bottom_normal = vector_scale(&cylinder->direction, -1);
-	hit.bottom = get_cap_intersection(intersection, ray, cylinder,
-			&cylinder->position, &hit.bottom_normal, dmin);
-	if (hit.bottom > EPSILON && hit.bottom < dmin)
-		dmin = hit.bottom;
+	hit.bottom = get_cap_intersection(intersection, &caps,
+			&cylinder->position, &hit.bottom_normal);
+	if (hit.bottom > EPSILON && hit.bottom < caps.dmin)
+		caps.dmin = hit.bottom;
 	hit.top_offset = vector_scale(&cylinder->direction, cylinder->height);
 	hit.top_center = vector_add(&cylinder->position, &hit.top_offset);
-	hit.top = get_cap_intersection(intersection, ray, cylinder,
-			&hit.top_center, &cylinder->direction, dmin);
-	if (hit.top > EPSILON && hit.top < dmin)
-		dmin = hit.top;
-	if (dmin < INFINITY)
-		return (dmin);
+	hit.top = get_cap_intersection(intersection,&caps,
+			&hit.top_center, &cylinder->direction);
+	if (hit.top > EPSILON && hit.top < caps.dmin)
+		caps.dmin = hit.top;
+	if (caps.dmin < INFINITY)
+		return (caps.dmin);
 	return (-1);
 }
 
