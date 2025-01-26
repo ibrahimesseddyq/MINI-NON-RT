@@ -6,7 +6,7 @@
 /*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 12:56:16 by sessarhi          #+#    #+#             */
-/*   Updated: 2025/01/24 15:52:53 by sessarhi         ###   ########.fr       */
+/*   Updated: 2025/01/26 13:12:59 by sessarhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,5 +132,17 @@ typedef struct s_ray
 	t_point		origin;
 	t_vector	direction;
 }	t_ray;
+
+typedef struct s_descriminant
+{
+	t_vector	oc;
+	FLOAT		a;
+	FLOAT		b;
+	FLOAT		c;
+	FLOAT		discriminant;
+	FLOAT		t;
+	FLOAT		t1;
+	FLOAT		t2;
+}	t_descriminant;
 
 #endif
