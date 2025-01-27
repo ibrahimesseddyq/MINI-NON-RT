@@ -12,7 +12,10 @@
 
 
 #include "../../includes/memory.h"
-
+size_t align_up(size_t n, size_t align)
+{
+    return ((n) + (align) - 1) & ~((align) - 1);
+}
 t_arena_chunk	*arena_allocate_chunk(t_arena	*arena, size_t min_size)
 {
 	size_t			chunk_size;
@@ -22,7 +25,7 @@ t_arena_chunk	*arena_allocate_chunk(t_arena	*arena, size_t min_size)
 	if (min_size > chunk_size - sizeof(t_arena_chunk))
 	{
 		chunk_size = min_size + sizeof(t_arena_chunk);
-		chunk_size = ALIGN_UP(chunk_size, ARENA_ALIGNMENT);
+		chunk_size = align_up(chunk_size, ARENA_ALIGNMENT);
 	}
 	chunk = (t_arena_chunk *)arena->alloc_fn(chunk_size);
 	if (!chunk)
@@ -73,7 +76,7 @@ void	*arena_alloc_from_chunk(t_arena_chunk *chunk, size_t size, size_t align)
 	size_t		total_size;
 
 	current = (uintptr_t) & chunk->data[chunk->used];
-	aligned = ALIGN_UP(current, align);
+	aligned = align_up(current, align);
 	padding = aligned - current;
 	total_size = padding + size;
 	if (chunk->used + total_size > chunk->size - sizeof(t_arena_chunk))

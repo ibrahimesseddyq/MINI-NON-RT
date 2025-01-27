@@ -12,82 +12,78 @@
 
 #include "./../../../minirt_bonus.h"
 
-void int_tsceen(t_tscene *tscene)
+void	int_tsceen(t_tscene *tscene);
+bool	mange_line(char *buffer, int *ret, int *backup);
+void	restor_line(char **buffer, int *ret, int *backup);
+
+static void	ft_handle_buffer(char *buffer, int ret,
+			int backup, t_tscene *tscene)
 {
-    tscene->cylinder = NULL;
-    tscene->plane = NULL;
-    tscene->sphere = NULL;
-    tscene->light = NULL;
-    tscene->plane_size = 0;
-    tscene->cylinder_size = 0;
-    tscene->sphere_size = 0;
-    tscene->light_size = 0;
-    tscene->is_c_set = false;
-    tscene->is_l_set = false;
-    tscene->is_a_set = false;
-    tscene->camera.position.x = 0;
-    tscene->camera.position.y = 0;
-    tscene->camera.position.z = 0;
-    tscene->camera.direction.x = 0;
-    tscene->camera.direction.y = 0;
-    tscene->camera.direction.z = 0;
+	buffer[ret] = '\0';
+	splil_line(buffer, tscene);
+	restor_line(&buffer, &ret, &backup);
 }
 
-bool mange_line(char *buffer, int *ret, int *backup)
+void	ft_putchar_fd(char c, int fd)
 {
-    int i = *ret;
-    buffer[i--] = '\0';
-    while(i > 0 && buffer[i] != '\n')
-        i--;
-    if (i == 0 && buffer[i] != '\n')
-        return false;
-    *backup = *ret - i;
-    buffer[i] = '\0';
-    *ret = i;
-    return true;
+	write(fd, &c, 1);
 }
-void restor_line(char **buffer, int *ret, int *backup)
-{
-    int i = 0;
-    char *buf = *buffer; 
-    *ret += 1;
-    while(buf[*ret] != '\0')
-    {
-        buf[i] = buf[*ret];
-        i++;
-        (*ret)++;
-    }
-    *backup = i;
-}
-void   process_flie(char **av , t_scene *scene)
-{
-    int fd;
-    int ret;
-    char *buffer;
-    t_tscene tscene;
-    int backup;
-    
-    int_tsceen(&tscene);
-    fd = open(av[1], O_RDONLY);
-    if (fd == -1)
-        return (printf("Error can't open %s\n",*av),exit(1));
-    buffer = malloc(BUFFER_SIZE);
-    ret = read(fd, buffer, BUFFER_SIZE);
-    while (ret > 0)
-    {
-        if (!mange_line(buffer, &ret, &backup))
-            return (printf("error file empty or line too long\n"),exit(1));
-        buffer[ret] = '\0';
-        splil_line(buffer, &tscene);
-        restor_line(&buffer, &ret, &backup);
-        ret = read(fd, buffer + backup, BUFFER_SIZE - backup);
-        if (ret == 0 )
-        {
-            buffer[backup + ret] = '\0';
-            splil_line(buffer, &tscene);
-        }
-    }
 
-    copy_tscene(&tscene, scene);
-    close(fd);
+void	ft_putstr_fd(char *s, int fd)
+{
+	int	i;
+
+	i = 0;
+	if (!s)
+		return ;
+	while (s[i])
+	{
+		ft_putchar_fd(s[i], fd);
+		i++;
+	}
+}
+
+static void	ft_read_file(int fd, char *buffer, t_tscene *tscene)
+{
+	int	ret;
+	int	backup;
+
+	ret = read(fd, buffer, BUFFER_SIZE);
+	while (ret > 0)
+	{
+		if (!mange_line(buffer, &ret, &backup))
+		{
+			write(2, "error file empty or line too long\n", 35);
+			exit(1);
+		}
+		ft_handle_buffer(buffer, ret, backup, tscene);
+		ret = read(fd, buffer + backup, BUFFER_SIZE - backup);
+		if (ret == 0)
+		{
+			buffer[backup + ret] = '\0';
+			splil_line(buffer, tscene);
+		}
+	}
+}
+
+void	process_flie(char **av, t_scene *scene)
+{
+	int			fd;
+	char		*buffer;
+	t_tscene	tscene;
+
+	int_tsceen(&tscene);
+	fd = open(av[1], O_RDONLY);
+	if (fd == -1)
+	{
+		ft_putstr_fd("Error can't open ", 2);
+		ft_putstr_fd(av[1], 2);
+		ft_putstr_fd("\n", 2);
+		exit(1);
+	}
+	buffer = malloc(BUFFER_SIZE);
+	ft_read_file(fd, buffer, &tscene);
+	copy_tscene(&tscene, scene);
+	close(fd);
+	free(buffer);
 }
