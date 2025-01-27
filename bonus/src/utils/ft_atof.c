@@ -6,12 +6,12 @@
 /*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/14 16:42:24 by sessarhi          #+#    #+#             */
-/*   Updated: 2024/12/29 14:12:57 by sessarhi         ###   ########.fr       */
+/*   Updated: 2025/01/22 14:58:17 by sessarhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 
-#include "../../minirt.h"
+#include "./../../../minirt_bonus.h"
 
 static bool check_fp_err(const char *str)
 {

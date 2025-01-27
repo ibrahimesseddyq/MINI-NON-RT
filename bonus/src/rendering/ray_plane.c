@@ -6,13 +6,13 @@
 /*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/10 17:02:02 by sessarhi          #+#    #+#             */
-/*   Updated: 2025/01/10 17:07:38 by sessarhi         ###   ########.fr       */
+/*   Updated: 2025/01/24 20:11:47 by sessarhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../minirt.h"
+#include "./../../../minirt_bonus.h"
 
-FLOAT hit_plane(t_vector *point, t_vector *normal, t_ray *ray)
+FLOAT hit_plane(const t_vector *point, const t_vector *normal, const t_ray *ray)
 {
     FLOAT t;
     FLOAT denom;
@@ -29,7 +29,7 @@ FLOAT hit_plane(t_vector *point, t_vector *normal, t_ray *ray)
     return (-1);
 }
 
-bool plane_intersection(t_scene *scene, t_intersection *intersection, t_ray *ray)
+bool plane_intersection(const t_scene *scene, t_intersection *intersection,const t_ray *ray)
 {
     int i;
     FLOAT t;
@@ -43,8 +43,8 @@ bool plane_intersection(t_scene *scene, t_intersection *intersection, t_ray *ray
         {
             intersection->hit = true;
             intersection->id = scene->plane[i].id;
+			intersection->material = scene->plane[i].material;
             intersection->distance = t;
-            //(sessarhi note) the following three lines can be moved out f the loop for optimization
             intersection->color = scene->plane[i].color;
             intersection->normal = scene->plane[i].direction;
             tmp = vector_scale(&ray->direction, t);

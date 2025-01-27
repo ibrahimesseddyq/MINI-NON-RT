@@ -6,11 +6,11 @@
 /*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/14 16:43:26 by sessarhi          #+#    #+#             */
-/*   Updated: 2024/12/26 09:54:49 by sessarhi         ###   ########.fr       */
+/*   Updated: 2025/01/26 11:17:08 by sessarhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "./../../minirt.h"
+#include "./../../../minirt_bonus.h"
 
 static int  cont_coor(const char *str)
 {
@@ -39,7 +39,6 @@ bool  parse_crd(const char *str,t_vector *vector)
     vector->x = ft_atof(tab[0]);
     vector->y = ft_atof(tab[1]);
     vector->z = ft_atof(tab[2]);
-    free(tab);
     if (vector->x == (FLOAT)INT_MIN ||
             vector->y == (FLOAT)INT_MIN || vector->z == (FLOAT)INT_MIN)
         return (false);

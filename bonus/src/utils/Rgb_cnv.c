@@ -6,13 +6,11 @@
 /*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/14 16:42:01 by sessarhi          #+#    #+#             */
-/*   Updated: 2024/12/16 09:55:43 by sessarhi         ###   ########.fr       */
+/*   Updated: 2025/01/26 11:12:51 by sessarhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../minirt.h"
-
-int	Rgb_value(const char *str)
+int	rgb_value(const char *str)
 {
 	register  int	nb;
 
