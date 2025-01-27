@@ -6,7 +6,7 @@
 /*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/11 18:09:02 by sessarhi          #+#    #+#             */
-/*   Updated: 2025/01/27 15:52:14 by sessarhi         ###   ########.fr       */
+/*   Updated: 2025/01/27 18:30:15 by sessarhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,16 +38,16 @@ int	process_c(char **inf, t_tscene *t_scene)
 	if (!parse_crd(inf[1], &t_scene->camera.position)
 		|| !parse_crd(inf[2], &t_scene->camera.direction))
 		return (1);
-	normalized_dir = vector_normalize(&t_scene->camera.direction);
-	t_scene->camera.direction.x = normalized_dir.x;
-	t_scene->camera.direction.y = normalized_dir.y;
-	t_scene->camera.direction.z = normalized_dir.z;
 	if (t_scene->camera.fov > 180 || t_scene->camera.fov < 0
 		|| t_scene->camera.direction.x < -1 || t_scene->camera.direction.x
 		> 1 || t_scene->camera.direction.y < -1
 		|| t_scene->camera.direction.y > 1
 		|| t_scene->camera.direction.z < -1 || t_scene->camera.direction.z > 1)
 		return (1);
+	normalized_dir = vector_normalize(&t_scene->camera.direction);
+	t_scene->camera.direction.x = normalized_dir.x;
+	t_scene->camera.direction.y = normalized_dir.y;
+	t_scene->camera.direction.z = normalized_dir.z;
 	t_scene->is_c_set = true;
 	return (0);
 }
