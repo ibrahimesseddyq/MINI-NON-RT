@@ -128,24 +128,3 @@ FLOAT	hit_cylinder(t_intersection *intersection, const t_ray *ray,
 	return (-1);
 }
 
-bool	cylinder_intersection(t_scene *scene,
-			t_intersection *intersection, t_ray *ray)
-{
-	FLOAT	t;
-	int		i;
-
-	i = scene->cylinder_count;
-	while (i--)
-	{
-		t = hit_cylinder(intersection, ray, &scene->cylinder[i],
-				intersection->distance);
-		if (t > 0 && t < intersection->distance)
-		{
-			intersection->hit = true;
-			intersection->id = scene->cylinder[i].id;
-			intersection->distance = t;
-			intersection->color = scene->cylinder[i].color;
-		}
-	}
-	return (intersection->hit);
-}
