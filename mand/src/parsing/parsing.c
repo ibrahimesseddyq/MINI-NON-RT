@@ -149,7 +149,7 @@ void copy_tscene(t_tscene *tscene, t_scene *scene)
         scene->cylinder[i].height = tscene->cylinder->height;
         scene->cylinder[i].texture_name = tscene->cylinder->texture_name;
         scene->cylinder[i].color = tscene->cylinder->color;
-        // scene->cylinder[i].has_checkerboard = tscene->cylinder->has_checkerboard;
+        scene->cylinder[i].has_checkerboard = tscene->cylinder->has_checkerboard;
 
         scene->cylinder[i].id = id++;
         tscene->cylinder = tscene->cylinder->next;

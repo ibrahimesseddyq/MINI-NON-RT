@@ -8,7 +8,7 @@ t_vector point_to_vector(t_point *point)
     vector.z = point->z;
     return (vector);
 }
-FLOAT hit_cone(t_point *vertex, t_vector *axis, double angle, t_ray *ray)
+FLOAT hit_cone(t_point *vertex, t_vector *axis, double angle, double height, t_ray *ray)
 {
 
     t_vector oc = vector_sub(&ray->origin, vertex);
@@ -40,7 +40,10 @@ FLOAT hit_cone(t_point *vertex, t_vector *axis, double angle, t_ray *ray)
     t_vector scaled_v = vector_scale(&ray->direction, t);
     t_vector hit_point = vector_add(&ray->origin, &scaled_v);
     t_vector cone_to_hit = vector_sub(&hit_point, vertex);
-    if (vector_dot(&cone_to_hit, axis) < 0 || vector_dot(&cone_to_hit, axis) > vector_length(axis))
+    
+    // Use the actual height parameter instead of axis length
+    double hit_height = vector_dot(&cone_to_hit, axis);
+    if (hit_height < 0 || hit_height > height)
         return -1;
 
     return t;
@@ -57,8 +60,8 @@ bool cone_intersection(t_scene *scene, t_intersection *intersection, t_ray *ray)
     while (i--)
     {
 
-        t = hit_cone(&scene->cone[i].vertex, &scene->cone[i].axis, scene->cone[i].angle, ray);
-
+        t = hit_cone(&scene->cone[i].vertex, &scene->cone[i].axis, scene->cone[i].height, scene->cone[i].angle, ray);
+        // printf("cone height [%f]\n", scene->cone[i].height);
         if (t > 0 && t < intersection->distance)
         {
             intersection->hit = true;

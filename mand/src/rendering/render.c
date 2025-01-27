@@ -66,7 +66,6 @@ bool check_shadow(t_scene *scene, t_ray *ray,t_intersection *intersection)
         shadow_intersection.id != intersection->id&& 
         shadow_intersection.distance < d)
         {
-            printf("hitted\n");
             return (true);
         }
     }
@@ -377,6 +376,7 @@ void draw(t_scene *scene)
     right = vector_cross(&forword,&up );
     up = vector_cross(&right, &forword);
     y = 0;
+    // printf("cylider infos=>{\ndirection: x[%f], y[%f], z[%f]\nposition: x[%f], y[%f], z[%f]\n}", scene->cylinder[0].direction.x, scene->cylinder[0].direction.y, scene->cylinder[0].direction.z, scene->cylinder[0].position.x, scene->cylinder[0].position.y, scene->cylinder[0].position.z);
     while (y < HEIGHT)
     {
         x = 0;
@@ -455,24 +455,12 @@ int my_atoi(int *keys, int start)
 
 void rotate_point(t_point *p, t_vector axis, FLOAT angle)
 {
+    printf("rotate\n");
     FLOAT cos_angle = cos(angle);
     FLOAT sin_angle = sin(angle);
     FLOAT dot = axis.x * p->x + axis.y * p->y + axis.z * p->z;
     t_point temp;
-    if (axis.x == 0 && axis.y == 0 && axis.z == 1)
-    {
-        FLOAT cos_angle = cos(angle);
-        FLOAT sin_angle = sin(angle);
-        
-        // 2D rotation in XY plane
-        FLOAT new_x = p->x * cos_angle - p->y * sin_angle;
-        FLOAT new_y = p->x * sin_angle + p->y * cos_angle;
-        
-        p->x = new_x;
-        p->y = new_y;
-        // Z remains unchanged
-        return;
-    }
+
     temp.x = (cos_angle + (1 - cos_angle) * axis.x * axis.x) * p->x +
              ((1 - cos_angle) * axis.x * axis.y - axis.z * sin_angle) * p->y +
              ((1 - cos_angle) * axis.x * axis.z + axis.y * sin_angle) * p->z;
@@ -582,10 +570,10 @@ void rotate(int *keys, t_scene *scene)
     int obj_id = my_atoi(keys, 2);
     if (obj_id == -1) 
         return;
-
+        printf("key[%f]\n", keys[1]);
     for (int i = 0; i < scene->cylinder_count; i++)
     {
-        printf("0 direction x[%f] y[%f] z[%f]\n", scene->cylinder[i].direction);
+        printf("id[%d] direction x[%f] y[%f] z[%f]\n",scene->cylinder[i].id, scene->cylinder[i].direction);
 
         if (scene->cylinder[i].id == obj_id)
         {
@@ -597,10 +585,13 @@ void rotate(int *keys, t_scene *scene)
             else if (keys[1] == KEY_Y)
                 axis.y = 1;
             else if (keys[1] == KEY_Z)
+            {
+                printf("keyz\n");
                 axis.z = 1;
+            }
 
             // Rotate position
-            // rotate_point(&scene->cylinder[i].position, axis, angle);
+            // rotate_pdrawoint(&scene->cylinder[i].position, axis, angle);
             
             // Rotate direction, but ensure it remains a unit vector
             t_vector original_direction = scene->cylinder[i].direction;
@@ -615,7 +606,8 @@ void rotate(int *keys, t_scene *scene)
                 scene->cylinder[i].direction.z * scene->cylinder[i].direction.z
             );
             
-            if (length > 0) {
+            if (length > 0)
+            {
                 scene->cylinder[i].direction.x /= length;
                 scene->cylinder[i].direction.y /= length;
                 scene->cylinder[i].direction.z /= length;
