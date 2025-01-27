@@ -6,7 +6,7 @@
 /*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/24 17:01:10 by sessarhi          #+#    #+#             */
-/*   Updated: 2025/01/25 13:53:04 by sessarhi         ###   ########.fr       */
+/*   Updated: 2025/01/27 11:10:39 by sessarhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,6 @@ typedef struct s_intersection
 	FLOAT		t;
 	int			id;
 	bool		hit;
-	FLOAT		u;
-	FLOAT		v;
 }	t_intersection;
 
 

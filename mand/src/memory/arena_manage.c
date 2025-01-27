@@ -6,7 +6,7 @@
 /*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/26 22:42:47 by sessarhi          #+#    #+#             */
-/*   Updated: 2025/01/26 22:49:10 by sessarhi         ###   ########.fr       */
+/*   Updated: 2025/01/27 11:02:55 by sessarhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,25 +84,4 @@ void	arena_restore(t_arena_save save)
 	save.saved_chunk->used = save.saved_used;
 	arena->current = save.saved_chunk;
 	arena->total_used = save.saved_total;
-}
-
-t_arena **get_arena(void)
-{
-	static t_arena	*arena;
-
-	return (&arena);
-}
-
-void set_arena(t_arena *new_arena)
-{
-	t_arena **arena = get_arena();
-	*arena = new_arena;
-}
-
-void setup_arena()
-{
-	t_arena *arena;
-
-	arena = arena_create();
-	set_arena(arena);
 }

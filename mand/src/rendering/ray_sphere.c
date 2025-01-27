@@ -6,7 +6,7 @@
 /*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/10 17:01:12 by sessarhi          #+#    #+#             */
-/*   Updated: 2025/01/26 17:21:17 by sessarhi         ###   ########.fr       */
+/*   Updated: 2025/01/27 11:06:01 by sessarhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,8 @@ bool	sphere_intersection(t_scene *scene,
 	i = scene->sphere_count;
 	while (i--)
 	{
-		t = hit_sphere(&scene->sphere[i].position, scene->sphere[i].diameter / 2.0, ray);
+		t = hit_sphere(&scene->sphere[i].position,
+				scene->sphere[i].diameter / 2.0, ray);
 		if (t > 0 && t < intersection->distance)
 		{
 			intersection->hit = true;
@@ -56,11 +57,9 @@ bool	sphere_intersection(t_scene *scene,
 			intersection->color = scene->sphere[i].color;
 			tmp = vector_scale(&ray->direction, t);
 			intersection->point = vector_add(&ray->origin, &tmp);
-			intersection->normal = vector_sub(&intersection->point, &scene->sphere[i].position);
+			intersection->normal = vector_sub(&intersection->point,
+					&scene->sphere[i].position);
 			intersection->normal = vector_normalize(&intersection->normal);
-			t_vector normalized = vector_normalize(&intersection->point);
-			intersection->u = 0.5 + (atan2(normalized.z, normalized.x) / (2 * M_PI));
-			intersection->v = 0.5 - (asin(normalized.y) / M_PI);
 		}
 	}
 	return (intersection->hit);
