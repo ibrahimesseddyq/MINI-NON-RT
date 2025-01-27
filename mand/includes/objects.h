@@ -6,7 +6,7 @@
 /*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 12:56:16 by sessarhi          #+#    #+#             */
-/*   Updated: 2025/01/05 19:41:19 by sessarhi         ###   ########.fr       */
+/*   Updated: 2025/01/26 20:23:23 by sessarhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,146 +36,130 @@
 # define KEY_MINUS 65453
 # define KEY_PLUS 65451
 
-#include "defined.h"
-#include "includes.h"
-typedef t_vector t_point;
+# include "defined.h"
+# include "includes.h"
 
+typedef t_vector	t_point;
 
 typedef struct s_color
 {
-    FLOAT r;
-    FLOAT g;
-    FLOAT b;
-}   t_color;
+	FLOAT	r;
+	FLOAT	g;
+	FLOAT	b;
+}	t_color;
 typedef struct s_ambient
 {
-    FLOAT ratio;
-    t_color color;
-}   t_ambient;
+	FLOAT	ratio;
+	t_color	color;
+}	t_ambient;
 
 typedef struct s_camera
 {
-    t_point position;
-    t_vector direction;
-    int   fov;
-}   t_camera;
-
-typedef struct s_texture
-{
-    void    *data;          // MLX image pointer
-    char    *addr;          // Image data address
-    int     width;
-    int     height;
-    int     bits_per_pixel;
-    int     line_length;
-    int     endian;
-} t_texture;
+	t_point		position;
+	t_vector	direction;
+	t_vector	up;
+	t_vector	right;
+	int			fov;
+}	t_camera;
 
 typedef struct s_light
 {
-    t_point position;
-    FLOAT bratio;
-    t_color color;
-}   t_light;
+	t_point	position;
+	FLOAT	bratio;
+	t_color	color;
+}	t_light;
 
 typedef struct s_sphere
 {
-    t_point position;
-    FLOAT diameter;
-    t_texture texture;
-    t_color color;
-    int has_checkerboard;
-    t_color checker_color1;
-    t_color checker_color2;
-    FLOAT checker_size;
-    char *texture_name;
-    int id;
-}   t_sphere;
+	t_point		position;
+	FLOAT		diameter;
+	t_color		color;
+	int			id;
+}	t_sphere;
 
 typedef struct s_plane
 {
-    t_point position;
-    t_vector direction;
-    t_texture texture;
-    int has_checkerboard;
-    t_color checker_color1;
-    t_color checker_color2;
-    FLOAT checker_size;
-    char *texture_name;
-    t_color color;
-     int id;
-} t_plane;
+	t_point		position;
+	t_vector	direction;
+	t_color		color;
+	int			id;
+}	t_plane;
 
 typedef struct s_cylinder
 {
-    t_point position;
-    t_vector direction;
-    FLOAT diameter;
-    FLOAT height;
-    int has_checkerboard;
-    t_color checker_color1;
-    t_color checker_color2;
-    FLOAT checker_size;
-    t_texture texture;
-    char *texture_name;
-    t_color color;
-    int id;
-} t_cylinder;
+	t_point		position;
+	t_vector	direction;
+	FLOAT		diameter;
+	FLOAT		height;
+	FLOAT		checker_size;
+	t_color		color;
+	int			id;
+}	t_cylinder;
 
-typedef struct s_cone
+
+typedef struct s_data
 {
-    t_point vertex;
-    t_vector axis;
-    FLOAT angle;
-    FLOAT height;
-    t_color color;
-    FLOAT checker_size;
-    int has_checkerboard;
-    t_color checker_color1;
-    t_color checker_color2;
-    char *texture_name;
-    t_texture texture;
-
-    int id;
-} t_cone;
-
-typedef struct	s_data {
 	void	*img;
 	char	*addr;
 	int		bits_per_pixel;
 	int		line_length;
 	int		endian;
-}   t_data;
+}	t_data;
 
 typedef struct s_scene
 {
-    t_camera camera;
-    t_light light;
-    t_ambient ambient;
-    t_data img;
-    t_cylinder *cylinder;
-    t_plane *plane;
-    t_sphere *sphere;
-    t_cone *cone;
-    FLOAT viewport_width;
-    FLOAT viewport_height;
-    FLOAT height;
-    FLOAT width;
-    FLOAT viewport_dist;
-    void *mlx;
-    void *win;
-    int plane_count;
-    int cylinder_count;
-    int sphere_count;
-    int cone_count;
-}t_scene;
+	t_camera	camera;
+	t_light		light;
+	t_ambient	ambient;
+	t_data		img;
+	t_cylinder	*cylinder;
+	t_plane		*plane;
+	t_sphere	*sphere;
+	FLOAT		viewport_width;
+	FLOAT		viewport_height;
+	FLOAT		height;
+	FLOAT		width;
+	FLOAT		viewport_dist;
+	void		*mlx;
+	void		*win;
+	int			plane_count;
+	int			cylinder_count;
+	int			sphere_count;
+}	t_scene;
 
 typedef struct s_ray
 {
-    t_point origin;
-    t_vector direction;
-}t_ray;
+	t_point		origin;
+	t_vector	direction;
+}	t_ray;
 
+typedef struct s_descriminant
+{
+	t_vector	oc;
+	FLOAT		a;
+	FLOAT		b;
+	FLOAT		c;
+	FLOAT		discriminant;
+	FLOAT		t;
+	FLOAT		t1;
+	FLOAT		t2;
+}	t_descriminant;
 
+typedef struct s_cyhit
+{
+	FLOAT		body;
+	t_vector	bottom_normal;
+	FLOAT		bottom;
+	t_vector	top_offset;
+	t_point		top_center;
+	FLOAT		top;
+}	t_cyhit;
+
+typedef struct s_caps
+{
+	t_ray		ray;
+	t_cylinder cylinder;
+	FLOAT		dmin;
+}t_caps;
 
 #endif

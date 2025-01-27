@@ -1,25 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strcmp.c                                        :+:      :+:    :+:   */
+/*   arena_mange1.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/28 23:06:59 by sessarhi          #+#    #+#             */
-/*   Updated: 2025/01/26 11:10:47 by sessarhi         ###   ########.fr       */
+/*   Created: 2025/01/27 11:02:35 by sessarhi          #+#    #+#             */
+/*   Updated: 2025/01/27 11:03:31 by sessarhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/includes.h"
+#include "../../includes/memory.h"
 
-int	ft_strcmp(const char *s1, const char *s2)
+t_arena	**get_arena(void)
 {
-	size_t	i;
+	static t_arena	*arena;
 
-	i = 0;
-	if (!s1 || !s2)
-		return (1);
-	while (s1[i] && s2[i] && s1[i] == s2[i])
-		i++;
-	return ((unsigned char)s1[i] - (unsigned char)s2[i]);
+	return (&arena);
+}
+
+void	set_arena(t_arena	*new_arena)
+{
+	t_arena	**arena;
+
+	arena = get_arena();
+	*arena = new_arena;
+}
+
+void	setup_arena(void)
+{
+	t_arena	*arena;
+
+	arena = arena_create();
+	set_arena(arena);
 }

@@ -1,17 +1,28 @@
 NAME = minirt
+BONUS_NAME = minirt_bonus
 CC = cc
-CFLAGS =  -g #-Wall -Wextra -Werror  # Uncommented this for standard warning flags
+CFLAGS =  #-Wall -Wextra -Werror  # Uncommented this for standard warning flags
+MND=./mand/src/
+BNS=./bonus/src/
 
-SRC = minirt.c \
-	./mand/src/parsing/parce_rgb.c ./mand/src/parsing/parse_crd.c ./mand/src/parsing/parsing.c \
-	./mand/src/utils/ft_atof.c ./mand/src/utils/ft_split.c ./mand/src/utils/Rgb_cnv.c \
-	./mand/src/tmputils/cy_utils.c ./mand/src/tmputils/co_utils.c ./mand/src/tmputils/pl_utils.c ./mand/src/tmputils/sp_utils.c \
-	./mand/src/memory/arena_alloc.c ./mand/src/memory/arena_create.c ./mand/src/memory/arena_manage.c \
-	./mand/src/math/math.c ./mand/src/rendering/render.c ./mand/src/coloring/coloring.c\
-	./mand/src/utils/ft_atoi.c ./mand/src/utils/ft_strcmp.c ./mand/src/rendering/ray_sphere.c ./mand/src/rendering/ray_cone.c ./mand/src/rendering/ray_plane.c \
-	./mand/src/rendering/ray_cylinder.c ./mand/src/parsing/env_obj.c ./mand/src/parsing/scene_obj.c
+SRC = minirt.c $(MND)parsing/parce_rgb.c $(MND)parsing/parse_crd.c $(MND)parsing/parsing.c $(MND)utils/ft_atof.c \
+	$(MND)utils/ft_split.c $(MND)utils/Rgb_cnv.c $(MND)tmputils/cy_utils.c  $(MND)tmputils/pl_utils.c \
+	$(MND)tmputils/sp_utils.c $(MND)memory/arena_alloc.c $(MND)memory/arena_create.c $(MND)memory/arena_manage.c \
+	$(MND)math/math.c $(MND)rendering/render.c $(MND)coloring/coloring.c $(MND)utils/ft_atoi.c $(MND)utils/ft_strcmp.c \
+	$(MND)rendering/ray_sphere.c $(MND)rendering/ray_plane.c $(MND)rendering/ray_cylinder.c $(MND)parsing/env_obj.c \
+	$(MND)parsing/scene_obj.c $(MND)parsing/read_line.c $(MND)parsing/copy_scene_data.c $(MND)math/math1.c\
+	$(MND)parsing/err_cleanup.c $(MND)memory/arena_manage1.c $(MND)rendering/cy_loop.c\
+
+BONUS_SRC = minirt_bonus.c  $(BNS)parsing/parce_rgb.c $(BNS)parsing/parse_crd.c $(BNS)parsing/parsing.c \
+	$(BNS)utils/ft_atof.c $(BNS)utils/ft_split.c $(BNS)utils/Rgb_cnv.c $(BNS)tmputils/cy_utils.c \
+	$(BNS)tmputils/co_utils.c $(BNS)tmputils/pl_utils.c $(BNS)tmputils/sp_utils.c $(BNS)memory/arena_alloc.c \
+	$(BNS)memory/arena_create.c $(BNS)memory/arena_manage.c $(BNS)math/math.c $(BNS)rendering/render.c\
+	$(BNS)coloring/coloring.c $(BNS)utils/ft_atoi.c $(BNS)utils/ft_strcmp.c $(BNS)rendering/ray_sphere.c\
+	$(BNS)rendering/ray_plane.c $(BNS)rendering/ray_cylinder.c $(BNS)parsing/env_obj.c $(BNS)parsing/scene_obj.c\
+	$(BNS)parsing/read_line.c $(BNS)parsing/copy_scene_data.c $(BNS)parsing/err_cleanup.c $(BNS)tmputils/light_utils.c\
 
 OBJ = $(SRC:.c=.o)
+BONUS_OBJ = $(BONUS_SRC:.c=.o)
 
 RM = rm -rf
 
@@ -28,11 +39,18 @@ all: $(NAME)
 $(NAME): $(OBJ)
 	$(CC) $(DEBUG) $(CFLAGS) $(OBJ) $(MLX) $(MLXFLAGS) -o $(NAME)
 
+$(BONUS_NAME): $(BONUS_OBJ)
+	$(CC) $(DEBUG) $(CFLAGS) $(BONUS_OBJ) $(MLX) $(MLXFLAGS) -o $(BONUS_NAME)
+
+bonus: $(BONUS_NAME)
+
 clean:
 	$(RM) $(OBJ)
+	$(RM) $(BONUS_OBJ)
 
 fclean: clean
 	$(RM) $(NAME)
+	$(RM) $(BONUS_NAME)
 
 re: fclean all
 
