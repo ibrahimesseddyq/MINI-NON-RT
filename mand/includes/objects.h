@@ -6,10 +6,9 @@
 /*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 12:56:16 by sessarhi          #+#    #+#             */
-/*   Updated: 2025/01/26 20:23:23 by sessarhi         ###   ########.fr       */
+/*   Updated: 2025/01/27 15:58:08 by sessarhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #ifndef OBJECTS_H
 # define OBJECTS_H
@@ -40,7 +39,6 @@
 # include "includes.h"
 
 typedef t_vector	t_point;
-
 typedef struct s_color
 {
 	FLOAT	r;
@@ -95,7 +93,6 @@ typedef struct s_cylinder
 	t_color		color;
 	int			id;
 }	t_cylinder;
-
 
 typedef struct s_data
 {
@@ -158,7 +155,7 @@ typedef struct s_cyhit
 typedef struct s_caps
 {
 	t_ray		ray;
-	t_cylinder cylinder;
+	t_cylinder	cylinder;
 	FLOAT		dmin;
 }t_caps;
 
