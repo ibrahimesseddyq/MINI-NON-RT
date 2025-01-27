@@ -64,7 +64,7 @@ int	pixel_color(t_scene *scene, t_intersection *intersection, t_ray *ray)
 	shadow_ray.direction = vector_normalize(&tmp_vector);
 	shadow_ray.direction = vector_normalize(&shadow_ray.direction);
 	if (check_shadow(scene, &shadow_ray, intersection))
-		return 0x000000;
+		return (0x000000);
 	ambient = color_scale(&scene->ambient.color, scene->ambient.ratio);
 	light_dir = vector_sub(&scene->light.position, &intersection->point);
 	light_dir = vector_normalize(&light_dir);
@@ -91,7 +91,7 @@ int	trace_ray(t_ray *ray, t_scene *scene)
 }
 
 
-void draw(t_scene *scene)
+void	draw(t_scene *scene)
 {
 	int x;
 	int y;
