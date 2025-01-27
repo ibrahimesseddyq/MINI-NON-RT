@@ -25,7 +25,7 @@ int parse_material(const char *mat, t_material *material)
     char **tab;
     
     tab = ft_split(mat, ',');
-    if (count_args(tab) != 4)
+    if (count_args((const char **)tab) != 4)
         clean_exit("Error: Material has wrong number of arguments");
     material->ka = ft_atof(tab[0]);
     material->kd = ft_atof(tab[1]);
@@ -42,7 +42,7 @@ int process_sp(char **inf, t_tscene *t_scene)
 {
     t_tsphere *new;
     
-    if (count_args(inf) != 6)
+    if (count_args((const char **)inf) != 6)
       clean_exit("Error: Sphere has wrong number of arguments");
     new = new_sphere();
     new->texture_name = strdup(inf[5]);
@@ -59,7 +59,7 @@ int process_sp(char **inf, t_tscene *t_scene)
 int process_pl(char **inf, t_tscene *t_scene)
 {
     t_tplane *new;
-    if (count_args(inf) != 6)
+    if (count_args((const char **)inf) != 6)
         clean_exit("Error: Plane has wrong number of arguments");
     new = new_plane();
     new->texture_name = strdup(inf[5]);
@@ -78,7 +78,7 @@ int process_cy(char **inf, t_tscene *t_scene)
     t_tcylinder *new;
     
     new = new_cylinder();
-    if (count_args(inf) != 8)
+    if (count_args((const char **)inf) != 8)
         clean_exit("Error: Cylinder has wrong number of arguments");
     new->texture_name = strdup(inf[7]);
     new->diameter = ft_atof(inf[3]);
@@ -96,7 +96,7 @@ int process_cy(char **inf, t_tscene *t_scene)
 int process_co(char **inf, t_tscene *t_scene)
 {
     t_tcone *new;
-   if (count_args(inf) != 8)
+   if (count_args((const char **)inf) != 8)
         clean_exit("Error: Cone has wrong number of arguments");
     new = new_cone();
     new->angle = ft_atof(inf[3]);
