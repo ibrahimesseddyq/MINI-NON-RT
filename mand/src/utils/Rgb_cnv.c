@@ -6,20 +6,20 @@
 /*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/14 16:42:01 by sessarhi          #+#    #+#             */
-/*   Updated: 2025/01/11 17:32:30 by sessarhi         ###   ########.fr       */
+/*   Updated: 2025/01/26 11:15:47 by sessarhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./../../../minirt.h"
 
-int	Rgb_value(const char *str)
+int	rgb_value(const char *str)
 {
-	register  int	nb;
+	int	nb;
 
 	nb = 0;
 	while (*str >= 48 && *str <= 57 && nb <= 255)
 		nb = (nb * 10) + (*str++ - 48);
-	if(nb > 255 || *str)
-		return (-1);
-    return (nb);
+	if (nb > 255 || *str)
+		clean_exit("Error: invalid rgb value");
+	return (nb);
 }

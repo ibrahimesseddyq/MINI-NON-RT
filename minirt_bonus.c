@@ -1,25 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strcmp.c                                        :+:      :+:    :+:   */
+/*   minirt_bonus.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/28 23:06:59 by sessarhi          #+#    #+#             */
-/*   Updated: 2025/01/26 11:10:47 by sessarhi         ###   ########.fr       */
+/*   Created: 2025/01/22 14:52:09 by sessarhi          #+#    #+#             */
+/*   Updated: 2025/01/23 16:05:18 by sessarhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/includes.h"
+#include "minirt_bonus.h"
 
-int	ft_strcmp(const char *s1, const char *s2)
+int main(int ac , char **av)
 {
-	size_t	i;
-
-	i = 0;
-	if (!s1 || !s2)
-		return (1);
-	while (s1[i] && s2[i] && s1[i] == s2[i])
-		i++;
-	return ((unsigned char)s1[i] - (unsigned char)s2[i]);
+    t_scene scene;
+    setup_arena();
+    if (ac != 2)
+        return (printf("Error bad arguments\n"));
+    process_flie(av , &scene);
+    render(&scene);
+    return SUCCESS;
 }

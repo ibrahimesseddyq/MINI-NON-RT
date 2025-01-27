@@ -6,12 +6,12 @@
 /*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 13:58:26 by sessarhi          #+#    #+#             */
-/*   Updated: 2024/12/26 10:11:39 by sessarhi         ###   ########.fr       */
+/*   Updated: 2025/01/22 14:57:57 by sessarhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 
-#include "../../minirt.h"
+#include "./../../../minirt_bonus.h"
 
 t_tcylinder* new_cylinder()
 {

@@ -6,7 +6,7 @@
 /*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/29 14:10:28 by sessarhi          #+#    #+#             */
-/*   Updated: 2025/01/09 20:14:03 by sessarhi         ###   ########.fr       */
+/*   Updated: 2025/01/26 11:07:40 by sessarhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int	ft_atoi(const char *str)
 {
 	long long	nb;
-	long	s;
+	long		s;
 
 	nb = 0;
 	s = 1;

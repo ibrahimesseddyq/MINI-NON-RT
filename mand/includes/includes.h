@@ -6,7 +6,7 @@
 /*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/01 15:29:51 by sessarhi          #+#    #+#             */
-/*   Updated: 2025/01/11 17:29:26 by sessarhi         ###   ########.fr       */
+/*   Updated: 2025/01/24 11:31:09 by sessarhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,15 +18,13 @@
 # include <unistd.h>
 # include <limits.h>
 # include <fcntl.h>
-#include <string.h>
-#include <sys/time.h> 
-#include <stddef.h>
-#include <stdint.h>
-#include <stdbool.h>
-#include <stdlib.h>
-#include <math.h>
-#include "./../../MLX/mlx.h"
-
-
+# include <string.h>
+# include <sys/time.h> 
+# include <stddef.h>
+# include <stdint.h>
+# include <stdbool.h>
+# include <stdlib.h>
+# include <math.h>
+# include "./../../MLX/mlx.h"
 
 #endif

@@ -1,4 +1,4 @@
-#include "./../../../minirt.h"
+#include "./../../../minirt_bonus.h"
 
 void cone_add_front(t_tcone **head, t_tcone *new)
 {

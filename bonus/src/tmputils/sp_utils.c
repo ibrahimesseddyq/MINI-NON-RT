@@ -6,11 +6,11 @@
 /*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 14:02:07 by sessarhi          #+#    #+#             */
-/*   Updated: 2024/12/26 10:12:42 by sessarhi         ###   ########.fr       */
+/*   Updated: 2025/01/22 14:58:09 by sessarhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../minirt.h"
+#include "./../../../minirt_bonus.h"
 
 t_tsphere* new_sphere()
 {
