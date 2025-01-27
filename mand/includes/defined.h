@@ -6,11 +6,11 @@
 /*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/24 16:58:37 by sessarhi          #+#    #+#             */
-/*   Updated: 2025/01/25 11:56:09 by sessarhi         ###   ########.fr       */
+/*   Updated: 2025/01/27 15:58:41 by sessarhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# ifndef DEFINED_H
+#ifndef DEFINED_H
 # define DEFINED_H
 
 # define BUFFER_SIZE 4096

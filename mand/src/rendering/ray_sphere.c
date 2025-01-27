@@ -6,12 +6,11 @@
 /*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/10 17:01:12 by sessarhi          #+#    #+#             */
-/*   Updated: 2025/01/27 11:06:01 by sessarhi         ###   ########.fr       */
+/*   Updated: 2025/01/27 15:50:24 by sessarhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./../../../minirt.h"
-
 
 static inline FLOAT	hit_sphere(t_point *point, double radius, t_ray *ray)
 {

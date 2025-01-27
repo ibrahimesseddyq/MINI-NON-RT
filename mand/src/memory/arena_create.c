@@ -6,7 +6,7 @@
 /*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/26 22:39:57 by sessarhi          #+#    #+#             */
-/*   Updated: 2025/01/26 22:42:14 by sessarhi         ###   ########.fr       */
+/*   Updated: 2025/01/27 15:52:47 by sessarhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,4 +46,3 @@ t_arena	*arena_create_with_params(size_t chunk_size, bool allow_resize,
 	arena->current = chunk;
 	return (arena);
 }
-
