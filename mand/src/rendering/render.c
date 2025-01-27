@@ -52,9 +52,16 @@ int	pixel_color(t_scene *scene, t_intersection *intersection, t_ray *ray)
 	t_vector	light_dir;
 	FLOAT		diff;
 	t_ray		shadow_ray;
+	t_vector	tmp_vector;
+	t_vector	ray_origin;
 
-	shadow_ray.origin = intersection->point;
-	shadow_ray.direction = vector_sub(&scene->light.position, &intersection->point);
+	bool is_inside = vector_dot(&intersection->normal, &ray->direction) > 0;
+	FLOAT offset_direction = is_inside ? -1.0 : 1.0;
+	tmp_vector = vector_scale(&intersection->normal, SHADOW_BIAS * offset_direction);
+	ray_origin = vector_add(&intersection->point, &tmp_vector);
+	shadow_ray.origin = ray_origin;
+	tmp_vector = vector_sub(&scene->light.position, &ray_origin);
+	shadow_ray.direction = vector_normalize(&tmp_vector);
 	shadow_ray.direction = vector_normalize(&shadow_ray.direction);
 	if (check_shadow(scene, &shadow_ray, intersection))
 		return 0x000000;
@@ -65,9 +72,6 @@ int	pixel_color(t_scene *scene, t_intersection *intersection, t_ray *ray)
 	diffuse = color_scale(&scene->light.color, scene->light.bratio * diff);
 	final_color = color_add(&ambient, &diffuse);
 	final_color = color_mul(&final_color, &intersection->color);
-	final_color.r = fmin(final_color.r, 1.0);
-	final_color.g = fmin(final_color.g, 1.0);
-	final_color.b = fmin(final_color.b, 1.0);
 	return (colortorgb(&final_color));
 }
 
@@ -131,47 +135,48 @@ int key_hook(int keycode, t_scene *scene)
 {
 	return (0);
 }
-int hook(t_scene *scene)
+int	hook(t_scene *scene)
 {
 	mlx_destroy_window(scene->mlx, scene->win);
 	exit(0);
 	return (0);
 }
-char get_ascii(int key)
+char	get_ascii(int key)
 {
 	if (key == KEY_1)
-		return '1';
+		return ('1');
 	else if (key == KEY_2)
-		return '2';
+		return ('2');
 	else if (key == KEY_3)
-		return '3';
+		return ('3');
 	else if (key == KEY_4)
-		return '4';
+		return ('4');
 	else if (key == KEY_5)
-		return '5';
+		return ('5');
 	else if (key == KEY_6)
-		return '6';
+		return ('6');
 	else if (key == KEY_7)
-		return '7';
+		return ('7');
 	else if (key == KEY_8)
-		return '8';
+		return ('8');
 	else if (key == KEY_9)
-		return '9';
+		return ('9');
 	else
-		return '\0';
+		return ('\0');
 }
-int my_atoi(int *keys, int start)
+int	my_atoi(int *keys, int start)
 {
-	int i;
-	char array[9] = {0};
-	int array_index = 0;
+	int		i;
+	char	array[9] = {0};
+	int		array_index = 0;
+	char ascii;
 
-	i = start; 
+	i =	start;
 	while (i < 8)
 	{
-		char ascii = get_ascii(keys[i]);
+		ascii = get_ascii(keys[i]);
 		if (ascii == '\0')
-			break;	 
+			break ;	 
 		array[array_index++] = ascii;
 		i++;
 	}
@@ -490,16 +495,18 @@ int transformation(int keycode, t_scene *scene)
 	draw(scene);
 	return 0;
 }
-void render(t_scene *scene)
+void	render(t_scene *scene)
 {
-	struct timeval start, end;
-	FLOAT time_taken;
-   
+	struct timeval	start;
+	struct timeval	end;
+	FLOAT			time_taken;
+
 	scene->mlx = mlx_init();
 	scene->win = mlx_new_window(scene->mlx, WIDTH, HEIGHT, "MiniRT");
 	scene->img.img = mlx_new_image(scene->mlx, WIDTH, HEIGHT);
 	scene->img.addr = mlx_get_data_addr(scene->img.img,
-		 &scene->img.bits_per_pixel, &scene->img.line_length, &scene->img.endian);
+			&scene->img.bits_per_pixel,
+			&scene->img.line_length, &scene->img.endian);
 	gettimeofday(&start, NULL);
 	draw(scene);
 	gettimeofday(&end, NULL);

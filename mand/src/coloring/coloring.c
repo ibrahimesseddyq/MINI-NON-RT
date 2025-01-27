@@ -6,7 +6,7 @@
 /*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/26 09:26:20 by sessarhi          #+#    #+#             */
-/*   Updated: 2025/01/25 12:00:05 by sessarhi         ###   ########.fr       */
+/*   Updated: 2025/01/27 13:48:52 by sessarhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,9 @@ int	colortorgb(t_color *a)
 	int	g;
 	int	b;
 
+	a->r = fmin(1.0, a->r);
+	a->g = fmin(1.0, a->g);
+	a->b = fmin(1.0, a->b);
 	r = (int)(a->r * 255.0);
 	g = (int)(a->g * 255.0);
 	b = (int)(a->b * 255.0);

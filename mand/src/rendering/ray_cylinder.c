@@ -119,7 +119,7 @@ FLOAT	hit_cylinder(t_intersection *intersection, const t_ray *ray,
 		caps.dmin = hit.bottom;
 	hit.top_offset = vector_scale(&cylinder->direction, cylinder->height);
 	hit.top_center = vector_add(&cylinder->position, &hit.top_offset);
-	hit.top = get_cap_intersection(intersection,&caps,
+	hit.top = get_cap_intersection(intersection, &caps,
 			&hit.top_center, &cylinder->direction);
 	if (hit.top > EPSILON && hit.top < caps.dmin)
 		caps.dmin = hit.top;
