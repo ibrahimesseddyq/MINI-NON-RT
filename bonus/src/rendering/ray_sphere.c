@@ -6,11 +6,11 @@
 /*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/10 17:01:12 by sessarhi          #+#    #+#             */
-/*   Updated: 2025/01/10 17:03:38 by sessarhi         ###   ########.fr       */
+/*   Updated: 2025/01/24 20:11:21 by sessarhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../minirt.h"
+#include "./../../../minirt_bonus.h"
 
 
 FLOAT hit_sphere(t_point *point, double radius, t_ray *ray)
@@ -47,7 +47,6 @@ bool sphere_intersection(t_scene *scene , t_intersection *intersection , t_ray *
     int i;
     FLOAT t;
     t_vector tmp;
-    
     i = scene->sphere_count;
     while (i--)
     {
@@ -57,13 +56,15 @@ bool sphere_intersection(t_scene *scene , t_intersection *intersection , t_ray *
             intersection->hit = true;
             intersection->id = scene->sphere[i].id;
             intersection->distance = t;
-            //(sessarhi note) the following three lines can be moved out f the loop for optimization
+			intersection->material = scene->sphere[i].material;
             intersection->color = scene->sphere[i].color;
             tmp = vector_scale(&ray->direction, t);
             intersection->point = vector_add(&ray->origin, &tmp);
             intersection->normal = vector_sub(&intersection->point, &scene->sphere[i].position);
             intersection->normal = vector_normalize(&intersection->normal);
-    
+            t_vector normalized = vector_normalize(&intersection->point);
+            intersection->u = 0.5 + (atan2(normalized.z, normalized.x) / (2 * M_PI));
+            intersection->v = 0.5 - (asin(normalized.y) / M_PI);
         }
     }
     return (intersection->hit);

@@ -1,25 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strcmp.c                                        :+:      :+:    :+:   */
+/*   err_cleanup.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/28 23:06:59 by sessarhi          #+#    #+#             */
-/*   Updated: 2025/01/26 11:10:47 by sessarhi         ###   ########.fr       */
+/*   Created: 2025/01/22 21:23:40 by sessarhi          #+#    #+#             */
+/*   Updated: 2025/01/23 11:40:04 by sessarhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/includes.h"
+#include "./../../../minirt_bonus.h"
 
-int	ft_strcmp(const char *s1, const char *s2)
+void clean_exit(const char *msg)
 {
-	size_t	i;
-
-	i = 0;
-	if (!s1 || !s2)
-		return (1);
-	while (s1[i] && s2[i] && s1[i] == s2[i])
-		i++;
-	return ((unsigned char)s1[i] - (unsigned char)s2[i]);
+    arena_destroy(*get_arena());
+    int fds;
+    fds = 10;
+    while (--fds > 2)
+        close(fds);
+    printf("%s\n", msg);
+    exit(1);
 }
