@@ -32,7 +32,7 @@
 # define KEY_9 65434
 # define KEY_X 120
 # define KEY_Y 121
-# define KEY_Z 119
+# define KEY_Z 122
 # define KEY_MINUS 65453
 # define KEY_PLUS 65451
 
@@ -128,14 +128,14 @@ typedef struct s_cone
     t_vector axis;
     FLOAT angle;
     FLOAT height;
+    t_color color;
+    FLOAT checker_size;
     int has_checkerboard;
     t_color checker_color1;
     t_color checker_color2;
-    FLOAT checker_size;
     char *texture_name;
     t_texture texture;
 
-    t_color color;
     int id;
 } t_cone;
 
