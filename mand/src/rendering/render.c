@@ -103,35 +103,6 @@ void draw(t_scene *scene)
 	FLOAT fov_scale;
 	t_vector right;
 
-<<<<<<< HEAD
-    aspect_ratio = (FLOAT)WIDTH / (FLOAT)HEIGHT;
-    fov_scale = tan((scene->camera.fov * M_PI / 180.f) / 2);
-    t_vector  forword = vector_normalize(&scene->camera.direction);
-    t_vector up = {0, 1, 0};
-    right = vector_cross(&forword,&up );
-    up = vector_cross(&right, &forword);
-    y = 0;
-    // printf("cylider infos=>{\ndirection: x[%f], y[%f], z[%f]\nposition: x[%f], y[%f], z[%f]\n}", scene->cylinder[0].direction.x, scene->cylinder[0].direction.y, scene->cylinder[0].direction.z, scene->cylinder[0].position.x, scene->cylinder[0].position.y, scene->cylinder[0].position.z);
-    while (y < HEIGHT)
-    {
-        x = 0;
-        while (x < WIDTH)
-        {
-            pixel_x = (2 * ((x + 0.5) / WIDTH) - 1) * aspect_ratio * fov_scale;
-            pixel_y = (1 - 2 * ((y + 0.5) / HEIGHT)) * fov_scale;
-            t_vector sclx = vector_scale(&right, pixel_x);
-            t_vector scly = vector_scale(&up, pixel_y);
-            t_vector add = vector_add(&sclx, &scly);
-            direction = vector_add(&add,&forword);
-            ray.origin = scene->camera.position;
-            ray.direction = vector_normalize(&direction);
-            my_mlx_pixel_put(&scene->img, x, y, trace_ray(&ray, scene));
-            x++;
-        }
-        y++;
-    }
-    mlx_put_image_to_window(scene->mlx, scene->win, scene->img.img, 0, 0);
-=======
 	aspect_ratio = (FLOAT)WIDTH / (FLOAT)HEIGHT;
 	fov_scale = tan((scene->camera.fov * M_PI / 180.f) / 2);
 	t_vector  forword = vector_normalize(&scene->camera.direction);
@@ -158,7 +129,6 @@ void draw(t_scene *scene)
 		y++;
 	}
 	mlx_put_image_to_window(scene->mlx, scene->win, scene->img.img, 0, 0);
->>>>>>> c95d9ad3311af78273dd0044aa416922dc5e630a
 }
 
 int key_hook(int keycode, t_scene *scene)
@@ -216,17 +186,6 @@ int	my_atoi(int *keys, int start)
 
 void rotate_point(t_point *p, t_vector axis, FLOAT angle)
 {
-<<<<<<< HEAD
-    printf("rotate\n");
-    FLOAT cos_angle = cos(angle);
-    FLOAT sin_angle = sin(angle);
-    FLOAT dot = axis.x * p->x + axis.y * p->y + axis.z * p->z;
-    t_point temp;
-
-    temp.x = (cos_angle + (1 - cos_angle) * axis.x * axis.x) * p->x +
-             ((1 - cos_angle) * axis.x * axis.y - axis.z * sin_angle) * p->y +
-             ((1 - cos_angle) * axis.x * axis.z + axis.y * sin_angle) * p->z;
-=======
 	FLOAT cos_angle = cos(angle);
 	FLOAT sin_angle = sin(angle);
 	FLOAT dot = axis.x * p->x + axis.y * p->y + axis.z * p->z;
@@ -248,7 +207,6 @@ void rotate_point(t_point *p, t_vector axis, FLOAT angle)
 	temp.x = (cos_angle + (1 - cos_angle) * axis.x * axis.x) * p->x +
 			 ((1 - cos_angle) * axis.x * axis.y - axis.z * sin_angle) * p->y +
 			 ((1 - cos_angle) * axis.x * axis.z + axis.y * sin_angle) * p->z;
->>>>>>> c95d9ad3311af78273dd0044aa416922dc5e630a
 
 	temp.y = ((1 - cos_angle) * axis
 	   .y * axis.x + axis.z * sin_angle) * p->x +
@@ -353,15 +311,6 @@ void resize(int *keys, t_scene *scene)
 
 void rotate(int *keys, t_scene *scene)
 {
-<<<<<<< HEAD
-    int obj_id = my_atoi(keys, 2);
-    if (obj_id == -1) 
-        return;
-        printf("key[%f]\n", keys[1]);
-    for (int i = 0; i < scene->cylinder_count; i++)
-    {
-        printf("id[%d] direction x[%f] y[%f] z[%f]\n",scene->cylinder[i].id, scene->cylinder[i].direction);
-=======
 	int obj_id = my_atoi(keys, 2);
 	if (obj_id == -1) 
 		return;
@@ -369,47 +318,12 @@ void rotate(int *keys, t_scene *scene)
 	for (int i = 0; i < scene->cylinder_count; i++)
 	{
 		printf("0 direction x[%f] y[%f] z[%f]\n", scene->cylinder[i].direction);
->>>>>>> c95d9ad3311af78273dd0044aa416922dc5e630a
 
 		if (scene->cylinder[i].id == obj_id)
 		{
 			t_vector axis = {0, 0, 0};
 			FLOAT angle = M_PI / 4;
 
-<<<<<<< HEAD
-            if (keys[1] == KEY_X)
-                axis.x = 1;
-            else if (keys[1] == KEY_Y)
-                axis.y = 1;
-            else if (keys[1] == KEY_Z)
-            {
-                printf("keyz\n");
-                axis.z = 1;
-            }
-
-            // Rotate position
-            // rotate_pdrawoint(&scene->cylinder[i].position, axis, angle);
-            
-            // Rotate direction, but ensure it remains a unit vector
-            t_vector original_direction = scene->cylinder[i].direction;
-            printf("direction x[%f] y[%f] z[%f]\n", original_direction);
-            rotate_point((t_point *)&scene->cylinder[i].direction, axis, angle);
-            printf("2 direction x[%f] y[%f] z[%f]\n", scene->cylinder[i].direction);
-
-            // Normalize the direction to ensure it's a unit vector
-            FLOAT length = sqrt(
-                scene->cylinder[i].direction.x * scene->cylinder[i].direction.x +
-                scene->cylinder[i].direction.y * scene->cylinder[i].direction.y +
-                scene->cylinder[i].direction.z * scene->cylinder[i].direction.z
-            );
-            
-            if (length > 0)
-            {
-                scene->cylinder[i].direction.x /= length;
-                scene->cylinder[i].direction.y /= length;
-                scene->cylinder[i].direction.z /= length;
-            }
-=======
 			if (keys[1] == KEY_X)
 				axis.x = 1;
 			else if (keys[1] == KEY_Y)
@@ -438,7 +352,6 @@ void rotate(int *keys, t_scene *scene)
 				scene->cylinder[i].direction.y /= length;
 				scene->cylinder[i].direction.z /= length;
 			}
->>>>>>> c95d9ad3311af78273dd0044aa416922dc5e630a
 
 			return; 
 		}
