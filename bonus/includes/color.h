@@ -10,17 +10,13 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-
-
 #ifndef COLOR_H
 # define COLOR_H
 # include "objects.h"
 
-t_color color_add(t_color *a, t_color *b);
-t_color color_mul(t_color *a, t_color *b);
-t_color rgbtocolor(int r, int g, int b);
-int     colortorgb(t_color *a);
-t_color color_scale(t_color *a, FLOAT scale);
+t_color	color_add(t_color *a, t_color *b);
+t_color	color_mul(t_color *a, t_color *b);
+t_color	rgbtocolor(int r, int g, int b);
+int		colortorgb(t_color *a);
+t_color	color_scale(t_color *a, FLOAT scale);
 #endif
-
-

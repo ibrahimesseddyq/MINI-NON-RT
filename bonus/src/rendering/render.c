@@ -519,123 +519,234 @@ void resize(int *keys, t_scene *scene)
 //         }
 //     }
 // }
+void rotate_camera(int *keys, t_scene *scene)
+{
+    t_vector axis = {0, 0, 0};
+    t_vector original_direction;
+    FLOAT angle = M_PI / 4;
+    FLOAT length;
 
+
+    if (keys[1] == KEY_X)
+        axis.x = 1;
+    else if (keys[1] == KEY_Y)
+        axis.y = 1;
+    else if (keys[1] == KEY_Z)
+        axis.z = 1;
+    original_direction = scene->camera.direction;
+    printf("7 direction x[%f] y[%f] z[%f]\n", original_direction);
+
+    rotate_point((t_point *)&scene->camera.direction, axis, angle);
+    printf("8 direction x[%f] y[%f] z[%f]\n", scene->camera.direction);
+
+    length = sqrt(
+        scene->camera.direction.x * scene->camera.direction.x +
+        scene->camera.direction.y * scene->camera.direction.y +
+        scene->camera.direction.z * scene->camera.direction.z
+    );
+    
+    if (length > 0) {
+        scene->camera.direction.x /= length;
+        scene->camera.direction.y /= length;
+        scene->camera.direction.z /= length;
+    }
+    printf("camera rotation\n");
+    return; 
+
+}
+void rotate_cylinder(int *keys, t_scene *scene, int i)
+{
+    t_vector axis = {0, 0, 0};
+    FLOAT angle = M_PI / 4;
+
+    if (keys[1] == KEY_X)
+        axis.x = 1;
+    else if (keys[1] == KEY_Y)
+        axis.y = 1;
+    else if (keys[1] == KEY_Z)
+        axis.z = 1;
+    t_vector original_direction = scene->cylinder[i].direction;
+    printf("direction x[%f] y[%f] z[%f]\n", original_direction);
+    rotate_point((t_point *)&scene->cylinder[i].direction, axis, angle);
+    printf("2 direction x[%f] y[%f] z[%f]\n", scene->cylinder[i].direction);
+
+    // Normalize the direction to ensure it's a unit vector
+    FLOAT length = sqrt(
+        scene->cylinder[i].direction.x * scene->cylinder[i].direction.x +
+        scene->cylinder[i].direction.y * scene->cylinder[i].direction.y +
+        scene->cylinder[i].direction.z * scene->cylinder[i].direction.z
+    );
+    
+    if (length > 0) {
+        scene->cylinder[i].direction.x /= length;
+        scene->cylinder[i].direction.y /= length;
+        scene->cylinder[i].direction.z /= length;
+    }
+
+    return; 
+}
+void rotate_plane(int *keys, t_scene *scene, int i)
+{
+    t_vector axis = {0, 0, 0};
+    FLOAT angle = M_PI / 4;
+
+    if (keys[1] == KEY_X)
+        axis.x = 1;
+    else if (keys[1] == KEY_Y)
+        axis.y = 1;
+    else if (keys[1] == KEY_Z)
+        axis.z = 1;
+    t_vector original_direction = scene->plane[i].direction;
+    rotate_point((t_point *)&scene->plane[i].direction, axis, angle);
+
+    // Normalize the direction to ensure it's a unit vector
+    FLOAT length = sqrt(
+        scene->plane[i].direction.x * scene->plane[i].direction.x +
+        scene->plane[i].direction.y * scene->plane[i].direction.y +
+        scene->plane[i].direction.z * scene->plane[i].direction.z
+    );
+    
+    if (length > 0) {
+        scene->plane[i].direction.x /= length;
+        scene->plane[i].direction.y /= length;
+        scene->plane[i].direction.z /= length;
+    }
+
+    return; 
+}
 void rotate(int *keys, t_scene *scene)
 {
+    if ((char)keys[2] == 'c')
+    {
+        rotate_camera(keys, scene);
+        return ;
+    }
     int obj_id = my_atoi(keys, 2);
     if (obj_id == -1) 
         return;
-
     for (int i = 0; i < scene->cylinder_count; i++)
     {
-        printf("0 direction x[%f] y[%f] z[%f]\n", scene->cylinder[i].direction);
-
         if (scene->cylinder[i].id == obj_id)
-        {
-            t_vector axis = {0, 0, 0};
-            FLOAT angle = M_PI / 4;
-
-            if (keys[1] == KEY_X)
-                axis.x = 1;
-            else if (keys[1] == KEY_Y)
-                axis.y = 1;
-            else if (keys[1] == KEY_Z)
-                axis.z = 1;
-
-            // Rotate position
-            // rotate_point(&scene->cylinder[i].position, axis, angle);
-            
-            // Rotate direction, but ensure it remains a unit vector
-            t_vector original_direction = scene->cylinder[i].direction;
-            printf("direction x[%f] y[%f] z[%f]\n", original_direction);
-            rotate_point((t_point *)&scene->cylinder[i].direction, axis, angle);
-            printf("2 direction x[%f] y[%f] z[%f]\n", scene->cylinder[i].direction);
-
-            // Normalize the direction to ensure it's a unit vector
-            FLOAT length = sqrt(
-                scene->cylinder[i].direction.x * scene->cylinder[i].direction.x +
-                scene->cylinder[i].direction.y * scene->cylinder[i].direction.y +
-                scene->cylinder[i].direction.z * scene->cylinder[i].direction.z
-            );
-            
-            if (length > 0) {
-                scene->cylinder[i].direction.x /= length;
-                scene->cylinder[i].direction.y /= length;
-                scene->cylinder[i].direction.z /= length;
-            }
-
-            return; 
-        }
+            rotate_cylinder(keys, scene, i);
     }
+    for (int i = 0; i < scene->plane_count; i++)
+    {
+        if (scene->plane[i].id == obj_id)
+            rotate_plane(keys, scene, i);
+    }
+    return ;
+}
+void move_camera(int *keys, t_camera *camera)
+{
+    if (keys[0] == LEFT_ROW_KEY)
+        camera->position.x--;
+    else if (keys[0] == RIGHT_ROW_KEY)
+        camera->position.x++;
+    else if (keys[0] == UPPER_ROW_KEY)
+        camera->position.y++;
+    else if (keys[0] == DOWN_ROW_KEY)
+        camera->position.y--;
+    else if (keys[0] == M_KEY)
+        camera->position.z--;
+    else if (keys[0] == N_KEY)
+        camera->position.z++;
+}
+void move_light(int *keys, t_light *light)
+{
+    if (keys[0] == LEFT_ROW_KEY)
+        light->position.x--;
+    else if (keys[0] == RIGHT_ROW_KEY)
+        light->position.x++;
+    else if (keys[0] == UPPER_ROW_KEY)
+        light->position.y++;
+    else if (keys[0] == DOWN_ROW_KEY)
+        light->position.y--;
+    else if (keys[0] == M_KEY)
+        light->position.z--;
+    else if (keys[0] == N_KEY)
+        light->position.z++;
 }
 void move_cylinder(int *keys, t_cylinder *cylinder)
 {
     if (keys[0] == LEFT_ROW_KEY)
-    {
         cylinder->position.x--;
-    }
     else if (keys[0] == RIGHT_ROW_KEY)
-    {
         cylinder->position.x++;
-    }
     else if (keys[0] == UPPER_ROW_KEY)
-    {
         cylinder->position.y++;
-    }
     else if (keys[0] == DOWN_ROW_KEY)
-    {
         cylinder->position.y--;
-    }
+    else if (keys[0] == M_KEY)
+        cylinder->position.z--;
+    else if (keys[0] == N_KEY)
+        cylinder->position.z++;
 }
 
 void move_plane(int *keys, t_plane *plane)
 {
     if (keys[0] == LEFT_ROW_KEY)
-    {
         plane->position.x--;
-    }
     else if (keys[0] == RIGHT_ROW_KEY)
-    {
         plane->position.x++;
-    }
     else if (keys[0] == UPPER_ROW_KEY)
-    {
         plane->position.y++;
-    }
     else if (keys[0] == DOWN_ROW_KEY)
-    {
         plane->position.y--;
-    }
+    else if (keys[0] == M_KEY)
+        plane->position.z--;
+    else if (keys[0] == N_KEY)
+        plane->position.z++;
 }
 
 void move_sphere(int *keys, t_sphere *sphere)
 {
     if (keys[0] == LEFT_ROW_KEY)
-    {
         sphere->position.x--;
-    }
     else if (keys[0] == RIGHT_ROW_KEY)
-    {
         sphere->position.x++;
-    }
     else if (keys[0] == UPPER_ROW_KEY)
-    {
         sphere->position.y++;
-    }
     else if (keys[0] == DOWN_ROW_KEY)
-    {
         sphere->position.y--;
-    }
+    else if (keys[0] == M_KEY)
+        sphere->position.z--;
+    else if (keys[0] == N_KEY)
+        sphere->position.z++;
 }
-
+void move_light_or_camera(int *keys, t_scene *scene)
+{
+    int i;
+    int obj_id;
+    if ((char)keys[1] == 'c')
+    {
+        move_camera(keys, &scene->camera);
+    }
+    else
+    {
+        obj_id = my_atoi(keys, 2);
+        while (i < scene->light_count)
+        {
+            if (scene->light[i].id == obj_id)
+            {
+                move_light(keys, &scene->light[i]);
+            }
+            i++;
+        }
+    }
+    return ;
+}
 void translate(int *keys, t_scene *scene)
 {
-    int obj_id = my_atoi(keys, 1);
-                     printf("obj_id: [%d]\n", obj_id);
+    int obj_id;
 
+    if ((char)keys[1] == 'c' || (char)keys[1] == 'l')
+    {
+        move_light_or_camera(keys, scene);
+        return ;
+    }
+    obj_id = my_atoi(keys, 1);
     if (obj_id == -1) 
         return;
-
     for (int i = 0; i < scene->sphere_count; i++)
     {
         if (scene->sphere[i].id == obj_id)
@@ -666,37 +777,30 @@ int transformation(int keycode, t_scene *scene)
 {
     static int keys[10] = {0};
     static int cursor = 0;
+    int i;
 
-    printf("hi\n");
+    i = 0;
     if (cursor < 10) 
         keys[cursor++] = keycode;
 
     if (keycode == ALT_KEY)
     {
-        printf("ALT_KEY\n");
         for(int i = 0;i < 10; i++)
         {
             printf("key [%d]\n",keys[i]);
         }
         if (keys[0] == LEFT_ROW_KEY || keys[0] == UPPER_ROW_KEY ||
             keys[0] == RIGHT_ROW_KEY || keys[0] == DOWN_ROW_KEY)
-        {
-                    printf("Translate\n");
-
             translate(keys, scene);
-        }
         else if (keys[0] == R_KEY)
-        {
             rotate(keys, scene);
-        }
         else if (keys[0] == S_KEY)
-        {
             resize(keys, scene);
-        }
         cursor = 0;
-        for(int i = 0;i < 10; i++)
+        while (i < 10)
         {
             keys[i] = 0;
+            i++;
         }
     }
 
@@ -707,31 +811,34 @@ int transformation(int keycode, t_scene *scene)
     }
 
     draw(scene);
-    return 0;
+    return (0);
 }
 void init_textures(t_scene *scene)
 {
-    for (int i = 0; i < scene->plane_count; i++)
+    int i;
+
+    i = 0;
+    while (i < scene->plane_count)
     {
-            if (scene->plane[i].texture_name)
-            {
-                load_texture(&scene->plane[i].texture, scene->mlx, scene->plane[i].texture_name);
-            }
+        if (scene->plane[i].texture_name)
+            load_texture(&scene->plane[i].texture, scene->mlx, scene->plane[i].texture_name);
+        i++;
     }
-    for (int i = 0; i < scene->sphere_count; i++)
+    i = 0;
+    while (i < scene->sphere_count)
     {
-            if (scene->sphere[i].texture_name)
-            {
-                load_texture(&scene->sphere[i].texture, scene->mlx, scene->sphere[i].texture_name);
-            }
+        if (scene->sphere[i].texture_name)
+            load_texture(&scene->sphere[i].texture, scene->mlx, scene->sphere[i].texture_name);
+        i++;
     }
-    for (int i = 0; i < scene->cylinder_count; i++)
+    i = 0;
+    while (i < scene->cylinder_count)
     {
-            if (scene->cylinder[i].texture_name)
-            {
-                load_texture(&scene->cylinder[i].texture, scene->mlx, scene->cylinder[i].texture_name);
-            }
+        if (scene->cylinder[i].texture_name)
+            load_texture(&scene->cylinder[i].texture, scene->mlx, scene->cylinder[i].texture_name);
+        i++;
     }
+    return ;
 }
 void render(t_scene *scene)
 {
