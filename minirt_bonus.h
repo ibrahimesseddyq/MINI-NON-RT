@@ -20,6 +20,7 @@
 # include "./bonus/includes/memory.h"
 # include "./bonus/includes/color.h"
 # include "./bonus/includes/includes.h"
+# include "./bonus/includes/fndef.h"
 
 bool    parse_crd(const char *str, t_vector *vector);
 bool	parse_rgb(const char *str ,t_color *color);
