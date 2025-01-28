@@ -217,4 +217,47 @@ typedef struct t_hit_cone_intersection
 	double		t;
 }	t_hit_cone_intersection;
 
+typedef struct s_rotate_point
+{
+	FLOAT cos_angle;
+	FLOAT sin_angle;
+	FLOAT dot;
+
+	FLOAT new_x;
+	FLOAT new_y;
+} t_rotate_point;
+
+typedef struct s_bump_params {
+    FLOAT u;
+    FLOAT v;
+    FLOAT strength;
+    t_texture *bump_map;
+} t_bump_params;
+
+typedef struct s_normal_modify {
+    t_vector *original_normal;
+    t_vector *tangent;
+    t_vector *bitangent;
+    FLOAT dx;
+    FLOAT dy;
+} t_normal_modify;
+
+typedef struct s_derivatives {
+    FLOAT dx;
+    FLOAT dy;
+} t_derivatives;
+
+typedef struct s_light_params
+{
+    t_vector    surface_normal;
+    t_vector    view_dir;
+    t_vector    intersection_point;
+    t_material  material;
+}   t_light_params;
+
+typedef struct s_light_calc
+{
+    t_color     diffuse;
+    t_color     specular;
+}   t_light_calc;
 #endif
