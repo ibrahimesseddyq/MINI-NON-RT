@@ -12,21 +12,16 @@
 
 #ifndef INCLUDES_H
 # define INCLUDES_H
-
-
 # include <stdio.h>
 # include <unistd.h>
 # include <limits.h>
 # include <fcntl.h>
-#include <string.h>
-#include <sys/time.h> 
-#include <stddef.h>
-#include <stdint.h>
-#include <stdbool.h>
-#include <stdlib.h>
-#include <math.h>
-#include "./../../MLX/mlx.h"
-
-
-
+# include <string.h>
+# include <sys/time.h> 
+# include <stddef.h>
+# include <stdint.h>
+# include <stdbool.h>
+# include <stdlib.h>
+# include <math.h>
+# include "./../../MLX/mlx.h"
 #endif

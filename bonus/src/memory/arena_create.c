@@ -1,5 +1,8 @@
 #include "../../includes/memory.h"
-
+size_t align_up(size_t n, size_t align)
+{
+    return ((n) + (align) - 1) & ~((align) - 1);
+}
 t_arena* arena_create()
 {
     return (arena_create_with_params(DEFAULT_CHUNK_SIZE, true, malloc, free));
@@ -13,7 +16,7 @@ t_arena* arena_create_with_params(size_t chunk_size, bool allow_resize,
 
     if (chunk_size < MIN_CHUNK_SIZE)
         chunk_size = MIN_CHUNK_SIZE;
-    chunk_size = ALIGN_UP(chunk_size, ARENA_ALIGNMENT);
+    chunk_size = align_up(chunk_size, ARENA_ALIGNMENT);
     if (!alloc_fn)
         alloc_fn = malloc;
     if (!free_fn)
