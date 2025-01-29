@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   pixel.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ibes-sed <ibes-sed@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/01/28 22:23:37 by ibes-sed          #+#    #+#             */
+/*   Updated: 2025/01/28 22:29:33 by ibes-sed         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "./../../../minirt_bonus.h"
 
 t_vector	get_shadow_ray_origin(t_vector *normal,
@@ -99,13 +111,4 @@ t_color	process_lights(t_scene *scene, t_intersection *isect,
 		total_specular = color_add(&total_specular, &light_calc.specular);
 	}
 	return (color_add(&total_diffuse, &total_specular));
-}
-
-void	my_mlx_pixel_put(t_data *img, int x, int y, int color)
-{
-	char	*dst;
-
-	dst = img->addr
-		+ (int)(y * img->line_length + x * (img->bits_per_pixel * 0.125));
-	*(unsigned int *)dst = color;
 }

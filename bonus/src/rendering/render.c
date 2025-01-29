@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   render.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ibes-sed <ibes-sed@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/24 17:44:32 by sessarhi          #+#    #+#             */
-/*   Updated: 2025/01/25 22:05:30 by sessarhi         ###   ########.fr       */
+/*   Updated: 2025/01/28 22:25:27 by ibes-sed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./../../../minirt_bonus.h"
+
 int	hook(t_scene *scene);
 int	key_hook(int keycode, t_scene *scene);
 int	transformation(int keycode, t_scene *scene);

@@ -3,38 +3,38 @@
 /*                                                        :::      ::::::::   */
 /*   sp_utils.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ibes-sed <ibes-sed@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 14:02:07 by sessarhi          #+#    #+#             */
-/*   Updated: 2025/01/22 14:58:09 by sessarhi         ###   ########.fr       */
+/*   Updated: 2025/01/29 16:56:38 by ibes-sed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./../../../minirt_bonus.h"
 
-t_tsphere* new_sphere()
+t_tsphere	*new_sphere(void)
 {
-    t_tsphere *sphere;
-    
-    sphere = malloc(sizeof(t_tsphere));
-    sphere->position.x = 0;
-    sphere->position.y = 0;
-    sphere->position.z = 0;
-    sphere->diameter = 0;
-    sphere->color.r = 0;
-    sphere->color.g = 0;
-    sphere->color.b = 0;
-    sphere->next = NULL;
-    return (sphere);
+	t_tsphere	*sphere;
+
+	sphere = malloc(sizeof(t_tsphere));
+	sphere->position.x = 0;
+	sphere->position.y = 0;
+	sphere->position.z = 0;
+	sphere->diameter = 0;
+	sphere->color.r = 0;
+	sphere->color.g = 0;
+	sphere->color.b = 0;
+	sphere->next = NULL;
+	return (sphere);
 }
 
-void sphere_add_front(t_tsphere **head, t_tsphere *new)
+void	sphere_add_front(t_tsphere **head, t_tsphere *new)
 {
-  if (!*head)
-  {
-    *head = new;
-    return;
-  }
-    new->next = *head;
-    *head = new;
+	if (!*head)
+	{
+		*head = new;
+		return ;
+	}
+	new->next = *head;
+	*head = new;
 }

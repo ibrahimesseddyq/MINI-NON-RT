@@ -227,14 +227,16 @@ typedef struct s_rotate_point
 	FLOAT new_y;
 } t_rotate_point;
 
-typedef struct s_bump_params {
+typedef struct s_bump_params
+{
     FLOAT u;
     FLOAT v;
     FLOAT strength;
     t_texture *bump_map;
 } t_bump_params;
 
-typedef struct s_normal_modify {
+typedef struct s_normal_modify
+{
     t_vector *original_normal;
     t_vector *tangent;
     t_vector *bitangent;
@@ -242,7 +244,8 @@ typedef struct s_normal_modify {
     FLOAT dy;
 } t_normal_modify;
 
-typedef struct s_derivatives {
+typedef struct s_derivatives
+{
     FLOAT dx;
     FLOAT dy;
 } t_derivatives;
@@ -260,4 +263,79 @@ typedef struct s_light_calc
     t_color     diffuse;
     t_color     specular;
 }   t_light_calc;
+
+typedef struct s_body_intersection
+{
+	t_vector oc;
+	FLOAT dir_dot_dir;
+	FLOAT oc_dot_dir;
+	FLOAT a;
+	FLOAT b;
+	FLOAT c;
+	FLOAT discriminant;
+	FLOAT sqrt_discriminant;
+	FLOAT t1;
+	FLOAT t2;
+} t_body_intersection;
+
+typedef struct s_body_hit_info
+{
+	t_vector scaled_dir;
+	t_vector cp;
+	FLOAT height;
+	t_vector proj;
+	t_vector radial;
+	t_vector hit_point;
+} t_body_hit_info;
+
+typedef struct s_cap_intersection
+{
+	FLOAT t;
+	t_vector scaled_dir;
+	t_vector hit_point;
+	t_vector cp;
+	t_vector proj;
+	t_vector radial;
+} t_cap_intersection;
+
+typedef struct s_hit_cy
+{
+	FLOAT		t_body;
+	t_vector	bottom_normal;
+	FLOAT		t_bottom;
+	t_vector	top_offset;
+	t_point		top_center;
+	FLOAT		t_top;
+} t_hit_cy;
+
+typedef struct s_draw
+{
+    int x;
+    int y;
+    FLOAT pixel_x;
+    FLOAT pixel_y;
+    t_vector direction;
+    t_ray ray;
+    FLOAT aspect_ratio;
+    FLOAT fov_scale;
+    t_vector right;
+    t_vector  forword;
+    t_vector up;
+    t_vector sclx;
+    t_vector scly;
+    t_vector add;
+} t_draw;
+
+typedef struct s_hit_sphere
+{
+	t_vector oc;
+	FLOAT a;
+	FLOAT b;
+	FLOAT c;
+	FLOAT discriminant;
+	FLOAT t;
+	FLOAT t1;
+	FLOAT t2;
+} t_hit_sphere_info;
+
 #endif
