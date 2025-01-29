@@ -111,3 +111,4 @@ int trace_ray(t_ray *ray, t_scene *scene)
         return pixel_color(scene, &intersection, ray);
     return 0x000000;
 }
+

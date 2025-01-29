@@ -31,7 +31,7 @@
 # define KEY_9 65434
 # define KEY_X 120
 # define KEY_Y 121
-# define KEY_Z 119
+# define KEY_Z 122
 # define KEY_MINUS 65453
 # define KEY_PLUS 65451
 

@@ -21,6 +21,9 @@
 # define ESC_KEY 65307
 # define R_KEY 114
 # define S_KEY 115
+# define M_KEY 109
+# define N_KEY 110
+
 # define KEY_1 65436
 # define KEY_2 65433
 # define KEY_3 65435
