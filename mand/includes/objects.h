@@ -6,7 +6,7 @@
 /*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 12:56:16 by sessarhi          #+#    #+#             */
-/*   Updated: 2025/01/29 13:51:45 by sessarhi         ###   ########.fr       */
+/*   Updated: 2025/01/29 16:11:30 by sessarhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,13 @@ typedef struct s_camera
 	t_vector	up;
 	t_vector	right;
 	int			fov;
+	FLOAT		aspect_ratio;
+	FLOAT		fov_scale;
+	FLOAT		pixel_x;
+	FLOAT		pixel_y;
+	t_vector	sclx;
+	t_vector	scly;
+	t_vector	add;
 }	t_camera;
 
 typedef struct s_light
