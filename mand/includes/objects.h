@@ -6,7 +6,7 @@
 /*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 12:56:16 by sessarhi          #+#    #+#             */
-/*   Updated: 2025/01/27 15:58:08 by sessarhi         ###   ########.fr       */
+/*   Updated: 2025/01/29 13:51:45 by sessarhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -158,5 +158,19 @@ typedef struct s_caps
 	t_cylinder	cylinder;
 	FLOAT		dmin;
 }t_caps;
+
+typedef struct s_color_infos
+{
+	t_color		ambient;
+	t_color		diffuse;
+	t_color		final_color;
+	t_vector	light_dir;
+	FLOAT		diff;
+	t_ray		shadow_ray;
+	t_vector	tmp_vector;
+	t_vector	ray_origin;
+	bool		is_inside;
+	FLOAT		offset_direction;
+}t_color_infos;
 
 #endif

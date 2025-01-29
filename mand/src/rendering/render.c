@@ -46,33 +46,31 @@ bool	check_shadow(t_scene *scene, t_ray *ray, t_intersection *intersection)
 
 int	pixel_color(t_scene *scene, t_intersection *intersection, t_ray *ray)
 {
-	t_color		ambient;
-	t_color		diffuse;
-	t_color		final_color;
-	t_vector	light_dir;
-	FLOAT		diff;
-	t_ray		shadow_ray;
-	t_vector	tmp_vector;
-	t_vector	ray_origin;
+	t_color_infos	coin;
 
-	bool is_inside = vector_dot(&intersection->normal, &ray->direction) > 0;
-	FLOAT offset_direction = is_inside ? -1.0 : 1.0;
-	tmp_vector = vector_scale(&intersection->normal, SHADOW_BIAS * offset_direction);
-	ray_origin = vector_add(&intersection->point, &tmp_vector);
-	shadow_ray.origin = ray_origin;
-	tmp_vector = vector_sub(&scene->light.position, &ray_origin);
-	shadow_ray.direction = vector_normalize(&tmp_vector);
-	shadow_ray.direction = vector_normalize(&shadow_ray.direction);
-	if (check_shadow(scene, &shadow_ray, intersection))
+	coin.is_inside = vector_dot(&intersection->normal, &ray->direction) > 0;
+	if (coin.is_inside)
+		coin.offset_direction = -1;
+	else
+		coin.offset_direction = 1;
+	coin.tmp_vector = vector_scale(&intersection->normal,
+			SHADOW_BIAS * coin.offset_direction);
+	coin.ray_origin = vector_add(&intersection->point, &coin.tmp_vector);
+	coin.shadow_ray.origin = coin.ray_origin;
+	coin.tmp_vector = vector_sub(&scene->light.position, &coin.ray_origin);
+	coin.shadow_ray.direction = vector_normalize(&coin.tmp_vector);
+	coin.shadow_ray.direction = vector_normalize(&coin.shadow_ray.direction);
+	if (check_shadow(scene, &coin.shadow_ray, intersection))
 		return (0x000000);
-	ambient = color_scale(&scene->ambient.color, scene->ambient.ratio);
-	light_dir = vector_sub(&scene->light.position, &intersection->point);
-	light_dir = vector_normalize(&light_dir);
-	diff = fmax(0.0, vector_dot(&intersection->normal, &light_dir));
-	diffuse = color_scale(&scene->light.color, scene->light.bratio * diff);
-	final_color = color_add(&ambient, &diffuse);
-	final_color = color_mul(&final_color, &intersection->color);
-	return (colortorgb(&final_color));
+	coin.ambient = color_scale(&scene->ambient.color, scene->ambient.ratio);
+	coin.light_dir = vector_sub(&scene->light.position, &intersection->point);
+	coin.light_dir = vector_normalize(&coin.light_dir);
+	coin.diff = fmax(0.0, vector_dot(&intersection->normal, &coin.light_dir));
+	coin.diffuse = color_scale(&scene->light.color,
+			scene->light.bratio * coin.diff);
+	coin.final_color = color_add(&coin.ambient, &coin.diffuse);
+	coin.final_color = color_mul(&coin.final_color, &intersection->color);
+	return (colortorgb(&coin.final_color));
 }
 
 int	trace_ray(t_ray *ray, t_scene *scene)
@@ -131,10 +129,6 @@ void	draw(t_scene *scene)
 	mlx_put_image_to_window(scene->mlx, scene->win, scene->img.img, 0, 0);
 }
 
-int key_hook(int keycode, t_scene *scene)
-{
-	return (0);
-}
 int	hook(t_scene *scene)
 {
 	mlx_destroy_window(scene->mlx, scene->win);
@@ -513,7 +507,6 @@ void	render(t_scene *scene)
 	time_taken = (end.tv_sec - start.tv_sec) * 1e6;
 	time_taken = (time_taken + (end.tv_usec - start.tv_usec)) * 1e-6;
 	printf("Render time: %.6f seconds\n", time_taken);
-	mlx_key_hook(scene->win, key_hook, scene);
 	mlx_key_hook(scene->win, transformation, scene);
 	mlx_hook(scene->win, 17, 0, hook, scene);
 	mlx_loop(scene->mlx);
