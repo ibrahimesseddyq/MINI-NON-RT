@@ -1,42 +1,60 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   draw.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ibes-sed <ibes-sed@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/01/28 22:23:09 by ibes-sed          #+#    #+#             */
+/*   Updated: 2025/01/28 22:23:10 by ibes-sed         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "./../../../minirt_bonus.h"
 
-void draw(t_scene *scene)
+void	set_vector_up(t_vector *up)
 {
-    int x;
-    int y;
-    FLOAT pixel_x;
-    FLOAT pixel_y;
-    t_vector direction;
-    t_ray ray;
-    FLOAT aspect_ratio;
-    FLOAT fov_scale;
-    t_vector right;
+	up->x = 0;
+	up->y = 1;
+	up->z = 0;
+}
 
-    aspect_ratio = (FLOAT)WIDTH / (FLOAT)HEIGHT;
-    fov_scale = tan((scene->camera.fov * M_PI / 180.f) / 2);
-    t_vector  forword = vector_normalize(&scene->camera.direction);
-    t_vector up = {0, 1, 0};
-    right = vector_cross(&forword,&up );
-    up = vector_cross(&right, &forword);
-    y = 0;
-    while (y < HEIGHT)
-    {
-        x = 0;
-        while (x < WIDTH)
-        {
-            pixel_x = (2 * ((x + 0.5) / WIDTH) - 1) * aspect_ratio * fov_scale;
-            pixel_y = (1 - 2 * ((y + 0.5) / HEIGHT)) * fov_scale;
-            t_vector sclx = vector_scale(&right, pixel_x);
-            t_vector scly = vector_scale(&up, pixel_y);
-            t_vector add = vector_add(&sclx, &scly);
-            direction = vector_add(&add,&forword);
-            ray.origin = scene->camera.position;
-            ray.direction = vector_normalize(&direction);
-            my_mlx_pixel_put(&scene->img, x, y, trace_ray(&ray, scene));
-            x++;
-        }
-        y++;
-    }
-    mlx_put_image_to_window(scene->mlx, scene->win, scene->img.img, 0, 0);
+void	draw_apixel(t_scene *scene, t_draw *draw_infos)
+{
+	draw_infos->pixel_x = (2 * ((draw_infos->x + 0.5) / WIDTH) - 1)
+		* draw_infos->aspect_ratio * draw_infos->fov_scale;
+	draw_infos->pixel_y = (1 - 2 * ((draw_infos->y + 0.5) / HEIGHT))
+		* draw_infos->fov_scale;
+	draw_infos->sclx = vector_scale(&draw_infos->right, draw_infos->pixel_x);
+	draw_infos->scly = vector_scale(&draw_infos->up, draw_infos->pixel_y);
+	draw_infos->add = vector_add(&draw_infos->sclx, &draw_infos->scly);
+	draw_infos->direction = vector_add(&draw_infos->add, &draw_infos->forword);
+	draw_infos->ray.origin = scene->camera.position;
+	draw_infos->ray.direction = vector_normalize(&draw_infos->direction);
+	my_mlx_pixel_put(&scene->img, draw_infos->x,
+		draw_infos->y, trace_ray(&draw_infos->ray, scene));
+}
+
+void	draw(t_scene *scene)
+{
+	t_draw	draw_infos;
+
+	draw_infos.aspect_ratio = (FLOAT)WIDTH / (FLOAT)HEIGHT;
+	draw_infos.fov_scale = tan((scene->camera.fov * M_PI / 180.f) / 2);
+	draw_infos.forword = vector_normalize(&scene->camera.direction);
+	set_vector_up(&draw_infos.up);
+	draw_infos.right = vector_cross(&draw_infos.forword, &draw_infos.up);
+	draw_infos.up = vector_cross(&draw_infos.right, &draw_infos.forword);
+	draw_infos.y = 0;
+	while (draw_infos.y < HEIGHT)
+	{
+		draw_infos.x = 0;
+		while (draw_infos.x < WIDTH)
+		{
+			draw_apixel(scene, &draw_infos);
+			draw_infos.x++;
+		}
+		draw_infos.y++;
+	}
+	mlx_put_image_to_window(scene->mlx, scene->win, scene->img.img, 0, 0);
 }

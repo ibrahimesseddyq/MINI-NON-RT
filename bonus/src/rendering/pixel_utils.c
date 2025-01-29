@@ -1,25 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strcmp.c                                        :+:      :+:    :+:   */
+/*   pixel_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ibes-sed <ibes-sed@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/28 23:06:59 by sessarhi          #+#    #+#             */
-/*   Updated: 2025/01/29 17:06:02 by ibes-sed         ###   ########.fr       */
+/*   Created: 2025/01/28 22:29:46 by ibes-sed          #+#    #+#             */
+/*   Updated: 2025/01/28 22:29:46 by ibes-sed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/includes.h"
+#include "./../../../minirt_bonus.h"
 
-int	ft_strcmp(const char *s1, const char *s2)
+void	my_mlx_pixel_put(t_data *img, int x, int y, int color)
 {
-	size_t	i;
+	char	*dst;
 
-	i = 0;
-	if (!s1 || !s2)
-		return (1);
-	while (s1[i] && s2[i] && s1[i] == s2[i])
-		i++;
-	return ((unsigned char)s1[i] - (unsigned char)s2[i]);
+	dst = img->addr
+		+ (int)(y * img->line_length + x * (img->bits_per_pixel * 0.125));
+	*(unsigned int *)dst = color;
 }
