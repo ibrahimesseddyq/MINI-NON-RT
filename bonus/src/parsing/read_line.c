@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   read_line.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ibes-sed <ibes-sed@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 15:38:19 by sessarhi          #+#    #+#             */
-/*   Updated: 2025/01/26 11:17:42 by sessarhi         ###   ########.fr       */
+/*   Updated: 2025/01/29 22:49:44 by ibes-sed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,14 +15,6 @@
 void	int_tsceen(t_tscene *tscene);
 bool	mange_line(char *buffer, int *ret, int *backup);
 void	restor_line(char **buffer, int *ret, int *backup);
-
-static void	ft_handle_buffer(char *buffer, int ret,
-			int backup, t_tscene *tscene)
-{
-	buffer[ret] = '\0';
-	splil_line(buffer, tscene);
-	restor_line(&buffer, &ret, &backup);
-}
 
 void	ft_putchar_fd(char c, int fd)
 {
@@ -42,48 +34,39 @@ void	ft_putstr_fd(char *s, int fd)
 		i++;
 	}
 }
-
-static void	ft_read_file(int fd, char *buffer, t_tscene *tscene)
+typedef struct s_process_file
 {
-	int	ret;
-	int	backup;
-
-	ret = read(fd, buffer, BUFFER_SIZE);
-	while (ret > 0)
-	{
-		if (!mange_line(buffer, &ret, &backup))
-		{
-			write(2, "error file empty or line too long\n", 35);
-			exit(1);
-		}
-		ft_handle_buffer(buffer, ret, backup, tscene);
-		ret = read(fd, buffer + backup, BUFFER_SIZE - backup);
-		if (ret == 0)
-		{
-			buffer[backup + ret] = '\0';
-			splil_line(buffer, tscene);
-		}
-	}
-}
-
+	int fd;
+	int ret;
+	char *buffer;
+	int backup;
+	t_tscene tscene;
+} t_process_file;
 void	process_flie(char **av, t_scene *scene)
 {
-	int			fd;
-	char		*buffer;
-	t_tscene	tscene;
+	t_process_file	pi;
 
-	int_tsceen(&tscene);
-	fd = open(av[1], O_RDONLY);
-	if (fd == -1)
+	int_tsceen(&pi.tscene);
+	pi.fd = open(av[1], O_RDONLY);
+	if (pi.fd == -1)
+		return (printf("Error can't open %s\n", *av), exit(1));
+	pi.buffer = malloc(BUFFER_SIZE);
+	pi.ret
+		= read(pi.fd, pi.buffer, BUFFER_SIZE);
+	while (pi.ret > 0)
 	{
-		ft_putstr_fd("Error can't open ", 2);
-		ft_putstr_fd(av[1], 2);
-		ft_putstr_fd("\n", 2);
-		exit(1);
+		if (!mange_line(pi.buffer, &pi.ret, &pi.backup))
+			return (printf("error file empty or line too long\n"), exit(1));
+		pi.buffer[pi.ret] = '\0';
+		splil_line(pi.buffer, &pi.tscene);
+		restor_line(&pi.buffer, &pi.ret, &pi.backup);
+		pi.ret = read(pi.fd, pi.buffer + pi.backup, BUFFER_SIZE - pi.backup);
+		if (pi.ret == 0)
+		{
+			pi.buffer[pi.backup] = '\0';
+			splil_line(pi.buffer, &pi.tscene);
+		}
 	}
-	buffer = malloc(BUFFER_SIZE);
-	ft_read_file(fd, buffer, &tscene);
-	copy_tscene(&tscene, scene);
-	close(fd);
-	free(buffer);
+	copy_tscene(&pi.tscene, scene);
+	close(pi.fd);
 }

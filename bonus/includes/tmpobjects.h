@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tmpobjects.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ibes-sed <ibes-sed@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 13:24:29 by sessarhi          #+#    #+#             */
-/*   Updated: 2025/01/23 15:23:51 by sessarhi         ###   ########.fr       */
+/*   Updated: 2025/01/30 11:54:26 by ibes-sed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ typedef struct s_tsphere
 	t_point				position;
 	FLOAT				diameter;
 	char				*texture_name;
+	char				*normal_texture_name;
 	int					has_checkerboard;
 	t_material			material;
 	t_color				color;
@@ -40,6 +41,8 @@ typedef struct s_tplane
 	t_point			position;
 	t_vector		direction;
 	char			*texture_name;
+	char				*normal_texture_name;
+
 	int				has_checkerboard;
 	t_material		material;
 	t_color			color;
@@ -52,6 +55,8 @@ typedef struct s_tcylinder
 	t_point				position;
 	t_vector			direction;
 	char				*texture_name;
+	char				*normal_texture_name;
+
 	int					has_checkerboard;
 	t_material			material;
 	FLOAT				diameter;

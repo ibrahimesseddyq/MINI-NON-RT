@@ -6,11 +6,12 @@
 /*   By: ibes-sed <ibes-sed@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/10 17:02:06 by sessarhi          #+#    #+#             */
-/*   Updated: 2025/01/28 22:28:53 by ibes-sed         ###   ########.fr       */
+/*   Updated: 2025/01/29 17:34:34 by ibes-sed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./../../../minirt_bonus.h"
+
 
 static bool	is_within_cylinder_height(const t_vector *point,
 	const t_cylinder *cylinder)

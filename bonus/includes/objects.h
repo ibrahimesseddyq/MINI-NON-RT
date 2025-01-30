@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   objects.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ibes-sed <ibes-sed@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 12:56:16 by sessarhi          #+#    #+#             */
-/*   Updated: 2025/01/23 15:55:11 by sessarhi         ###   ########.fr       */
+/*   Updated: 2025/01/30 11:53:41 by ibes-sed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,12 +95,14 @@ typedef struct s_sphere
 	t_point		position;
 	FLOAT		diameter;
 	t_texture	texture;
+	t_texture	normal_texture;
 	t_color		color;
 	int			has_checkerboard;
 	t_color		checker_color1;
 	t_color		checker_color2;
 	FLOAT		checker_size;
 	char		*texture_name;
+	char		*normal_texture_name;
 	t_material	material;
 	int			id;
 }	t_sphere;
@@ -110,11 +112,13 @@ typedef struct s_plane
 	t_point		position;
 	t_vector	direction;
 	t_texture	texture;
+	t_texture	normal_texture;
 	int			has_checkerboard;
 	t_color		checker_color1;
 	t_color		checker_color2;
 	FLOAT		checker_size;
 	char		*texture_name;
+	char		*normal_texture_name;
 	t_material	material;
 	t_color		color;
 	int			id;
@@ -131,7 +135,11 @@ typedef struct s_cylinder
 	t_color		checker_color2;
 	FLOAT		checker_size;
 	t_texture	texture;
+	t_texture	normal_texture;
+
 	char		*texture_name;
+	char		*normal_texture_name;
+
 	t_color		color;
 	t_material	material;
 	int			id;
@@ -148,7 +156,11 @@ typedef struct s_cone
 	t_color		checker_color2;
 	FLOAT		checker_size;
 	char		*texture_name;
+	char		*normal_texture_name;
+
 	t_texture	texture;
+	t_texture	normal_texture;
+
 	t_material	material;
 	t_color		color;
 	int			id;
@@ -337,5 +349,6 @@ typedef struct s_hit_sphere
 	FLOAT t1;
 	FLOAT t2;
 } t_hit_sphere_info;
+
 
 #endif
