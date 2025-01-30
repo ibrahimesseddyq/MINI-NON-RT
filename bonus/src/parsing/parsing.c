@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ibes-sed <ibes-sed@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/15 21:09:07 by sessarhi          #+#    #+#             */
-/*   Updated: 2025/01/25 22:39:18 by sessarhi         ###   ########.fr       */
+/*   Updated: 2025/01/29 19:55:14 by ibes-sed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,13 @@ void	splil_line(const char *line, t_tscene *tscene)
 	int		i;
 
 	i = 0;
+	printf("line [%s]\n", line);
 	elm = ft_split(line, '\n');
 	while (elm[i])
 	{
 		inf = ft_split(elm[i], ' ');
 		printf("elm [%s]\n", elm[i]);
-		printf("[%s]\n", inf[0]);
+		// printf("[%s]\n", inf[0]);
 		if (ft_strcmp(inf[0], "A") == 0 && !process_a(inf, tscene))
 			i++;
 		else if (ft_strcmp(inf[0], "C") == 0 && !process_c(inf, tscene))

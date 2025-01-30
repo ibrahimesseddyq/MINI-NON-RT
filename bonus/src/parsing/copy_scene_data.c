@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   copy_scene_data.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ibes-sed <ibes-sed@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 16:42:51 by sessarhi          #+#    #+#             */
-/*   Updated: 2025/01/24 20:54:45 by sessarhi         ###   ########.fr       */
+/*   Updated: 2025/01/30 11:58:33 by ibes-sed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,9 @@ static void	ft_copy_plane(t_tscene *tscene, t_scene *scene, int *id)
 		scene->plane[i].direction = tscene->plane->direction;
 		scene->plane[i].color = tscene->plane->color;
 		scene->plane[i].material = tscene->plane->material;
+		scene->plane[i].texture_name = tscene->plane->texture_name;
+		scene->plane[i].normal_texture_name = tscene->plane->normal_texture_name;
+
 		scene->plane[i].id = (*id)++;
 		tscene->plane = tscene->plane->next;
 		i++;
@@ -40,6 +43,8 @@ static void	ft_copy_sphere(t_tscene *tscene, t_scene *scene, int *id)
 		scene->sphere[i].diameter = tscene->sphere->diameter;
 		scene->sphere[i].material = tscene->sphere->material;
 		scene->sphere[i].color = tscene->sphere->color;
+		scene->sphere[i].texture_name = tscene->sphere->texture_name;
+		scene->sphere[i].normal_texture_name = tscene->sphere->normal_texture_name;
 		scene->sphere[i].id = (*id)++;
 		tscene->sphere = tscene->sphere->next;
 		i++;
@@ -59,7 +64,10 @@ static void	ft_copy_cylinder(t_tscene *tscene, t_scene *scene, int *id)
 		scene->cylinder[i].diameter = tscene->cylinder->diameter;
 		scene->cylinder[i].height = tscene->cylinder->height;
 		scene->cylinder[i].material = tscene->cylinder->material;
+		scene->cylinder[i].texture_name = tscene->cylinder->texture_name;
 		scene->cylinder[i].color = tscene->cylinder->color;
+		scene->cylinder[i].normal_texture_name = tscene->cylinder->normal_texture_name;
+
 		scene->cylinder[i].id = (*id)++;
 		tscene->cylinder = tscene->cylinder->next;
 		i++;
