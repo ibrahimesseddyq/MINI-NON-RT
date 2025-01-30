@@ -6,7 +6,7 @@
 /*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 19:16:40 by sessarhi          #+#    #+#             */
-/*   Updated: 2025/01/27 11:09:45 by sessarhi         ###   ########.fr       */
+/*   Updated: 2025/01/30 14:25:18 by sessarhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,5 +49,6 @@ void	splil_line(const char *line, t_tscene *tscene);
 void	clean_exit(const char *msg);
 FLOAT	hit_cylinder(t_intersection *intersection, const t_ray *ray,
 			const t_cylinder *cylinder, FLOAT dmin);
+int	pixel_color(t_scene *scene, t_intersection *intersection, t_ray *ray);
 
 #endif
