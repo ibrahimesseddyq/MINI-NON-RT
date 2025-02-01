@@ -2,8 +2,10 @@
 # define MEMORY_H
 # include "includes.h"
 # define ARENA_ALIGNMENT 8
-# define DEFAULT_CHUNK_SIZE (130 * 15 * 1024 * 1024)
-# define MIN_CHUNK_SIZE (4 * 1024)
+//DEFAULT_CHUNK_SIZE (130 * 15 * 1024 * 1024)
+# define DEFAULT_CHUNK_SIZE 2044723200
+//# MIN_CHUNK_SIZE (4 * 1024)
+# define MIN_CHUNK_SIZE 4096
 
 typedef struct s_arena_chunk
 {
@@ -38,7 +40,7 @@ void			*arena_alloc_from_chunk(t_arena_chunk *chunk,
 					size_t size, size_t align);
 t_arena			*arena_create(void);
 t_arena			*arena_create_with_params(size_t chunk_size, bool allow_resize,
-            				void *(*alloc_fn)(size_t), void (*free_fn)(void*));
+					void *(*alloc_fn)(size_t), void (*free_fn)(void*));
 t_arena_chunk	*arena_allocate_chunk(t_arena *arena, size_t min_size);
 void			*arena_aligned_alloc(t_arena *arena, size_t size, size_t align);
 void			*arena_alloc(t_arena *arena, size_t size);

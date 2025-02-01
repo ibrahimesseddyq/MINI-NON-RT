@@ -46,6 +46,8 @@
         "ranges": "cpp",
         "stdexcept": "cpp",
         "streambuf": "cpp",
-        "typeinfo": "cpp"
+        "typeinfo": "cpp",
+        "minirt_bonus.h": "c",
+        "includes.h": "c"
     }
 }
