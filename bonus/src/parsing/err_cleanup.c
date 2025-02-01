@@ -12,13 +12,14 @@
 
 #include "./../../../minirt_bonus.h"
 
-void clean_exit(const char *msg)
+void	clean_exit(const char *msg)
 {
-    arena_destroy(*get_arena());
-    int fds;
-    fds = 10;
-    while (--fds > 2)
-        close(fds);
-    printf("%s\n", msg);
-    exit(1);
+	int	fds;
+
+	fds = 10;
+	arena_destroy(*get_arena());
+	while (--fds > 2)
+		close(fds);
+	printf("%s\n", msg);
+	exit(1);
 }

@@ -3,21 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   Rgb_cnv.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ibes-sed <ibes-sed@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/14 16:42:01 by sessarhi          #+#    #+#             */
-/*   Updated: 2025/01/26 11:12:51 by sessarhi         ###   ########.fr       */
+/*   Updated: 2025/01/29 17:06:58 by ibes-sed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 int	rgb_value(const char *str)
 {
-	register  int	nb;
+	register int	nb;
 
 	nb = 0;
 	while (*str >= 48 && *str <= 57 && nb <= 255)
 		nb = (nb * 10) + (*str++ - 48);
-	if(nb > 255 || *str)
+	if (nb > 255 || *str)
 		return (-1);
-    return (nb);
+	return (nb);
 }

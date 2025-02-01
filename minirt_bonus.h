@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minirt_bonus.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ibes-sed <ibes-sed@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 14:53:30 by sessarhi          #+#    #+#             */
-/*   Updated: 2025/01/26 11:12:51 by sessarhi         ###   ########.fr       */
+/*   Updated: 2025/01/30 12:22:00 by ibes-sed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,9 @@
 # include "./bonus/includes/memory.h"
 # include "./bonus/includes/color.h"
 # include "./bonus/includes/includes.h"
+# include "./bonus/includes/fndef.h"
+
+#include "./bonus/includes/stb_image.h"
 
 bool    parse_crd(const char *str, t_vector *vector);
 bool	parse_rgb(const char *str ,t_color *color);
@@ -45,5 +48,6 @@ FLOAT hit_sphere(t_point *point, double radius, t_ray *ray);
 FLOAT hit_plane(const t_vector *point, const t_vector *normal, const t_ray *ray);
 void copy_tscene(t_tscene *tscene, t_scene *scene);
 void clean_exit(const char *msg);
-
+FLOAT	calculate_body_intersection(const t_ray *ray,
+		const t_cylinder *cylinder);
 #endif

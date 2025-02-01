@@ -16,7 +16,6 @@
 # include "includes.h"
 
 # define ARENA_ALIGNMENT 8
-# define ALIGN_UP(n, align) (((n) + (align) - 1) & ~((align) - 1))
 # define DEFAULT_CHUNK_SIZE (130 * 15 * 1024 * 1024)
 # define MIN_CHUNK_SIZE 4 * 1024
 
@@ -68,5 +67,5 @@ void			arena_restore(t_arena_save save);
 void			arena_restore(t_arena_save save);
 t_arena			**get_arena(void);
 void			setup_arena(void);
-
+size_t			align_up(size_t n, size_t align);
 #endif
