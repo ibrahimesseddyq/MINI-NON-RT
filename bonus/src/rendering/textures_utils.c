@@ -3,15 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   textures_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ibes-sed <ibes-sed@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 22:24:06 by ibes-sed          #+#    #+#             */
-/*   Updated: 2025/01/30 12:22:22 by ibes-sed         ###   ########.fr       */
+/*   Updated: 2025/02/05 15:47:18 by sessarhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #  define STB_IMAGE_IMPLEMENTATION
 #include "./../../../minirt_bonus.h"
+
 void	init_textures(t_scene *scene)
 {
 	int	i;
@@ -58,25 +59,36 @@ void	init_textures(t_scene *scene)
 	return ;
 }
 
-t_color	sample_texture(t_texture *texture, FLOAT u, FLOAT v)
+t_color sample_texture(t_texture *texture, FLOAT u, FLOAT v)
 {
-	t_color	color;
-	int		x;
-	int		y;
-	int		pixel;
-	char	*dest;
-
-	x = (int)(u * (texture->width - 1));
-	y = (int)(v * (texture->height - 1));
-	x = fmin(fmax(x, 0), texture->width - 1);
-	y = fmin(fmax(y, 0), texture->height - 1);
-	dest = texture->addr + (y * texture->line_length
-			+ x * (texture->bits_per_pixel / 8));
-	pixel = *(unsigned int *)dest;
-	color.r = ((pixel & 0xFF0000) >> 16) / 255.0;
-	color.g = ((pixel & 0x00FF00) >> 8) / 255.0;
-	color.b = (pixel & 0x0000FF) / 255.0;
-	return (color);
+    t_color color;
+    int x, y;
+    unsigned int pixel;
+    
+    // Add wrap-around behavior for UVs
+    u = u - floor(u);  // Ensure u is 0-1
+    v = v - floor(v);  // Ensure v is 0-1
+    
+    x = (int)(u * (texture->width - 1));
+    y = (int)(v * (texture->height - 1));
+    
+    // Your bounds checking is good
+    x = fmin(fmax(x, 0), texture->width - 1);
+    y = fmin(fmax(y, 0), texture->height - 1);
+    
+    // Consider adding null checks
+    if (!texture || !texture->addr)
+        return (t_color){0, 0, 0};
+        
+    unsigned char *pixel_ptr = (unsigned char *)(texture->addr + 
+        (y * texture->line_length + x * (texture->bits_per_pixel / 8)));
+    
+    // If using RGBA format from stbi_load
+    color.r = pixel_ptr[0] / 255.0f;
+    color.g = pixel_ptr[1] / 255.0f;
+    color.b = pixel_ptr[2] / 255.0f;
+    
+    return color;
 }
 
 // bool	load_texture(t_texture *texture, void *mlx, char *filename)
