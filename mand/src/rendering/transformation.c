@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   transformation.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ibes-sed <ibes-sed@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 22:24:15 by ibes-sed          #+#    #+#             */
-/*   Updated: 2025/01/28 22:24:15 by ibes-sed         ###   ########.fr       */
+/*   Updated: 2025/02/06 19:54:32 by sessarhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,10 +32,7 @@ int	transformation(int keycode, t_scene *scene)
 			resize(keys, scene);
 		cursor = 0;
 		while (i < 10)
-		{
-			keys[i] = 0;
-			i++;
-		}
+			keys[i++] = 0;
 	}
 	if (keycode == ESC_KEY)
 		return (mlx_destroy_window(scene->mlx, scene->win),
@@ -89,25 +86,21 @@ void	search_and_resize(int obj_id, t_scene *scene, FLOAT ratio)
 {
 	int	i;
 
-	i = 0;
-	while (i < scene->sphere_count)
-	{
+	i = -1;
+	while (++i < scene->sphere_count)
 		if (scene->sphere[i].id == obj_id)
 			scene->sphere[i].diameter *= ratio;
-		i++;
-	}
-	i = 0;
-	while (i < scene->cylinder_count)
+	i = -1;
+	while (++i < scene->cylinder_count)
 	{
 		if (scene->cylinder[i].id == obj_id)
 		{
 			scene->cylinder[i].height *= ratio;
 			scene->cylinder[i].diameter *= ratio;
 		}
-		i++;
 	}
-	i = 0;
-	while (i < scene->plane_count)
+	i = -1;
+	while (++i < scene->plane_count)
 	{
 		if (scene->plane[i].id == obj_id)
 		{
@@ -115,7 +108,6 @@ void	search_and_resize(int obj_id, t_scene *scene, FLOAT ratio)
 			scene->plane[i].direction.y *= ratio;
 			scene->plane[i].direction.z *= ratio;
 		}
-		i++;
 	}
 }
 
