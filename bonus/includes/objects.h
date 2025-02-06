@@ -6,7 +6,7 @@
 /*   By: ibes-sed <ibes-sed@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 12:56:16 by sessarhi          #+#    #+#             */
-/*   Updated: 2025/02/06 21:29:10 by ibes-sed         ###   ########.fr       */
+/*   Updated: 2025/02/06 21:42:09 by ibes-sed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -491,4 +491,13 @@ typedef struct s_pixel_info
 	t_color			ambient;
 	t_vector		scaled_vec;
 } t_pixel_info;
+typedef struct s_cap_intersection_params
+{
+	t_intersection *intersection;
+	t_ray *ray;
+	t_cylinder *cylinder;
+	t_vector *cap_center;
+	t_vector *cap_normal;
+	FLOAT dmin;
+}	t_cap_intersection_params;
 #endif

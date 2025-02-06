@@ -6,22 +6,11 @@
 /*   By: ibes-sed <ibes-sed@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/10 17:02:06 by sessarhi          #+#    #+#             */
-/*   Updated: 2025/02/06 21:19:35 by ibes-sed         ###   ########.fr       */
+/*   Updated: 2025/02/06 22:22:38 by ibes-sed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./../../../minirt_bonus.h"
-
-static bool	is_within_cylinder_height(const t_vector *point,
-	const t_cylinder *cylinder)
-{
-	t_vector	cp;
-	FLOAT		height;
-
-	height = vector_dot(&cp, &cylinder->direction);
-	cp = vector_sub(point, &cylinder->position);
-	return (height >= 0 && height <= cylinder->height);
-}
 
 static bool	get_body_hit_info(t_intersection *intersection, const t_ray *ray,
 							const t_cylinder *cylinder, FLOAT t)
@@ -42,16 +31,6 @@ static bool	get_body_hit_info(t_intersection *intersection, const t_ray *ray,
 	return (true);
 }
 
-typedef struct s_cap_intersection_params
-{
-	t_intersection *intersection;
-	t_ray *ray;
-	t_cylinder *cylinder;
-	t_vector *cap_center;
-	t_vector *cap_normal;
-	FLOAT dmin;
-}	t_cap_intersection_params;
-
 static FLOAT	get_cap_intersection(t_cap_intersection_params params)
 {
 	t_cap_intersection	cap_infos;
@@ -60,7 +39,8 @@ static FLOAT	get_cap_intersection(t_cap_intersection_params params)
 	if (cap_infos.t <= EPSILON || cap_infos.t >= params.dmin)
 		return (-1);
 	cap_infos.scaled_dir = vector_scale(&params.ray->direction, cap_infos.t);
-	cap_infos.hit_point = vector_add(&params.ray->origin, &cap_infos.scaled_dir);
+	cap_infos.hit_point
+		= vector_add(&params.ray->origin, &cap_infos.scaled_dir);
 	cap_infos.cp = vector_sub(&cap_infos.hit_point, &params.cylinder->position);
 	cap_infos.proj = vector_scale(&params.cylinder->direction,
 			vector_dot(&cap_infos.cp, &params.cylinder->direction));
@@ -72,12 +52,27 @@ static FLOAT	get_cap_intersection(t_cap_intersection_params params)
 	return (cap_infos.t);
 }
 
+t_cap_intersection_params	build_cap_intersection_param(
+					t_intersection *intersection,
+					const t_ray *ray,
+					const t_cylinder *cylinder, FLOAT dmin)
+{
+	t_cap_intersection_params	params;
+
+	params.intersection = intersection;
+	params.ray = (t_ray *)ray;
+	params.cylinder = (t_cylinder *)cylinder;
+	params.dmin = dmin;
+	params.cap_center = (t_vector *)&cylinder->position;
+	params.cap_normal = (t_vector *)&cylinder->direction;
+	return (params);
+}
+
 FLOAT	hit_cylinder(t_intersection *intersection, const t_ray *ray,
 					const t_cylinder *cylinder, FLOAT dmin)
 {
-	t_hit_cy	hit_infos;
-    t_cap_intersection_params params;
-
+	t_hit_cy					hit_infos;
+	t_cap_intersection_params	params;
 
 	hit_infos.t_body = calculate_body_intersection(ray, cylinder);
 	if (hit_infos.t_body > EPSILON && hit_infos.t_body < dmin)
@@ -85,21 +80,16 @@ FLOAT	hit_cylinder(t_intersection *intersection, const t_ray *ray,
 		if (get_body_hit_info(intersection, ray, cylinder, hit_infos.t_body))
 			dmin = hit_infos.t_body;
 	}
-    params.intersection = intersection;
-    params.ray = (t_ray *)ray;
-    params.cylinder = (t_cylinder *)cylinder;
-    params.dmin = dmin;
 	hit_infos.bottom_normal = vector_scale(&cylinder->direction, -1);
-    params.cap_center = (t_vector *)&cylinder->position;
-    params.cap_normal = &hit_infos.bottom_normal;
 	hit_infos.t_bottom = get_cap_intersection(params);
 	if (hit_infos.t_bottom > EPSILON && hit_infos.t_bottom < dmin)
 		dmin = hit_infos.t_bottom;
 	hit_infos.top_offset = vector_scale(&cylinder->direction, cylinder->height);
 	hit_infos.top_center
 		= vector_add(&cylinder->position, &hit_infos.top_offset);
-    params.cap_center = &hit_infos.top_center;
-    params.cap_normal = (t_vector *)&cylinder->direction;
+	params = build_cap_intersection_param(intersection, ray, cylinder, dmin);
+	params.cap_normal = &hit_infos.bottom_normal;
+	params.cap_center = &hit_infos.top_center;
 	hit_infos.t_top = get_cap_intersection(params);
 	if (hit_infos.t_top > EPSILON && hit_infos.t_top < dmin)
 		dmin = hit_infos.t_top;

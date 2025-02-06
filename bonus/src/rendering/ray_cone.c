@@ -6,7 +6,7 @@
 /*   By: ibes-sed <ibes-sed@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 22:23:45 by ibes-sed          #+#    #+#             */
-/*   Updated: 2025/01/28 22:23:45 by ibes-sed         ###   ########.fr       */
+/*   Updated: 2025/02/06 22:19:46 by ibes-sed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,9 @@ double	hit_cone(t_point *vertex, t_vector *axis, double angle, t_ray *ray)
 	t_hit_cone_intersection	inter;
 	double					t;
 
-	init_cone_vars(&inter, vertex, axis, ray, angle);
+	inter.cos2 = cos(angle) * cos(angle);
+	inter.sin2 = sin(angle) * sin(angle);
+	init_cone_vars(&inter, vertex, axis, ray);
 	t = get_intersection_t(&inter);
 	if (t < 0 || !check_height_bounds(&inter, vertex, axis, ray))
 		return (-1);
