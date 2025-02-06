@@ -6,7 +6,7 @@
 /*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 19:16:40 by sessarhi          #+#    #+#             */
-/*   Updated: 2025/02/06 20:44:25 by sessarhi         ###   ########.fr       */
+/*   Updated: 2025/02/06 20:52:17 by sessarhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,9 +47,9 @@ FLOAT	hit_plane(const t_vector *point,
 void	copy_tscene(t_tscene *tscene, t_scene *scene);
 void	splil_line(const char *line, t_tscene *tscene);
 void	clean_exit(const char *msg);
-FLOAT	hit_cylinder(t_intersection *intersection, const t_ray *ray,
+FLOAT	hit_cylinder(t_intersection *in524288000tersection, const t_ray *ray,
 			const t_cylinder *cylinder, FLOAT dmin);
-int	pixel_color(t_scene *scene, t_intersection *intersection, t_ray *ray);
+int		pixel_color(t_scene *scene, t_intersection *intersection, t_ray *ray);
 void	move_light_or_camera(int *keys, t_scene *scene);
 void	move_camera(int *keys, t_camera *camera);
 void	move_light(int *keys, t_light *light);
@@ -63,13 +63,13 @@ void	rotate_camera(int *keys, t_scene *scene);
 void	rotate_cylinder(int *keys, t_scene *scene, int i);
 void	rotate_plane(int *keys, t_scene *scene, int i);
 void	rotate(int *keys, t_scene *scene);
-int	transformation(int keycode, t_scene *scene);
-int	search_and_translate(int *keys, int obj_id, t_scene *scene);
+int		transformation(int keycode, t_scene *scene);
+int		search_and_translate(int *keys, int obj_id, t_scene *scene);
 void	translate(int *keys, t_scene *scene);
 void	search_and_resize(int obj_id, t_scene *scene, FLOAT ratio);
 void	resize(int *keys, t_scene *scene);
 char	get_ascii(int key);
-int	my_atoi(int *keys, int start);
-int	hook(t_scene *scene);
+int		my_atoi(int *keys, int start);
+int		hook(t_scene *scene);
 
 #endif
