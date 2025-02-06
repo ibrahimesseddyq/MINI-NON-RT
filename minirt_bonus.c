@@ -6,19 +6,20 @@
 /*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 14:52:09 by sessarhi          #+#    #+#             */
-/*   Updated: 2025/01/23 16:05:18 by sessarhi         ###   ########.fr       */
+/*   Updated: 2025/02/06 20:57:58 by sessarhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt_bonus.h"
 
-int main(int ac , char **av)
+int main(int ac, char **av)
 {
     t_scene scene;
+
     setup_arena();
     if (ac != 2)
         return (printf("Error bad arguments\n"));
-    process_flie(av , &scene);
+    process_flie(av, &scene);
     render(&scene);
-    return SUCCESS;
+    return (SUCCESS);
 }
