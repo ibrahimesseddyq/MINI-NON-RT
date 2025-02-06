@@ -90,13 +90,6 @@ void	draw(t_scene *scene)
 	mlx_put_image_to_window(scene->mlx, scene->win, scene->img.img, 0, 0);
 }
 
-int	hook(t_scene *scene)
-{
-	mlx_destroy_window(scene->mlx, scene->win);
-	clean_exit("");
-	return (0);
-}
-
 void	render(t_scene *scene)
 {
 	struct timeval	start;

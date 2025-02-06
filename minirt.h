@@ -6,7 +6,7 @@
 /*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 19:16:40 by sessarhi          #+#    #+#             */
-/*   Updated: 2025/02/06 19:39:45 by sessarhi         ###   ########.fr       */
+/*   Updated: 2025/02/06 20:44:25 by sessarhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,5 +70,6 @@ void	search_and_resize(int obj_id, t_scene *scene, FLOAT ratio);
 void	resize(int *keys, t_scene *scene);
 char	get_ascii(int key);
 int	my_atoi(int *keys, int start);
+int	hook(t_scene *scene);
 
 #endif

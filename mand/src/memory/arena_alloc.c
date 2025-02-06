@@ -6,7 +6,7 @@
 /*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/26 22:32:49 by sessarhi          #+#    #+#             */
-/*   Updated: 2025/02/06 19:57:05 by sessarhi         ###   ########.fr       */
+/*   Updated: 2025/02/06 20:46:58 by sessarhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,11 +84,4 @@ void	*arena_alloc_from_chunk(t_arena_chunk *chunk, size_t size, size_t align)
 		return (NULL);
 	chunk->used += total_size;
 	return ((void *)aligned);
-}
-
-size_t	arena_total_allocated(const t_arena	*arena)
-{
-	if (arena)
-		return (arena->total_allocated);
-	return (0);
 }
