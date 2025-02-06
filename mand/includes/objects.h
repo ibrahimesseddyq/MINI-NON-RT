@@ -6,7 +6,7 @@
 /*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 12:56:16 by sessarhi          #+#    #+#             */
-/*   Updated: 2025/02/06 19:34:22 by sessarhi         ###   ########.fr       */
+/*   Updated: 2025/02/06 19:46:55 by sessarhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -182,12 +182,12 @@ typedef struct s_color_infos
 
 typedef struct s_rotate_point
 {
-	FLOAT cos_angle;
-	FLOAT sin_angle;
-	FLOAT dot;
+	FLOAT	cos_angle;
+	FLOAT	sin_angle;
+	FLOAT	dot;
 
-	FLOAT new_x;
-	FLOAT new_y;
-} t_rotate_point;
+	FLOAT	new_x;
+	FLOAT	new_y;
+}t_rotate_point;
 
 #endif

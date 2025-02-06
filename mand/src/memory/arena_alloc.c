@@ -6,15 +6,17 @@
 /*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/26 22:32:49 by sessarhi          #+#    #+#             */
-/*   Updated: 2025/01/27 15:56:17 by sessarhi         ###   ########.fr       */
+/*   Updated: 2025/02/06 19:57:05 by sessarhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/memory.h"
-size_t align_up(size_t n, size_t align)
+
+size_t	align_up(size_t n, size_t align)
 {
-    return ((n) + (align) - 1) & ~((align) - 1);
+	return (((n) + (align) - 1) & ~((align) - 1));
 }
+
 t_arena_chunk	*arena_allocate_chunk(t_arena	*arena, size_t min_size)
 {
 	size_t			chunk_size;

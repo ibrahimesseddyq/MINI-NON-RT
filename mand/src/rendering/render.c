@@ -12,7 +12,6 @@
 
 #include "./../../../minirt.h"
 
-
 void	my_mlx_pixel_put(t_data *img, int x, int y, int color)
 {
 	char	*dst;
