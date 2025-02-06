@@ -6,7 +6,7 @@
 /*   By: ibes-sed <ibes-sed@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 14:53:30 by sessarhi          #+#    #+#             */
-/*   Updated: 2025/02/06 19:36:29 by ibes-sed         ###   ########.fr       */
+/*   Updated: 2025/02/06 21:17:55 by ibes-sed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,4 +59,13 @@ int	hook(t_scene *scene);
 int	key_hook(int keycode, t_scene *scene);
 int	transformation(int keycode, t_scene *scene);
 void	init_textures(t_scene *scene);
+void	handle_sphere_textures(t_scene *scene, t_texture_params *params);
+void	handle_cylinder_textures(t_scene *scene, t_texture_params *params);
+void	handle_plane_textures(t_scene *scene, t_texture_params *params);
+t_color	sample_texture(t_texture *texture, FLOAT u, FLOAT v);
+void	load_plane_texture(t_scene *scene, int i);
+void	sphere_texture(t_scene *scene, int i);
+void	cylinder_texture(t_scene *scene, int i);
+void	*ft_memcpy(void *dst, const void *src, size_t n);
+void	search_and_resize(int obj_id, t_scene *scene, FLOAT ratio);
 #endif

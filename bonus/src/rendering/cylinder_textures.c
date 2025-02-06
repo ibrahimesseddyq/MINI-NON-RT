@@ -16,7 +16,7 @@ void	handle_cylinder_maps(t_scene *scene,
 	*(params->set) = 1;
 }
 
-static void	handle_cylinder_textures(t_scene *scene, t_texture_params *params)
+void	handle_cylinder_textures(t_scene *scene, t_texture_params *params)
 {
 	t_checker_config	checker;
 	int					i;
