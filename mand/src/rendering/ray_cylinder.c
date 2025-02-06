@@ -127,4 +127,3 @@ FLOAT	hit_cylinder(t_intersection *intersection, const t_ray *ray,
 		return (caps.dmin);
 	return (-1);
 }
-

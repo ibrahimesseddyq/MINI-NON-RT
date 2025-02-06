@@ -6,7 +6,7 @@
 /*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/26 09:21:08 by sessarhi          #+#    #+#             */
-/*   Updated: 2025/01/25 11:59:42 by sessarhi         ###   ########.fr       */
+/*   Updated: 2025/01/27 16:01:31 by sessarhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,5 +22,3 @@ int		colortorgb(t_color *a);
 t_color	color_scale(t_color *a, FLOAT scale);
 
 #endif
-
-

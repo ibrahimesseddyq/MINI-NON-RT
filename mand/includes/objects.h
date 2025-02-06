@@ -6,10 +6,9 @@
 /*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 12:56:16 by sessarhi          #+#    #+#             */
-/*   Updated: 2025/01/26 20:23:23 by sessarhi         ###   ########.fr       */
+/*   Updated: 2025/01/29 16:11:30 by sessarhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #ifndef OBJECTS_H
 # define OBJECTS_H
@@ -40,7 +39,6 @@
 # include "includes.h"
 
 typedef t_vector	t_point;
-
 typedef struct s_color
 {
 	FLOAT	r;
@@ -60,6 +58,13 @@ typedef struct s_camera
 	t_vector	up;
 	t_vector	right;
 	int			fov;
+	FLOAT		aspect_ratio;
+	FLOAT		fov_scale;
+	FLOAT		pixel_x;
+	FLOAT		pixel_y;
+	t_vector	sclx;
+	t_vector	scly;
+	t_vector	add;
 }	t_camera;
 
 typedef struct s_light
@@ -95,7 +100,6 @@ typedef struct s_cylinder
 	t_color		color;
 	int			id;
 }	t_cylinder;
-
 
 typedef struct s_data
 {
@@ -158,8 +162,22 @@ typedef struct s_cyhit
 typedef struct s_caps
 {
 	t_ray		ray;
-	t_cylinder cylinder;
+	t_cylinder	cylinder;
 	FLOAT		dmin;
 }t_caps;
+
+typedef struct s_color_infos
+{
+	t_color		ambient;
+	t_color		diffuse;
+	t_color		final_color;
+	t_vector	light_dir;
+	FLOAT		diff;
+	t_ray		shadow_ray;
+	t_vector	tmp_vector;
+	t_vector	ray_origin;
+	bool		is_inside;
+	FLOAT		offset_direction;
+}t_color_infos;
 
 #endif
