@@ -6,7 +6,7 @@
 /*   By: ibes-sed <ibes-sed@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 14:53:30 by sessarhi          #+#    #+#             */
-/*   Updated: 2025/02/06 21:17:55 by ibes-sed         ###   ########.fr       */
+/*   Updated: 2025/02/06 22:22:25 by ibes-sed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,8 +52,6 @@ FLOAT	calculate_body_intersection(const t_ray *ray,
 t_color		sample_texture(t_texture *texture, FLOAT u, FLOAT v);
 t_vector	calculate_bump_normal(t_texture *bump_map, FLOAT u, FLOAT v,
 				t_vector *original_normal);
-t_color		get_checkerboard_color(t_color color1,
-				t_color color2, FLOAT u, FLOAT v, FLOAT size);
 t_checker_config	init_checker(void);
 int	hook(t_scene *scene);
 int	key_hook(int keycode, t_scene *scene);
@@ -68,4 +66,8 @@ void	sphere_texture(t_scene *scene, int i);
 void	cylinder_texture(t_scene *scene, int i);
 void	*ft_memcpy(void *dst, const void *src, size_t n);
 void	search_and_resize(int obj_id, t_scene *scene, FLOAT ratio);
+t_color	get_checkerboard_color(t_color color1,
+		t_color color2, t_intersection *inter, FLOAT size);
+bool	is_within_cylinder_height(const t_vector *point,
+	const t_cylinder *cylinder);
 #endif
