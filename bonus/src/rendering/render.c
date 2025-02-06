@@ -6,16 +6,11 @@
 /*   By: ibes-sed <ibes-sed@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/24 17:44:32 by sessarhi          #+#    #+#             */
-/*   Updated: 2025/01/29 17:45:17 by ibes-sed         ###   ########.fr       */
+/*   Updated: 2025/02/06 19:36:20 by ibes-sed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./../../../minirt_bonus.h"
-
-int	hook(t_scene *scene);
-int	key_hook(int keycode, t_scene *scene);
-int	transformation(int keycode, t_scene *scene);
-void	init_textures(t_scene *scene);
 
 bool	check_shadow(t_scene *scene, t_ray *ray, t_intersection *intersection)
 {
@@ -83,7 +78,7 @@ void	render(t_scene *scene)
 	scene->img.addr = mlx_get_data_addr(scene->img.img,
 			&scene->img.bits_per_pixel, &scene->img.line_length,
 			&scene->img.endian);
-    init_textures(scene);
+	init_textures(scene);
 	gettimeofday(&start, NULL);
 	draw(scene);
 	gettimeofday(&end, NULL);

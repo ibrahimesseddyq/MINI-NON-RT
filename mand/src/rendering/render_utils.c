@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   render_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ibes-sed <ibes-sed@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 22:23:53 by ibes-sed          #+#    #+#             */
-/*   Updated: 2025/01/28 22:23:53 by ibes-sed         ###   ########.fr       */
+/*   Updated: 2025/02/06 21:21:34 by sessarhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "./../../../minirt_bonus.h"
+#include "./../../../minirt.h"
 
 char	get_ascii(int key)
 {
