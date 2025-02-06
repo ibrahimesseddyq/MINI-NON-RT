@@ -6,7 +6,7 @@
 /*   By: ibes-sed <ibes-sed@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/11 18:11:36 by sessarhi          #+#    #+#             */
-/*   Updated: 2025/01/30 11:54:45 by ibes-sed         ###   ########.fr       */
+/*   Updated: 2025/02/06 18:46:05 by ibes-sed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	process_sp(char **inf, t_tscene *t_scene)
 	if (!parse_crd(inf[1], &new->position)
 		|| !parse_rgb(inf[3], &new->color)
 		|| new->texture_name == NULL)
-		clean_exit("Error: Sphere has wrong arguments");
+		clean_exit("Error: Sphere has0 wrong arguments");
 	parse_material(inf[4], &new->material);
 	sphere_add_front(&t_scene->sphere, new);
 	t_scene->sphere_size++;

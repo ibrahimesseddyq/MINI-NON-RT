@@ -6,7 +6,7 @@
 /*   By: ibes-sed <ibes-sed@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 22:23:37 by ibes-sed          #+#    #+#             */
-/*   Updated: 2025/01/28 22:29:33 by ibes-sed         ###   ########.fr       */
+/*   Updated: 2025/02/06 19:43:41 by ibes-sed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,27 +29,24 @@ t_vector	get_shadow_ray_origin(t_vector *normal,
 t_light_calc	calculate_light_contribution(t_light *light,
 		t_light_params *params)
 {
-	t_vector		light_dir;
-	t_vector		half_vector;
-	t_light_calc	result;
-	FLOAT			diff;
-	FLOAT			spec;
-	t_vector		sub_vec;
-	t_vector		added_vec;
+	t_calculate_light_contribution	li;
 
-	sub_vec = vector_sub(&light->position,
+	li.sub_vec = vector_sub(&light->position,
 			&params->intersection_point);
-	light_dir = vector_normalize(&sub_vec);
-	diff = fmax(0.0, vector_dot(&params->surface_normal, &light_dir));
-	diff *= light->bratio;
-	result.diffuse = color_scale(&light->color, diff * params->material.kd);
-	added_vec = vector_add(&light_dir, &params->view_dir);
-	half_vector = vector_normalize(&added_vec);
-	spec = pow(fmax(0.0, vector_dot(&params->surface_normal, &half_vector)),
+	li.light_dir = vector_normalize(&li.sub_vec);
+	li.diff = fmax(0.0, vector_dot(&params->surface_normal, &li.light_dir));
+	li.diff *= light->bratio;
+	li.result.diffuse
+		= color_scale(&light->color, li.diff * params->material.kd);
+	li.added_vec = vector_add(&li.light_dir, &params->view_dir);
+	li.half_vector = vector_normalize(&li.added_vec);
+	li.spec
+		= pow(fmax(0.0, vector_dot(&params->surface_normal, &li.half_vector)),
 			params->material.n);
-	spec *= light->bratio;
-	result.specular = color_scale(&light->color, spec * params->material.ks);
-	return (result);
+	li.spec *= light->bratio;
+	li.result.specular
+		= color_scale(&light->color, li.spec * params->material.ks);
+	return (li.result);
 }
 
 bool	process_shadow_ray(t_scene *scene, t_vector *light_pos,
@@ -69,25 +66,20 @@ bool	process_shadow_ray(t_scene *scene, t_vector *light_pos,
 
 int	pixel_color(t_scene *scene, t_intersection *isect, t_ray *ray)
 {
-	t_light_params	params;
-	t_light_calc	light_calc;
-	t_color			final_color;
-	t_color			texture_color;
-	t_color			ambient;
-	t_vector		scaled_vec;
+	t_pixel_info	pinfos;
 
-	scaled_vec = vector_scale(&ray->direction, -1);
-	params.view_dir = vector_normalize(&scaled_vec);
-	ambient = color_scale(&scene->ambient.color,
+	pinfos.scaled_vec = vector_scale(&ray->direction, -1);
+	pinfos.params.view_dir = vector_normalize(&pinfos.scaled_vec);
+	pinfos.ambient = color_scale(&scene->ambient.color,
 			scene->ambient.ratio * isect->material.ka);
-	calculate_surface_properties(scene, isect, &texture_color,
-		&params.surface_normal);
-	params.intersection_point = isect->point;
-	params.material = isect->material;
-	final_color = process_lights(scene, isect, ray, &params);
-	final_color = color_add(&ambient, &final_color);
-	final_color = color_mul(&final_color, &texture_color);
-	return (colortorgb(&final_color));
+	calculate_surface_properties(scene, isect, &pinfos.texture_color,
+		&pinfos.params.surface_normal);
+	pinfos.params.intersection_point = isect->point;
+	pinfos.params.material = isect->material;
+	pinfos.final_color = process_lights(scene, isect, ray, &pinfos.params);
+	pinfos.final_color = color_add(&pinfos.ambient, &pinfos.final_color);
+	pinfos.final_color = color_mul(&pinfos.final_color, &pinfos.texture_color);
+	return (colortorgb(&pinfos.final_color));
 }
 
 t_color	process_lights(t_scene *scene, t_intersection *isect,

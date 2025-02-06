@@ -6,7 +6,7 @@
 /*   By: ibes-sed <ibes-sed@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 14:53:30 by sessarhi          #+#    #+#             */
-/*   Updated: 2025/01/30 12:22:00 by ibes-sed         ###   ########.fr       */
+/*   Updated: 2025/02/06 19:36:29 by ibes-sed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@
 # include "./bonus/includes/color.h"
 # include "./bonus/includes/includes.h"
 # include "./bonus/includes/fndef.h"
-
 #include "./bonus/includes/stb_image.h"
 
 bool    parse_crd(const char *str, t_vector *vector);
@@ -50,4 +49,14 @@ void copy_tscene(t_tscene *tscene, t_scene *scene);
 void clean_exit(const char *msg);
 FLOAT	calculate_body_intersection(const t_ray *ray,
 		const t_cylinder *cylinder);
+t_color		sample_texture(t_texture *texture, FLOAT u, FLOAT v);
+t_vector	calculate_bump_normal(t_texture *bump_map, FLOAT u, FLOAT v,
+				t_vector *original_normal);
+t_color		get_checkerboard_color(t_color color1,
+				t_color color2, FLOAT u, FLOAT v, FLOAT size);
+t_checker_config	init_checker(void);
+int	hook(t_scene *scene);
+int	key_hook(int keycode, t_scene *scene);
+int	transformation(int keycode, t_scene *scene);
+void	init_textures(t_scene *scene);
 #endif
