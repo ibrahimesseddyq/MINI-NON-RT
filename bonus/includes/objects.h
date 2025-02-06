@@ -6,7 +6,7 @@
 /*   By: ibes-sed <ibes-sed@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 12:56:16 by sessarhi          #+#    #+#             */
-/*   Updated: 2025/02/06 21:04:53 by ibes-sed         ###   ########.fr       */
+/*   Updated: 2025/02/06 21:29:10 by ibes-sed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,6 +110,8 @@ typedef struct s_tsphere
 	char				*texture_name;
 	char				*normal_texture_name;
 	int					has_checkerboard;
+	int			has_color_texture;
+	int			has_bump_texture;
 	t_material			material;
 	t_color				color;
 	struct s_tsphere	*next;
@@ -124,6 +126,8 @@ typedef struct s_tplane
 
 	int				has_checkerboard;
 	t_material		material;
+	int			has_color_texture;
+	int			has_bump_texture;
 	t_color			color;
 	struct s_tplane	*next;
 }__attribute__((aligned(sizeof(FLOAT))))	t_tplane;
@@ -137,6 +141,8 @@ typedef struct s_tcylinder
 	char				*normal_texture_name;
 
 	int					has_checkerboard;
+	int			has_color_texture;
+	int			has_bump_texture;
 	t_material			material;
 	FLOAT				diameter;
 	FLOAT				height;
@@ -154,6 +160,8 @@ typedef struct s_tcone
 	int				has_checkerboard;
 	t_material		material;
 	t_color			color;
+	int			has_color_texture;
+	int			has_bump_texture;
 	int				id;
 	struct s_tcone	*next;
 }	t_tcone;
