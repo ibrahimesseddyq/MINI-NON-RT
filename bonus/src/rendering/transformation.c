@@ -6,11 +6,22 @@
 /*   By: ibes-sed <ibes-sed@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 22:24:15 by ibes-sed          #+#    #+#             */
-/*   Updated: 2025/01/28 22:24:15 by ibes-sed         ###   ########.fr       */
+/*   Updated: 2025/02/06 19:44:39 by ibes-sed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./../../../minirt_bonus.h"
+
+void	transform(int *keys, t_scene *scene)
+{
+	if (keys[0] == LEFT_ROW_KEY || keys[0] == UPPER_ROW_KEY
+		|| keys[0] == RIGHT_ROW_KEY || keys[0] == DOWN_ROW_KEY)
+		translate(keys, scene);
+	else if (keys[0] == R_KEY)
+		rotate(keys, scene);
+	else if (keys[0] == S_KEY)
+		resize(keys, scene);
+}
 
 int	transformation(int keycode, t_scene *scene)
 {
@@ -23,13 +34,7 @@ int	transformation(int keycode, t_scene *scene)
 		keys[cursor++] = keycode;
 	if (keycode == ALT_KEY)
 	{
-		if (keys[0] == LEFT_ROW_KEY || keys[0] == UPPER_ROW_KEY
-			|| keys[0] == RIGHT_ROW_KEY || keys[0] == DOWN_ROW_KEY)
-			translate(keys, scene);
-		else if (keys[0] == R_KEY)
-			rotate(keys, scene);
-		else if (keys[0] == S_KEY)
-			resize(keys, scene);
+		transform(keys, scene);
 		cursor = 0;
 		while (i < 10)
 		{
@@ -83,40 +88,6 @@ void	translate(int *keys, t_scene *scene)
 	if (obj_id == -1)
 		return ;
 	search_and_translate(keys, obj_id, scene);
-}
-
-void	search_and_resize(int obj_id, t_scene *scene, FLOAT ratio)
-{
-	int	i;
-
-	i = 0;
-	while (i < scene->sphere_count)
-	{
-		if (scene->sphere[i].id == obj_id)
-			scene->sphere[i].diameter *= ratio;
-		i++;
-	}
-	i = 0;
-	while (i < scene->cylinder_count)
-	{
-		if (scene->cylinder[i].id == obj_id)
-		{
-			scene->cylinder[i].height *= ratio;
-			scene->cylinder[i].diameter *= ratio;
-		}
-		i++;
-	}
-	i = 0;
-	while (i < scene->plane_count)
-	{
-		if (scene->plane[i].id == obj_id)
-		{
-			scene->plane[i].direction.x *= ratio;
-			scene->plane[i].direction.y *= ratio;
-			scene->plane[i].direction.z *= ratio;
-		}
-		i++;
-	}
 }
 
 void	resize(int *keys, t_scene *scene)

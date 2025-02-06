@@ -6,7 +6,7 @@
 /*   By: ibes-sed <ibes-sed@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 12:56:16 by sessarhi          #+#    #+#             */
-/*   Updated: 2025/01/30 11:53:41 by ibes-sed         ###   ########.fr       */
+/*   Updated: 2025/02/06 19:43:21 by ibes-sed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,6 +105,8 @@ typedef struct s_sphere
 	char		*normal_texture_name;
 	t_material	material;
 	int			id;
+	int			has_color_texture;
+	int			has_bump_texture;
 }	t_sphere;
 
 typedef struct s_plane
@@ -121,6 +123,8 @@ typedef struct s_plane
 	char		*normal_texture_name;
 	t_material	material;
 	t_color		color;
+	int			has_color_texture;
+	int			has_bump_texture;
 	int			id;
 }	t_plane;
 
@@ -136,10 +140,10 @@ typedef struct s_cylinder
 	FLOAT		checker_size;
 	t_texture	texture;
 	t_texture	normal_texture;
-
+	int			has_color_texture;
+	int			has_bump_texture;
 	char		*texture_name;
 	char		*normal_texture_name;
-
 	t_color		color;
 	t_material	material;
 	int			id;
@@ -157,7 +161,8 @@ typedef struct s_cone
 	FLOAT		checker_size;
 	char		*texture_name;
 	char		*normal_texture_name;
-
+	int			has_color_texture;
+	int			has_bump_texture;
 	t_texture	texture;
 	t_texture	normal_texture;
 
@@ -350,5 +355,48 @@ typedef struct s_hit_sphere
 	FLOAT t2;
 } t_hit_sphere_info;
 
+typedef struct s_process_file
+{
+	int fd;
+	int ret;
+	char *buffer;
+	int backup;
+	t_tscene tscene;
+} t_process_file;
 
+typedef	struct s_calculate_light_contribution
+{
+	t_vector		light_dir;
+	t_vector		half_vector;
+	t_light_calc	result;
+	FLOAT			diff;
+	FLOAT			spec;
+	t_vector		sub_vec;
+	t_vector		added_vec;
+} t_calculate_light_contribution;
+
+typedef struct s_texture_params
+{
+	t_color			*texture_color;
+	t_vector		*normal;
+	t_intersection	*intersection;
+	int				*set;
+}	t_texture_params;
+
+typedef struct s_checker_config
+{
+	t_color	board1;
+	t_color	board2;
+	int		size;
+}	t_checker_config;
+
+typedef struct s_pixel_info
+{
+	t_light_params	params;
+	t_light_calc	light_calc;
+	t_color			final_color;
+	t_color			texture_color;
+	t_color			ambient;
+	t_vector		scaled_vec;
+} t_pixel_info;
 #endif
