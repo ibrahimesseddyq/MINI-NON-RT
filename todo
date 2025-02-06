@@ -3,4 +3,112 @@
 
 // bugs [IBRAHIM]
 - bug f height d cone
+- bug f rotation y, z 
+- bug f 
+
+bool check_shadow(t_scene *scene, t_ray *ray, t_intersection *intersection)
+{
+    t_vector tmp;
+    t_intersection shadow_intersection;
+    FLOAT light_distance;
+
+    // Calculate distance to light
+    tmp = vector_sub(&scene->light.position, &intersection->point);
+    light_distance = vector_length(&tmp);
+
+    // Initialize shadow intersection
+    shadow_intersection.distance = INFINITY;
+    shadow_intersection.hit = false;
+    shadow_intersection.id = -1;
+
+    // Check all object intersections
+    sphere_intersection(scene, &shadow_intersection, ray);
+    if (shadow_intersection.hit && shadow_intersection.distance < light_distance 
+        && intersection->id != shadow_intersection.id)
+        return true;
+
+    shadow_intersection.distance = INFINITY;
+    cylinder_intersection(scene, &shadow_intersection, ray);
+    if (shadow_intersection.hit && shadow_intersection.distance < light_distance 
+        && intersection->id != shadow_intersection.id)
+        return true;
+
+    shadow_intersection.distance = INFINITY;
+    plane_intersection(scene, &shadow_intersection, ray);
+    if (shadow_intersection.hit && shadow_intersection.distance < light_distance 
+        && intersection->id != shadow_intersection.id)
+        return true;
+
+    return false;
+}
+
+int	pixel_color(t_scene *scene, t_intersection *intersection, t_ray *ray)
+{
+	t_color		ambient;
+	t_color		diffuse;
+	t_color		final_color;
+	t_vector	light_dir;
+	FLOAT		diff;
+	t_ray		shadow_ray;
+	t_vector	tmp_vector;
+	t_vector	ray_origin;
+
+	bool is_inside = vector_dot(&intersection->normal, &ray->direction) > 0;
+	FLOAT offset_direction = is_inside ? -1.0 : 1.0;
+	tmp_vector = vector_scale(&intersection->normal, SHADOW_BIAS * offset_direction);
+	ray_origin = vector_add(&intersection->point, &tmp_vector);
+	shadow_ray.origin = ray_origin;
+	tmp_vector = vector_sub(&scene->light.position, &ray_origin);
+	shadow_ray.direction = vector_normalize(&tmp_vector);
+	shadow_ray.direction = vector_normalize(&shadow_ray.direction);
+	if (check_shadow(scene, &shadow_ray, intersection))
+		return 0x000000;
+	ambient = color_scale(&scene->ambient.color, scene->ambient.ratio);
+	light_dir = vector_sub(&scene->light.position, &intersection->point);
+	light_dir = vector_normalize(&light_dir);
+	diff = fmax(0.0, vector_dot(&intersection->normal, &light_dir));
+	diffuse = color_scale(&scene->light.color, scene->light.bratio * diff);
+	final_color = color_add(&ambient, &diffuse);
+	final_color = color_mul(&final_color, &intersection->color);
+	return (colortorgb(&final_color));
+}
+
+int trace_ray(t_ray *ray, t_scene *scene)
+{
+    t_intersection intersection;
+    t_intersection tmp_intersection;
+    FLOAT closest_distance = INFINITY;
+
+    intersection.distance = INFINITY;
+    intersection.hit = false;
+    intersection.id = -1;
+
+    tmp_intersection = intersection;
+    if (sphere_intersection(scene, &tmp_intersection, ray))
+        if (tmp_intersection.distance < closest_distance)
+        {
+            closest_distance = tmp_intersection.distance;
+            intersection = tmp_intersection;
+        }
+
+    tmp_intersection = intersection;
+    if (cylinder_intersection(scene, &tmp_intersection, ray))
+        if (tmp_intersection.distance < closest_distance)
+        {
+            closest_distance = tmp_intersection.distance;
+            intersection = tmp_intersection;
+        }
+
+    tmp_intersection = intersection;
+    if (plane_intersection(scene, &tmp_intersection, ray))
+        if (tmp_intersection.distance < closest_distance)
+        {
+            closest_distance = tmp_intersection.distance;
+            intersection = tmp_intersection;
+        }
+
+    if (intersection.hit)
+        return pixel_color(scene, &intersection, ray);
+    return 0x000000;
+}
 

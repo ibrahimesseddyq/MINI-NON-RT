@@ -22,59 +22,6 @@ void	my_mlx_pixel_put(t_data *img, int x, int y, int color)
 	*(unsigned int *)dst = color;
 }
 
-bool	check_shadow(t_scene *scene, t_ray *ray, t_intersection *intersection)
-{
-	t_vector		tmp;
-	t_intersection	shadow_intersection;
-	FLOAT			d;
-
-	tmp = vector_sub(&scene->light.position, &intersection->point);
-	d = vector_length(&tmp);
-	shadow_intersection.distance = d;
-	shadow_intersection.hit = false;
-	shadow_intersection.id = -1;
-	shadow_intersection.hit = sphere_intersection(scene,
-			&shadow_intersection, ray);
-	shadow_intersection.hit = cylinder_intersection(scene,
-			&shadow_intersection, ray);
-	shadow_intersection.hit = plane_intersection(scene,
-			&shadow_intersection, ray);
-	if (shadow_intersection.hit && intersection->id != shadow_intersection.id)
-		return (true);
-	return (false);
-}
-
-int	pixel_color(t_scene *scene, t_intersection *intersection, t_ray *ray)
-{
-	t_color		ambient;
-	t_color		diffuse;
-	t_color		final_color;
-	t_vector	light_dir;
-	FLOAT		diff;
-	t_ray		shadow_ray;
-	t_vector	tmp_vector;
-	t_vector	ray_origin;
-
-	bool is_inside = vector_dot(&intersection->normal, &ray->direction) > 0;
-	FLOAT offset_direction = is_inside ? -1.0 : 1.0;
-	tmp_vector = vector_scale(&intersection->normal, SHADOW_BIAS * offset_direction);
-	ray_origin = vector_add(&intersection->point, &tmp_vector);
-	shadow_ray.origin = ray_origin;
-	tmp_vector = vector_sub(&scene->light.position, &ray_origin);
-	shadow_ray.direction = vector_normalize(&tmp_vector);
-	shadow_ray.direction = vector_normalize(&shadow_ray.direction);
-	if (check_shadow(scene, &shadow_ray, intersection))
-		return 0x000000;
-	ambient = color_scale(&scene->ambient.color, scene->ambient.ratio);
-	light_dir = vector_sub(&scene->light.position, &intersection->point);
-	light_dir = vector_normalize(&light_dir);
-	diff = fmax(0.0, vector_dot(&intersection->normal, &light_dir));
-	diffuse = color_scale(&scene->light.color, scene->light.bratio * diff);
-	final_color = color_add(&ambient, &diffuse);
-	final_color = color_mul(&final_color, &intersection->color);
-	return (colortorgb(&final_color));
-}
-
 int	trace_ray(t_ray *ray, t_scene *scene)
 {
 	t_intersection	intersection;
@@ -90,55 +37,64 @@ int	trace_ray(t_ray *ray, t_scene *scene)
 	return (0x000000);
 }
 
-
-void draw(t_scene *scene)
+void	camera_setup(t_camera *camera)
 {
-	int x;
-	int y;
-	FLOAT pixel_x;
-	FLOAT pixel_y;
-	t_vector direction;
-	t_ray ray;
-	FLOAT aspect_ratio;
-	FLOAT fov_scale;
-	t_vector right;
+	t_vector	tmp;
 
-	aspect_ratio = (FLOAT)WIDTH / (FLOAT)HEIGHT;
-	fov_scale = tan((scene->camera.fov * M_PI / 180.f) / 2);
-	t_vector  forword = vector_normalize(&scene->camera.direction);
-	t_vector up = {0, 1, 0};
-	right = vector_cross(&forword,&up );
-	up = vector_cross(&right, &forword);
-	y = 0;
-	while (y < HEIGHT)
+	camera->aspect_ratio = (FLOAT)WIDTH / (FLOAT)HEIGHT;
+	camera->fov_scale = tan((camera->fov * M_PI / 180.f) / 2);
+	if (camera->direction.x == 0 && camera->direction.y
+		!= 0 && camera->direction.z == 0)
 	{
-		x = 0;
-		while (x < WIDTH)
-		{
-			pixel_x = (2 * ((x + 0.5) / WIDTH) - 1) * aspect_ratio * fov_scale;
-			pixel_y = (1 - 2 * ((y + 0.5) / HEIGHT)) * fov_scale;
-			t_vector sclx = vector_scale(&right, pixel_x);
-			t_vector scly = vector_scale(&up, pixel_y);
-			t_vector add = vector_add(&sclx, &scly);
-			direction = vector_add(&add,&forword);
-			ray.origin = scene->camera.position;
-			ray.direction = vector_normalize(&direction);
-			my_mlx_pixel_put(&scene->img, x, y, trace_ray(&ray, scene));
-			x++;
-		}
-		y++;
+		tmp.x = 0;
+		tmp.y = 0;
+		tmp.z = 1;
 	}
+	else
+	{
+		tmp.x = 0;
+		tmp.y = 1;
+		tmp.z = 0;
+	}
+	camera->right = vector_cross(&camera->direction, &tmp);
+	camera->up = vector_cross(&camera->right, &camera->direction);
+	camera->right = vector_normalize(&camera->right);
+	camera->up = vector_normalize(&camera->up);
+}
+
+void	draw(t_scene *scene)
+{
+	int			x;
+	int			y;
+	int			i;
+	t_camera	cam;
+	t_ray		ray;
+
+	i = -1;
+	camera_setup(&scene->camera);
+	cam = scene->camera;
+	while (++i < HEIGHT * WIDTH)
+	{
+		x = i % WIDTH;
+		y = i / WIDTH;
+		cam.pixel_x = (2 * ((x + 0.5) / WIDTH) - 1)
+			* cam.aspect_ratio * cam.fov_scale;
+		cam.pixel_y = (1 - 2 * ((y + 0.5) / HEIGHT)) * cam.fov_scale;
+		cam.sclx = vector_scale(&cam.right, cam.pixel_x);
+		cam.scly = vector_scale(&cam.up, cam.pixel_y);
+		cam.add = vector_add(&cam.sclx, &cam.scly);
+		ray.direction = vector_add(&cam.add, &cam.direction);
+		ray.origin = scene->camera.position;
+		ray.direction = vector_normalize(&ray.direction);
+		my_mlx_pixel_put(&scene->img, x, y, trace_ray(&ray, scene));
+	}	
 	mlx_put_image_to_window(scene->mlx, scene->win, scene->img.img, 0, 0);
 }
 
-int key_hook(int keycode, t_scene *scene)
-{
-	return (0);
-}
 int	hook(t_scene *scene)
 {
 	mlx_destroy_window(scene->mlx, scene->win);
-	exit(0);
+	clean_exit("");
 	return (0);
 }
 char	get_ascii(int key)
@@ -169,22 +125,22 @@ int	my_atoi(int *keys, int start)
 	int		i;
 	char	array[9] = {0};
 	int		array_index = 0;
-	char ascii;
+	char	ascii;
 
-	i =	start;
+	i = start;
 	while (i < 8)
 	{
 		ascii = get_ascii(keys[i]);
 		if (ascii == '\0')
-			break ;	 
+			break ;
 		array[array_index++] = ascii;
 		i++;
 	}
 	array[array_index] = '\0';
-	return ft_atoi(array);
+	return (ft_atoi(array));
 }
 
-void rotate_point(t_point *p, t_vector axis, FLOAT angle)
+void	rotate_point(t_point *p, t_vector axis, FLOAT angle)
 {
 	FLOAT cos_angle = cos(angle);
 	FLOAT sin_angle = sin(angle);
@@ -260,54 +216,6 @@ void resize(int *keys, t_scene *scene)
 		}
 	}
 }
-// void rotate(int *keys, t_scene *scene)
-// {
-//	 int obj_id = my_atoi(keys, 2);
-//	 printf("obj_id: [%d]\n", obj_id);
-//	 if (obj_id == -1) 
-//		 return;
-
-//	 for (int i = 0; i < scene->cylinder_count; i++)
-//	 {
-//		 printf("cylinder id [%d]\n", scene->cylinder[i].id);
-//		 if (scene->cylinder[i].id == obj_id)
-//		 {
-//			 t_vector axis = {0, 0, 0};
-//			 FLOAT angle = M_PI / 4;
-
-//			 if (keys[1] == KEY_X)
-//				 axis.x = 1;
-//			 else if (keys[1] == KEY_Y)
-//				 axis.y = 1;
-//			 else if (keys[1] == KEY_Z)
-//				 axis.z = 1;
-//			 rotate_point(&scene->cylinder[i].position, axis, angle);
-//			 rotate_point((t_point *)&scene->cylinder[i].direction, axis, angle);
-//			 printf("direction x[%f] y[%f] z[%f]\n", scene->cylinder[i].direction.x, scene->cylinder[i].direction.y, scene->cylinder[i].direction.z);
-//			 return ; 
-//		 }
-//	 }
-//	 for (int i = 0; i < scene->plane_count; i++)
-//	 {
-//		 if (scene->plane[i].id == obj_id)
-//		 {
-
-//			 t_vector axis = {0, 0, 0};
-//			 FLOAT angle = M_PI / 4;
-
-//			 if (keys[1] == KEY_X)
-//				 axis.x = 1;
-//			 else if (keys[1] == KEY_Y)
-//				 axis.y = 1;
-//			 else if (keys[1] == KEY_Z)
-//				 axis.z = 1;
-
-//			 rotate_point(&scene->plane[i].position, axis, angle);
-//			 rotate_point((t_point *)&scene->plane[i].direction, axis, angle);
-//			 return ; 
-//		 }
-//	 }
-// }
 
 void rotate(int *keys, t_scene *scene)
 {
@@ -495,6 +403,7 @@ int transformation(int keycode, t_scene *scene)
 	draw(scene);
 	return 0;
 }
+
 void	render(t_scene *scene)
 {
 	struct timeval	start;
@@ -513,7 +422,6 @@ void	render(t_scene *scene)
 	time_taken = (end.tv_sec - start.tv_sec) * 1e6;
 	time_taken = (time_taken + (end.tv_usec - start.tv_usec)) * 1e-6;
 	printf("Render time: %.6f seconds\n", time_taken);
-	mlx_key_hook(scene->win, key_hook, scene);
 	mlx_key_hook(scene->win, transformation, scene);
 	mlx_hook(scene->win, 17, 0, hook, scene);
 	mlx_loop(scene->mlx);
