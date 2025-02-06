@@ -6,7 +6,7 @@
 /*   By: ibes-sed <ibes-sed@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 15:38:19 by sessarhi          #+#    #+#             */
-/*   Updated: 2025/01/29 22:49:44 by ibes-sed         ###   ########.fr       */
+/*   Updated: 2025/02/06 19:06:24 by ibes-sed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,14 +34,7 @@ void	ft_putstr_fd(char *s, int fd)
 		i++;
 	}
 }
-typedef struct s_process_file
-{
-	int fd;
-	int ret;
-	char *buffer;
-	int backup;
-	t_tscene tscene;
-} t_process_file;
+
 void	process_flie(char **av, t_scene *scene)
 {
 	t_process_file	pi;

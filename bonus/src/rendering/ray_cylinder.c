@@ -6,12 +6,11 @@
 /*   By: ibes-sed <ibes-sed@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/10 17:02:06 by sessarhi          #+#    #+#             */
-/*   Updated: 2025/01/29 17:34:34 by ibes-sed         ###   ########.fr       */
+/*   Updated: 2025/02/06 21:19:35 by ibes-sed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./../../../minirt_bonus.h"
-
 
 static bool	is_within_cylinder_height(const t_vector *point,
 	const t_cylinder *cylinder)
@@ -43,26 +42,33 @@ static bool	get_body_hit_info(t_intersection *intersection, const t_ray *ray,
 	return (true);
 }
 
-static FLOAT	get_cap_intersection(t_intersection *intersection,
-								const t_ray *ray, const t_cylinder *cylinder,
-								const t_vector *cap_center,
-								const t_vector *cap_normal, FLOAT dmin)
+typedef struct s_cap_intersection_params
+{
+	t_intersection *intersection;
+	t_ray *ray;
+	t_cylinder *cylinder;
+	t_vector *cap_center;
+	t_vector *cap_normal;
+	FLOAT dmin;
+}	t_cap_intersection_params;
+
+static FLOAT	get_cap_intersection(t_cap_intersection_params params)
 {
 	t_cap_intersection	cap_infos;
 
-	cap_infos.t = hit_plane(cap_center, cap_normal, ray);
-	if (cap_infos.t <= EPSILON || cap_infos.t >= dmin)
+	cap_infos.t = hit_plane(params.cap_center, params.cap_normal, params.ray);
+	if (cap_infos.t <= EPSILON || cap_infos.t >= params.dmin)
 		return (-1);
-	cap_infos.scaled_dir = vector_scale(&ray->direction, cap_infos.t);
-	cap_infos.hit_point = vector_add(&ray->origin, &cap_infos.scaled_dir);
-	cap_infos.cp = vector_sub(&cap_infos.hit_point, &cylinder->position);
-	cap_infos.proj = vector_scale(&cylinder->direction,
-			vector_dot(&cap_infos.cp, &cylinder->direction));
+	cap_infos.scaled_dir = vector_scale(&params.ray->direction, cap_infos.t);
+	cap_infos.hit_point = vector_add(&params.ray->origin, &cap_infos.scaled_dir);
+	cap_infos.cp = vector_sub(&cap_infos.hit_point, &params.cylinder->position);
+	cap_infos.proj = vector_scale(&params.cylinder->direction,
+			vector_dot(&cap_infos.cp, &params.cylinder->direction));
 	cap_infos.radial = vector_sub(&cap_infos.cp, &cap_infos.proj);
-	if (vector_length(&cap_infos.radial) > cylinder->diameter / 2.0)
+	if (vector_length(&cap_infos.radial) > params.cylinder->diameter / 2.0)
 		return (-1);
-	intersection->normal = *cap_normal;
-	intersection->point = cap_infos.hit_point;
+	params.intersection->normal = *params.cap_normal;
+	params.intersection->point = cap_infos.hit_point;
 	return (cap_infos.t);
 }
 
@@ -70,6 +76,8 @@ FLOAT	hit_cylinder(t_intersection *intersection, const t_ray *ray,
 					const t_cylinder *cylinder, FLOAT dmin)
 {
 	t_hit_cy	hit_infos;
+    t_cap_intersection_params params;
+
 
 	hit_infos.t_body = calculate_body_intersection(ray, cylinder);
 	if (hit_infos.t_body > EPSILON && hit_infos.t_body < dmin)
@@ -77,16 +85,22 @@ FLOAT	hit_cylinder(t_intersection *intersection, const t_ray *ray,
 		if (get_body_hit_info(intersection, ray, cylinder, hit_infos.t_body))
 			dmin = hit_infos.t_body;
 	}
+    params.intersection = intersection;
+    params.ray = (t_ray *)ray;
+    params.cylinder = (t_cylinder *)cylinder;
+    params.dmin = dmin;
 	hit_infos.bottom_normal = vector_scale(&cylinder->direction, -1);
-	hit_infos.t_bottom = get_cap_intersection(intersection, ray, cylinder,
-			&cylinder->position, &hit_infos.bottom_normal, dmin);
+    params.cap_center = (t_vector *)&cylinder->position;
+    params.cap_normal = &hit_infos.bottom_normal;
+	hit_infos.t_bottom = get_cap_intersection(params);
 	if (hit_infos.t_bottom > EPSILON && hit_infos.t_bottom < dmin)
 		dmin = hit_infos.t_bottom;
 	hit_infos.top_offset = vector_scale(&cylinder->direction, cylinder->height);
 	hit_infos.top_center
 		= vector_add(&cylinder->position, &hit_infos.top_offset);
-	hit_infos.t_top = get_cap_intersection(intersection, ray, cylinder,
-			&hit_infos.top_center, &cylinder->direction, dmin);
+    params.cap_center = &hit_infos.top_center;
+    params.cap_normal = (t_vector *)&cylinder->direction;
+	hit_infos.t_top = get_cap_intersection(params);
 	if (hit_infos.t_top > EPSILON && hit_infos.t_top < dmin)
 		dmin = hit_infos.t_top;
 	if (dmin < INFINITY)

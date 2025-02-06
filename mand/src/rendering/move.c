@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   move.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ibes-sed <ibes-sed@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 22:23:33 by ibes-sed          #+#    #+#             */
-/*   Updated: 2025/01/28 22:23:34 by ibes-sed         ###   ########.fr       */
+/*   Updated: 2025/02/06 21:14:35 by sessarhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "./../../../minirt_bonus.h"
+#include "./../../../minirt.h"
 
 void	move_light_or_camera(int *keys, t_scene *scene)
 {
@@ -22,12 +22,7 @@ void	move_light_or_camera(int *keys, t_scene *scene)
 	else
 	{
 		obj_id = my_atoi(keys, 2);
-		while (i < scene->light_count)
-		{
-			if (scene->light[i].id == obj_id)
-				move_light(keys, &scene->light[i]);
-			i++;
-		}
+		move_light(keys, &scene->light);
 	}
 	return ;
 }

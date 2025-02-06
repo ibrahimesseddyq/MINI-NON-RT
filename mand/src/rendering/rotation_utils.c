@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   rotation_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ibes-sed <ibes-sed@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 22:23:58 by ibes-sed          #+#    #+#             */
-/*   Updated: 2025/01/28 22:23:59 by ibes-sed         ###   ########.fr       */
+/*   Updated: 2025/02/06 21:10:29 by sessarhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "./../../../minirt_bonus.h"
+#include "./../../../minirt.h"
 
 void	rotate_point_z(t_point *p, t_rotate_point *rp, FLOAT angle)
 {

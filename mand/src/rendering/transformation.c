@@ -6,11 +6,11 @@
 /*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 22:24:15 by ibes-sed          #+#    #+#             */
-/*   Updated: 2025/02/06 19:54:32 by sessarhi         ###   ########.fr       */
+/*   Updated: 2025/02/06 21:11:07 by sessarhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "./../../../minirt_bonus.h"
+#include "./../../../minirt.h"
 
 int	transformation(int keycode, t_scene *scene)
 {
