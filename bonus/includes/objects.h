@@ -6,7 +6,7 @@
 /*   By: ibes-sed <ibes-sed@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 12:56:16 by sessarhi          #+#    #+#             */
-/*   Updated: 2025/02/06 19:43:21 by ibes-sed         ###   ########.fr       */
+/*   Updated: 2025/02/06 21:04:53 by ibes-sed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,10 @@
 # include "includes.h"
 
 typedef t_vector	t_point;
+typedef struct s_tscene	t_tscene;
+typedef struct s_intersection t_intersection;
+
+
 
 typedef struct s_material
 {
@@ -89,7 +93,70 @@ typedef struct s_light
 	t_color	color;
 	int		id;
 }	t_light;
+typedef struct s_tlight
+{
+	t_point			position;
+	FLOAT			bratio;
+	t_color			color;
+	int				id;
+	int				light_count;
+	struct s_tlight	*next;
+}__attribute__((aligned(sizeof(FLOAT))))	t_tlight;
 
+typedef struct s_tsphere
+{
+	t_point				position;
+	FLOAT				diameter;
+	char				*texture_name;
+	char				*normal_texture_name;
+	int					has_checkerboard;
+	t_material			material;
+	t_color				color;
+	struct s_tsphere	*next;
+}__attribute__((aligned(sizeof(FLOAT))))	t_tsphere;
+
+typedef struct s_tplane
+{
+	t_point			position;
+	t_vector		direction;
+	char			*texture_name;
+	char				*normal_texture_name;
+
+	int				has_checkerboard;
+	t_material		material;
+	t_color			color;
+	struct s_tplane	*next;
+}__attribute__((aligned(sizeof(FLOAT))))	t_tplane;
+
+typedef struct s_tcylinder
+{
+	int					size;
+	t_point				position;
+	t_vector			direction;
+	char				*texture_name;
+	char				*normal_texture_name;
+
+	int					has_checkerboard;
+	t_material			material;
+	FLOAT				diameter;
+	FLOAT				height;
+	t_color				color;
+	struct s_tcylinder	*next;
+}__attribute__((aligned(sizeof(FLOAT))))	t_tcylinder;
+
+typedef struct s_tcone
+{
+	t_point			vertex;
+	t_vector		axis;
+	FLOAT			angle;
+	FLOAT			height;
+	char			*texture_name;
+	int				has_checkerboard;
+	t_material		material;
+	t_color			color;
+	int				id;
+	struct s_tcone	*next;
+}	t_tcone;
 typedef struct s_sphere
 {
 	t_point		position;
@@ -354,7 +421,24 @@ typedef struct s_hit_sphere
 	FLOAT t1;
 	FLOAT t2;
 } t_hit_sphere_info;
-
+typedef struct s_tscene
+{
+	t_camera	camera;
+	t_tlight	*light;
+	t_ambient	ambient;
+	t_tcylinder	*cylinder;
+	t_tplane	*plane;
+	t_tsphere	*sphere;
+	int			plane_size;
+	int			cylinder_size;
+	int			sphere_size;
+	int			cone_size;
+	int			light_size;
+	t_tcone		*cone;
+	bool		is_c_set;
+	bool		is_l_set;
+	bool		is_a_set;
+}	t_tscene;
 typedef struct s_process_file
 {
 	int fd;

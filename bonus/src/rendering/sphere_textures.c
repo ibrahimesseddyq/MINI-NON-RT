@@ -42,7 +42,7 @@ void	handle_sphere_maps(t_scene *scene, t_texture_params *params, int i)
 	*(params->set) = 1;
 }
 
-static void	handle_sphere_textures(t_scene *scene, t_texture_params *params)
+void	handle_sphere_textures(t_scene *scene, t_texture_params *params)
 {
 	int	i;
 
