@@ -19,7 +19,7 @@ SRC = minirt.c $(MND)parsing/parce_rgb.c $(MND)parsing/parse_crd.c $(MND)parsing
 
 BONUS_SRC = minirt_bonus.c  $(BNS)parsing/parce_rgb.c $(BNS)parsing/parse_crd.c $(BNS)parsing/parsing.c \
 	$(BNS)utils/ft_atof.c $(BNS)utils/ft_memcpy.c $(BNS)utils/ft_split.c $(BNS)utils/Rgb_cnv.c $(BNS)tmputils/cy_utils.c \
-	$(BNS)tmputils/co_utils.c $(BNS)tmputils/pl_utils.c $(BNS)tmputils/sp_utils.c $(BNS)memory/arena_alloc.c \
+	$(BNS)tmputils/co_utils.c $(BNS)png/png_loader.c $(BNS)tmputils/pl_utils.c $(BNS)tmputils/sp_utils.c $(BNS)memory/arena_alloc.c \
 	$(BNS)memory/arena_create.c $(BNS)memory/arena_manage.c $(BNS)memory/arena_utils.c $(BNS)math/math.c $(BNS)math/advanced_vector.c $(BNS)rendering/render.c\
 	$(BNS)coloring/coloring.c $(BNS)utils/ft_atoi.c $(BNS)utils/ft_strcmp.c $(BNS)rendering/ray_sphere.c\
 	$(BNS)rendering/ray_plane.c $(BNS)rendering/transformation_utils.c $(BNS)rendering/load_textures.c $(BNS)rendering/sphere_textures.c $(BNS)rendering/plane_textures.c $(BNS)rendering/cylinder_textures.c $(BNS)rendering/render_utils.c $(BNS)rendering/rotation.c $(BNS)rendering/rotation_utils.c $(BNS)rendering/textures.c $(BNS)rendering/textures_utils.c $(BNS)rendering/transformation.c $(BNS)rendering/ray_cylinder.c $(BNS)rendering/ray_cylinder_utils.c $(BNS)rendering/pixel.c $(BNS)rendering/pixel_utils.c $(BNS)rendering/move.c $(BNS)rendering/move_utils.c $(BNS)rendering/hooks.c $(BNS)rendering/draw.c $(BNS)rendering/calculate_surface.c $(BNS)parsing/env_obj.c $(BNS)parsing/scene_obj_utils.c $(BNS)parsing/scene_obj.c\
@@ -31,7 +31,7 @@ BONUS_OBJ = $(BONUS_SRC:.c=.o)
 RM = rm -rf
 
 MLX = ./MLX/libmlx_Linux.a
-MLXFLAGS = -lX11 -lXext -lm  # You may need these flags for linking with minilibx
+MLXFLAGS = -lX11 -lXext -lm -lpng # You may need these flags for linking with minilibx
 DEBUG =#-g -fsanitize=address  # Keep optional, uncomment when debugging
 GPROF = # -pg  # Uncomment for profiling with gprof, optional
 
