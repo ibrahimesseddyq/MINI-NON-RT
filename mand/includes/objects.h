@@ -6,7 +6,7 @@
 /*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 12:56:16 by sessarhi          #+#    #+#             */
-/*   Updated: 2025/01/29 16:11:30 by sessarhi         ###   ########.fr       */
+/*   Updated: 2025/02/06 21:19:41 by sessarhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@
 # define ESC_KEY 65307
 # define R_KEY 114
 # define S_KEY 115
+# define M_KEY 109
+# define N_KEY 110
 # define KEY_1 65436
 # define KEY_2 65433
 # define KEY_3 65435
@@ -31,7 +33,7 @@
 # define KEY_9 65434
 # define KEY_X 120
 # define KEY_Y 121
-# define KEY_Z 122
+# define KEY_Z 119
 # define KEY_MINUS 65453
 # define KEY_PLUS 65451
 
@@ -55,7 +57,6 @@ typedef struct s_camera
 {
 	t_point		position;
 	t_vector	direction;
-	t_vector	up;
 	t_vector	right;
 	int			fov;
 	FLOAT		aspect_ratio;
@@ -65,6 +66,7 @@ typedef struct s_camera
 	t_vector	sclx;
 	t_vector	scly;
 	t_vector	add;
+	t_vector	up;
 }	t_camera;
 
 typedef struct s_light
@@ -179,5 +181,15 @@ typedef struct s_color_infos
 	bool		is_inside;
 	FLOAT		offset_direction;
 }t_color_infos;
+
+typedef struct s_rotate_point
+{
+	FLOAT	cos_angle;
+	FLOAT	sin_angle;
+	FLOAT	dot;
+
+	FLOAT	new_x;
+	FLOAT	new_y;
+}t_rotate_point;
 
 #endif

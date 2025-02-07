@@ -16,8 +16,8 @@
 # include "includes.h"
 
 # define ARENA_ALIGNMENT 8
-# define DEFAULT_CHUNK_SIZE (130 * 15 * 1024 * 1024)
-# define MIN_CHUNK_SIZE 4 * 1024
+# define DEFAULT_CHUNK_SIZE 524288000
+# define MIN_CHUNK_SIZE 4096
 
 typedef struct s_arena_chunk
 {

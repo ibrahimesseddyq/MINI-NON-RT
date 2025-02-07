@@ -1,24 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   color.h                                            :+:      :+:    :+:   */
+/*   move.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/26 09:21:08 by sessarhi          #+#    #+#             */
-/*   Updated: 2025/02/07 15:07:04 by sessarhi         ###   ########.fr       */
+/*   Created: 2025/01/28 22:23:33 by ibes-sed          #+#    #+#             */
+/*   Updated: 2025/02/06 21:14:35 by sessarhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef COLOR_H
-# define COLOR_H
+#include "./../../../minirt.h"
 
-# include "objects.h"
+void	move_light_or_camera(int *keys, t_scene *scene)
+{
+	int	i;
+	int	obj_id;
 
-t_color	color_add(t_color *a, t_color *b);
-t_color	color_mul(t_color *a, t_color *b);
-t_color	rgbtocolor(int r, int g, int b);
-int		colortorgb(t_color *a);
-t_color	color_scale(t_color *a, FLOAT scale);
-
-#endif
+	if ((char)keys[1] == 'c')
+		move_camera(keys, &scene->camera);
+	else
+	{
+		obj_id = my_atoi(keys, 2);
+		move_light(keys, &scene->light);
+	}
+	return ;
+}
