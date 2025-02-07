@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_obj.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ibes-sed <ibes-sed@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/11 18:09:02 by sessarhi          #+#    #+#             */
-/*   Updated: 2025/01/25 22:39:18 by sessarhi         ###   ########.fr       */
+/*   Updated: 2025/02/07 15:10:23 by ibes-sed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 int	process_a(char **inf, t_tscene *tscene)
 {
+	printf("process a\n");
 	if (!inf[1] || !inf[2] || inf[3])
 		return (1);
 	if (tscene->is_a_set == true)

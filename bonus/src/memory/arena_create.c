@@ -6,7 +6,7 @@
 /*   By: ibes-sed <ibes-sed@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 22:24:38 by ibes-sed          #+#    #+#             */
-/*   Updated: 2025/01/28 22:24:38 by ibes-sed         ###   ########.fr       */
+/*   Updated: 2025/02/07 14:57:50 by ibes-sed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,16 @@ size_t	align_up(size_t n, size_t align)
 t_arena	*arena_create(void)
 {
 	return (arena_create_with_params(DEFAULT_CHUNK_SIZE, true, malloc, free));
+}
+
+void	setup_arena2(t_arena *arena,
+	bool allow_resize, void *(*alloc_fn)(size_t), void (*free_fn)(void *))
+{
+	arena->allow_resize = allow_resize;
+	arena->total_allocated = 0;
+	arena->total_used = 0;
+	arena->alloc_fn = alloc_fn;
+	arena->free_fn = free_fn;
 }
 
 t_arena	*arena_create_with_params(size_t chunk_size, bool allow_resize,
@@ -39,11 +49,7 @@ t_arena	*arena_create_with_params(size_t chunk_size, bool allow_resize,
 	if (!arena)
 		return (NULL);
 	arena->chunk_size = chunk_size;
-	arena->allow_resize = allow_resize;
-	arena->total_allocated = 0;
-	arena->total_used = 0;
-	arena->alloc_fn = alloc_fn;
-	arena->free_fn = free_fn;
+	setup_arena2(arena, allow_resize, alloc_fn, free_fn);
 	chunk = arena_allocate_chunk(arena, chunk_size);
 	if (!chunk)
 	{

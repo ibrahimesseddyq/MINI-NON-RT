@@ -6,7 +6,7 @@
 /*   By: ibes-sed <ibes-sed@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 16:42:51 by sessarhi          #+#    #+#             */
-/*   Updated: 2025/02/06 21:34:26 by ibes-sed         ###   ########.fr       */
+/*   Updated: 2025/02/06 22:42:28 by ibes-sed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,10 @@ static void	ft_copy_plane(t_tscene *tscene, t_scene *scene, int *id)
 		scene->plane[i].color = tscene->plane->color;
 		scene->plane[i].material = tscene->plane->material;
 		scene->plane[i].texture_name = tscene->plane->texture_name;
-		scene->plane[i].normal_texture_name = tscene->plane->normal_texture_name;
+		scene->plane[i].normal_texture_name
+			= tscene->plane->normal_texture_name;
 		scene->plane[i].has_color_texture = tscene->plane->has_color_texture;
 		scene->plane[i].has_bump_texture = tscene->plane->has_bump_texture;
-
 		scene->plane[i].id = (*id)++;
 		tscene->plane = tscene->plane->next;
 		i++;
@@ -48,7 +48,8 @@ static void	ft_copy_sphere(t_tscene *tscene, t_scene *scene, int *id)
 		scene->sphere[i].texture_name = tscene->sphere->texture_name;
 		scene->sphere[i].has_color_texture = tscene->sphere->has_color_texture;
 		scene->sphere[i].has_bump_texture = tscene->sphere->has_bump_texture;
-		scene->sphere[i].normal_texture_name = tscene->sphere->normal_texture_name;
+		scene->sphere[i].normal_texture_name
+			= tscene->sphere->normal_texture_name;
 		scene->sphere[i].id = (*id)++;
 		tscene->sphere = tscene->sphere->next;
 		i++;
@@ -70,9 +71,12 @@ static void	ft_copy_cylinder(t_tscene *tscene, t_scene *scene, int *id)
 		scene->cylinder[i].material = tscene->cylinder->material;
 		scene->cylinder[i].texture_name = tscene->cylinder->texture_name;
 		scene->cylinder[i].color = tscene->cylinder->color;
-		scene->cylinder[i].normal_texture_name = tscene->cylinder->normal_texture_name;
-		scene->cylinder[i].has_color_texture = tscene->cylinder->has_color_texture;
-		scene->cylinder[i].has_bump_texture = tscene->cylinder->has_bump_texture;
+		scene->cylinder[i].normal_texture_name
+			= tscene->cylinder->normal_texture_name;
+		scene->cylinder[i].has_color_texture
+			= tscene->cylinder->has_color_texture;
+		scene->cylinder[i].has_bump_texture
+			= tscene->cylinder->has_bump_texture;
 		scene->cylinder[i].id = (*id)++;
 		tscene->cylinder = tscene->cylinder->next;
 		i++;
