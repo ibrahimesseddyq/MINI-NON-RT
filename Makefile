@@ -4,6 +4,8 @@ CC = cc
 CFLAGS = #-Wall -Wextra -Werror  # Uncommented this for standard warning flags
 MND=./mand/src/
 BNS=./bonus/src/
+HDR=./mand/includes/color.h  ./mand/includes/defined.h  ./mand/includes/includes.h  ./mand/includes/math.h  ./mand/includes/memory.h\
+	./mand/includes/objects.h  ./mand/includes/tmpobjects.h minirt.h
 
 SRC = minirt.c $(MND)parsing/parce_rgb.c $(MND)parsing/parse_crd.c $(MND)parsing/parsing.c $(MND)utils/ft_atof.c \
 	$(MND)utils/ft_split.c  $(MND)utils/Rgb_cnv.c $(MND)tmputils/cy_utils.c  $(MND)tmputils/pl_utils.c \
@@ -30,15 +32,15 @@ RM = rm -rf
 
 MLX = ./MLX/libmlx_Linux.a
 MLXFLAGS = -lX11 -lXext -lm  # You may need these flags for linking with minilibx
-DEBUG = #-g -fsanitize=address  # Keep optional, uncomment when debugging
+DEBUG =#-g -fsanitize=address  # Keep optional, uncomment when debugging
 GPROF = # -pg  # Uncomment for profiling with gprof, optional
 
-all: $(NAME)
+all: $(NAME) 
 
-%.o: %.c
+%.o: %.c $(HDR)
 	$(CC) $(DEBUG) $(CFLAGS) -c $< -o $@
 
-$(NAME): $(OBJ)
+$(NAME): $(OBJ) 
 	$(CC) $(DEBUG) $(CFLAGS) $(OBJ) $(MLX) $(MLXFLAGS) -o $(NAME)
 
 $(BONUS_NAME): $(BONUS_OBJ)
