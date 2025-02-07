@@ -6,7 +6,7 @@
 /*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 22:24:15 by ibes-sed          #+#    #+#             */
-/*   Updated: 2025/02/06 21:11:07 by sessarhi         ###   ########.fr       */
+/*   Updated: 2025/02/07 15:09:30 by sessarhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ int	search_and_translate(int *keys, int obj_id, t_scene *scene)
 			return (move_plane(keys, &scene->plane[i]), 1);
 		i++;
 	}
+	return (0);
 }
 
 void	translate(int *keys, t_scene *scene)
