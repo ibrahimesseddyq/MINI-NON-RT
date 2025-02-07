@@ -8,6 +8,7 @@ HDR = ./mand/includes/color.h  ./mand/includes/defined.h  ./mand/includes/includ
 	./mand/includes/objects.h  ./mand/includes/tmpobjects.h minirt.h
 
 SUBMODULE = ./MLX
+URL = git@github.com:42Paris/minilibx-linux.git
 MLX = $(SUBMODULE)/libmlx_Linux.a
 MLXFLAGS = -lX11 -lXext -lm  # You may need these flags for linking with minilibx
 
@@ -59,13 +60,16 @@ fclean: clean
 
 re: fclean all
 
-
+# Clone submodule if not found and build it
 check_submodule:
+	@if [ ! -d "$(SUBMODULE)" ]; then \
+		echo "MLX not found. Cloning..."; \
+		git clone $(URL) $(SUBMODULE); \
+	fi
 	@if [ ! -d "$(SUBMODULE)/.git" ]; then \
-		echo "Submodule missing. Cloning..."; \
+		echo "Initializing submodule..."; \
 		git submodule update --init --recursive; \
 	fi
 	@$(MAKE) -C $(SUBMODULE)
 
 .PHONY: all clean fclean re check_submodule bonus
-
