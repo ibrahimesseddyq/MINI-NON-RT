@@ -6,16 +6,13 @@
 /*   By: ibes-sed <ibes-sed@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 13:24:29 by sessarhi          #+#    #+#             */
-/*   Updated: 2025/02/06 21:03:49 by ibes-sed         ###   ########.fr       */
+/*   Updated: 2025/02/06 22:40:10 by ibes-sed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef TMPOBJECTS_H
 # define TMPOBJECTS_H
 # include "includes.h"
-
-
-
 
 t_tsphere	*new_sphere(void);
 t_tcylinder	*new_cylinder(void);

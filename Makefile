@@ -1,6 +1,6 @@
 NAME = minirt
 BONUS_NAME = minirt_bonus
-CC = cc
+CC = cc -g
 CFLAGS = #-Wall -Wextra -Werror  # Uncommented this for standard warning flags
 MND=./mand/src/
 BNS=./bonus/src/

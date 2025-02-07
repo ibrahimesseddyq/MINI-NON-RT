@@ -6,7 +6,7 @@
 /*   By: ibes-sed <ibes-sed@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/24 17:44:32 by sessarhi          #+#    #+#             */
-/*   Updated: 2025/02/06 19:36:20 by ibes-sed         ###   ########.fr       */
+/*   Updated: 2025/02/06 21:56:46 by ibes-sed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ bool	check_shadow(t_scene *scene, t_ray *ray, t_intersection *intersection)
 }
 
 t_color	get_checkerboard_color(t_color color1,
-		t_color color2, FLOAT u, FLOAT v, FLOAT size)
+		t_color color2, t_intersection *inter, FLOAT size)
 {
 	FLOAT	scaled_u;
 	FLOAT	scaled_v;
@@ -44,8 +44,8 @@ t_color	get_checkerboard_color(t_color color1,
 
 	v_int = (int)floor(scaled_v);
 	u_int = (int)floor(scaled_u);
-	scaled_v = v * size;
-	scaled_u = u * size;
+	scaled_v = inter->v * size;
+	scaled_u = inter->u * size;
 	if ((u_int + v_int) % 2 == 0)
 		return (color1);
 	return (color2);

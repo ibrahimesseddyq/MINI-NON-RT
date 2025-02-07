@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   sphere_textures.c                                  :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ibes-sed <ibes-sed@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/02/06 21:48:22 by ibes-sed          #+#    #+#             */
+/*   Updated: 2025/02/06 22:22:01 by ibes-sed         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "./../../../minirt_bonus.h"
 
 static t_color	get_sphere_texture_color(t_sphere *sphere,
@@ -9,7 +21,7 @@ static t_color	get_sphere_texture_color(t_sphere *sphere,
 	{
 		checker = init_checker();
 		return (get_checkerboard_color(checker.board1, checker.board2,
-				intersection->u, intersection->v, checker.size));
+				intersection, checker.size));
 	}
 	if (sphere->texture_name)
 		return (sample_texture(&sphere->texture,

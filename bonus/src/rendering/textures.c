@@ -6,12 +6,11 @@
 /*   By: ibes-sed <ibes-sed@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 22:24:10 by ibes-sed          #+#    #+#             */
-/*   Updated: 2025/02/06 21:06:55 by ibes-sed         ###   ########.fr       */
+/*   Updated: 2025/02/06 21:43:50 by ibes-sed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./../../../minirt_bonus.h"
-
 
 t_vector	calculate_tangent(t_vector *normal)
 {
