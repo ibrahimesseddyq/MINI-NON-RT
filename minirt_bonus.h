@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minirt_bonus.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ibes-sed <ibes-sed@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 14:53:30 by sessarhi          #+#    #+#             */
-/*   Updated: 2025/02/07 15:16:29 by sessarhi         ###   ########.fr       */
+/*   Updated: 2025/02/07 15:47:54 by ibes-sed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # include "./bonus/includes/memory.h"
 # include "./bonus/includes/color.h"
 # include "./bonus/includes/includes.h"
+# include "./bonus/includes/stb_image.h"
 
 bool				parse_crd(const char *str, t_vector *vector);
 bool				parse_rgb(const char *str, t_color *color);
@@ -103,4 +104,5 @@ t_color				process_lights(t_scene *scene, t_intersection *isect,
 void				my_mlx_pixel_put(t_data *img, int x, int y, int color);
 int					trace_ray(t_ray *ray, t_scene *scene);
 void				setup_arena(void);
+bool	load_png(const char *filename, unsigned char **image_data, int *width, int *height);
 #endif

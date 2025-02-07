@@ -6,10 +6,11 @@
 /*   By: ibes-sed <ibes-sed@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 22:24:06 by ibes-sed          #+#    #+#             */
-/*   Updated: 2025/02/07 14:43:38 by ibes-sed         ###   ########.fr       */
+/*   Updated: 2025/02/07 15:45:25 by ibes-sed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#define STB_IMAGE_IMPLEMENTATION 
 #include "./../../../minirt_bonus.h"
 
 void	init_textures(t_scene *scene)
@@ -71,7 +72,11 @@ bool	load_texture(t_texture *texture, void *mlx, char *filename)
 	int				channels;
 	unsigned char	*image_data;
 
-	texture->data = mlx_xpm_file_to_image(mlx, filename, &width, &height);
+	image_data = stbi_load(filename, &width,
+			&height, &channels, 4);
+	if (!image_data)
+		return (false);
+	texture->data = mlx_new_image(mlx, width, height);
 	if (!texture->data)
 		return (false);
 	texture->addr = mlx_get_data_addr(texture->data,
