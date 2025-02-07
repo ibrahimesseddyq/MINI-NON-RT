@@ -61,8 +61,9 @@ fclean: clean
 re: fclean all
 
 check_submodule:
-	@if [ ! -d "$(SUBMODULE)" ]; then \
-		echo "MLX not found. Cloning..."; \
+	@if [ ! -d "$(SUBMODULE)" ] || [ -z "$$(ls -A $(SUBMODULE) 2>/dev/null)" ]; then \
+		echo "MLX folder is missing or empty. Cloning..."; \
+		rm -rf $(SUBMODULE); \
 		git clone $(URL) $(SUBMODULE); \
 	fi
 	@if [ ! -d "$(SUBMODULE)/.git" ]; then \
