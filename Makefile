@@ -1,11 +1,14 @@
 NAME = minirt
 BONUS_NAME = minirt_bonus
 CC = cc -g
-CFLAGS = -Wall -Wextra -Werror  # Uncomment this for standard warning flags
+CFLAGS = #-Wall -Wextra -Werror  # Uncomment this for standard warning flags
 MND = ./mand/src/
 BNS = ./bonus/src/
 HDR = ./mand/includes/color.h  ./mand/includes/defined.h  ./mand/includes/includes.h  ./mand/includes/math.h  ./mand/includes/memory.h\
 	./mand/includes/objects.h  ./mand/includes/tmpobjects.h minirt.h
+
+BHDR = ./bonus/includes/color.h  ./bonus/includes/defined.h  ./bonus/includes/includes.h  ./bonus/includes/math.h  ./bonus/includes/memory.h\
+	./bonus/includes/objects.h  ./bonus/includes/tmpobjects.h minirt.h
 
 SUBMODULE = ./MLX
 URL =https://github.com/42Paris/minilibx-linux.git
@@ -46,7 +49,7 @@ $(NAME): $(OBJ) $(MLX)
 $(BONUS_NAME): $(BONUS_OBJ) $(MLX)
 	$(CC) $(CFLAGS) $(BONUS_OBJ) $(MLX) $(MLXFLAGS) -o $(BONUS_NAME)
 
-bonus: check_submodule $(BONUS_NAME)
+bonus: check_submodule $(BONUS_NAME) $(BHDR)
 
 clean:
 	$(RM) $(OBJ)
