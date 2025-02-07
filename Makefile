@@ -1,16 +1,16 @@
 NAME = minirt
 BONUS_NAME = minirt_bonus
 CC = cc -g
-CFLAGS = #-Wall -Wextra -Werror  # Uncomment this for standard warning flags
+CFLAGS = -Wall -Wextra -Werror  # Uncomment this for standard warning flags
 MND = ./mand/src/
 BNS = ./bonus/src/
 HDR = ./mand/includes/color.h  ./mand/includes/defined.h  ./mand/includes/includes.h  ./mand/includes/math.h  ./mand/includes/memory.h\
 	./mand/includes/objects.h  ./mand/includes/tmpobjects.h minirt.h
 
 SUBMODULE = ./MLX
-URL = git@github.com:42Paris/minilibx-linux.git
+URL =https://github.com/42Paris/minilibx-linux.git
 MLX = $(SUBMODULE)/libmlx_Linux.a
-MLXFLAGS = -lX11 -lXext -lm  # You may need these flags for linking with minilibx
+MLXFLAGS = -lX11 -lXext -lm 
 
 SRC = minirt.c $(MND)parsing/parce_rgb.c $(MND)parsing/parse_crd.c $(MND)parsing/parsing.c $(MND)utils/ft_atof.c \
 	$(MND)utils/ft_split.c  $(MND)utils/Rgb_cnv.c $(MND)tmputils/cy_utils.c  $(MND)tmputils/pl_utils.c \
@@ -60,7 +60,6 @@ fclean: clean
 
 re: fclean all
 
-# Clone submodule if not found and build it
 check_submodule:
 	@if [ ! -d "$(SUBMODULE)" ]; then \
 		echo "MLX not found. Cloning..."; \
