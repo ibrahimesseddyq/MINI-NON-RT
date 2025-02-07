@@ -6,7 +6,7 @@
 /*   By: ibes-sed <ibes-sed@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/15 21:09:07 by sessarhi          #+#    #+#             */
-/*   Updated: 2025/01/29 19:55:14 by ibes-sed         ###   ########.fr       */
+/*   Updated: 2025/02/07 15:11:52 by ibes-sed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,36 +14,40 @@
 
 int	process_co(char **inf, t_tscene *t_scene);
 
-void	splil_line(const char *line, t_tscene *tscene)
+void	parse_object(char	**inf, int *i, t_tscene *tscene, char *line)
+{
+	printf("i is [%d]\n", *i);
+	if (ft_strcmp(inf[0], "A") == 0 && !process_a(inf, tscene))
+		(*i)++;
+	else if (ft_strcmp(inf[0], "C") == 0 && !process_c(inf, tscene))
+		(*i)++;
+	else if (ft_strcmp(inf[0], "L") == 0 && !process_l(inf, tscene))
+		(*i)++;
+	else if (ft_strcmp(inf[0], "sp") == 0 && !process_sp(inf, tscene))
+		(*i)++;
+	else if (ft_strcmp(inf[0], "pl") == 0 && !process_pl(inf, tscene))
+		(*i)++;
+	else if (ft_strcmp(inf[0], "cy") == 0 && !process_cy(inf, tscene))
+		(*i)++;
+	else if (ft_strcmp(inf[0], "co") == 0 && !process_co(inf, tscene))
+		(*i)++;
+	else
+		return (printf("Error \n"), exit(1));
+}
+
+void	splil_line(char *line, t_tscene *tscene)
 {
 	char	**elm;
 	char	**inf;
 	int		i;
 
 	i = 0;
-	printf("line [%s]\n", line);
 	elm = ft_split(line, '\n');
 	while (elm[i])
 	{
 		inf = ft_split(elm[i], ' ');
-		printf("elm [%s]\n", elm[i]);
-		// printf("[%s]\n", inf[0]);
-		if (ft_strcmp(inf[0], "A") == 0 && !process_a(inf, tscene))
-			i++;
-		else if (ft_strcmp(inf[0], "C") == 0 && !process_c(inf, tscene))
-			i++;
-		else if (ft_strcmp(inf[0], "L") == 0 && !process_l(inf, tscene))
-			i++;
-		else if (ft_strcmp(inf[0], "sp") == 0 && !process_sp(inf, tscene))
-			i++;
-		else if (ft_strcmp(inf[0], "pl") == 0 && !process_pl(inf, tscene))
-			i++;
-		else if (ft_strcmp(inf[0], "cy") == 0 && !process_cy(inf, tscene))
-			i++;
-		else if (ft_strcmp(inf[0], "co") == 0 && !process_co(inf, tscene))
-			i++;
-		else
-			return (printf("Error \n"), exit(1));
+		printf("inf [%s]\n", elm[i]);
+		parse_object(inf, &i, tscene, line);
 	}
 }
 

@@ -6,7 +6,7 @@
 /*   By: ibes-sed <ibes-sed@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 12:56:16 by sessarhi          #+#    #+#             */
-/*   Updated: 2025/02/06 21:42:09 by ibes-sed         ###   ########.fr       */
+/*   Updated: 2025/02/06 22:39:38 by ibes-sed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,11 +39,9 @@
 # include "defined.h"
 # include "includes.h"
 
-typedef t_vector	t_point;
-typedef struct s_tscene	t_tscene;
-typedef struct s_intersection t_intersection;
-
-
+typedef t_vector				t_point;
+typedef struct s_tscene			t_tscene;
+typedef struct s_intersection	t_intersection;
 
 typedef struct s_material
 {
@@ -110,8 +108,8 @@ typedef struct s_tsphere
 	char				*texture_name;
 	char				*normal_texture_name;
 	int					has_checkerboard;
-	int			has_color_texture;
-	int			has_bump_texture;
+	int					has_color_texture;
+	int					has_bump_texture;
 	t_material			material;
 	t_color				color;
 	struct s_tsphere	*next;
@@ -122,12 +120,11 @@ typedef struct s_tplane
 	t_point			position;
 	t_vector		direction;
 	char			*texture_name;
-	char				*normal_texture_name;
-
+	char			*normal_texture_name;
 	int				has_checkerboard;
 	t_material		material;
-	int			has_color_texture;
-	int			has_bump_texture;
+	int				has_color_texture;
+	int				has_bump_texture;
 	t_color			color;
 	struct s_tplane	*next;
 }__attribute__((aligned(sizeof(FLOAT))))	t_tplane;
@@ -141,8 +138,8 @@ typedef struct s_tcylinder
 	char				*normal_texture_name;
 
 	int					has_checkerboard;
-	int			has_color_texture;
-	int			has_bump_texture;
+	int					has_color_texture;
+	int					has_bump_texture;
 	t_material			material;
 	FLOAT				diameter;
 	FLOAT				height;
@@ -160,8 +157,8 @@ typedef struct s_tcone
 	int				has_checkerboard;
 	t_material		material;
 	t_color			color;
-	int			has_color_texture;
-	int			has_bump_texture;
+	int				has_color_texture;
+	int				has_bump_texture;
 	int				id;
 	struct s_tcone	*next;
 }	t_tcone;
@@ -240,7 +237,6 @@ typedef struct s_cone
 	int			has_bump_texture;
 	t_texture	texture;
 	t_texture	normal_texture;
-
 	t_material	material;
 	t_color		color;
 	int			id;
@@ -287,9 +283,9 @@ typedef struct s_ray
 
 typedef struct s_cone_intersection
 {
-	t_vector cone_to_point;
-	t_vector axis_scaled;
-	t_vector subs_vec;
+	t_vector	cone_to_point;
+	t_vector	axis_scaled;
+	t_vector	subs_vec;
 }	t_cone_intersection;
 
 typedef struct t_hit_cone_intersection
@@ -311,84 +307,83 @@ typedef struct t_hit_cone_intersection
 
 typedef struct s_rotate_point
 {
-	FLOAT cos_angle;
-	FLOAT sin_angle;
-	FLOAT dot;
-
-	FLOAT new_x;
-	FLOAT new_y;
-} t_rotate_point;
+	FLOAT	cos_angle;
+	FLOAT	sin_angle;
+	FLOAT	dot;
+	FLOAT	new_x;
+	FLOAT	new_y;
+}	t_rotate_point;
 
 typedef struct s_bump_params
 {
-    FLOAT u;
-    FLOAT v;
-    FLOAT strength;
-    t_texture *bump_map;
-} t_bump_params;
+	FLOAT		u;
+	FLOAT		v;
+	FLOAT		strength;
+	t_texture	*bump_map;
+}	t_bump_params;
 
 typedef struct s_normal_modify
 {
-    t_vector *original_normal;
-    t_vector *tangent;
-    t_vector *bitangent;
-    FLOAT dx;
-    FLOAT dy;
-} t_normal_modify;
+	t_vector	*original_normal;
+	t_vector	*tangent;
+	t_vector	*bitangent;
+	FLOAT		dx;
+	FLOAT		dy;
+}	t_normal_modify;
 
 typedef struct s_derivatives
 {
-    FLOAT dx;
-    FLOAT dy;
-} t_derivatives;
+	FLOAT	dx;
+	FLOAT	dy;
+}	t_derivatives;
 
 typedef struct s_light_params
 {
-    t_vector    surface_normal;
-    t_vector    view_dir;
-    t_vector    intersection_point;
-    t_material  material;
-}   t_light_params;
+	t_vector	surface_normal;
+	t_vector	view_dir;
+	t_vector	intersection_point;
+	t_material	material;
+}	t_light_params;
 
 typedef struct s_light_calc
 {
-    t_color     diffuse;
-    t_color     specular;
-}   t_light_calc;
+	t_color	diffuse;
+	t_color	specular;
+}	t_light_calc;
 
 typedef struct s_body_intersection
 {
-	t_vector oc;
-	FLOAT dir_dot_dir;
-	FLOAT oc_dot_dir;
-	FLOAT a;
-	FLOAT b;
-	FLOAT c;
-	FLOAT discriminant;
-	FLOAT sqrt_discriminant;
-	FLOAT t1;
-	FLOAT t2;
-} t_body_intersection;
+	t_vector	oc;
+	FLOAT		dir_dot_dir;
+	FLOAT		oc_dot_dir;
+	FLOAT		a;
+	FLOAT		b;
+	FLOAT		c;
+	FLOAT		discriminant;
+	FLOAT		sqrt_discriminant;
+	FLOAT		t1;
+	FLOAT		t2;
+}	t_body_intersection;
 
 typedef struct s_body_hit_info
 {
-	t_vector scaled_dir;
-	t_vector cp;
-	FLOAT height;
-	t_vector proj;
-	t_vector radial;
-	t_vector hit_point;
-} t_body_hit_info;
+	t_vector	scaled_dir;
+	t_vector	cp;
+	FLOAT		height;
+	t_vector	proj;
+	t_vector	radial;
+	t_vector	hit_point;
+}	t_body_hit_info;
 
 typedef struct s_cap_intersection
 {
-	FLOAT t;
-	t_vector scaled_dir;
-	t_vector hit_point;
-	t_vector cp;
-	t_vector proj;
-	t_vector radial;
-} t_cap_intersection;
+	FLOAT		t;
+	t_vector	scaled_dir;
+	t_vector	hit_point;
+	t_vector	cp;
+	t_vector	proj;
+	t_vector	radial;
+}	t_cap_intersection;
 
 typedef struct s_hit_cy
 {
@@ -398,37 +393,38 @@ typedef struct s_hit_cy
 	t_vector	top_offset;
 	t_point		top_center;
 	FLOAT		t_top;
-} t_hit_cy;
+}	t_hit_cy;
 
 typedef struct s_draw
 {
-    int x;
-    int y;
-    FLOAT pixel_x;
-    FLOAT pixel_y;
-    t_vector direction;
-    t_ray ray;
-    FLOAT aspect_ratio;
-    FLOAT fov_scale;
-    t_vector right;
-    t_vector  forword;
-    t_vector up;
-    t_vector sclx;
-    t_vector scly;
-    t_vector add;
-} t_draw;
+	int			x;
+	int			y;
+	FLOAT		pixel_x;
+	FLOAT		pixel_y;
+	t_vector	direction;
+	t_ray		ray;
+	FLOAT		aspect_ratio;
+	FLOAT		fov_scale;
+	t_vector	right;
+	t_vector	forword;
+	t_vector	up;
+	t_vector	sclx;
+	t_vector	scly;
+	t_vector	add;
+}	t_draw;
 
 typedef struct s_hit_sphere
 {
-	t_vector oc;
-	FLOAT a;
-	FLOAT b;
-	FLOAT c;
-	FLOAT discriminant;
-	FLOAT t;
-	FLOAT t1;
-	FLOAT t2;
-} t_hit_sphere_info;
+	t_vector	oc;
+	FLOAT		a;
+	FLOAT		b;
+	FLOAT		c;
+	FLOAT		discriminant;
+	FLOAT		t;
+	FLOAT		t1;
+	FLOAT		t2;
+}	t_hit_sphere_info;
+
 typedef struct s_tscene
 {
 	t_camera	camera;
@@ -447,16 +443,17 @@ typedef struct s_tscene
 	bool		is_l_set;
 	bool		is_a_set;
 }	t_tscene;
+
 typedef struct s_process_file
 {
-	int fd;
-	int ret;
-	char *buffer;
-	int backup;
-	t_tscene tscene;
-} t_process_file;
+	int			fd;
+	int			ret;
+	char		*buffer;
+	int			backup;
+	t_tscene	tscene;
+}	t_process_file;
 
-typedef	struct s_calculate_light_contribution
+typedef struct s_calculate_light_contribution
 {
 	t_vector		light_dir;
 	t_vector		half_vector;
@@ -465,7 +462,7 @@ typedef	struct s_calculate_light_contribution
 	FLOAT			spec;
 	t_vector		sub_vec;
 	t_vector		added_vec;
-} t_calculate_light_contribution;
+}	t_calculate_light_contribution;
 
 typedef struct s_texture_params
 {
@@ -490,14 +487,15 @@ typedef struct s_pixel_info
 	t_color			texture_color;
 	t_color			ambient;
 	t_vector		scaled_vec;
-} t_pixel_info;
+}	t_pixel_info;
+
 typedef struct s_cap_intersection_params
 {
-	t_intersection *intersection;
-	t_ray *ray;
-	t_cylinder *cylinder;
-	t_vector *cap_center;
-	t_vector *cap_normal;
-	FLOAT dmin;
+	t_intersection	*intersection;
+	t_ray			*ray;
+	t_cylinder		*cylinder;
+	t_vector		*cap_center;
+	t_vector		*cap_normal;
+	FLOAT			dmin;
 }	t_cap_intersection_params;
 #endif

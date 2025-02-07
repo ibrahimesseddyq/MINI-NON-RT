@@ -6,7 +6,7 @@
 /*   By: ibes-sed <ibes-sed@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/11 18:11:36 by sessarhi          #+#    #+#             */
-/*   Updated: 2025/02/06 21:40:44 by ibes-sed         ###   ########.fr       */
+/*   Updated: 2025/02/06 22:26:41 by ibes-sed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,6 @@ int	process_co(char **inf, t_tscene *t_scene)
 	if (count_args((const char **)inf) != 8)
 		clean_exit("Error: Cone has wrong number of arguments");
 	new = new_cone();
-
 	new->angle = ft_atof(inf[3]);
 	new->height = ft_atof(inf[4]);
 	new->texture_name = strdup(inf[7]);
