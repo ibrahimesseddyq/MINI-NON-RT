@@ -6,7 +6,7 @@
 /*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 19:16:40 by sessarhi          #+#    #+#             */
-/*   Updated: 2025/01/30 14:25:18 by sessarhi         ###   ########.fr       */
+/*   Updated: 2025/02/07 15:09:37 by sessarhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,28 @@ void	splil_line(const char *line, t_tscene *tscene);
 void	clean_exit(const char *msg);
 FLOAT	hit_cylinder(t_intersection *intersection, const t_ray *ray,
 			const t_cylinder *cylinder, FLOAT dmin);
-int	pixel_color(t_scene *scene, t_intersection *intersection, t_ray *ray);
+int		pixel_color(t_scene *scene, t_intersection *intersection, t_ray *ray);
+void	move_light_or_camera(int *keys, t_scene *scene);
+void	move_camera(int *keys, t_camera *camera);
+void	move_light(int *keys, t_light *light);
+void	move_cylinder(int *keys, t_cylinder *cylinder);
+void	move_plane(int *keys, t_plane *plane);
+void	move_sphere(int *keys, t_sphere *sphere);
+void	rotate_point_z(t_point *p, t_rotate_point *rp, FLOAT angle);
+void	rotate_point(t_point *p, t_vector axis, FLOAT angle);
+void	set_axis(int *keys, t_vector *axis);
+void	rotate_camera(int *keys, t_scene *scene);
+void	rotate_cylinder(int *keys, t_scene *scene, int i);
+void	rotate_plane(int *keys, t_scene *scene, int i);
+void	rotate(int *keys, t_scene *scene);
+int		transformation(int keycode, t_scene *scene);
+int		search_and_translate(int *keys, int obj_id, t_scene *scene);
+void	translate(int *keys, t_scene *scene);
+void	search_and_resize(int obj_id, t_scene *scene, FLOAT ratio);
+void	resize(int *keys, t_scene *scene);
+char	get_ascii(int key);
+int		my_atoi(int *keys, int start);
+int		hook(t_scene *scene);
+void	draw(t_scene *scene);
 
 #endif

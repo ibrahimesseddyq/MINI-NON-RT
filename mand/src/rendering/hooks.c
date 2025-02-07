@@ -1,24 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   color.h                                            :+:      :+:    :+:   */
+/*   hooks.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/26 09:21:08 by sessarhi          #+#    #+#             */
-/*   Updated: 2025/02/07 15:07:04 by sessarhi         ###   ########.fr       */
+/*   Created: 2025/02/06 20:43:06 by sessarhi          #+#    #+#             */
+/*   Updated: 2025/02/06 20:44:16 by sessarhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef COLOR_H
-# define COLOR_H
+#include "./../../../minirt.h"
 
-# include "objects.h"
-
-t_color	color_add(t_color *a, t_color *b);
-t_color	color_mul(t_color *a, t_color *b);
-t_color	rgbtocolor(int r, int g, int b);
-int		colortorgb(t_color *a);
-t_color	color_scale(t_color *a, FLOAT scale);
-
-#endif
+int	hook(t_scene *scene)
+{
+	mlx_destroy_window(scene->mlx, scene->win);
+	clean_exit("");
+	return (0);
+}
