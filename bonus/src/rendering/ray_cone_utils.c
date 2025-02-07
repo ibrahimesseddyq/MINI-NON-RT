@@ -6,7 +6,7 @@
 /*   By: ibes-sed <ibes-sed@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 22:23:41 by ibes-sed          #+#    #+#             */
-/*   Updated: 2025/01/28 22:23:41 by ibes-sed         ###   ########.fr       */
+/*   Updated: 2025/02/06 22:19:57 by ibes-sed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,9 @@ t_vector	point_to_vector(t_point *point)
 }
 
 void	init_cone_vars(t_hit_cone_intersection *inter, t_point *vertex,
-		t_vector *axis, t_ray *ray, double angle)
+		t_vector *axis, t_ray *ray)
 {
 	inter->oc = vector_sub(&ray->origin, vertex);
-	inter->cos2 = cos(angle) * cos(angle);
-	inter->sin2 = sin(angle) * sin(angle);
 	inter->a = vector_dot(&ray->direction, axis)
 		* vector_dot(&ray->direction, axis) - inter->cos2;
 	inter->b = 2.0 * (vector_dot(&ray->direction, axis)

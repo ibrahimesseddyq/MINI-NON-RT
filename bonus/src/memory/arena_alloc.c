@@ -6,7 +6,7 @@
 /*   By: ibes-sed <ibes-sed@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 22:24:32 by ibes-sed          #+#    #+#             */
-/*   Updated: 2025/01/28 22:24:33 by ibes-sed         ###   ########.fr       */
+/*   Updated: 2025/02/06 22:46:46 by ibes-sed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ void	*arena_alloc_from_chunk(t_arena_chunk *chunk, size_t size, size_t align)
 	size_t		padding;
 	size_t		total_size;
 
-	current = (uintptr_t) &chunk->data[chunk->used];
+	current = (uintptr_t) & chunk->data[chunk->used];
 	aligned = align_up(current, align);
 	padding = aligned - current;
 	total_size = padding + size;

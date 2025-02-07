@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   plane_textures.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ibes-sed <ibes-sed@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/02/06 21:48:46 by ibes-sed          #+#    #+#             */
+/*   Updated: 2025/02/06 21:58:26 by ibes-sed         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "./../../../minirt_bonus.h"
 
 void	handle_plane_maps(t_scene *scene,
@@ -33,8 +45,7 @@ void	handle_plane_textures(t_scene *scene, t_texture_params *params)
 		if (scene->plane[i].has_checkerboard)
 		{
 			*(params->texture_color) = get_checkerboard_color(checker.board1,
-					checker.board2, params->intersection->u,
-					params->intersection->v, checker.size);
+					checker.board2, params->intersection, checker.size);
 			*(params->set) = 1;
 		}
 		else if (scene->plane[i].texture_name)
