@@ -1,11 +1,15 @@
 NAME = minirt
 BONUS_NAME = minirt_bonus
 CC = cc -g
-CFLAGS = #-Wall -Wextra -Werror  # Uncommented this for standard warning flags
-MND=./mand/src/
-BNS=./bonus/src/
-HDR=./mand/includes/color.h  ./mand/includes/defined.h  ./mand/includes/includes.h  ./mand/includes/math.h  ./mand/includes/memory.h\
+CFLAGS = #-Wall -Wextra -Werror  # Uncomment this for standard warning flags
+MND = ./mand/src/
+BNS = ./bonus/src/
+HDR = ./mand/includes/color.h  ./mand/includes/defined.h  ./mand/includes/includes.h  ./mand/includes/math.h  ./mand/includes/memory.h\
 	./mand/includes/objects.h  ./mand/includes/tmpobjects.h minirt.h
+
+SUBMODULE = ./MLX
+MLX = $(SUBMODULE)/libmlx_Linux.a
+MLXFLAGS = -lX11 -lXext -lm  # You may need these flags for linking with minilibx
 
 SRC = minirt.c $(MND)parsing/parce_rgb.c $(MND)parsing/parse_crd.c $(MND)parsing/parsing.c $(MND)utils/ft_atof.c \
 	$(MND)utils/ft_split.c  $(MND)utils/Rgb_cnv.c $(MND)tmputils/cy_utils.c  $(MND)tmputils/pl_utils.c \
@@ -30,32 +34,38 @@ BONUS_OBJ = $(BONUS_SRC:.c=.o)
 
 RM = rm -rf
 
-MLX = ./MLX/libmlx_Linux.a
-MLXFLAGS = -lX11 -lXext -lm  # You may need these flags for linking with minilibx
-DEBUG =#-g -fsanitize=address  # Keep optional, uncomment when debugging
-GPROF = # -pg  # Uncomment for profiling with gprof, optional
-
-all: $(NAME) 
+all: check_submodule $(NAME) 
 
 %.o: %.c $(HDR)
-	$(CC) $(DEBUG) $(CFLAGS) -c $< -o $@
+	$(CC) $(CFLAGS) -c $< -o $@
 
-$(NAME): $(OBJ) 
-	$(CC) $(DEBUG) $(CFLAGS) $(OBJ) $(MLX) $(MLXFLAGS) -o $(NAME)
+$(NAME): $(OBJ) $(MLX)
+	$(CC) $(CFLAGS) $(OBJ) $(MLX) $(MLXFLAGS) -o $(NAME)
 
-$(BONUS_NAME): $(BONUS_OBJ)
-	$(CC) $(DEBUG) $(CFLAGS) $(BONUS_OBJ) $(MLX) $(MLXFLAGS) -o $(BONUS_NAME)
+$(BONUS_NAME): $(BONUS_OBJ) $(MLX)
+	$(CC) $(CFLAGS) $(BONUS_OBJ) $(MLX) $(MLXFLAGS) -o $(BONUS_NAME)
 
-bonus: $(BONUS_NAME)
+bonus: check_submodule $(BONUS_NAME)
 
 clean:
 	$(RM) $(OBJ)
 	$(RM) $(BONUS_OBJ)
+	$(MAKE) -C $(SUBMODULE) clean
 
 fclean: clean
 	$(RM) $(NAME)
 	$(RM) $(BONUS_NAME)
+	$(RM) $(MLX)
 
 re: fclean all
 
-.PHONY: all clean fclean re
+
+check_submodule:
+	@if [ ! -d "$(SUBMODULE)/.git" ]; then \
+		echo "Submodule missing. Cloning..."; \
+		git submodule update --init --recursive; \
+	fi
+	@$(MAKE) -C $(SUBMODULE)
+
+.PHONY: all clean fclean re check_submodule bonus
+
