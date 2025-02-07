@@ -6,7 +6,7 @@
 /*   By: ibes-sed <ibes-sed@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 14:53:30 by sessarhi          #+#    #+#             */
-/*   Updated: 2025/02/07 15:47:54 by ibes-sed         ###   ########.fr       */
+/*   Updated: 2025/02/07 22:25:17 by ibes-sed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@
 # include "./bonus/includes/memory.h"
 # include "./bonus/includes/color.h"
 # include "./bonus/includes/includes.h"
-# include "./bonus/includes/stb_image.h"
 
 bool				parse_crd(const char *str, t_vector *vector);
 bool				parse_rgb(const char *str, t_color *color);
