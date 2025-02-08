@@ -6,7 +6,7 @@
 /*   By: ibes-sed <ibes-sed@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/23 13:51:47 by sessarhi          #+#    #+#             */
-/*   Updated: 2025/01/29 16:54:46 by ibes-sed         ###   ########.fr       */
+/*   Updated: 2025/02/08 00:00:04 by ibes-sed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ t_tlight	*new_light(void)
 {
 	t_tlight	*tlight;
 
-	tlight = malloc(sizeof(t_tlight));
+	tlight = arena_alloc(*get_arena(), sizeof(t_tlight));
 	tlight->position.x = 0;
 	tlight->position.y = 0;
 	tlight->position.z = 0;

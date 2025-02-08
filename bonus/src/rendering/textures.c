@@ -6,7 +6,7 @@
 /*   By: ibes-sed <ibes-sed@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 22:24:10 by ibes-sed          #+#    #+#             */
-/*   Updated: 2025/02/06 21:43:50 by ibes-sed         ###   ########.fr       */
+/*   Updated: 2025/02/08 17:55:53 by ibes-sed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,9 @@ t_derivatives	sample_bump_derivatives(t_bump_params *params)
 	t_derivatives	result;
 
 	step = 1.0 / params->bump_map->width;
-	c = sample_texture(params->bump_map, params->u, params->v);
-	cx = sample_texture(params->bump_map, params->u + step, params->v);
-	cy = sample_texture(params->bump_map, params->u, params->v + step);
+	c = sample_texture(params->bump_map, params->u, params->v, 0);
+	cx = sample_texture(params->bump_map, params->u + step, params->v, 0);
+	cy = sample_texture(params->bump_map, params->u, params->v + step, 0);
 	result.dx = (cx.r - c.r) * params->strength;
 	result.dy = (cy.r - c.r) * params->strength;
 	return (result);

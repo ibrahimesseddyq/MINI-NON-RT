@@ -6,7 +6,7 @@
 /*   By: ibes-sed <ibes-sed@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 22:23:24 by ibes-sed          #+#    #+#             */
-/*   Updated: 2025/02/06 19:31:40 by ibes-sed         ###   ########.fr       */
+/*   Updated: 2025/02/08 18:05:58 by ibes-sed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ void	calculate_surface_properties(t_scene *scene,
 	handle_plane_textures(scene, &params);
 	handle_sphere_textures(scene, &params);
 	handle_cylinder_textures(scene, &params);
+	handle_cone_textures(scene, &params);
 	if (!set)
 		*texture_color = intersection->color;
 }
