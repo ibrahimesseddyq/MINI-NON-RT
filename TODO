@@ -1,0 +1,14 @@
+-CHECK 
+    - cone
+    - parsing
+    - leaks
+    - leaks fd 
+    - rotation plane
+    - rotation cylinder
+    - rotation cone
+    - translation plane, sphere, cylinder, cone
+    - lighting
+    - extreme values
+    - empty lines
+    - texture file should exist or DEFAULT
+    - scenes

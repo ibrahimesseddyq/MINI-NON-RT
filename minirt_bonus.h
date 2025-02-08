@@ -6,7 +6,7 @@
 /*   By: ibes-sed <ibes-sed@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 14:53:30 by sessarhi          #+#    #+#             */
-/*   Updated: 2025/02/08 18:08:21 by ibes-sed         ###   ########.fr       */
+/*   Updated: 2025/02/08 19:41:32 by ibes-sed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 # define MINIRT_BONUS_H
 
 # include "./bonus/includes/objects.h"
-# include "./bonus/includes/tmpobjects.h"
 # include "./bonus/includes/defined.h"
 # include "./bonus/includes/math.h"
 # include "./bonus/includes/memory.h"
@@ -108,4 +107,6 @@ double				get_intersection_t(t_hit_cone_intersection *inter);
 void				init_cone_vars(t_hit_cone_intersection *inter, t_point *vertex,
 						t_vector *axis, t_ray *ray);
 t_color				sample_texture(t_texture *texture, FLOAT u, FLOAT v, int switch_flag);
+bool				cone_intersection(t_scene *scene,
+						t_intersection *intersection, t_ray *ray);
 #endif
