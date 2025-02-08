@@ -6,7 +6,7 @@
 /*   By: ibes-sed <ibes-sed@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 14:02:07 by sessarhi          #+#    #+#             */
-/*   Updated: 2025/01/29 16:56:38 by ibes-sed         ###   ########.fr       */
+/*   Updated: 2025/02/08 00:00:18 by ibes-sed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ t_tsphere	*new_sphere(void)
 {
 	t_tsphere	*sphere;
 
-	sphere = malloc(sizeof(t_tsphere));
+	sphere = arena_alloc(*get_arena(), sizeof(t_tsphere));
 	sphere->position.x = 0;
 	sphere->position.y = 0;
 	sphere->position.z = 0;

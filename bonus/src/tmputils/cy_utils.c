@@ -6,7 +6,7 @@
 /*   By: ibes-sed <ibes-sed@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 13:58:26 by sessarhi          #+#    #+#             */
-/*   Updated: 2025/01/29 16:53:54 by ibes-sed         ###   ########.fr       */
+/*   Updated: 2025/02/08 00:00:11 by ibes-sed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ t_tcylinder	*new_cylinder(void)
 {
 	t_tcylinder	*cylinder;
 
-	cylinder = malloc(sizeof(t_tcylinder));
+	cylinder = arena_alloc(*get_arena(), sizeof(t_tcylinder));
 	cylinder->position.x = 0;
 	cylinder->position.y = 0;
 	cylinder->position.z = 0;

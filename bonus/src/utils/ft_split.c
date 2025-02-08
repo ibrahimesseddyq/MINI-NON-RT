@@ -6,13 +6,12 @@
 /*   By: ibes-sed <ibes-sed@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/13 11:26:54 by sessarhi          #+#    #+#             */
-/*   Updated: 2025/02/07 14:54:58 by ibes-sed         ###   ########.fr       */
+/*   Updated: 2025/02/07 22:40:12 by ibes-sed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./../../../minirt_bonus.h"
 
-//ths function is ugly 
 static size_t	ft_countwords(const char *s, size_t *i, char c)
 {
 	size_t	len;
@@ -38,7 +37,6 @@ static size_t	ft_countwords(const char *s, size_t *i, char c)
 	return (len);
 }
 
-//to fix the fucking norm pass len by address 
 char	**ft_split(char const *s, char c)
 {
 	char	**str;
@@ -49,9 +47,7 @@ char	**ft_split(char const *s, char c)
 	if (!s)
 		return (NULL);
 	len = sizeof(char *) * (ft_countwords(s, &i, c) + 1);
-	str = malloc(len + i + 1);
-	if (!str)
-		return (NULL);
+	str = arena_alloc(*get_arena(), len + i + 1);
 	tmp = (char *)str + len;
 	i = 0;
 	while (*s)
