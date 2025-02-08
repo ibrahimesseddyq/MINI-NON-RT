@@ -6,7 +6,7 @@
 /*   By: ibes-sed <ibes-sed@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 14:53:30 by sessarhi          #+#    #+#             */
-/*   Updated: 2025/02/07 22:25:17 by ibes-sed         ###   ########.fr       */
+/*   Updated: 2025/02/08 18:08:21 by ibes-sed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,6 @@ void				copy_tscene(t_tscene *tscene, t_scene *scene);
 void				clean_exit(const char *msg);
 FLOAT				calculate_body_intersection(const t_ray *ray,
 						const t_cylinder *cylinder);
-t_color				sample_texture(t_texture *texture, FLOAT u, FLOAT v);
 t_vector			calculate_bump_normal(t_texture *bump_map, FLOAT u, FLOAT v,
 						t_vector *original_normal);
 t_checker_config	init_checker(void);
@@ -66,7 +65,6 @@ void				handle_cylinder_textures(t_scene *scene,
 						t_texture_params *params);
 void				handle_plane_textures(t_scene *scene,
 						t_texture_params *params);
-t_color				sample_texture(t_texture *texture, FLOAT u, FLOAT v);
 void				load_plane_texture(t_scene *scene, int i);
 void				sphere_texture(t_scene *scene, int i);
 void				cylinder_texture(t_scene *scene, int i);
@@ -103,5 +101,11 @@ t_color				process_lights(t_scene *scene, t_intersection *isect,
 void				my_mlx_pixel_put(t_data *img, int x, int y, int color);
 int					trace_ray(t_ray *ray, t_scene *scene);
 void				setup_arena(void);
-bool	load_png(const char *filename, unsigned char **image_data, int *width, int *height);
+void				handle_cone_textures(t_scene *scene, t_texture_params *params);
+int					check_height_bounds(t_hit_cone_intersection *inter, t_point *vertex,
+						t_vector *axis, t_ray *ray);
+double				get_intersection_t(t_hit_cone_intersection *inter);
+void				init_cone_vars(t_hit_cone_intersection *inter, t_point *vertex,
+						t_vector *axis, t_ray *ray);
+t_color				sample_texture(t_texture *texture, FLOAT u, FLOAT v, int switch_flag);
 #endif

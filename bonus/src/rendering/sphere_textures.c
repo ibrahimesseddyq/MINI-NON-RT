@@ -6,7 +6,7 @@
 /*   By: ibes-sed <ibes-sed@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/06 21:48:22 by ibes-sed          #+#    #+#             */
-/*   Updated: 2025/02/06 22:22:01 by ibes-sed         ###   ########.fr       */
+/*   Updated: 2025/02/08 17:56:08 by ibes-sed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static t_color	get_sphere_texture_color(t_sphere *sphere,
 	}
 	if (sphere->texture_name)
 		return (sample_texture(&sphere->texture,
-				intersection->u, intersection->v));
+				intersection->u, intersection->v, 1));
 	return ((t_color){0, 0, 0, 0});
 }
 

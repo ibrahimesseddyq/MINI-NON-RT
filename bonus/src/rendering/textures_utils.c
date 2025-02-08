@@ -6,7 +6,7 @@
 /*   By: ibes-sed <ibes-sed@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 22:24:06 by ibes-sed          #+#    #+#             */
-/*   Updated: 2025/02/07 22:25:04 by ibes-sed         ###   ########.fr       */
+/*   Updated: 2025/02/08 18:07:02 by ibes-sed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,23 @@ void	init_textures(t_scene *scene)
 	return ;
 }
 
-t_color	sample_texture(t_texture *texture, FLOAT u, FLOAT v)
+void	setup_vector(t_color *vector, int switch_flag, unsigned char *pixel_ptr)
+{
+	if (switch_flag)
+	{
+		vector->r = pixel_ptr[2] / 255.0f;
+		vector->g = pixel_ptr[1] / 255.0f;
+		vector->b = pixel_ptr[0] / 255.0f;
+	}
+	else
+	{
+		vector->r = pixel_ptr[0] / 255.0f;
+		vector->g = pixel_ptr[1] / 255.0f;
+		vector->b = pixel_ptr[2] / 255.0f;
+	}
+}
+
+t_color	sample_texture(t_texture *texture, FLOAT u, FLOAT v, int switch_flag)
 {
 	t_color			color;
 	int				x;
@@ -50,7 +66,7 @@ t_color	sample_texture(t_texture *texture, FLOAT u, FLOAT v)
 
 	u = u - floor(u);
 	v = v - floor(v);
-	x = (int)(u * (texture->width - 1));
+	x = (int)((1.0 - u) * (texture->width - 1));
 	y = (int)(v * (texture->height - 1));
 	x = fmin(fmax(x, 0), texture->width - 1);
 	y = fmin(fmax(y, 0), texture->height - 1);
@@ -58,9 +74,7 @@ t_color	sample_texture(t_texture *texture, FLOAT u, FLOAT v)
 		return ((t_color){0, 0, 0});
 	pixel_ptr = (unsigned char *)(texture->addr
 			+ (y * texture->line_length + x * (texture->bits_per_pixel / 8)));
-	color.r = pixel_ptr[0] / 255.0f;
-	color.g = pixel_ptr[1] / 255.0f;
-	color.b = pixel_ptr[2] / 255.0f;
+	setup_vector(&color, switch_flag, pixel_ptr);
 	return (color);
 }
 

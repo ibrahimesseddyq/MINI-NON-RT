@@ -6,7 +6,7 @@
 /*   By: ibes-sed <ibes-sed@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/06 21:47:59 by ibes-sed          #+#    #+#             */
-/*   Updated: 2025/02/06 21:58:31 by ibes-sed         ###   ########.fr       */
+/*   Updated: 2025/02/08 17:56:19 by ibes-sed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	handle_cylinder_maps(t_scene *scene,
 {
 	if (scene->cylinder[i].has_color_texture)
 		*(params->texture_color) = sample_texture(&scene->cylinder[i].texture,
-				params->intersection->u, params->intersection->v);
+				params->intersection->u, params->intersection->v, 1);
 	else
 		*(params->texture_color) = scene->cylinder[i].color;
 	if (scene->cylinder[i].has_bump_texture)

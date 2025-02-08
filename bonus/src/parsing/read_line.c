@@ -6,7 +6,7 @@
 /*   By: ibes-sed <ibes-sed@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 15:38:19 by sessarhi          #+#    #+#             */
-/*   Updated: 2025/02/06 19:06:24 by ibes-sed         ###   ########.fr       */
+/*   Updated: 2025/02/07 23:59:29 by ibes-sed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void	process_flie(char **av, t_scene *scene)
 	pi.fd = open(av[1], O_RDONLY);
 	if (pi.fd == -1)
 		return (printf("Error can't open %s\n", *av), exit(1));
-	pi.buffer = malloc(BUFFER_SIZE);
+	pi.buffer = arena_alloc(*get_arena(), BUFFER_SIZE);
 	pi.ret
 		= read(pi.fd, pi.buffer, BUFFER_SIZE);
 	while (pi.ret > 0)

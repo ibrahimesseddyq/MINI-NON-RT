@@ -6,7 +6,7 @@
 /*   By: ibes-sed <ibes-sed@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 13:52:41 by sessarhi          #+#    #+#             */
-/*   Updated: 2025/01/29 16:55:45 by ibes-sed         ###   ########.fr       */
+/*   Updated: 2025/02/08 00:00:14 by ibes-sed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ t_tplane	*new_plane(void)
 {
 	t_tplane	*plane;
 
-	plane = malloc(sizeof(t_tplane));
+	plane = arena_alloc(*get_arena(), sizeof(t_tplane));
 	plane->position.x = 0;
 	plane->position.y = 0;
 	plane->position.z = 0;
