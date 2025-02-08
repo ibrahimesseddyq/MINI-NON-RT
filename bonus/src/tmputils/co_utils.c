@@ -6,7 +6,7 @@
 /*   By: ibes-sed <ibes-sed@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 16:51:27 by ibes-sed          #+#    #+#             */
-/*   Updated: 2025/01/29 16:52:21 by ibes-sed         ###   ########.fr       */
+/*   Updated: 2025/02/08 00:00:08 by ibes-sed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ t_tcone	*new_cone(void)
 {
 	t_tcone	*cone;
 
-	cone = malloc(sizeof(t_tcone));
+	cone = arena_alloc(*get_arena(), sizeof(t_tcone));
 	cone->vertex.x = 0;
 	cone->vertex.y = 0;
 	cone->vertex.z = 0;

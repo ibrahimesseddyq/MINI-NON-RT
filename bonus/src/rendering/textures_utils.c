@@ -6,11 +6,10 @@
 /*   By: ibes-sed <ibes-sed@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 22:24:06 by ibes-sed          #+#    #+#             */
-/*   Updated: 2025/02/07 15:45:25 by ibes-sed         ###   ########.fr       */
+/*   Updated: 2025/02/08 18:07:02 by ibes-sed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#define STB_IMAGE_IMPLEMENTATION 
 #include "./../../../minirt_bonus.h"
 
 void	init_textures(t_scene *scene)
@@ -41,7 +40,23 @@ void	init_textures(t_scene *scene)
 	return ;
 }
 
-t_color	sample_texture(t_texture *texture, FLOAT u, FLOAT v)
+void	setup_vector(t_color *vector, int switch_flag, unsigned char *pixel_ptr)
+{
+	if (switch_flag)
+	{
+		vector->r = pixel_ptr[2] / 255.0f;
+		vector->g = pixel_ptr[1] / 255.0f;
+		vector->b = pixel_ptr[0] / 255.0f;
+	}
+	else
+	{
+		vector->r = pixel_ptr[0] / 255.0f;
+		vector->g = pixel_ptr[1] / 255.0f;
+		vector->b = pixel_ptr[2] / 255.0f;
+	}
+}
+
+t_color	sample_texture(t_texture *texture, FLOAT u, FLOAT v, int switch_flag)
 {
 	t_color			color;
 	int				x;
@@ -51,7 +66,7 @@ t_color	sample_texture(t_texture *texture, FLOAT u, FLOAT v)
 
 	u = u - floor(u);
 	v = v - floor(v);
-	x = (int)(u * (texture->width - 1));
+	x = (int)((1.0 - u) * (texture->width - 1));
 	y = (int)(v * (texture->height - 1));
 	x = fmin(fmax(x, 0), texture->width - 1);
 	y = fmin(fmax(y, 0), texture->height - 1);
@@ -59,34 +74,25 @@ t_color	sample_texture(t_texture *texture, FLOAT u, FLOAT v)
 		return ((t_color){0, 0, 0});
 	pixel_ptr = (unsigned char *)(texture->addr
 			+ (y * texture->line_length + x * (texture->bits_per_pixel / 8)));
-	color.r = pixel_ptr[0] / 255.0f;
-	color.g = pixel_ptr[1] / 255.0f;
-	color.b = pixel_ptr[2] / 255.0f;
+	setup_vector(&color, switch_flag, pixel_ptr);
 	return (color);
 }
 
 bool	load_texture(t_texture *texture, void *mlx, char *filename)
 {
-	int				width;
-	int				height;
-	int				channels;
-	unsigned char	*image_data;
+	int	width;
+	int	height;
 
-	image_data = stbi_load(filename, &width,
-			&height, &channels, 4);
-	if (!image_data)
-		return (false);
-	texture->data = mlx_new_image(mlx, width, height);
+	texture->data = mlx_xpm_file_to_image(mlx, filename, &width, &height);
 	if (!texture->data)
 		return (false);
+	texture->width = width;
+	texture->height = height;
 	texture->addr = mlx_get_data_addr(texture->data,
 			&texture->bits_per_pixel,
 			&texture->line_length,
 			&texture->endian);
 	if (!texture->addr)
 		return (false);
-	ft_memcpy(texture->addr, image_data, width * height * 4);
-	texture->width = width;
-	texture->height = height;
 	return (true);
 }
