@@ -1,6 +1,6 @@
 NAME = minirt
 BONUS_NAME = minirt_bonus
-CC = cc -g -fsanitize=address
+CC = cc -g
 CFLAGS = #-Wall -Wextra -Werror  # Uncomment this for standard warning flags
 MND = ./mand/src/
 BNS = ./bonus/src/
@@ -8,7 +8,7 @@ HDR = ./mand/includes/color.h  ./mand/includes/defined.h  ./mand/includes/includ
 	./mand/includes/objects.h  ./mand/includes/tmpobjects.h minirt.h
 
 BHDR = ./bonus/includes/color.h  ./bonus/includes/defined.h  ./bonus/includes/includes.h  ./bonus/includes/math.h  ./bonus/includes/memory.h\
-	./bonus/includes/objects.h  ./bonus/includes/tmpobjects.h minirt.h
+	./bonus/includes/objects.h  minirt.h
 
 SUBMODULE = ./MLX
 URL =https://github.com/42Paris/minilibx-linux.git
