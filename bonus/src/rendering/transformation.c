@@ -6,7 +6,7 @@
 /*   By: ibes-sed <ibes-sed@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 22:24:15 by ibes-sed          #+#    #+#             */
-/*   Updated: 2025/02/06 19:44:39 by ibes-sed         ###   ########.fr       */
+/*   Updated: 2025/02/08 19:35:46 by ibes-sed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ int	transformation(int keycode, t_scene *scene)
 	}
 	if (keycode == ESC_KEY)
 		return (mlx_destroy_window(scene->mlx, scene->win),
-			exit(0), 1);
+			clean_exit(""), 1);
 	return (draw(scene), 0);
 }
 

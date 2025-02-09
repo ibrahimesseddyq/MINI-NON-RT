@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   copy_scene_data.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ibes-sed <ibes-sed@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 16:42:51 by sessarhi          #+#    #+#             */
-/*   Updated: 2025/02/06 22:42:28 by ibes-sed         ###   ########.fr       */
+/*   Updated: 2025/02/08 21:17:25 by sessarhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,34 @@ static void	ft_copy_cylinder(t_tscene *tscene, t_scene *scene, int *id)
 	}
 }
 
+static void	ft_copy_cone(t_tscene *tscene, t_scene *scene, int *id)
+{
+	int	i;
+
+	i = 0;
+	while (tscene->cone)
+	{
+		scene->cone[i].vertex = tscene->cone->vertex;
+		scene->cone[i].axis
+			= vector_normalize(&tscene->cone->axis);
+		scene->cone[i].angle = tscene->cone->angle;
+		scene->cone[i].height = tscene->cone->height;
+		scene->cone[i].has_checkerboard = tscene->cone->has_checkerboard;
+		scene->cone[i].texture_name = tscene->cone->texture_name;
+		scene->cone[i].normal_texture_name = tscene->cone->normal_texture_name;
+		scene->cone[i].color = tscene->cone->color;
+		scene->cone[i].has_color_texture
+			= tscene->cone->has_color_texture;
+		scene->cone[i].has_bump_texture
+			= tscene->cone->has_bump_texture;
+		scene->cone[i].material
+			= tscene->cone->material;
+		scene->cone[i].id = (*id)++;
+		tscene->cone = tscene->cone->next;
+		i++;
+	}
+}
+
 static void	ft_copy_light(t_tscene *tscene, t_scene *scene, int *id)
 {
 	int	i;
@@ -111,16 +139,20 @@ void	copy_tscene(t_tscene *tscene, t_scene *scene)
 			sizeof(t_plane) * tscene->plane_size);
 	scene->sphere = arena_alloc(*get_arena(),
 			sizeof(t_sphere) * tscene->sphere_size);
+	scene->cone = arena_alloc(*get_arena(),
+			sizeof(t_cone) * tscene->cone_size);
 	scene->light = arena_alloc(*get_arena(),
 			sizeof(t_light) * tscene->light_size);
 	scene->cylinder_count = tscene->cylinder_size;
 	scene->plane_count = tscene->plane_size;
 	scene->sphere_count = tscene->sphere_size;
+	scene->cone_count = tscene->cone_size;
 	scene->light_count = tscene->light_size;
 	scene->viewport_dist = 1.0;
 	id = 0;
 	ft_copy_plane(tscene, scene, &id);
 	ft_copy_sphere(tscene, scene, &id);
 	ft_copy_cylinder(tscene, scene, &id);
+	ft_copy_cone(tscene, scene, &id);
 	ft_copy_light(tscene, scene, &id);
 }

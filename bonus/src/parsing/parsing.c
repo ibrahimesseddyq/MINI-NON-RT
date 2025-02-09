@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ibes-sed <ibes-sed@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/15 21:09:07 by sessarhi          #+#    #+#             */
-/*   Updated: 2025/02/07 16:55:53 by sessarhi         ###   ########.fr       */
+/*   Updated: 2025/02/08 20:04:02 by ibes-sed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	parse_object(char	**inf, int *i, t_tscene *tscene, char *line)
 	else if (ft_strcmp(inf[0], "co") == 0 && !process_co(inf, tscene))
 		(*i)++;
 	else
-		return (printf("Error \n"), exit(1));
+		return (printf("Error \n"), clean_exit(""));
 }
 
 void	splil_line(char *line, t_tscene *tscene)
@@ -73,11 +73,13 @@ void	int_tsceen(t_tscene *tscene)
 	tscene->cylinder = NULL;
 	tscene->plane = NULL;
 	tscene->sphere = NULL;
+	tscene->cone = NULL;
 	tscene->light = NULL;
 	tscene->plane_size = 0;
 	tscene->cylinder_size = 0;
 	tscene->sphere_size = 0;
 	tscene->light_size = 0;
+	tscene->cone_size = 0;
 	tscene->is_c_set = false;
 	tscene->is_l_set = false;
 	tscene->is_a_set = false;
