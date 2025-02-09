@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   co_utils.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ibes-sed <ibes-sed@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 16:51:27 by ibes-sed          #+#    #+#             */
-/*   Updated: 2025/02/08 00:00:08 by ibes-sed         ###   ########.fr       */
+/*   Updated: 2025/02/09 17:21:20 by sessarhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,9 @@ t_tcone	*new_cone(void)
 	cone->axis.y = 0;
 	cone->axis.z = 0;
 	cone->angle = 0;
+	cone->has_color_texture = 1;
+	cone->has_bump_texture = 1;
+	cone->has_checkerboard = 0;
 	cone->height = 0;
 	cone->color.r = 0;
 	cone->color.g = 0;

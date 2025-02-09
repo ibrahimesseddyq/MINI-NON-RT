@@ -103,7 +103,9 @@ void	render(t_scene *scene)
 			&scene->img.bits_per_pixel,
 			&scene->img.line_length, &scene->img.endian);
 	gettimeofday(&start, NULL);
+	printf("here\n");
 	draw(scene);
+	printf("here2\n");
 	gettimeofday(&end, NULL);
 	time_taken = (end.tv_sec - start.tv_sec) * 1e6;
 	time_taken = (time_taken + (end.tv_usec - start.tv_usec)) * 1e-6;
