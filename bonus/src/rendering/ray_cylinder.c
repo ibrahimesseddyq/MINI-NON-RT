@@ -6,7 +6,7 @@
 /*   By: ibes-sed <ibes-sed@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/10 17:02:06 by sessarhi          #+#    #+#             */
-/*   Updated: 2025/02/06 22:22:38 by ibes-sed         ###   ########.fr       */
+/*   Updated: 2025/02/09 16:08:32 by ibes-sed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ static FLOAT	get_cap_intersection(t_cap_intersection_params params)
 	cap_infos.hit_point
 		= vector_add(&params.ray->origin, &cap_infos.scaled_dir);
 	cap_infos.cp = vector_sub(&cap_infos.hit_point, &params.cylinder->position);
+
 	cap_infos.proj = vector_scale(&params.cylinder->direction,
 			vector_dot(&cap_infos.cp, &params.cylinder->direction));
 	cap_infos.radial = vector_sub(&cap_infos.cp, &cap_infos.proj);
