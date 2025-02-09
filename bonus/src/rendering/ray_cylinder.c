@@ -6,7 +6,7 @@
 /*   By: ibes-sed <ibes-sed@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/10 17:02:06 by sessarhi          #+#    #+#             */
-/*   Updated: 2025/02/09 16:08:32 by ibes-sed         ###   ########.fr       */
+/*   Updated: 2025/02/09 16:12:08 by ibes-sed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,7 @@ FLOAT	hit_cylinder(t_intersection *intersection, const t_ray *ray,
 		if (get_body_hit_info(intersection, ray, cylinder, hit_infos.t_body))
 			dmin = hit_infos.t_body;
 	}
+	params = build_cap_intersection_param(intersection, ray, cylinder, dmin);
 	hit_infos.bottom_normal = vector_scale(&cylinder->direction, -1);
 	hit_infos.t_bottom = get_cap_intersection(params);
 	if (hit_infos.t_bottom > EPSILON && hit_infos.t_bottom < dmin)
@@ -88,7 +89,6 @@ FLOAT	hit_cylinder(t_intersection *intersection, const t_ray *ray,
 	hit_infos.top_offset = vector_scale(&cylinder->direction, cylinder->height);
 	hit_infos.top_center
 		= vector_add(&cylinder->position, &hit_infos.top_offset);
-	params = build_cap_intersection_param(intersection, ray, cylinder, dmin);
 	params.cap_normal = &hit_infos.bottom_normal;
 	params.cap_center = &hit_infos.top_center;
 	hit_infos.t_top = get_cap_intersection(params);
