@@ -6,7 +6,7 @@
 /*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 22:23:45 by ibes-sed          #+#    #+#             */
-/*   Updated: 2025/02/08 22:11:07 by sessarhi         ###   ########.fr       */
+/*   Updated: 2025/02/09 18:38:51 by sessarhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,8 +63,8 @@ bool	cone_intersection(t_scene *scene,
 			tmp = vector_scale(&ray->direction, t);
 			intersection->point
 				= vector_add(&ray->origin, &tmp);
-			calculate_cone_normal(scene, intersection, &inter, i);
 		}
 	}
+	// printf("cone hit color[%f, %f, %f]\ndistance %f\n", intersection->color.r, intersection->color.g, intersection->color.b,intersection->distance);
 	return (intersection->hit);
 }

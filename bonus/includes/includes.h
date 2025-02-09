@@ -6,12 +6,13 @@
 /*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/01 15:29:51 by sessarhi          #+#    #+#             */
-/*   Updated: 2025/01/11 17:29:26 by sessarhi         ###   ########.fr       */
+/*   Updated: 2025/02/09 16:51:02 by sessarhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef INCLUDES_H
 # define INCLUDES_H
+
 # include <stdio.h>
 # include <unistd.h>
 # include <limits.h>
@@ -24,4 +25,5 @@
 # include <stdlib.h>
 # include <math.h>
 # include "./../../MLX/mlx.h"
+
 #endif

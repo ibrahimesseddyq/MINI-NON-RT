@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cy_utils.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ibes-sed <ibes-sed@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 13:58:26 by sessarhi          #+#    #+#             */
-/*   Updated: 2025/02/08 00:00:11 by ibes-sed         ###   ########.fr       */
+/*   Updated: 2025/02/09 17:19:11 by sessarhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,9 @@ t_tcylinder	*new_cylinder(void)
 	cylinder->direction.x = 0;
 	cylinder->direction.y = 0;
 	cylinder->direction.z = 0;
+	cylinder->has_color_texture = 1;
+	cylinder->has_bump_texture = 1;
+	cylinder->has_checkerboard = 0;
 	cylinder->diameter = 0;
 	cylinder->height = 0;
 	cylinder->color.r = 0;
