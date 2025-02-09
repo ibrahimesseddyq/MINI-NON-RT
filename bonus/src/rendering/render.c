@@ -6,7 +6,7 @@
 /*   By: ibes-sed <ibes-sed@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/24 17:44:32 by sessarhi          #+#    #+#             */
-/*   Updated: 2025/02/08 19:58:20 by ibes-sed         ###   ########.fr       */
+/*   Updated: 2025/02/09 15:50:38 by ibes-sed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,13 +24,13 @@ bool	check_shadow(t_scene *scene, t_ray *ray, t_intersection *intersection)
 	shadow_intersection.hit = false;
 	shadow_intersection.id = -1;
 	shadow_intersection.hit
+		= cone_intersection(scene, &shadow_intersection, ray);
+	shadow_intersection.hit
 		= sphere_intersection(scene, &shadow_intersection, ray);
 	shadow_intersection.hit
 		= cylinder_intersection(scene, &shadow_intersection, ray);
 	shadow_intersection.hit
 		= plane_intersection(scene, &shadow_intersection, ray);
-	shadow_intersection.hit
-		= cone_intersection(scene, &shadow_intersection, ray);
 	if (shadow_intersection.hit && intersection->id != shadow_intersection.id)
 		return (true);
 	return (false);
@@ -60,10 +60,11 @@ int	trace_ray(t_ray *ray, t_scene *scene)
 	intersection.distance = INFINITY;
 	intersection.hit = false;
 	intersection.id = -1;
+
+	intersection.hit = cone_intersection(scene, &intersection, ray);
 	intersection.hit = sphere_intersection(scene, &intersection, ray);
 	intersection.hit = cylinder_intersection(scene, &intersection, ray);
 	intersection.hit = plane_intersection(scene, &intersection, ray);
-	intersection.hit = cone_intersection(scene, &intersection, ray);
 	if (intersection.hit == true)
 		return (pixel_color(scene, &intersection, ray));
 	return (0x000000);

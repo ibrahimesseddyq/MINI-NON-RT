@@ -6,7 +6,7 @@
 /*   By: ibes-sed <ibes-sed@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 14:52:09 by sessarhi          #+#    #+#             */
-/*   Updated: 2025/02/08 18:09:47 by ibes-sed         ###   ########.fr       */
+/*   Updated: 2025/02/09 15:29:08 by ibes-sed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ int main(int ac, char **av)
     if (ac != 2)
         return (printf("Error bad arguments\n"));
     process_flie(av, &scene);
+
     render(&scene);
     return (SUCCESS);
 }
