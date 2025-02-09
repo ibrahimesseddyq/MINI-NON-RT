@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   scene_obj.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ibes-sed <ibes-sed@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/11 18:11:36 by sessarhi          #+#    #+#             */
-/*   Updated: 2025/02/08 20:29:26 by ibes-sed         ###   ########.fr       */
+/*   Updated: 2025/02/09 16:54:21 by sessarhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@ int	process_sp(char **inf, t_tscene *t_scene)
 		new->has_checkerboard = 1;
 	if (!ft_strcmp(new->normal_texture_name, "DEFAULT"))
 		new->has_bump_texture = 0;
-	printf("txt name [%s]\n", inf[5]);
 	new->diameter = ft_atof(inf[2]);
 	if (!parse_crd(inf[1], &new->position)
 		|| !parse_rgb(inf[3], &new->color)
