@@ -37,7 +37,10 @@ int	process_pl(char **inf, t_tscene *t_scene)
 		return (1);
 	if (!parse_crd(inf[1], &new->position)
 		|| !parse_crd(inf[2], &new->direction)
-		|| !parse_rgb(inf[3], &new->color))
+		|| !parse_rgb(inf[3], &new->color)
+		|| new->direction.x < -1 || new->direction.x > 1
+		|| new->direction.y < -1 || new->direction.y > 1
+		|| new->direction.z < -1 || new->direction.z > 1)
 		return (1);
 	plane_add_front(&t_scene->plane, new);
 	t_scene->plane_size++;

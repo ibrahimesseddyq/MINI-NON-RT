@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minirt_bonus.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ibes-sed <ibes-sed@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 14:53:30 by sessarhi          #+#    #+#             */
-/*   Updated: 2025/02/08 19:41:32 by ibes-sed         ###   ########.fr       */
+/*   Updated: 2025/02/09 16:42:43 by sessarhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,6 @@ FLOAT				hit_plane(const t_vector *point,
 						const t_vector *normal, const t_ray *ray);
 void				copy_tscene(t_tscene *tscene, t_scene *scene);
 void				clean_exit(const char *msg);
-FLOAT				calculate_body_intersection(const t_ray *ray,
-						const t_cylinder *cylinder);
 t_vector			calculate_bump_normal(t_texture *bump_map, FLOAT u, FLOAT v,
 						t_vector *original_normal);
 t_checker_config	init_checker(void);
@@ -71,8 +69,6 @@ void				*ft_memcpy(void *dst, const void *src, size_t n);
 void				search_and_resize(int obj_id, t_scene *scene, FLOAT ratio);
 t_color				get_checkerboard_color(t_color color1,
 						t_color color2, t_intersection *inter, FLOAT size);
-bool				is_within_cylinder_height(const t_vector *point,
-						const t_cylinder *cylinder);
 void				draw(t_scene *scene);
 int					pixel_color(t_scene *scene,
 						t_intersection *isect, t_ray *ray);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pl_utils.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ibes-sed <ibes-sed@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 13:52:41 by sessarhi          #+#    #+#             */
-/*   Updated: 2025/02/08 00:00:14 by ibes-sed         ###   ########.fr       */
+/*   Updated: 2025/02/09 17:22:51 by sessarhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,9 @@ t_tplane	*new_plane(void)
 	plane->direction.x = 0;
 	plane->direction.y = 0;
 	plane->direction.z = 0;
+	plane->has_color_texture = 1;
+	plane->has_bump_texture = 1;
+	plane->has_checkerboard = 0;
 	plane->color.r = 0;
 	plane->color.g = 0;
 	plane->color.b = 0;

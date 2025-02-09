@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_atof.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ibes-sed <ibes-sed@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/14 16:42:24 by sessarhi          #+#    #+#             */
-/*   Updated: 2025/01/29 17:02:34 by ibes-sed         ###   ########.fr       */
+/*   Updated: 2025/02/09 17:12:11 by sessarhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,21 +44,21 @@ FLOAT	ft_atof(const char *str)
 	sign = 1;
 	decimal = 0.1;
 	if (!check_fp_err(str))
-		return ((FLOAT)INT_MIN);
-	if (*str == '-')
+		clean_exit("Error: atof invalid float number");
+	if (*str == '-' && (*(str + 1) >= '0' && *(str + 1) <= '9'))
 		sign = *str++ - 46;
 	while (*str >= '0' && *str <= '9')
 		result = result * 10 + *str++ - '0';
 	if (*str == '.')
 		str++;
 	if ((*str < '0' || *str > '9') && *str != '\0')
-		return ((FLOAT)INT_MIN);
+		clean_exit("Error: atof invalid float number");
 	while (*str >= '0' && *str <= '9')
 	{
 		result += ((*str++ - '0') * decimal);
 		decimal *= 0.1;
 	}
-	if (*str)
-		return ((FLOAT)INT_MIN);
+	if (*str || (result == INFINITY))
+		clean_exit("Error: atof invalid float number");
 	return (result * sign);
 }
