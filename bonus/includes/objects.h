@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   objects.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ibes-sed <ibes-sed@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 12:56:16 by sessarhi          #+#    #+#             */
-/*   Updated: 2025/02/08 19:40:28 by ibes-sed         ###   ########.fr       */
+/*   Updated: 2025/02/09 16:40:45 by sessarhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -386,15 +386,35 @@ typedef struct s_cap_intersection
 	t_vector	radial;
 }	t_cap_intersection;
 
-typedef struct s_hit_cy
+
+typedef struct s_descriminant
 {
-	FLOAT		t_body;
+	t_vector	oc;
+	FLOAT		a;
+	FLOAT		b;
+	FLOAT		c;
+	FLOAT		discriminant;
+	FLOAT		t;
+	FLOAT		t1;
+	FLOAT		t2;
+}	t_descriminant;
+
+typedef struct s_cyhit
+{
+	FLOAT		body;
 	t_vector	bottom_normal;
-	FLOAT		t_bottom;
+	FLOAT		bottom;
 	t_vector	top_offset;
 	t_point		top_center;
-	FLOAT		t_top;
-}	t_hit_cy;
+	FLOAT		top;
+}	t_cyhit;
+
+typedef struct s_caps
+{
+	t_ray		ray;
+	t_cylinder	cylinder;
+	FLOAT		dmin;
+}t_caps;
 
 typedef struct s_draw
 {
