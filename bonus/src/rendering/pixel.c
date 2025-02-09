@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pixel.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ibes-sed <ibes-sed@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 22:23:37 by ibes-sed          #+#    #+#             */
-/*   Updated: 2025/02/06 19:43:41 by ibes-sed         ###   ########.fr       */
+/*   Updated: 2025/02/08 22:28:54 by sessarhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,9 @@ int	pixel_color(t_scene *scene, t_intersection *isect, t_ray *ray)
 	pinfos.params.material = isect->material;
 	pinfos.final_color = process_lights(scene, isect, ray, &pinfos.params);
 	pinfos.final_color = color_add(&pinfos.ambient, &pinfos.final_color);
+	pinfos.texture_color.r = 255;
+	pinfos.texture_color.g = 0;
+	pinfos.texture_color.b = 255;
 	pinfos.final_color = color_mul(&pinfos.final_color, &pinfos.texture_color);
 	return (colortorgb(&pinfos.final_color));
 }

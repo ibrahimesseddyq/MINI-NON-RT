@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ibes-sed <ibes-sed@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/24 17:44:32 by sessarhi          #+#    #+#             */
-/*   Updated: 2025/02/06 21:56:46 by ibes-sed         ###   ########.fr       */
+/*   Updated: 2025/02/08 21:20:17 by sessarhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@ bool	check_shadow(t_scene *scene, t_ray *ray, t_intersection *intersection)
 		= cylinder_intersection(scene, &shadow_intersection, ray);
 	shadow_intersection.hit
 		= plane_intersection(scene, &shadow_intersection, ray);
+	shadow_intersection.hit
+		= cone_intersection(scene, &shadow_intersection, ray);
 	if (shadow_intersection.hit && intersection->id != shadow_intersection.id)
 		return (true);
 	return (false);
@@ -58,6 +60,7 @@ int	trace_ray(t_ray *ray, t_scene *scene)
 	intersection.distance = INFINITY;
 	intersection.hit = false;
 	intersection.id = -1;
+	intersection.hit = cone_intersection(scene, &intersection, ray);
 	intersection.hit = sphere_intersection(scene, &intersection, ray);
 	intersection.hit = cylinder_intersection(scene, &intersection, ray);
 	intersection.hit = plane_intersection(scene, &intersection, ray);

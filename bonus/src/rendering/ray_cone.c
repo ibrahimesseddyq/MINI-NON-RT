@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ray_cone.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ibes-sed <ibes-sed@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 22:23:45 by ibes-sed          #+#    #+#             */
-/*   Updated: 2025/02/06 22:19:46 by ibes-sed         ###   ########.fr       */
+/*   Updated: 2025/02/08 22:11:07 by sessarhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ void	calculate_cone_normal(t_scene *scene,
 	intersection->normal = vector_normalize(&inter->subs_vec);
 }
 
+
 bool	cone_intersection(t_scene *scene,
 		t_intersection *intersection, t_ray *ray)
 {
@@ -58,6 +59,7 @@ bool	cone_intersection(t_scene *scene,
 			intersection->id = scene->cone[i].id;
 			intersection->distance = t;
 			intersection->color = scene->cone[i].color;
+			intersection->material = scene->cone[i].material;
 			tmp = vector_scale(&ray->direction, t);
 			intersection->point
 				= vector_add(&ray->origin, &tmp);

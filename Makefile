@@ -1,6 +1,6 @@
 NAME = minirt
 BONUS_NAME = minirt_bonus
-CC = cc -fsanitize=address
+CC = cc 
 CFLAGS = #-Wall -Wextra -Werror 
 MND = ./mand/src/
 BNS = ./bonus/src/
@@ -14,7 +14,7 @@ HDR = ./mand/includes/color.h  ./mand/includes/defined.h  ./mand/includes/includ
 	./mand/includes/objects.h  ./mand/includes/tmpobjects.h minirt.h
 
 BHDR = ./bonus/includes/color.h  ./bonus/includes/defined.h  ./bonus/includes/includes.h  ./bonus/includes/math.h  ./bonus/includes/memory.h\
-	./bonus/includes/objects.h  ./bonus/includes/tmpobjects.h minirt.h
+	./bonus/includes/objects.h  minirt.h
 
 
 SRC = minirt.c $(MND)parsing/parce_rgb.c $(MND)parsing/parse_crd.c $(MND)parsing/parsing.c $(MND)utils/ft_atof.c \
