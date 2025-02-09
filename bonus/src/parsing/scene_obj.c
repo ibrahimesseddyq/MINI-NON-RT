@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   scene_obj.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ibes-sed <ibes-sed@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/11 18:11:36 by sessarhi          #+#    #+#             */
-/*   Updated: 2025/02/09 17:24:27 by sessarhi         ###   ########.fr       */
+/*   Updated: 2025/02/09 17:37:14 by ibes-sed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,7 @@ int	process_cy(char **inf, t_tscene *t_scene)
 		clean_exit("Error: Cylinder has wrong arguments");
 	parse_material(inf[6], &new->material);
 	cylinder_add_front(&t_scene->cylinder, new);
+	printf("finished process_cy\n");
 	t_scene->cylinder_size++;
 	return (0);
 }

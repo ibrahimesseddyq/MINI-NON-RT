@@ -6,7 +6,7 @@
 /*   By: ibes-sed <ibes-sed@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/06 21:48:46 by ibes-sed          #+#    #+#             */
-/*   Updated: 2025/02/08 17:56:14 by ibes-sed         ###   ########.fr       */
+/*   Updated: 2025/02/08 20:56:17 by ibes-sed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 void	handle_plane_maps(t_scene *scene,
 	t_texture_params *params, t_checker_config	*checker, int i)
 {
+	// printf("plane text\n");
 	if (scene->plane[i].has_color_texture)
 		*(params->texture_color) = sample_texture(&scene->plane[i].texture,
 				params->intersection->u, params->intersection->v, 1);
