@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ibes-sed <ibes-sed@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/24 17:44:32 by sessarhi          #+#    #+#             */
-/*   Updated: 2025/02/09 15:50:38 by ibes-sed         ###   ########.fr       */
+/*   Updated: 2025/02/09 18:41:15 by sessarhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,6 @@ int	trace_ray(t_ray *ray, t_scene *scene)
 	intersection.distance = INFINITY;
 	intersection.hit = false;
 	intersection.id = -1;
-
 	intersection.hit = cone_intersection(scene, &intersection, ray);
 	intersection.hit = sphere_intersection(scene, &intersection, ray);
 	intersection.hit = cylinder_intersection(scene, &intersection, ray);
