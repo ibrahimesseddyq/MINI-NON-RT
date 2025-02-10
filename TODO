@@ -12,3 +12,12 @@
     - empty lines
     - texture file should exist or DEFAULT
     - scenes
+
+issue:
+  - multi object sphere
+  - cylinder texture u - v
+  - cone  - Cause u - v done
+  - plane texture u - v
+  - CHECK - parsing
+
+

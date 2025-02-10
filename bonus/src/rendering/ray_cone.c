@@ -6,7 +6,7 @@
 /*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 22:23:45 by ibes-sed          #+#    #+#             */
-/*   Updated: 2025/02/10 15:46:34 by sessarhi         ###   ########.fr       */
+/*   Updated: 2025/02/10 20:01:03 by sessarhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,25 @@ bool	cone_intersection(t_scene *scene,
 			intersection->point
 				= vector_add(&ray->origin, &tmp);
 			calculate_cone_normal(scene, intersection, &inter, i);
+
+			t_vector p = vector_sub(&intersection->point, &scene->cone[i].vertex);
+            t_vector axis = vector_normalize(&scene->cone[i].axis);
+            double height = vector_dot(&p, &axis);
+            double cone_height = vector_length(&scene->cone[i].axis);
+            intersection->v = height / cone_height;  // Normalize height to [0,1]
+            t_vector proj = vector_scale(&axis, height);
+            t_vector planar = vector_sub(&p, &proj);
+			t_vector up = {0, 1, 0};  // Up vector
+
+			// Get perpendicular vectors for reference frame
+			t_vector right = vector_cross(&axis, &up);
+			t_vector forward = vector_cross(&right, &axis);
+
+			// Calculate angle using atan2
+			intersection->u = 0.5 + (atan2(
+				vector_dot(&planar, &right),     // x component
+				vector_dot(&planar, &forward)    // z component
+			) / (2 * M_PI));
 		}
 	}
 	// printf("cone hit color[%f, %f, %f]\ndistance %f\n", intersection->color.r, intersection->color.g, intersection->color.b,intersection->distance);
