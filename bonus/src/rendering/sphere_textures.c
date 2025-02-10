@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sphere_textures.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ibes-sed <ibes-sed@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/06 21:48:22 by ibes-sed          #+#    #+#             */
-/*   Updated: 2025/02/08 17:56:08 by ibes-sed         ###   ########.fr       */
+/*   Updated: 2025/02/10 21:26:11 by sessarhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,13 +41,17 @@ static t_vector	calculate_sphere_normal(t_sphere *sphere,
 
 void	handle_sphere_maps(t_scene *scene, t_texture_params *params, int i)
 {
+	// printf("texture_name: %s\n", scene->sphere[i].texture_name);
 	if (scene->sphere[i].has_color_texture)
 	{
 		*(params->texture_color) = get_sphere_texture_color(
 				&scene->sphere[i], params->intersection);
 	}
 	else
+	{
+		printf("no color texture\n");
 		*(params->texture_color) = scene->sphere[i].color;
+	}
 	if (scene->sphere[i].has_bump_texture)
 		*(params->normal) = calculate_sphere_normal(
 				&scene->sphere[i], params->intersection);
