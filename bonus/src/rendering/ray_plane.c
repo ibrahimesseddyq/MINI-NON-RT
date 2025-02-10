@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ray_plane.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ibes-sed <ibes-sed@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/10 17:02:02 by sessarhi          #+#    #+#             */
-/*   Updated: 2025/02/09 15:52:10 by ibes-sed         ###   ########.fr       */
+/*   Updated: 2025/02/10 20:31:00 by sessarhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,23 @@ FLOAT	hit_plane(const t_vector *point,
 	}
 	return (-1);
 }
+void	calculate_uv_basis(const t_vector *normal, t_vector *u_axis, t_vector *v_axis)
+{
+	// Choose an arbitrary vector not parallel to the normal
+	t_vector	arbitrary = {1, 0, 0};
+	t_vector   crossed_vec1;
+	t_vector   crossed_vec2;
+	if (fabs(vector_dot(normal, &arbitrary)) > 0.9)
+		arbitrary = (t_vector){0, 1, 0}; // Switch to another vector if too parallel
+
+	crossed_vec1 = vector_cross(normal, &arbitrary);
+	// Calculate u_axis as the cross product of the normal and the arbitrary vector
+	*u_axis = vector_normalize(&crossed_vec1);
+
+	crossed_vec2 = vector_cross(normal, u_axis);
+	// Calculate v_axis as the cross product of the normal and u_axis
+	*v_axis = vector_normalize(&crossed_vec2);
+}
 
 bool	plane_intersection(const t_scene *scene,
 		t_intersection *intersection, const t_ray *ray)
@@ -36,6 +53,8 @@ bool	plane_intersection(const t_scene *scene,
 	int			i;
 	FLOAT		t;
 	t_vector	tmp;
+	t_vector	u_axis, v_axis;
+	t_vector	relative_point;
 
 	i = scene->plane_count;
 	while (i--)
@@ -52,6 +71,15 @@ bool	plane_intersection(const t_scene *scene,
 			intersection->normal = scene->plane[i].direction;
 			tmp = vector_scale(&ray->direction, t);
 			intersection->point = vector_add(&ray->origin, &tmp);
+			// Calculate UV coordinates
+			calculate_uv_basis(&scene->plane[i].direction, &u_axis, &v_axis);
+			relative_point = vector_sub(&intersection->point, &scene->plane[i].position);
+			intersection->u = vector_dot(&relative_point, &u_axis);
+			intersection->v = vector_dot(&relative_point, &v_axis);
+
+			// Optional: Normalize UV coordinates if needed
+			intersection->u = intersection->u - floor(intersection->u);
+			intersection->v = intersection->v - floor(intersection->v);
 		}
 	}
 	return (intersection->hit);
