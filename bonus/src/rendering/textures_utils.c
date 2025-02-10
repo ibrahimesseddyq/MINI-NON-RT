@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   textures_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ibes-sed <ibes-sed@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 22:24:06 by ibes-sed          #+#    #+#             */
-/*   Updated: 2025/02/08 18:07:02 by ibes-sed         ###   ########.fr       */
+/*   Updated: 2025/02/10 19:07:21 by sessarhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,12 @@ void	init_textures(t_scene *scene)
 	{
 		if (scene->cylinder[i].texture_name)
 			cylinder_texture(scene, i);
+		i++;
+	}
+	while (i < scene->cone_count)
+	{
+		if (scene->cone[i].texture_name)
+			cone_texture(scene, i);
 		i++;
 	}
 	return ;

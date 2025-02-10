@@ -3,24 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   minirt_bonus.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ibes-sed <ibes-sed@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 14:52:09 by sessarhi          #+#    #+#             */
-/*   Updated: 2025/02/09 15:29:08 by ibes-sed         ###   ########.fr       */
+/*   Updated: 2025/02/09 18:40:22 by sessarhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt_bonus.h"
 
-int main(int ac, char **av)
+int	main(int ac, char **av)
 {
-    t_scene scene;
+	t_scene	scene;
 
-    setup_arena();
-    if (ac != 2)
-        return (printf("Error bad arguments\n"));
-    process_flie(av, &scene);
-
-    render(&scene);
-    return (SUCCESS);
+	setup_arena();
+	if (ac != 2)
+		return (printf("Error bad arguments\n"));
+	process_flie(av, &scene);
+	render(&scene);
+	return (SUCCESS);
 }
