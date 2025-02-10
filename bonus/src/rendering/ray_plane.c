@@ -6,7 +6,7 @@
 /*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/10 17:02:02 by sessarhi          #+#    #+#             */
-/*   Updated: 2025/02/10 20:31:00 by sessarhi         ###   ########.fr       */
+/*   Updated: 2025/02/10 20:59:01 by sessarhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,15 +71,15 @@ bool	plane_intersection(const t_scene *scene,
 			intersection->normal = scene->plane[i].direction;
 			tmp = vector_scale(&ray->direction, t);
 			intersection->point = vector_add(&ray->origin, &tmp);
-			// Calculate UV coordinates
-			calculate_uv_basis(&scene->plane[i].direction, &u_axis, &v_axis);
-			relative_point = vector_sub(&intersection->point, &scene->plane[i].position);
-			intersection->u = vector_dot(&relative_point, &u_axis);
-			intersection->v = vector_dot(&relative_point, &v_axis);
+			// // Calculate UV coordinates
+			// calculate_uv_basis(&scene->plane[i].direction, &u_axis, &v_axis);
+			// relative_point = vector_sub(&intersection->point, &scene->plane[i].position);
+			// intersection->u = vector_dot(&relative_point, &u_axis);
+			// intersection->v = vector_dot(&relative_point, &v_axis);
 
-			// Optional: Normalize UV coordinates if needed
-			intersection->u = intersection->u - floor(intersection->u);
-			intersection->v = intersection->v - floor(intersection->v);
+			// // Optional: Normalize UV coordinates if needed
+			// intersection->u = intersection->u - floor(intersection->u);
+			// intersection->v = intersection->v - floor(intersection->v);
 		}
 	}
 	return (intersection->hit);
