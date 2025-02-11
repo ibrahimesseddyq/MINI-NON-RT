@@ -6,7 +6,7 @@
 /*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/06 21:48:22 by ibes-sed          #+#    #+#             */
-/*   Updated: 2025/02/10 21:26:11 by sessarhi         ###   ########.fr       */
+/*   Updated: 2025/02/11 14:27:36 by sessarhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,6 @@ static t_vector	calculate_sphere_normal(t_sphere *sphere,
 
 void	handle_sphere_maps(t_scene *scene, t_texture_params *params, int i)
 {
-	// printf("texture_name: %s\n", scene->sphere[i].texture_name);
 	if (scene->sphere[i].has_color_texture)
 	{
 		*(params->texture_color) = get_sphere_texture_color(
@@ -65,13 +64,11 @@ void	handle_sphere_textures(t_scene *scene, t_texture_params *params)
 	i = -1;
 	while (++i < scene->sphere_count)
 	{
-		if (params->intersection->id != scene->sphere[i].id)
+		if (params->intersection->id == scene->sphere[i].id)
 		{
-			i++;
-			continue ;
+			if (scene->sphere[i].has_checkerboard || scene->sphere[i].texture_name)
+				handle_sphere_maps(scene, params, i);
+			break ;
 		}
-		if (scene->sphere[i].has_checkerboard || scene->sphere[i].texture_name)
-			handle_sphere_maps(scene, params, i);
-		break ;
 	}
 }

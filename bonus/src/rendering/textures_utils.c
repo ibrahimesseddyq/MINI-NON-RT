@@ -6,7 +6,7 @@
 /*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 22:24:06 by ibes-sed          #+#    #+#             */
-/*   Updated: 2025/02/10 19:07:21 by sessarhi         ###   ########.fr       */
+/*   Updated: 2025/02/11 14:12:45 by sessarhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ void	init_textures(t_scene *scene)
 			cylinder_texture(scene, i);
 		i++;
 	}
+	i = 0;
 	while (i < scene->cone_count)
 	{
 		if (scene->cone[i].texture_name)
