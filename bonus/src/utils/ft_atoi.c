@@ -3,15 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ibes-sed <ibes-sed@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/29 14:10:28 by sessarhi          #+#    #+#             */
-/*   Updated: 2025/02/09 17:04:32 by sessarhi         ###   ########.fr       */
+/*   Updated: 2025/02/11 22:25:44 by ibes-sed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "./../../../minirt_bonus.h"
 #define MAX 2147483647
-# include "./../../../minirt_bonus.h"
 
 int	ft_atoi(const char *str)
 {

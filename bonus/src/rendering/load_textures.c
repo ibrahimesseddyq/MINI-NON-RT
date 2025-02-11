@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   load_textures.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ibes-sed <ibes-sed@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/06 21:48:09 by ibes-sed          #+#    #+#             */
-/*   Updated: 2025/02/10 18:56:23 by sessarhi         ###   ########.fr       */
+/*   Updated: 2025/02/11 21:31:39 by ibes-sed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,6 @@ void	cylinder_texture(t_scene *scene, int i)
 
 void	cone_texture(t_scene *scene, int i)
 {
-	// printf("cone_texture [%s]\n", scene->cone[i].texture_name);
 	load_texture(&scene->cone[i].texture, scene->mlx,
 		scene->cone[i].texture_name);
 	load_texture(&scene->cone[i].normal_texture,
