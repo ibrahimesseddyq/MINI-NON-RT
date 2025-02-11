@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minirt_bonus.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ibes-sed <ibes-sed@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 14:53:30 by sessarhi          #+#    #+#             */
-/*   Updated: 2025/02/09 16:42:43 by sessarhi         ###   ########.fr       */
+/*   Updated: 2025/02/10 23:09:20 by ibes-sed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,4 +105,5 @@ void				init_cone_vars(t_hit_cone_intersection *inter, t_point *vertex,
 t_color				sample_texture(t_texture *texture, FLOAT u, FLOAT v, int switch_flag);
 bool				cone_intersection(t_scene *scene,
 						t_intersection *intersection, t_ray *ray);
+void				cone_texture(t_scene *scene, int i);
 #endif

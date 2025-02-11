@@ -111,6 +111,7 @@ int	process_co(char **inf, t_tscene *t_scene)
 	{
 		new->has_color_texture = 0;
 	}
+
 	else if (!ft_strcmp(new->texture_name, "CHECK"))
 		new->has_checkerboard = 1;
 	if (!ft_strcmp(new->normal_texture_name, "DEFAULT"))

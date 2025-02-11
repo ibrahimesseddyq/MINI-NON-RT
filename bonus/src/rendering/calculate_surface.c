@@ -41,6 +41,7 @@ void	calculate_surface_properties(t_scene *scene,
 	handle_cone_textures(scene, &params);
 	if (!set)
 	{
+		printf("Error: no texture set id\n", intersection->id);
 		// printf("intersection->color: %f %f %f\n", intersection->color.r, intersection->color.g, intersection->color.b);
 		*texture_color = intersection->color;
 	}

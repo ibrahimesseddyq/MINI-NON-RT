@@ -30,7 +30,7 @@ void	handle_cone_maps(t_scene *scene,
 			= calculate_bump_normal(&scene->cone[i].normal_texture,
 				params->intersection->u, params->intersection->v,
 				&params->intersection->normal);
-		*(params->set) = 1;
+	*(params->set) = 1;
 	// printf("is set [%d]\n", *(params->set));
 // printf("texture_color: %f %f %f\n", params->texture_color->r, params->texture_color->g, params->texture_color->b);
 }
