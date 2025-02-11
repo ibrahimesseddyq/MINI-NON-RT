@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   objects.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ibes-sed <ibes-sed@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 12:56:16 by sessarhi          #+#    #+#             */
-/*   Updated: 2025/02/09 16:40:45 by sessarhi         ###   ########.fr       */
+/*   Updated: 2025/02/11 22:26:56 by ibes-sed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -154,7 +154,7 @@ typedef struct s_tcone
 	FLOAT			angle;
 	FLOAT			height;
 	char			*texture_name;
-	char 			*normal_texture_name;
+	char			*normal_texture_name;
 	int				has_checkerboard;
 	t_material		material;
 	t_color			color;
@@ -386,7 +386,6 @@ typedef struct s_cap_intersection
 	t_vector	radial;
 }	t_cap_intersection;
 
-
 typedef struct s_descriminant
 {
 	t_vector	oc;
@@ -519,6 +518,19 @@ typedef struct s_cap_intersection_params
 	t_vector		*cap_normal;
 	FLOAT			dmin;
 }	t_cap_intersection_params;
+
+typedef struct s_calculate_uv
+{
+	t_vector	p;
+	t_vector	axis;
+	double		height;
+	double		cone_height;
+	t_vector	proj;
+	t_vector	planar;
+	t_vector	up;
+	t_vector	right;
+	t_vector	forward;
+}	t_calculate_uv;
 
 t_tsphere	*new_sphere(void);
 t_tcylinder	*new_cylinder(void);

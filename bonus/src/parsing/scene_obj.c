@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   scene_obj.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ibes-sed <ibes-sed@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/11 18:11:36 by sessarhi          #+#    #+#             */
-/*   Updated: 2025/02/10 18:46:02 by sessarhi         ###   ########.fr       */
+/*   Updated: 2025/02/11 21:27:45 by ibes-sed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,6 @@ int	process_cy(char **inf, t_tscene *t_scene)
 		clean_exit("Error: Cylinder has wrong arguments");
 	parse_material(inf[6], &new->material);
 	cylinder_add_front(&t_scene->cylinder, new);
-	printf("finished process_cy\n");
 	t_scene->cylinder_size++;
 	return (0);
 }
@@ -108,10 +107,7 @@ int	process_co(char **inf, t_tscene *t_scene)
 	new = new_cone();
 	new->texture_name = strdup(inf[7]);
 	if (!ft_strcmp(new->texture_name, "DEFAULT"))
-	{
 		new->has_color_texture = 0;
-	}
-
 	else if (!ft_strcmp(new->texture_name, "CHECK"))
 		new->has_checkerboard = 1;
 	if (!ft_strcmp(new->normal_texture_name, "DEFAULT"))

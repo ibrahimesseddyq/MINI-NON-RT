@@ -49,7 +49,7 @@ void	process_flie(char **av, t_scene *scene)
 	while (pi.ret > 0)
 	{
 		if (!mange_line(pi.buffer, &pi.ret, &pi.backup))
-			return (printf("error file empty or line too long\n"), clean_exit(""));
+			return (printf(EMPTY_FILE), clean_exit(""));
 		pi.buffer[pi.ret] = '\0';
 		splil_line(pi.buffer, &pi.tscene);
 		restor_line(&pi.buffer, &pi.ret, &pi.backup);

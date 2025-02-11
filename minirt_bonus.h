@@ -6,7 +6,7 @@
 /*   By: ibes-sed <ibes-sed@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 14:53:30 by sessarhi          #+#    #+#             */
-/*   Updated: 2025/02/10 23:09:20 by ibes-sed         ###   ########.fr       */
+/*   Updated: 2025/02/11 22:27:59 by ibes-sed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,14 +96,26 @@ t_color				process_lights(t_scene *scene, t_intersection *isect,
 void				my_mlx_pixel_put(t_data *img, int x, int y, int color);
 int					trace_ray(t_ray *ray, t_scene *scene);
 void				setup_arena(void);
-void				handle_cone_textures(t_scene *scene, t_texture_params *params);
-int					check_height_bounds(t_hit_cone_intersection *inter, t_point *vertex,
+void				handle_cone_textures(t_scene *scene,
+						t_texture_params *params);
+int					check_height_bounds(t_hit_cone_intersection *inter,
+						t_point *vertex,
 						t_vector *axis, t_ray *ray);
 double				get_intersection_t(t_hit_cone_intersection *inter);
-void				init_cone_vars(t_hit_cone_intersection *inter, t_point *vertex,
+void				init_cone_vars(t_hit_cone_intersection *inter,	
+						t_point *vertex,
 						t_vector *axis, t_ray *ray);
-t_color				sample_texture(t_texture *texture, FLOAT u, FLOAT v, int switch_flag);
+t_color				sample_texture(t_texture *texture, FLOAT u,
+						FLOAT v, int switch_flag);
 bool				cone_intersection(t_scene *scene,
 						t_intersection *intersection, t_ray *ray);
 void				cone_texture(t_scene *scene, int i);
+void				ft_copy_plane(t_tscene *tscene, t_scene *scene, int *id);
+void				ft_copy_sphere(t_tscene *tscene, t_scene *scene, int *id);
+void				ft_copy_cylinder(t_tscene *tscene, t_scene *scene, int *id);
+void				ft_copy_cone(t_tscene *tscene, t_scene *scene, int *id);
+void				setup_cylinder_textures(t_scene *scene);
+void				setup_sphere_textures(t_scene *scene);
+void				setup_cone_textures(t_scene *scene);
+void				setup_plane_textures(t_scene *scene);
 #endif
