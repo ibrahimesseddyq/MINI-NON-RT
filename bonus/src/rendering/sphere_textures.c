@@ -6,7 +6,7 @@
 /*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/06 21:48:22 by ibes-sed          #+#    #+#             */
-/*   Updated: 2025/02/11 16:01:02 by sessarhi         ###   ########.fr       */
+/*   Updated: 2025/02/11 20:01:06 by sessarhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static t_color	get_sphere_texture_color(t_sphere *sphere,
 	if (sphere->texture_name)
 		return (sample_texture(&sphere->texture,
 				intersection->u, intersection->v, 1));
-	return ((t_color){0, 0, 0, 0});
+	return ((t_color){0, 0, 0});
 }
 
 static t_vector	calculate_sphere_normal(t_sphere *sphere,

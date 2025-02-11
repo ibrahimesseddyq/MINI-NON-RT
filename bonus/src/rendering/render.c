@@ -6,7 +6,7 @@
 /*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/24 17:44:32 by sessarhi          #+#    #+#             */
-/*   Updated: 2025/02/11 16:00:02 by sessarhi         ###   ########.fr       */
+/*   Updated: 2025/02/11 19:56:33 by sessarhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,8 @@ t_color	get_checkerboard_color(t_color color1,
 	int		u_int;
 	int		v_int;
 
+	scaled_u = 0.0;
+	scaled_v = 0.0;
 	v_int = (int)floor(scaled_v);
 	u_int = (int)floor(scaled_u);
 	scaled_v = inter->v * size;
