@@ -6,7 +6,7 @@
 /*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/08 18:06:09 by ibes-sed          #+#    #+#             */
-/*   Updated: 2025/02/11 15:57:13 by sessarhi         ###   ########.fr       */
+/*   Updated: 2025/02/11 20:01:42 by sessarhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ void	handle_cone_maps(t_scene *scene,
 				params->intersection->u, params->intersection->v,
 				&params->intersection->normal);
 	*(params->set) = 1;
+	(void)checker;
 }
 
 void	handle_cone_textures(t_scene *scene, t_texture_params *params)

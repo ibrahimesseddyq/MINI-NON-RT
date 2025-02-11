@@ -6,7 +6,7 @@
 /*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/06 21:47:59 by ibes-sed          #+#    #+#             */
-/*   Updated: 2025/02/11 15:14:36 by sessarhi         ###   ########.fr       */
+/*   Updated: 2025/02/11 20:02:12 by sessarhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ void	handle_cylinder_maps(t_scene *scene,
 				params->intersection->u, params->intersection->v,
 				&params->intersection->normal);
 	*(params->set) = 1;
+	(void)checker;
 }
 
 void	handle_cylinder_textures(t_scene *scene, t_texture_params *params)
@@ -43,7 +44,7 @@ void	handle_cylinder_textures(t_scene *scene, t_texture_params *params)
 			{
 				*(params->texture_color) = get_checkerboard_color(
 						checker.board1, checker.board2,
-					params->intersection, checker.size);
+						params->intersection, checker.size);
 				*(params->set) = 1;
 			}
 			else if (scene->cylinder[i].texture_name)

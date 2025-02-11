@@ -6,13 +6,13 @@
 /*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/24 17:05:04 by sessarhi          #+#    #+#             */
-/*   Updated: 2025/01/25 15:45:24 by sessarhi         ###   ########.fr       */
+/*   Updated: 2025/02/11 19:59:18 by sessarhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./../../includes/math.h"
 
-t_vector	vector_add(t_vector *a, t_vector *b)
+t_vector	vector_add(const t_vector *a, const t_vector *b)
 {
 	t_vector	res;
 
@@ -22,7 +22,7 @@ t_vector	vector_add(t_vector *a, t_vector *b)
 	return (res);
 }
 
-t_vector	vector_sub(t_vector *a, t_vector *b)
+t_vector	vector_sub(const t_vector *a, const t_vector *b)
 {
 	t_vector	res;
 
@@ -32,7 +32,7 @@ t_vector	vector_sub(t_vector *a, t_vector *b)
 	return (res);
 }
 
-t_vector	vector_mul(t_vector *a, t_vector *b)
+t_vector	vector_mul(const t_vector *a, const t_vector *b)
 {
 	t_vector	res;
 
@@ -42,7 +42,7 @@ t_vector	vector_mul(t_vector *a, t_vector *b)
 	return (res);
 }
 
-t_vector	vector_div(t_vector *a, t_vector *b)
+t_vector	vector_div(const t_vector *a, const t_vector *b)
 {
 	t_vector	res;
 
@@ -52,7 +52,7 @@ t_vector	vector_div(t_vector *a, t_vector *b)
 	return (res);
 }
 
-t_vector	vector_cross(t_vector *a, t_vector *b)
+t_vector	vector_cross(const t_vector *a, const t_vector *b)
 {
 	t_vector	res;
 

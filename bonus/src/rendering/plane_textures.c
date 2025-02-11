@@ -6,7 +6,7 @@
 /*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/06 21:48:46 by ibes-sed          #+#    #+#             */
-/*   Updated: 2025/02/11 16:02:48 by sessarhi         ###   ########.fr       */
+/*   Updated: 2025/02/11 20:01:29 by sessarhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ void	handle_plane_maps(t_scene *scene,
 				params->intersection->u, params->intersection->v,
 				&params->intersection->normal);
 	*(params->set) = 1;
+	(void)checker;
 }
 
 void	handle_plane_textures(t_scene *scene, t_texture_params *params)

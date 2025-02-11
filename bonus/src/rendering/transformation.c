@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   transformation.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ibes-sed <ibes-sed@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 22:24:15 by ibes-sed          #+#    #+#             */
-/*   Updated: 2025/02/08 19:35:46 by ibes-sed         ###   ########.fr       */
+/*   Updated: 2025/02/11 20:04:17 by sessarhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,7 @@ int	search_and_translate(int *keys, int obj_id, t_scene *scene)
 			return (move_plane(keys, &scene->plane[i]), 1);
 		i++;
 	}
+	return (0);
 }
 
 void	translate(int *keys, t_scene *scene)

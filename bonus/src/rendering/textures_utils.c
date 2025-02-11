@@ -6,7 +6,7 @@
 /*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 22:24:06 by ibes-sed          #+#    #+#             */
-/*   Updated: 2025/02/11 14:12:45 by sessarhi         ###   ########.fr       */
+/*   Updated: 2025/02/11 20:04:05 by sessarhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ t_color	sample_texture(t_texture *texture, FLOAT u, FLOAT v, int switch_flag)
 	t_color			color;
 	int				x;
 	int				y;
-	unsigned int	pixel;
+	// unsigned int	pixel;
 	unsigned char	*pixel_ptr;
 
 	u = u - floor(u);
