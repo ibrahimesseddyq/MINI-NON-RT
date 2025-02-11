@@ -55,6 +55,7 @@ void	handle_sphere_maps(t_scene *scene, t_texture_params *params, int i)
 	if (scene->sphere[i].has_bump_texture)
 		*(params->normal) = calculate_sphere_normal(
 				&scene->sphere[i], params->intersection);
+	// printf("set [%d]\n", i);
 	*(params->set) = 1;
 }
 
@@ -62,15 +63,17 @@ void	handle_sphere_textures(t_scene *scene, t_texture_params *params)
 {
 	int	i;
 
-	i = -1;
-	while (++i < scene->sphere_count)
+	i = 0;
+	// printf("sphere_count: %d\n", scene->sphere_count);
+	while (i < scene->sphere_count)
 	{
+		// printf("texture_name: %s [%d]\n", scene->sphere[i].texture_name, i);
 		if (params->intersection->id != scene->sphere[i].id)
 		{
 			i++;
 			continue ;
 		}
-		if (scene->sphere[i].has_checkerboard || scene->sphere[i].texture_name)
+		else if (scene->sphere[i].has_checkerboard || scene->sphere[i].texture_name)
 			handle_sphere_maps(scene, params, i);
 		break ;
 	}

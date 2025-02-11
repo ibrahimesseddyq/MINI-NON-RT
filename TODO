@@ -15,9 +15,10 @@
 
 issue:
   - multi object sphere
-  - cylinder texture u - v
+  - cylinder texture u - v done
   - cone  - Cause u - v done
-  - plane texture u - v
+  - plane texture u - v done
   - CHECK - parsing
+  - issue in cylinder cy 0,0,0 1,0,0
 
 
