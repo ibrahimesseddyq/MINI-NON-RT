@@ -6,7 +6,7 @@
 /*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 14:53:30 by sessarhi          #+#    #+#             */
-/*   Updated: 2025/02/09 16:42:43 by sessarhi         ###   ########.fr       */
+/*   Updated: 2025/02/11 15:59:45 by sessarhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,6 @@ t_vector			calculate_bump_normal(t_texture *bump_map, FLOAT u, FLOAT v,
 						t_vector *original_normal);
 t_checker_config	init_checker(void);
 int					hook(t_scene *scene);
-int					key_hook(int keycode, t_scene *scene);
 int					transformation(int keycode, t_scene *scene);
 void				init_textures(t_scene *scene);
 void				handle_sphere_textures(t_scene *scene,

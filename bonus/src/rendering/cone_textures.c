@@ -6,7 +6,7 @@
 /*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/08 18:06:09 by ibes-sed          #+#    #+#             */
-/*   Updated: 2025/02/11 15:15:50 by sessarhi         ###   ########.fr       */
+/*   Updated: 2025/02/11 15:57:13 by sessarhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,8 @@ void	handle_cone_maps(t_scene *scene,
 	t_texture_params *params, t_checker_config	*checker, int i)
 {
 	if (scene->cone[i].has_color_texture)
-	{
-		// printf("has color texture [%d]\n", scene->cone[i].has_color_texture);
-
 		*(params->texture_color) = sample_texture(&scene->cone[i].texture,
 				params->intersection->u, params->intersection->v, 1);
-		// printf("texture_color: %f %f %f\n", params->texture_color->r, params->texture_color->g, params->texture_color->b);
-	}
 	else
 		*(params->texture_color) = scene->cone[i].color;
 	if (scene->cone[i].has_bump_texture)
@@ -30,9 +25,7 @@ void	handle_cone_maps(t_scene *scene,
 			= calculate_bump_normal(&scene->cone[i].normal_texture,
 				params->intersection->u, params->intersection->v,
 				&params->intersection->normal);
-		*(params->set) = 1;
-	// printf("is set [%d]\n", *(params->set));
-// printf("texture_color: %f %f %f\n", params->texture_color->r, params->texture_color->g, params->texture_color->b);
+	*(params->set) = 1;
 }
 
 void	handle_cone_textures(t_scene *scene, t_texture_params *params)

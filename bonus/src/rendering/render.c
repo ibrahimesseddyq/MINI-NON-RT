@@ -6,7 +6,7 @@
 /*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/24 17:44:32 by sessarhi          #+#    #+#             */
-/*   Updated: 2025/02/09 18:41:15 by sessarhi         ###   ########.fr       */
+/*   Updated: 2025/02/11 16:00:02 by sessarhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,6 @@ void	render(t_scene *scene)
 	time_taken = (end.tv_sec - start.tv_sec) * 1e6;
 	time_taken = (time_taken + (end.tv_usec - start.tv_usec)) * 1e-6;
 	printf("Render time: %.6f seconds\n", time_taken);
-	mlx_key_hook(scene->win, key_hook, scene);
 	mlx_key_hook(scene->win, transformation, scene);
 	mlx_hook(scene->win, 17, 0, hook, scene);
 	mlx_loop(scene->mlx);
