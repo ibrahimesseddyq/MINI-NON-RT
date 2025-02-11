@@ -6,7 +6,7 @@
 /*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 22:23:24 by ibes-sed          #+#    #+#             */
-/*   Updated: 2025/02/11 14:27:12 by sessarhi         ###   ########.fr       */
+/*   Updated: 2025/02/11 15:56:28 by sessarhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,5 @@ void	calculate_surface_properties(t_scene *scene,
 	handle_cylinder_textures(scene, &params);
 	handle_cone_textures(scene, &params);
 	if (!set)
-	{
-		// printf("intersection->color: %f %f %f\n", intersection->color.r, intersection->color.g, intersection->color.b);
 		*texture_color = intersection->color;
-	}
 }

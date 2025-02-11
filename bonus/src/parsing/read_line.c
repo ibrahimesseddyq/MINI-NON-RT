@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   read_line.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ibes-sed <ibes-sed@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 15:38:19 by sessarhi          #+#    #+#             */
-/*   Updated: 2025/02/09 15:28:27 by ibes-sed         ###   ########.fr       */
+/*   Updated: 2025/02/11 15:51:16 by sessarhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,12 +44,11 @@ void	process_flie(char **av, t_scene *scene)
 	if (pi.fd == -1)
 		return (printf("Error can't open %s\n", *av), clean_exit(""));
 	pi.buffer = arena_alloc(*get_arena(), BUFFER_SIZE);
-	pi.ret
-		= read(pi.fd, pi.buffer, BUFFER_SIZE);
+	pi.ret = read(pi.fd, pi.buffer, BUFFER_SIZE);
 	while (pi.ret > 0)
 	{
 		if (!mange_line(pi.buffer, &pi.ret, &pi.backup))
-			return (printf("error file empty or line too long\n"), clean_exit(""));
+			clean_exit("error file empty or line too long\n");
 		pi.buffer[pi.ret] = '\0';
 		splil_line(pi.buffer, &pi.tscene);
 		restor_line(&pi.buffer, &pi.ret, &pi.backup);
