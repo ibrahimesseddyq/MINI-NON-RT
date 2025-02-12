@@ -6,7 +6,7 @@
 /*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 12:56:16 by sessarhi          #+#    #+#             */
-/*   Updated: 2025/02/09 16:40:45 by sessarhi         ###   ########.fr       */
+/*   Updated: 2025/02/12 15:43:42 by sessarhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -154,7 +154,7 @@ typedef struct s_tcone
 	FLOAT			angle;
 	FLOAT			height;
 	char			*texture_name;
-	char 			*normal_texture_name;
+	char			*normal_texture_name;
 	int				has_checkerboard;
 	t_material		material;
 	t_color			color;
@@ -385,7 +385,6 @@ typedef struct s_cap_intersection
 	t_vector	proj;
 	t_vector	radial;
 }	t_cap_intersection;
-
 
 typedef struct s_descriminant
 {

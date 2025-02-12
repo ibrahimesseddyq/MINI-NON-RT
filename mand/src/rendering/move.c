@@ -6,7 +6,7 @@
 /*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 22:23:33 by ibes-sed          #+#    #+#             */
-/*   Updated: 2025/02/07 16:36:26 by sessarhi         ###   ########.fr       */
+/*   Updated: 2025/02/12 15:31:35 by sessarhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,9 @@
 
 void	move_light_or_camera(int *keys, t_scene *scene)
 {
-	int	obj_id;
-
 	if ((char)keys[1] == 'c')
 		move_camera(keys, &scene->camera);
 	else
-	{
-		obj_id = my_atoi(keys, 2);
 		move_light(keys, &scene->light);
-	}
 	return ;
 }

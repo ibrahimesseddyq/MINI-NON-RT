@@ -6,12 +6,9 @@
 /*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/29 14:10:28 by sessarhi          #+#    #+#             */
-/*   Updated: 2025/02/09 17:04:32 by sessarhi         ###   ########.fr       */
+/*   Updated: 2025/02/12 15:45:27 by sessarhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-#define MAX 2147483647
-# include "./../../../minirt_bonus.h"
 
 int	ft_atoi(const char *str)
 {
@@ -26,10 +23,9 @@ int	ft_atoi(const char *str)
 		s = 44 - *str++;
 	while (*str >= 48 && *str <= 57)
 	{
-		if (nb > MAX)
+		if (nb > 2147483647)
 			clean_exit("Error: Integer overflow");
 		nb = (nb * 10) + (*str++ - 48);
 	}
-	printf("nb = %lld\n", nb);
 	return (s * nb);
 }
