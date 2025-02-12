@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   plane_textures.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ibes-sed <ibes-sed@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/06 21:48:46 by ibes-sed          #+#    #+#             */
-/*   Updated: 2025/02/11 21:28:34 by ibes-sed         ###   ########.fr       */
+/*   Updated: 2025/02/12 18:46:59 by sessarhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ void	handle_plane_maps(t_scene *scene,
 				params->intersection->u, params->intersection->v,
 				&params->intersection->normal);
 	*(params->set) = 1;
+	(void)checker;
 }
 
 void	handle_plane_textures(t_scene *scene, t_texture_params *params)
@@ -33,23 +34,25 @@ void	handle_plane_textures(t_scene *scene, t_texture_params *params)
 	t_checker_config	checker;
 	int					i;
 
-	i = 0;
+	if (!scene || !params || !params->intersection)
+		return ;
+	i = -1;
 	checker = init_checker();
-	while (i < scene->plane_count)
+	while (++i < scene->plane_count)
 	{
-		if (params->intersection->id != scene->plane[i].id)
+		if (params->intersection->id == scene->plane[i].id)
 		{
-			i++;
-			continue ;
+			if (scene->plane[i].has_checkerboard)
+			{
+				*(params->texture_color) = get_checkerboard_color(
+						checker.board1, checker.board2, params->intersection,
+						checker.size);
+				*(params->set) = 1;
+			}
+			else if (scene->plane[i].texture_name
+				&& scene->plane[i].texture.addr)
+				handle_plane_maps(scene, params, &checker, i);
+			return ;
 		}
-		if (scene->plane[i].has_checkerboard)
-		{
-			*(params->texture_color) = get_checkerboard_color(checker.board1,
-					checker.board2, params->intersection, checker.size);
-			*(params->set) = 1;
-		}
-		else if (scene->plane[i].texture_name)
-			handle_plane_maps(scene, params, &checker, i);
-		i++;
 	}
 }

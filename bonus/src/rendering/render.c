@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ibes-sed <ibes-sed@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/24 17:44:32 by sessarhi          #+#    #+#             */
-/*   Updated: 2025/02/11 21:44:15 by ibes-sed         ###   ########.fr       */
+/*   Updated: 2025/02/12 18:46:25 by sessarhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,6 @@ void	render(t_scene *scene)
 	time_taken = (end.tv_sec - start.tv_sec) * 1e6;
 	time_taken = (time_taken + (end.tv_usec - start.tv_usec)) * 1e-6;
 	printf("Render time: %.6f seconds\n", time_taken);
-	mlx_key_hook(scene->win, key_hook, scene);
 	mlx_key_hook(scene->win, transformation, scene);
 	mlx_hook(scene->win, 17, 0, hook, scene);
 	mlx_loop(scene->mlx);

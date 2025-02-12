@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   copy_scene_data.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ibes-sed <ibes-sed@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 16:42:51 by sessarhi          #+#    #+#             */
-/*   Updated: 2025/02/11 22:25:07 by ibes-sed         ###   ########.fr       */
+/*   Updated: 2025/02/12 18:41:27 by sessarhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,14 +43,13 @@ void	copy_tscene(t_tscene *tscene, t_scene *scene)
 
 	scene->ambient = tscene->ambient;
 	scene->camera = tscene->camera;
-	scene->cylinder = arena_alloc(*get_arena(),
-			sizeof(t_cylinder) * tscene->cylinder_size);
+	scene->cylinder = arena_alloc(*get_arena(), sizeof(t_cylinder)
+			* tscene->cylinder_size);
 	scene->plane = arena_alloc(*get_arena(),
 			sizeof(t_plane) * tscene->plane_size);
 	scene->sphere = arena_alloc(*get_arena(),
 			sizeof(t_sphere) * tscene->sphere_size);
-	scene->cone = arena_alloc(*get_arena(),
-			sizeof(t_cone) * tscene->cone_size);
+	scene->cone = arena_alloc(*get_arena(), sizeof(t_cone) * tscene->cone_size);
 	scene->light = arena_alloc(*get_arena(),
 			sizeof(t_light) * tscene->light_size);
 	scene->cylinder_count = tscene->cylinder_size;

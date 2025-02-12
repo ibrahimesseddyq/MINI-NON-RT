@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ibes-sed <ibes-sed@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 22:23:09 by ibes-sed          #+#    #+#             */
-/*   Updated: 2025/02/11 21:30:18 by ibes-sed         ###   ########.fr       */
+/*   Updated: 2025/02/12 18:43:36 by sessarhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,10 @@ void	set_vector_up(t_vector *up)
 
 void	draw_apixel(t_scene *scene, t_draw *draw_infos)
 {
-	draw_infos->pixel_x
-		= (2 * ((draw_infos->x + 0.5) / WIDTH) - 1)
+	draw_infos->pixel_x = (2 * ((draw_infos->x + 0.5) / WIDTH) - 1)
 		* draw_infos->aspect_ratio * draw_infos->fov_scale;
-	draw_infos->pixel_y
-		= (1 - 2 * ((draw_infos->y + 0.5) / HEIGHT)) * draw_infos->fov_scale;
+	draw_infos->pixel_y = (1 - 2 * ((draw_infos->y + 0.5) / HEIGHT))
+		* draw_infos->fov_scale;
 	draw_infos->sclx = vector_scale(&draw_infos->right, draw_infos->pixel_x);
 	draw_infos->scly = vector_scale(&draw_infos->up, draw_infos->pixel_y);
 	draw_infos->add = vector_add(&draw_infos->sclx, &draw_infos->scly);

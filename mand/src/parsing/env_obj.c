@@ -6,7 +6,7 @@
 /*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/11 18:09:02 by sessarhi          #+#    #+#             */
-/*   Updated: 2025/01/27 18:30:15 by sessarhi         ###   ########.fr       */
+/*   Updated: 2025/02/12 16:51:42 by sessarhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,13 +37,13 @@ int	process_c(char **inf, t_tscene *t_scene)
 	t_scene->camera.fov = ft_atoi(inf[3]);
 	if (!parse_crd(inf[1], &t_scene->camera.position)
 		|| !parse_crd(inf[2], &t_scene->camera.direction))
-		return (1);
+		clean_exit("Error: Invalid Camera data");
 	if (t_scene->camera.fov > 180 || t_scene->camera.fov < 0
 		|| t_scene->camera.direction.x < -1 || t_scene->camera.direction.x
 		> 1 || t_scene->camera.direction.y < -1
 		|| t_scene->camera.direction.y > 1
 		|| t_scene->camera.direction.z < -1 || t_scene->camera.direction.z > 1)
-		return (1);
+		clean_exit("Error: Invalid Camera data");
 	normalized_dir = vector_normalize(&t_scene->camera.direction);
 	t_scene->camera.direction.x = normalized_dir.x;
 	t_scene->camera.direction.y = normalized_dir.y;

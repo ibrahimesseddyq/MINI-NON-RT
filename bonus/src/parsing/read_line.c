@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   read_line.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ibes-sed <ibes-sed@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 15:38:19 by sessarhi          #+#    #+#             */
-/*   Updated: 2025/02/09 15:28:27 by ibes-sed         ###   ########.fr       */
+/*   Updated: 2025/02/12 18:52:25 by sessarhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,23 +16,12 @@ void	int_tsceen(t_tscene *tscene);
 bool	mange_line(char *buffer, int *ret, int *backup);
 void	restor_line(char **buffer, int *ret, int *backup);
 
-void	ft_putchar_fd(char c, int fd)
+void	ft_check_scene(t_tscene *scene)
 {
-	write(fd, &c, 1);
-}
-
-void	ft_putstr_fd(char *s, int fd)
-{
-	int	i;
-
-	i = 0;
-	if (!s)
-		return ;
-	while (s[i])
-	{
-		ft_putchar_fd(s[i], fd);
-		i++;
-	}
+	if (!scene->is_a_set)
+		clean_exit("Error: No ambient light set");
+	if (!scene->is_c_set)
+		clean_exit("Error: No camera set");
 }
 
 void	process_flie(char **av, t_scene *scene)
@@ -44,12 +33,11 @@ void	process_flie(char **av, t_scene *scene)
 	if (pi.fd == -1)
 		return (printf("Error can't open %s\n", *av), clean_exit(""));
 	pi.buffer = arena_alloc(*get_arena(), BUFFER_SIZE);
-	pi.ret
-		= read(pi.fd, pi.buffer, BUFFER_SIZE);
+	pi.ret = read(pi.fd, pi.buffer, BUFFER_SIZE);
 	while (pi.ret > 0)
 	{
 		if (!mange_line(pi.buffer, &pi.ret, &pi.backup))
-			return (printf(EMPTY_FILE), clean_exit(""));
+			clean_exit("error file empty or line too long\n");
 		pi.buffer[pi.ret] = '\0';
 		splil_line(pi.buffer, &pi.tscene);
 		restor_line(&pi.buffer, &pi.ret, &pi.backup);
@@ -60,6 +48,7 @@ void	process_flie(char **av, t_scene *scene)
 			splil_line(pi.buffer, &pi.tscene);
 		}
 	}
+	ft_check_scene(&pi.tscene);
 	copy_tscene(&pi.tscene, scene);
 	close(pi.fd);
 }

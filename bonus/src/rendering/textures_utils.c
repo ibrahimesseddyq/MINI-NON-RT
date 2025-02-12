@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   textures_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ibes-sed <ibes-sed@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 22:24:06 by ibes-sed          #+#    #+#             */
-/*   Updated: 2025/02/11 22:21:12 by ibes-sed         ###   ########.fr       */
+/*   Updated: 2025/02/12 18:45:36 by sessarhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,22 @@ void	init_textures(t_scene *scene)
 {
 	int	i;
 
-	setup_plane_textures(scene);
-	setup_sphere_textures(scene);
-	setup_cylinder_textures(scene);
-	setup_cone_textures(scene);
-	return ;
+	i = -1;
+	while (++i < scene->plane_count)
+		if (scene->plane[i].texture_name)
+			load_plane_texture(scene, i);
+	i = -1;
+	while (++i < scene->sphere_count)
+		if (scene->sphere[i].texture_name)
+			sphere_texture(scene, i);
+	i = -1;
+	while (++i < scene->cylinder_count)
+		if (scene->cylinder[i].texture_name)
+			cylinder_texture(scene, i);
+	i = -1;
+	while (++i < scene->cone_count)
+		if (scene->cone[i].texture_name)
+			cone_texture(scene, i);
 }
 
 void	setup_vector(t_color *vector, int switch_flag, unsigned char *pixel_ptr)
@@ -44,7 +55,6 @@ t_color	sample_texture(t_texture *texture, FLOAT u, FLOAT v, int switch_flag)
 	t_color			color;
 	int				x;
 	int				y;
-	unsigned int	pixel;
 	unsigned char	*pixel_ptr;
 
 	u = u - floor(u);

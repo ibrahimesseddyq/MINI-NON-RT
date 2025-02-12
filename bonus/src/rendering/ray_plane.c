@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ray_plane.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ibes-sed <ibes-sed@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/10 17:02:02 by sessarhi          #+#    #+#             */
-/*   Updated: 2025/02/11 22:22:55 by ibes-sed         ###   ########.fr       */
+/*   Updated: 2025/02/12 18:48:01 by sessarhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,6 @@ bool	plane_intersection(const t_scene *scene,
 	int			i;
 	FLOAT		t;
 	t_vector	tmp;
-	t_vector	relative_point;
 
 	i = scene->plane_count;
 	while (i--)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sphere_textures.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ibes-sed <ibes-sed@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/06 21:48:22 by ibes-sed          #+#    #+#             */
-/*   Updated: 2025/02/11 21:44:06 by ibes-sed         ###   ########.fr       */
+/*   Updated: 2025/02/12 18:49:24 by sessarhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static t_color	get_sphere_texture_color(t_sphere *sphere,
 	if (sphere->texture_name)
 		return (sample_texture(&sphere->texture,
 				intersection->u, intersection->v, 1));
-	return ((t_color){0, 0, 0, 0});
+	return ((t_color){0, 0, 0});
 }
 
 static t_vector	calculate_sphere_normal(t_sphere *sphere,
@@ -72,10 +72,12 @@ void	handle_sphere_textures(t_scene *scene, t_texture_params *params)
 	checker = init_checker();
 	while (i < scene->sphere_count)
 	{
-		if (params->intersection->id != scene->sphere[i].id)
+		if (params->intersection->id == scene->sphere[i].id)
 		{
-			i++;
-			continue ;
+			if (scene->sphere[i].has_checkerboard
+				|| scene->sphere[i].texture_name)
+				handle_sphere_maps(scene, params, i, checker);
+			break ;
 		}
 		else if (scene->sphere[i].has_checkerboard
 			|| scene->sphere[i].texture_name)

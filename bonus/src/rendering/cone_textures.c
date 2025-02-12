@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   cone_textures.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ibes-sed <ibes-sed@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/08 18:06:09 by ibes-sed          #+#    #+#             */
-/*   Updated: 2025/02/11 21:31:05 by ibes-sed         ###   ########.fr       */
+/*   Updated: 2025/02/12 18:49:56 by sessarhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./../../../minirt_bonus.h"
 
 void	handle_cone_maps(t_scene *scene,
-	t_texture_params *params, t_checker_config	*checker, int i)
+	t_texture_params *params, int i)
 {
 	if (scene->cone[i].has_color_texture)
 	{
@@ -39,19 +39,19 @@ void	handle_cone_textures(t_scene *scene, t_texture_params *params)
 	checker = init_checker();
 	while (i < scene->cone_count)
 	{
-		if (params->intersection->id != scene->cone[i].id)
+		if (params->intersection->id == scene->cone[i].id)
 		{
-			i++;
-			continue ;
+			if (scene->cone[i].has_checkerboard)
+			{
+				*(params->texture_color) = get_checkerboard_color(
+						checker.board1, checker.board2, params->intersection,
+						checker.size);
+				*(params->set) = 1;
+			}
+			else if (scene->cone[i].texture_name)
+				handle_cone_maps(scene, params, i);
+			return ;
 		}
-		if (scene->cone[i].has_checkerboard)
-		{
-			*(params->texture_color) = get_checkerboard_color(checker.board1,
-					checker.board2, params->intersection, checker.size);
-			*(params->set) = 1;
-		}
-		else if (scene->cone[i].texture_name)
-			handle_cone_maps(scene, params, &checker, i);
 		i++;
 	}
 }
