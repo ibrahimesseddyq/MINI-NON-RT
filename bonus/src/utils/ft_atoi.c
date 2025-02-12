@@ -6,9 +6,11 @@
 /*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/29 14:10:28 by sessarhi          #+#    #+#             */
-/*   Updated: 2025/02/12 15:45:27 by sessarhi         ###   ########.fr       */
+/*   Updated: 2025/02/12 15:51:03 by sessarhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include "./../../../minirt_bonus.h"
 
 int	ft_atoi(const char *str)
 {
