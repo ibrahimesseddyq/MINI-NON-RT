@@ -6,7 +6,7 @@
 /*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 15:38:19 by sessarhi          #+#    #+#             */
-/*   Updated: 2025/02/12 18:26:56 by sessarhi         ###   ########.fr       */
+/*   Updated: 2025/02/12 18:52:25 by sessarhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ void	ft_check_scene(t_tscene *scene)
 	if (!scene->is_c_set)
 		clean_exit("Error: No camera set");
 }
+
 void	process_flie(char **av, t_scene *scene)
 {
 	t_process_file	pi;
