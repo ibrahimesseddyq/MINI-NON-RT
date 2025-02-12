@@ -6,7 +6,7 @@
 /*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/06 21:47:59 by ibes-sed          #+#    #+#             */
-/*   Updated: 2025/02/11 20:13:02 by sessarhi         ###   ########.fr       */
+/*   Updated: 2025/02/11 21:13:47 by sessarhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,8 @@ void	handle_cylinder_maps(t_scene *scene,
 				params->intersection->u, params->intersection->v, 1);
 	else
 		*(params->texture_color) = scene->cylinder[i].color;
-	if (scene->cylinder[i].has_bump_texture && scene->cylinder[i].normal_texture.addr)
+	if (scene->cylinder[i].has_bump_texture
+		&& scene->cylinder[i].normal_texture.addr)
 		*(params->normal)
 			= calculate_bump_normal(&scene->cylinder[i].normal_texture,
 				params->intersection->u, params->intersection->v,

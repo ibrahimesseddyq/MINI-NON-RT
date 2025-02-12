@@ -6,7 +6,7 @@
 /*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/06 21:48:22 by ibes-sed          #+#    #+#             */
-/*   Updated: 2025/02/11 20:01:06 by sessarhi         ###   ########.fr       */
+/*   Updated: 2025/02/12 12:47:57 by sessarhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,10 +47,7 @@ void	handle_sphere_maps(t_scene *scene, t_texture_params *params, int i)
 				&scene->sphere[i], params->intersection);
 	}
 	else
-	{
-		printf("no color texture\n");
 		*(params->texture_color) = scene->sphere[i].color;
-	}
 	if (scene->sphere[i].has_bump_texture)
 		*(params->normal) = calculate_sphere_normal(
 				&scene->sphere[i], params->intersection);
