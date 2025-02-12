@@ -6,7 +6,7 @@
 /*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 16:42:51 by sessarhi          #+#    #+#             */
-/*   Updated: 2025/02/11 15:49:07 by sessarhi         ###   ########.fr       */
+/*   Updated: 2025/02/12 18:21:16 by sessarhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,8 +133,8 @@ void	copy_tscene(t_tscene *tscene, t_scene *scene)
 
 	scene->ambient = tscene->ambient;
 	scene->camera = tscene->camera;
-	scene->cylinder = arena_alloc(*get_arena(),
-			sizeof(t_cylinder) * tscene->cylinder_size);
+	scene->cylinder = arena_alloc(*get_arena(), sizeof(t_cylinder)
+			* tscene->cylinder_size);
 	scene->plane = arena_alloc(*get_arena(),
 			sizeof(t_plane) * tscene->plane_size);
 	scene->sphere = arena_alloc(*get_arena(),
