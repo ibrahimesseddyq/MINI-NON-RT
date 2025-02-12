@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rotation.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ibes-sed <ibes-sed@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 22:24:02 by ibes-sed          #+#    #+#             */
-/*   Updated: 2025/01/28 22:24:02 by ibes-sed         ###   ########.fr       */
+/*   Updated: 2025/02/11 21:11:15 by sessarhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,13 +37,11 @@ void	set_axis(int *keys, t_vector *axis)
 void	rotate_camera(int *keys, t_scene *scene)
 {
 	t_vector	axis;
-	t_vector	original_direction;
 	FLOAT		angle;
 	FLOAT		length;
 
 	set_axis(keys, &axis);
 	angle = M_PI / 4;
-	original_direction = scene->camera.direction;
 	rotate_point((t_point *)&scene->camera.direction, axis, angle);
 	length = sqrt(
 			scene->camera.direction.x * scene->camera.direction.x
@@ -64,11 +62,9 @@ void	rotate_cylinder(int *keys, t_scene *scene, int i)
 	t_vector	axis;
 	FLOAT		angle;
 	FLOAT		length;
-	t_vector	original_direction;
 
 	angle = M_PI / 4;
 	set_axis(keys, &axis);
-	original_direction = scene->cylinder[i].direction;
 	rotate_point((t_point *)&scene->cylinder[i].direction, axis, angle);
 	length = sqrt(
 			scene->cylinder[i].direction.x * scene->cylinder[i].direction.x
@@ -89,11 +85,9 @@ void	rotate_plane(int *keys, t_scene *scene, int i)
 	t_vector	axis;
 	FLOAT		angle;
 	FLOAT		length;
-	t_vector	original_direction;
 
 	angle = M_PI / 4;
 	set_axis(keys, &axis);
-	original_direction = scene->plane[i].direction;
 	rotate_point((t_point *)&scene->plane[i].direction, axis, angle);
 	length = sqrt(
 			scene->plane[i].direction.x * scene->plane[i].direction.x
