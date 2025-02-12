@@ -20,6 +20,8 @@ int	process_sp(char **inf, t_tscene *t_scene)
 	if (!inf[1] || !inf[2] || !inf[3] || inf[4])
 		return (1);
 	new->diameter = ft_atof(inf[2]);
+	if (new->diameter < 0)
+		clean_exit("Error: Sphere diameter can't be negative");
 	if (!parse_crd(inf[1], &new->position)
 		|| !parse_rgb(inf[3], &new->color))
 		return (1);
@@ -56,6 +58,8 @@ int	process_cy(char **inf, t_tscene *t_scene)
 		return (1);
 	new->diameter = ft_atof(inf[3]);
 	new->height = ft_atof(inf[4]);
+	if (new->diameter < 0 || new->height < 0)
+		clean_exit("Error: Cylinder diameter or height can't be negative");
 	if (!parse_crd(inf[1], &new->position)
 		|| !parse_crd(inf[2], &new->direction)
 		|| !parse_rgb(inf[5], &new->color)

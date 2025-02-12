@@ -36,6 +36,6 @@ void	splil_line(const char *line, t_tscene *tscene)
 		else if (ft_strcmp(inf[0], "cy") == 0 && !process_cy(inf, tscene))
 			i++;
 		else
-			return (printf("Error \n"), exit(1));
+			clean_exit("Error: Invalid object");
 	}
 }
