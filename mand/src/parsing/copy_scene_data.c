@@ -6,7 +6,7 @@
 /*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 16:42:51 by sessarhi          #+#    #+#             */
-/*   Updated: 2025/01/25 22:30:56 by sessarhi         ###   ########.fr       */
+/*   Updated: 2025/02/12 17:58:50 by sessarhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,9 @@ void	copy_tscene(t_tscene *tscene, t_scene *scene)
 	int	id;
 
 	id = 0;
+	if (tscene->is_a_set == false || tscene->is_c_set == false
+		|| tscene->is_l_set == false)
+		clean_exit("Error: Missing scene data");
 	scene->ambient = tscene->ambient;
 	scene->camera = tscene->camera;
 	scene->light = tscene->light;
