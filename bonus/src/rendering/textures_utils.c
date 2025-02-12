@@ -6,7 +6,7 @@
 /*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 22:24:06 by ibes-sed          #+#    #+#             */
-/*   Updated: 2025/02/11 20:04:05 by sessarhi         ###   ########.fr       */
+/*   Updated: 2025/02/12 15:49:37 by sessarhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,35 +16,22 @@ void	init_textures(t_scene *scene)
 {
 	int	i;
 
-	i = 0;
-	while (i < scene->plane_count)
-	{
+	i = -1;
+	while (++i < scene->plane_count)
 		if (scene->plane[i].texture_name)
 			load_plane_texture(scene, i);
-		i++;
-	}
-	i = 0;
-	while (i < scene->sphere_count)
-	{
+	i = -1;
+	while (++i < scene->sphere_count)
 		if (scene->sphere[i].texture_name)
 			sphere_texture(scene, i);
-		i++;
-	}
-	i = 0;
-	while (i < scene->cylinder_count)
-	{
+	i = -1;
+	while (++i < scene->cylinder_count)
 		if (scene->cylinder[i].texture_name)
 			cylinder_texture(scene, i);
-		i++;
-	}
-	i = 0;
-	while (i < scene->cone_count)
-	{
+	i = -1;
+	while (++i < scene->cone_count)
 		if (scene->cone[i].texture_name)
 			cone_texture(scene, i);
-		i++;
-	}
-	return ;
 }
 
 void	setup_vector(t_color *vector, int switch_flag, unsigned char *pixel_ptr)
@@ -68,7 +55,6 @@ t_color	sample_texture(t_texture *texture, FLOAT u, FLOAT v, int switch_flag)
 	t_color			color;
 	int				x;
 	int				y;
-	// unsigned int	pixel;
 	unsigned char	*pixel_ptr;
 
 	u = u - floor(u);

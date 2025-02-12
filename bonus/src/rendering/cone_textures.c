@@ -6,7 +6,7 @@
 /*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/08 18:06:09 by ibes-sed          #+#    #+#             */
-/*   Updated: 2025/02/11 20:01:42 by sessarhi         ###   ########.fr       */
+/*   Updated: 2025/02/12 15:46:17 by sessarhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void	handle_cone_textures(t_scene *scene, t_texture_params *params)
 			if (scene->cone[i].has_checkerboard)
 			{
 				*(params->texture_color) = get_checkerboard_color(
-						checker.board1,checker.board2, params->intersection,
+						checker.board1, checker.board2, params->intersection,
 						checker.size);
 				*(params->set) = 1;
 			}
