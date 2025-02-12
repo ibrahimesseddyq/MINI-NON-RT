@@ -6,7 +6,7 @@
 /*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/14 16:43:26 by sessarhi          #+#    #+#             */
-/*   Updated: 2025/01/26 11:58:27 by sessarhi         ###   ########.fr       */
+/*   Updated: 2025/02/12 16:49:02 by sessarhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,5 @@ bool	parse_crd(const char *str, t_vector *vector)
 	vector->x = ft_atof(tab[0]);
 	vector->y = ft_atof(tab[1]);
 	vector->z = ft_atof(tab[2]);
-	if (vector->x == (FLOAT)INT_MIN || vector->y
-		== (FLOAT)INT_MIN || vector->z == (FLOAT)INT_MIN)
-		return (false);
 	return (true);
 }

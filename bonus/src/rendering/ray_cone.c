@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ray_cone.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ibes-sed <ibes-sed@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 22:23:45 by ibes-sed          #+#    #+#             */
-/*   Updated: 2025/02/11 22:24:43 by ibes-sed         ###   ########.fr       */
+/*   Updated: 2025/02/12 18:50:45 by sessarhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	calculate_cone_normal(t_scene *scene,
 }
 
 void	calculate_u_v(t_scene *scene,
-		t_intersection *intersection, t_ray *ray, int i)
+		t_intersection *intersection, int i)
 {
 	t_calculate_uv	inter;
 
@@ -86,7 +86,7 @@ bool	cone_intersection(t_scene *scene,
 			intersection->point
 				= vector_add(&ray->origin, &tmp);
 			calculate_cone_normal(scene, intersection, &inter, i);
-			calculate_u_v(scene, intersection, ray, i);
+			calculate_u_v(scene, intersection, i);
 		}
 	}
 	return (intersection->hit);

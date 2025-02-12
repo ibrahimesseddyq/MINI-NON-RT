@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   calculate_surface.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ibes-sed <ibes-sed@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 22:23:24 by ibes-sed          #+#    #+#             */
-/*   Updated: 2025/02/11 21:30:38 by ibes-sed         ###   ########.fr       */
+/*   Updated: 2025/02/12 18:42:18 by sessarhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,5 @@ void	calculate_surface_properties(t_scene *scene,
 	handle_cylinder_textures(scene, &params);
 	handle_cone_textures(scene, &params);
 	if (!set)
-	{
 		*texture_color = intersection->color;
-	}
 }

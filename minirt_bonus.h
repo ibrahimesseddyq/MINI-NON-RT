@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minirt_bonus.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ibes-sed <ibes-sed@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 14:53:30 by sessarhi          #+#    #+#             */
-/*   Updated: 2025/02/11 22:27:59 by ibes-sed         ###   ########.fr       */
+/*   Updated: 2025/02/12 18:44:50 by sessarhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,6 @@ t_vector			calculate_bump_normal(t_texture *bump_map, FLOAT u, FLOAT v,
 						t_vector *original_normal);
 t_checker_config	init_checker(void);
 int					hook(t_scene *scene);
-int					key_hook(int keycode, t_scene *scene);
 int					transformation(int keycode, t_scene *scene);
 void				init_textures(t_scene *scene);
 void				handle_sphere_textures(t_scene *scene,
@@ -114,8 +113,4 @@ void				ft_copy_plane(t_tscene *tscene, t_scene *scene, int *id);
 void				ft_copy_sphere(t_tscene *tscene, t_scene *scene, int *id);
 void				ft_copy_cylinder(t_tscene *tscene, t_scene *scene, int *id);
 void				ft_copy_cone(t_tscene *tscene, t_scene *scene, int *id);
-void				setup_cylinder_textures(t_scene *scene);
-void				setup_sphere_textures(t_scene *scene);
-void				setup_cone_textures(t_scene *scene);
-void				setup_plane_textures(t_scene *scene);
 #endif

@@ -3,26 +3,26 @@
 /*                                                        :::      ::::::::   */
 /*   advanced_vector.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ibes-sed <ibes-sed@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 22:24:52 by ibes-sed          #+#    #+#             */
-/*   Updated: 2025/01/28 22:24:52 by ibes-sed         ###   ########.fr       */
+/*   Updated: 2025/02/11 20:00:26 by sessarhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./../../includes/math.h"
 
-FLOAT	vector_dot(t_vector *a, t_vector *b)
+FLOAT	vector_dot(const t_vector *a, const t_vector *b)
 {
 	return (a->x * b->x + a->y * b->y + a->z * b->z);
 }
 
-FLOAT	vector_length(t_vector *a)
+FLOAT	vector_length(const t_vector *a)
 {
 	return (sqrt(a->x * a->x + a->y * a->y + a->z * a->z));
 }
 
-t_vector	vector_normalize(t_vector *a)
+t_vector	vector_normalize(const t_vector *a)
 {
 	FLOAT		len;
 	t_vector	res;
@@ -34,7 +34,7 @@ t_vector	vector_normalize(t_vector *a)
 	return (res);
 }
 
-t_vector	vector_scale(t_vector *a, FLOAT scale)
+t_vector	vector_scale(const t_vector *a, FLOAT scale)
 {
 	t_vector	res;
 
@@ -44,7 +44,7 @@ t_vector	vector_scale(t_vector *a, FLOAT scale)
 	return (res);
 }
 
-t_vector	vector_reflect(t_vector *incident, t_vector *normal)
+t_vector	vector_reflect(const t_vector *incident, const t_vector *normal)
 {
 	FLOAT		dot_product;
 	t_vector	scaled_normal;

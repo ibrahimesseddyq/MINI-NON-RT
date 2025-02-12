@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   move.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ibes-sed <ibes-sed@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 22:23:33 by ibes-sed          #+#    #+#             */
-/*   Updated: 2025/01/28 22:23:34 by ibes-sed         ###   ########.fr       */
+/*   Updated: 2025/02/11 20:10:17 by sessarhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ void	move_light_or_camera(int *keys, t_scene *scene)
 	int	i;
 	int	obj_id;
 
+	i = 0;
 	if ((char)keys[1] == 'c')
 		move_camera(keys, &scene->camera);
 	else
