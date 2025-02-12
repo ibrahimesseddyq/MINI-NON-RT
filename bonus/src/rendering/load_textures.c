@@ -6,7 +6,7 @@
 /*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/06 21:48:09 by ibes-sed          #+#    #+#             */
-/*   Updated: 2025/02/11 14:15:50 by sessarhi         ###   ########.fr       */
+/*   Updated: 2025/02/12 18:43:48 by sessarhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ void	sphere_texture(t_scene *scene, int i)
 {
 	load_texture(&scene->sphere[i].texture, scene->mlx,
 		scene->sphere[i].texture_name);
+	printf("sphere_texture [%s] [%d]\n", scene->sphere[i].texture_name, i);
 	load_texture(&scene->sphere[i].normal_texture,
 		scene->mlx, scene->sphere[i].normal_texture_name);
 }

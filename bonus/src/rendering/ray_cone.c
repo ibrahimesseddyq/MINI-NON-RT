@@ -6,7 +6,7 @@
 /*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 22:23:45 by ibes-sed          #+#    #+#             */
-/*   Updated: 2025/02/10 20:01:03 by sessarhi         ###   ########.fr       */
+/*   Updated: 2025/02/12 18:50:45 by sessarhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,28 @@ void	calculate_cone_normal(t_scene *scene,
 	intersection->normal = vector_normalize(&inter->subs_vec);
 }
 
+void	calculate_u_v(t_scene *scene,
+		t_intersection *intersection, int i)
+{
+	t_calculate_uv	inter;
+
+	inter.p = vector_sub(&intersection->point, &scene->cone[i].vertex);
+	inter.axis = vector_normalize(&scene->cone[i].axis);
+	inter.height = vector_dot(&inter.p, &inter.axis);
+	inter.cone_height = vector_length(&scene->cone[i].axis);
+	intersection->v = inter.height / inter.cone_height;
+	inter.proj = vector_scale(&inter.axis, inter.height);
+	inter.planar = vector_sub(&inter.p, &inter.proj);
+	inter.up.x = 0;
+	inter.up.y = 1;
+	inter.up.z = 0;
+	inter.right = vector_cross(&inter.axis, &inter.up);
+	inter.forward = vector_cross(&inter.right, &inter.axis);
+	intersection->u = 0.5 + (atan2(
+				vector_dot(&inter.planar, &inter.right),
+				vector_dot(&inter.planar, &inter.forward)
+				) / (2 * M_PI));
+}
 
 bool	cone_intersection(t_scene *scene,
 		t_intersection *intersection, t_ray *ray)
@@ -64,27 +86,8 @@ bool	cone_intersection(t_scene *scene,
 			intersection->point
 				= vector_add(&ray->origin, &tmp);
 			calculate_cone_normal(scene, intersection, &inter, i);
-
-			t_vector p = vector_sub(&intersection->point, &scene->cone[i].vertex);
-            t_vector axis = vector_normalize(&scene->cone[i].axis);
-            double height = vector_dot(&p, &axis);
-            double cone_height = vector_length(&scene->cone[i].axis);
-            intersection->v = height / cone_height;  // Normalize height to [0,1]
-            t_vector proj = vector_scale(&axis, height);
-            t_vector planar = vector_sub(&p, &proj);
-			t_vector up = {0, 1, 0};  // Up vector
-
-			// Get perpendicular vectors for reference frame
-			t_vector right = vector_cross(&axis, &up);
-			t_vector forward = vector_cross(&right, &axis);
-
-			// Calculate angle using atan2
-			intersection->u = 0.5 + (atan2(
-				vector_dot(&planar, &right),     // x component
-				vector_dot(&planar, &forward)    // z component
-			) / (2 * M_PI));
+			calculate_u_v(scene, intersection, i);
 		}
 	}
-	// printf("cone hit color[%f, %f, %f]\ndistance %f\n", intersection->color.r, intersection->color.g, intersection->color.b,intersection->distance);
 	return (intersection->hit);
 }

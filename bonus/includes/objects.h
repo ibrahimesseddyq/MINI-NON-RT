@@ -6,7 +6,7 @@
 /*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 12:56:16 by sessarhi          #+#    #+#             */
-/*   Updated: 2025/02/12 15:43:42 by sessarhi         ###   ########.fr       */
+/*   Updated: 2025/02/12 18:41:03 by sessarhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -518,6 +518,19 @@ typedef struct s_cap_intersection_params
 	t_vector		*cap_normal;
 	FLOAT			dmin;
 }	t_cap_intersection_params;
+
+typedef struct s_calculate_uv
+{
+	t_vector	p;
+	t_vector	axis;
+	double		height;
+	double		cone_height;
+	t_vector	proj;
+	t_vector	planar;
+	t_vector	up;
+	t_vector	right;
+	t_vector	forward;
+}	t_calculate_uv;
 
 t_tsphere	*new_sphere(void);
 t_tcylinder	*new_cylinder(void);

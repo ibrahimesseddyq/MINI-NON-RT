@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   defined.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ibes-sed <ibes-sed@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/24 16:58:37 by sessarhi          #+#    #+#             */
-/*   Updated: 2025/02/08 17:14:05 by sessarhi         ###   ########.fr       */
+/*   Updated: 2025/02/11 22:27:04 by ibes-sed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 # define SHADOW_BIAS 0.0001f
 # define SUCCESS 0
 # define ERROR -1
+# define EMPTY_FILE "error file empty or line too long\n"
 
 typedef struct _s_vector
 {
