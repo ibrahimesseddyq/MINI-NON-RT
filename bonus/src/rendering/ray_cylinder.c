@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ray_cylinder.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ibes-sed <ibes-sed@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/10 17:02:06 by sessarhi          #+#    #+#             */
-/*   Updated: 2025/02/09 17:37:21 by ibes-sed         ###   ########.fr       */
+/*   Updated: 2025/02/13 19:04:49 by sessarhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,25 +52,26 @@ static bool	is_within_cylinder_height(const t_vector *point,
 }
 
 static bool	get_body_hit_info(t_intersection *intersection, const t_ray *ray,
-							const t_cylinder *cylinder, FLOAT t)
+		const t_cylinder *cylinder, FLOAT t)
 {
-	t_vector	scl_rad;
-	t_vector	hit_point ;
-	t_vector	cp;
-	FLOAT		height;
-	t_vector	proj;
+	t_cy_inter	cyi;
 
-	scl_rad = vector_scale(&ray->direction, t);
-	hit_point = vector_add(&ray->origin, &scl_rad);
-	if (!is_within_cylinder_height(&hit_point, cylinder)
+	cyi.scl_rad = vector_scale(&ray->direction, t);
+	cyi.hit_point = vector_add(&ray->origin, &cyi.scl_rad);
+	if (!is_within_cylinder_height(&cyi.hit_point, cylinder)
 		|| t >= intersection->distance)
 		return (false);
-	cp = vector_sub(&hit_point, &cylinder->position);
-	height = vector_dot(&cp, &cylinder->direction);
-	proj = vector_scale(&cylinder->direction, height);
-	scl_rad = vector_sub(&cp, &proj);
-	intersection->normal = vector_normalize(&scl_rad);
-	intersection->point = hit_point;
+	cyi.cp = vector_sub(&cyi.hit_point, &cylinder->position);
+	cyi.height = vector_dot(&cyi.cp, &cylinder->direction);
+	cyi.proj = vector_scale(&cylinder->direction, cyi.height);
+	cyi.scl_rad = vector_sub(&cyi.cp, &cyi.proj);
+	intersection->normal = vector_normalize(&cyi.scl_rad);
+	intersection->point = cyi.hit_point;
+	cyi.u = atan2(intersection->normal.z,
+			intersection->normal.x) / (2 * M_PI) + 0.5;
+	cyi.v = cyi.height / cylinder->height;
+	intersection->u = cyi.u;
+	intersection->v = cyi.v;
 	return (true);
 }
 
@@ -78,24 +79,28 @@ static FLOAT	get_cap_intersection(t_intersection *intersection, t_caps *caps,
 		const t_vector *cap_center, const t_vector *cap_normal)
 {
 	FLOAT		t;
-	t_vector	scl_rad;
-	t_vector	hit_point;
-	t_vector	cp;
-	t_vector	proj;
+	t_cy_inter	cyi;
 
 	t = hit_plane(cap_center, cap_normal, &caps->ray);
 	if (t <= EPSILON || t >= caps->dmin)
 		return (-1);
-	scl_rad = vector_scale(&caps->ray.direction, t);
-	hit_point = vector_add(&caps->ray.origin, &scl_rad);
-	cp = vector_sub(&hit_point, &caps->cylinder.position);
-	proj = vector_scale(&caps->cylinder.direction,
-			vector_dot(&cp, &caps->cylinder.direction));
-	scl_rad = vector_sub(&cp, &proj);
-	if (vector_length(&scl_rad) > caps->cylinder.diameter * 0.5)
+
+	cyi.scl_rad = vector_scale(&caps->ray.direction, t);
+	cyi.hit_point = vector_add(&caps->ray.origin, &cyi.scl_rad);
+
+	cyi.cp = vector_sub(&cyi.hit_point, &caps->cylinder.position);
+	cyi.proj = vector_scale(&caps->cylinder.direction,
+			vector_dot(&cyi.cp, &caps->cylinder.direction));
+	cyi.scl_rad = vector_sub(&cyi.cp, &cyi.proj);
+
+	if (vector_length(&cyi.scl_rad) > caps->cylinder.diameter * 0.5)
 		return (-1);
 	intersection->normal = *cap_normal;
-	intersection->point = hit_point;
+	intersection->point = cyi.hit_point;
+	cyi.u = (cyi.scl_rad.x / caps->cylinder.diameter) + 0.5;
+	cyi.v = (cyi.scl_rad.z / caps->cylinder.diameter) + 0.5;
+	intersection->u = cyi.u;
+	intersection->v = cyi.v;
 	return (t);
 }
 
