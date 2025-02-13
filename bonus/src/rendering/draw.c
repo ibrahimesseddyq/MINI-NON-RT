@@ -6,17 +6,26 @@
 /*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 22:23:09 by ibes-sed          #+#    #+#             */
-/*   Updated: 2025/02/12 18:43:36 by sessarhi         ###   ########.fr       */
+/*   Updated: 2025/02/13 22:05:46 by sessarhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./../../../minirt_bonus.h"
 
-void	set_vector_up(t_vector *up)
+void	set_vector_up(t_draw *info)
 {
-	up->x = 0;
-	up->y = 1;
-	up->z = 0;
+	if (info->forword.x == 0 && info->forword.y != 0 && info->forword.z == 0)
+	{
+		info->up.x = 0;
+		info->up.y = 0;
+		info->up.z = 1;
+	}
+	else
+	{
+		info->up.x = 0;
+		info->up.y = 1;
+		info->up.z = 0;
+	}
 }
 
 void	draw_apixel(t_scene *scene, t_draw *draw_infos)
@@ -42,7 +51,7 @@ void	draw(t_scene *scene)
 	draw_infos.aspect_ratio = (FLOAT)WIDTH / (FLOAT)HEIGHT;
 	draw_infos.fov_scale = tan((scene->camera.fov * M_PI / 180.f) / 2);
 	draw_infos.forword = vector_normalize(&scene->camera.direction);
-	set_vector_up(&draw_infos.up);
+	set_vector_up(&draw_infos);
 	draw_infos.right = vector_cross(&draw_infos.forword, &draw_infos.up);
 	draw_infos.up = vector_cross(&draw_infos.right, &draw_infos.forword);
 	draw_infos.y = 0;

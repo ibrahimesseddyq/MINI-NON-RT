@@ -6,7 +6,7 @@
 /*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/10 17:01:12 by sessarhi          #+#    #+#             */
-/*   Updated: 2025/01/24 20:11:21 by sessarhi         ###   ########.fr       */
+/*   Updated: 2025/02/13 22:22:27 by sessarhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,30 +51,29 @@ void	set_sphere_intersection_infos(t_intersection *intersection,
 }
 
 bool	sphere_intersection(t_scene *scene,
-	t_intersection *intersection, t_ray *ray)
+			t_intersection *intersection, t_ray *ray)
 {
 	int			i;
 	FLOAT		t;
 	t_vector	tmp;
-	t_vector	normalized;
 
 	i = scene->sphere_count;
 	while (i--)
 	{
 		t = hit_sphere(&scene->sphere[i].position,
-				scene->sphere[i].diameter / 2.0, ray);
+				scene->sphere[i].diameter * 0.5, ray);
 		if (t > 0 && t < intersection->distance)
 		{
 			set_sphere_intersection_infos(intersection, i, t, scene);
 			tmp = vector_scale(&ray->direction, t);
 			intersection->point = vector_add(&ray->origin, &tmp);
-			intersection->normal
-				= vector_sub(&intersection->point, &scene->sphere[i].position);
+			intersection->normal = vector_sub(&intersection->point,
+					&scene->sphere[i].position);
 			intersection->normal = vector_normalize(&intersection->normal);
-			normalized = vector_normalize(&intersection->point);
-			intersection->u
-				= 0.5 + (atan2(normalized.z, normalized.x) / (2 * M_PI));
-			intersection->v = 0.5 - (asin(normalized.y) / M_PI);
+			tmp = vector_sub(&intersection->point, &scene->sphere[i].position);
+			tmp = vector_normalize(&tmp);
+			intersection->u = 0.5 + atan2(tmp.z, tmp.x) / (2 * M_PI);
+			intersection->v = fmax(0.0, fmin(1.0, 0.5 - (asin(tmp.y) / M_PI)));
 		}
 	}
 	return (intersection->hit);
