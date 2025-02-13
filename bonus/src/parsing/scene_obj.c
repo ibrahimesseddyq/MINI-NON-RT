@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   scene_obj.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ibes-sed <ibes-sed@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/11 18:11:36 by sessarhi          #+#    #+#             */
-/*   Updated: 2025/02/12 18:41:49 by sessarhi         ###   ########.fr       */
+/*   Updated: 2025/02/13 02:41:12 by ibes-sed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,9 @@ int	process_sp(char **inf, t_tscene *t_scene)
 	if (!ft_strcmp(new->texture_name, "DEFAULT"))
 		new->has_color_texture = 0;
 	else if (!ft_strcmp(new->texture_name, "CHECK"))
+	{
 		new->has_checkerboard = 1;
+	}
 	if (!ft_strcmp(new->normal_texture_name, "DEFAULT"))
 		new->has_bump_texture = 0;
 	new->diameter = ft_atof(inf[2]);

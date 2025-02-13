@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sphere_textures.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ibes-sed <ibes-sed@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/06 21:48:22 by ibes-sed          #+#    #+#             */
-/*   Updated: 2025/02/12 18:49:24 by sessarhi         ###   ########.fr       */
+/*   Updated: 2025/02/13 15:50:18 by ibes-sed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,9 +79,5 @@ void	handle_sphere_textures(t_scene *scene, t_texture_params *params)
 				handle_sphere_maps(scene, params, i, checker);
 			break ;
 		}
-		else if (scene->sphere[i].has_checkerboard
-			|| scene->sphere[i].texture_name)
-			handle_sphere_maps(scene, params, i, checker);
-		break ;
 	}
 }
