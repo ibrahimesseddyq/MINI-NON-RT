@@ -1,6 +1,6 @@
 NAME = minirt
 BONUS_NAME = minirt_bonus
-CC = gcc -g -fsanitize=address
+CC = gcc -o3 #-g -fsanitize=undefined
 CFLAGS = -Wall -Wextra -Werror 
 MND = ./mand/src/
 BNS = ./bonus/src/
