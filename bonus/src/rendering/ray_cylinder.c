@@ -6,7 +6,7 @@
 /*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/10 17:02:06 by sessarhi          #+#    #+#             */
-/*   Updated: 2025/02/13 19:04:49 by sessarhi         ###   ########.fr       */
+/*   Updated: 2025/02/13 19:08:11 by sessarhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,15 +84,12 @@ static FLOAT	get_cap_intersection(t_intersection *intersection, t_caps *caps,
 	t = hit_plane(cap_center, cap_normal, &caps->ray);
 	if (t <= EPSILON || t >= caps->dmin)
 		return (-1);
-
 	cyi.scl_rad = vector_scale(&caps->ray.direction, t);
 	cyi.hit_point = vector_add(&caps->ray.origin, &cyi.scl_rad);
-
 	cyi.cp = vector_sub(&cyi.hit_point, &caps->cylinder.position);
 	cyi.proj = vector_scale(&caps->cylinder.direction,
 			vector_dot(&cyi.cp, &caps->cylinder.direction));
 	cyi.scl_rad = vector_sub(&cyi.cp, &cyi.proj);
-
 	if (vector_length(&cyi.scl_rad) > caps->cylinder.diameter * 0.5)
 		return (-1);
 	intersection->normal = *cap_normal;
