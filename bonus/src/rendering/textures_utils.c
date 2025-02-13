@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   textures_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ibes-sed <ibes-sed@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 22:24:06 by ibes-sed          #+#    #+#             */
-/*   Updated: 2025/02/12 18:45:36 by sessarhi         ###   ########.fr       */
+/*   Updated: 2025/02/12 20:52:54 by ibes-sed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,8 @@ bool	load_texture(t_texture *texture, void *mlx, char *filename)
 			&texture->bits_per_pixel,
 			&texture->line_length,
 			&texture->endian);
+	printf("texture->name: %s\n", filename);
+	printf("texture->addr: %d\n", *texture->addr);
 	if (!texture->addr)
 		return (false);
 	return (true);
