@@ -6,7 +6,7 @@
 /*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 22:24:06 by ibes-sed          #+#    #+#             */
-/*   Updated: 2025/02/13 11:55:57 by sessarhi         ###   ########.fr       */
+/*   Updated: 2025/02/13 13:50:51 by sessarhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,6 @@ void	setup_vector(t_color *vector, int switch_flag, unsigned char *pixel_ptr)
 	vector->r = pixel_ptr[0] * 0.003921569;
 	vector->g = pixel_ptr[1] * 0.003921569;
 	vector->b = pixel_ptr[2] * 0.003921569;
-
 }
 
 t_color	sample_texture(t_texture *texture, FLOAT u, FLOAT v, int switch_flag)
