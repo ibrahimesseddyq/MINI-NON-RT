@@ -1,13 +1,13 @@
 NAME = minirt
 BONUS_NAME = minirt_bonus
-CC = gcc #-g -fsanitize=address
+CC = gcc -g -fsanitize=address
 CFLAGS = -Wall -Wextra -Werror 
 MND = ./mand/src/
 BNS = ./bonus/src/
 SUBMODULE = ./MLX
 URL = https://github.com/42Paris/minilibx-linux.git
 MLX = $(SUBMODULE)/libmlx_Linux.a
-MLXFLAGS = -lX11 -lXext -lm -lpng 
+MLXFLAGS = -lX11 -lXext -lm 
 RM = rm -rf
 
 HDR = ./mand/includes/color.h  ./mand/includes/defined.h  ./mand/includes/includes.h  ./mand/includes/math.h  ./mand/includes/memory.h\
