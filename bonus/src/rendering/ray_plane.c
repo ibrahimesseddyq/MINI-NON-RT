@@ -6,7 +6,7 @@
 /*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/10 17:02:02 by sessarhi          #+#    #+#             */
-/*   Updated: 2025/02/13 18:51:49 by sessarhi         ###   ########.fr       */
+/*   Updated: 2025/02/13 19:08:27 by sessarhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,6 @@ void	cal_uv_basis(const t_vector *normal,
 		arbitrary.x = 1.0;
 	else
 		arbitrary.x = 0.0;
-
 	if (fabs(normal->y) >= 0.9)
 		arbitrary.y = 1.0;
 	else

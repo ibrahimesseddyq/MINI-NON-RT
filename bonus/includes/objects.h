@@ -6,7 +6,7 @@
 /*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 12:56:16 by sessarhi          #+#    #+#             */
-/*   Updated: 2025/02/13 18:57:30 by sessarhi         ###   ########.fr       */
+/*   Updated: 2025/02/13 19:08:35 by sessarhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -552,7 +552,6 @@ typedef struct s_cy_inter
 	FLOAT		u;
 	FLOAT		v;
 }	t_cy_inter;
-
 
 t_tsphere	*new_sphere(void);
 t_tcylinder	*new_cylinder(void);
