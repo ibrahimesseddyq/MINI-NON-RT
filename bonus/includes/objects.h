@@ -6,7 +6,7 @@
 /*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 12:56:16 by sessarhi          #+#    #+#             */
-/*   Updated: 2025/02/12 18:41:03 by sessarhi         ###   ########.fr       */
+/*   Updated: 2025/02/13 18:57:30 by sessarhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -531,6 +531,28 @@ typedef struct s_calculate_uv
 	t_vector	right;
 	t_vector	forward;
 }	t_calculate_uv;
+
+typedef struct s_plane_intersection
+{
+	int			i;
+	FLOAT		t;
+	t_vector	tmp;
+	t_vector	u;
+	t_vector	v;
+	t_vector	hpr;
+}	t_plane_intersection;
+
+typedef struct s_cy_inter
+{
+	t_vector	scl_rad;
+	t_vector	hit_point;
+	t_vector	cp;
+	FLOAT		height;
+	t_vector	proj;
+	FLOAT		u;
+	FLOAT		v;
+}	t_cy_inter;
+
 
 t_tsphere	*new_sphere(void);
 t_tcylinder	*new_cylinder(void);
