@@ -6,7 +6,7 @@
 /*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 14:52:09 by sessarhi          #+#    #+#             */
-/*   Updated: 2025/02/09 18:40:22 by sessarhi         ###   ########.fr       */
+/*   Updated: 2025/02/13 11:43:19 by sessarhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,9 @@ int	main(int ac, char **av)
 {
 	t_scene	scene;
 
-	setup_arena();
 	if (ac != 2)
 		return (printf("Error bad arguments\n"));
+	setup_arena();
 	process_flie(av, &scene);
 	render(&scene);
 	return (SUCCESS);

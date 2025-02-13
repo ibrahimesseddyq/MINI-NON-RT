@@ -6,14 +6,14 @@
 /*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/06 21:48:46 by ibes-sed          #+#    #+#             */
-/*   Updated: 2025/02/12 18:46:59 by sessarhi         ###   ########.fr       */
+/*   Updated: 2025/02/13 11:36:30 by sessarhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./../../../minirt_bonus.h"
 
-void	handle_plane_maps(t_scene *scene,
-	t_texture_params *params, t_checker_config	*checker, int i)
+static void	handle_plane_maps(t_scene *scene,
+	t_texture_params *params, int i)
 {
 	if (scene->plane[i].has_color_texture)
 		*(params->texture_color) = sample_texture(&scene->plane[i].texture,
@@ -26,7 +26,6 @@ void	handle_plane_maps(t_scene *scene,
 				params->intersection->u, params->intersection->v,
 				&params->intersection->normal);
 	*(params->set) = 1;
-	(void)checker;
 }
 
 void	handle_plane_textures(t_scene *scene, t_texture_params *params)
@@ -51,7 +50,7 @@ void	handle_plane_textures(t_scene *scene, t_texture_params *params)
 			}
 			else if (scene->plane[i].texture_name
 				&& scene->plane[i].texture.addr)
-				handle_plane_maps(scene, params, &checker, i);
+				handle_plane_maps(scene, params, i);
 			return ;
 		}
 	}

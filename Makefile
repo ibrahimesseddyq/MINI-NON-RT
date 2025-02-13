@@ -1,13 +1,13 @@
 NAME = minirt
 BONUS_NAME = minirt_bonus
-CC = cc #-g -fsanitize=address
+CC = gcc -o3 #-g -fsanitize=undefined
 CFLAGS = -Wall -Wextra -Werror 
 MND = ./mand/src/
 BNS = ./bonus/src/
 SUBMODULE = ./MLX
 URL = https://github.com/42Paris/minilibx-linux.git
 MLX = $(SUBMODULE)/libmlx_Linux.a
-MLXFLAGS = -lX11 -lXext -lm -lpng 
+MLXFLAGS = -lX11 -lXext -lm 
 RM = rm -rf
 
 HDR = ./mand/includes/color.h  ./mand/includes/defined.h  ./mand/includes/includes.h  ./mand/includes/math.h  ./mand/includes/memory.h\
@@ -34,6 +34,7 @@ BONUS_SRC = minirt_bonus.c $(BNS)parsing/parce_rgb.c $(BNS)parsing/parse_crd.c $
 	$(BNS)coloring/coloring.c $(BNS)utils/ft_atoi.c $(BNS)utils/ft_strcmp.c $(BNS)rendering/ray_sphere.c\
 	$(BNS)rendering/ray_plane.c $(BNS)rendering/transformation_utils.c $(BNS)rendering/load_textures.c $(BNS)rendering/sphere_textures.c $(BNS)rendering/plane_textures.c $(BNS)rendering/cone_textures.c $(BNS)rendering/cylinder_textures.c $(BNS)rendering/render_utils.c $(BNS)rendering/rotation.c $(BNS)rendering/rotation_utils.c $(BNS)rendering/textures.c $(BNS)rendering/textures_utils.c $(BNS)rendering/textures_setup.c $(BNS)rendering/transformation.c $(BNS)rendering/ray_cylinder.c $(BNS)rendering/ray_cone.c $(BNS)rendering/ray_cone_utils.c $(BNS)rendering/ray_cylinder_utils.c $(BNS)rendering/pixel.c $(BNS)rendering/pixel_utils.c $(BNS)rendering/move.c $(BNS)rendering/move_utils.c $(BNS)rendering/hooks.c $(BNS)rendering/draw.c $(BNS)rendering/calculate_surface.c $(BNS)parsing/env_obj.c $(BNS)parsing/scene_obj_utils.c $(BNS)parsing/scene_obj.c\
 	$(BNS)parsing/read_line.c $(BNS)parsing/copy_scene_data.c $(BNS)parsing/copy_scene_utils.c $(BNS)parsing/err_cleanup.c $(BNS)tmputils/light_utils.c\
+	$(BNS)utils/ft_strdup.c\
 
 OBJ = $(SRC:.c=.o)
 BONUS_OBJ = $(BONUS_SRC:.c=.o)
