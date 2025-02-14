@@ -6,7 +6,7 @@
 /*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 22:24:15 by ibes-sed          #+#    #+#             */
-/*   Updated: 2025/02/11 20:04:17 by sessarhi         ###   ########.fr       */
+/*   Updated: 2025/02/14 17:42:10 by sessarhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ int	transformation(int keycode, t_scene *scene)
 	}
 	if (keycode == ESC_KEY)
 		return (mlx_destroy_window(scene->mlx, scene->win),
-			clean_exit(""), 1);
+			clean_textures(scene), clean_exit(""), 1);
 	return (draw(scene), 0);
 }
 

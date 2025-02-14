@@ -6,7 +6,7 @@
 /*   By: ibes-sed <ibes-sed@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/24 17:44:32 by sessarhi          #+#    #+#             */
-/*   Updated: 2025/02/14 15:38:59 by ibes-sed         ###   ########.fr       */
+/*   Updated: 2025/02/14 18:29:21 by ibes-sed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,8 +80,17 @@ int	trace_ray(t_ray *ray, t_scene *scene)
 void	render(t_scene *scene)
 {
 	scene->mlx = mlx_init();
+	if (!scene->mlx)
+		clean_exit("Error: mlx init failed");
 	scene->win = mlx_new_window(scene->mlx, WIDTH, HEIGHT, "MiniRT");
+	if (!scene->win)
+		clean_exit("Error: mlx window failed");
 	scene->img.img = mlx_new_image(scene->mlx, WIDTH, HEIGHT);
+	if (!scene->img.img)
+	{
+		mlx_destroy_window(scene->mlx, scene->win);
+		clean_exit("Error: mlx image failed");
+	}
 	scene->img.addr = mlx_get_data_addr(scene->img.img,
 			&scene->img.bits_per_pixel, &scene->img.line_length,
 			&scene->img.endian);

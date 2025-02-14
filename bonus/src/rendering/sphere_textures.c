@@ -6,7 +6,7 @@
 /*   By: ibes-sed <ibes-sed@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/06 21:48:22 by ibes-sed          #+#    #+#             */
-/*   Updated: 2025/02/14 15:39:03 by ibes-sed         ###   ########.fr       */
+/*   Updated: 2025/02/14 18:29:58 by ibes-sed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,9 +81,6 @@ void	handle_sphere_textures(t_scene *scene, t_texture_params *params)
 				handle_sphere_maps(scene, params, i, checker);
 			break ;
 		}
-<<<<<<< HEAD
-=======
 		i++;
->>>>>>> 663a27c80fdb93c3bf559b01efc101155d342f33
 	}
 }

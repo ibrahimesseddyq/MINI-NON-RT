@@ -6,11 +6,7 @@
 /*   By: ibes-sed <ibes-sed@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/10 17:02:02 by sessarhi          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2025/02/13 02:50:46 by ibes-sed         ###   ########.fr       */
-=======
 /*   Updated: 2025/02/14 10:42:22 by sessarhi         ###   ########.fr       */
->>>>>>> 663a27c80fdb93c3bf559b01efc101155d342f33
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,17 +61,6 @@ bool	plane_intersection(const t_scene *scene,
 		if (pint.t > 0 && pint.t < intersection->distance)
 		{
 			intersection->hit = true;
-<<<<<<< HEAD
-			intersection->id = scene->plane[i].id;
-			intersection->material = scene->plane[i].material;
-			intersection->distance = t;
-			intersection->color = scene->plane[i].color;
-			intersection->normal = scene->plane[i].direction;
-			tmp = vector_scale(&ray->direction, t);
-			intersection->point = vector_add(&ray->origin, &tmp);
-			if (scene->plane[i].has_checkerboard)
-				plane_uv(&scene->plane[i], intersection, &intersection->u, &intersection->v);
-=======
 			intersection->id = scene->plane[pint.i].id;
 			intersection->material = scene->plane[pint.i].material;
 			intersection->distance = pint.t;
@@ -88,7 +73,6 @@ bool	plane_intersection(const t_scene *scene,
 					&scene->plane[pint.i].position);
 			intersection->u = vector_dot(&pint.hpr, &pint.u) * 0.1;
 			intersection->v = vector_dot(&pint.hpr, &pint.v) * 0.1;
->>>>>>> 663a27c80fdb93c3bf559b01efc101155d342f33
 		}
 	}
 	return (intersection->hit);
