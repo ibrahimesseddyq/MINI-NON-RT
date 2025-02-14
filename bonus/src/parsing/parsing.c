@@ -6,7 +6,7 @@
 /*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/15 21:09:07 by sessarhi          #+#    #+#             */
-/*   Updated: 2025/02/13 14:47:19 by sessarhi         ###   ########.fr       */
+/*   Updated: 2025/02/14 18:14:46 by sessarhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static void	parse_object(char	**inf, t_tscene *tscene)
 	else if (ft_strcmp(inf[0], "co") == 0 && !process_co(inf, tscene))
 		;
 	else
-		return (printf("Error \n"), clean_exit(""));
+		return (printf("Error "), clean_exit(""));
 }
 
 void	splil_line(char *line, t_tscene *tscene)

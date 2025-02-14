@@ -93,8 +93,17 @@ void	draw(t_scene *scene)
 void	render(t_scene *scene)
 {
 	scene->mlx = mlx_init();
+	if (!scene->mlx)
+		clean_exit("Error mlx_init failed");
 	scene->win = mlx_new_window(scene->mlx, WIDTH, HEIGHT, "MiniRT");
+	if (!scene->win)
+		clean_exit("Error mlx_new_window failed");
 	scene->img.img = mlx_new_image(scene->mlx, WIDTH, HEIGHT);
+	if (!scene->img.img)
+	{
+		mlx_destroy_window(scene->mlx, scene->win);
+		clean_exit("Error mlx_new_image failed");
+	}
 	scene->img.addr = mlx_get_data_addr(scene->img.img,
 			&scene->img.bits_per_pixel,
 			&scene->img.line_length, &scene->img.endian);
