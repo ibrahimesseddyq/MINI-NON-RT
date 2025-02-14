@@ -6,7 +6,7 @@
 /*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 22:24:06 by ibes-sed          #+#    #+#             */
-/*   Updated: 2025/02/13 13:50:51 by sessarhi         ###   ########.fr       */
+/*   Updated: 2025/02/14 16:47:12 by sessarhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,13 @@ bool	load_texture(t_texture *texture, void *mlx, char *filename)
 {
 	int	width;
 	int	height;
+	int	fd;
 
+	fd = open(filename, O_RDONLY);
+	if (fd < 0)
+		clean_exit("Error\nTexture file not found\n");
+	else
+		close(fd);
 	texture->data = mlx_xpm_file_to_image(mlx, filename, &width, &height);
 	if (!texture->data)
 		return (false);
