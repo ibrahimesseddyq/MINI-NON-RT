@@ -1,12 +1,12 @@
 /* ************************************************************************** */
-/*                                                                            */
+/*	                                                                        */
 /*                                                        :::      ::::::::   */
 /*   ray_plane.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/10 17:02:02 by sessarhi          #+#    #+#             */
-/*   Updated: 2025/02/13 19:08:27 by sessarhi         ###   ########.fr       */
+/*   Updated: 2025/02/14 10:42:22 by sessarhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,18 +31,16 @@ FLOAT	hit_plane(const t_vector *point, const t_vector *normal,
 }
 
 void	cal_uv_basis(const t_vector *normal,
-			t_vector *u_axis, t_vector *v_axis)
+		t_vector *u_axis, t_vector *v_axis)
 {
 	t_vector	arbitrary;
 
 	if (fabs(normal->x) < 0.9)
-		arbitrary.x = 1.0;
+		arbitrary = (t_vector){1.0, 0.0, 0.0};
+	else if (fabs(normal->y) < 0.9)
+		arbitrary = (t_vector){0.0, 1.0, 0.0};
 	else
-		arbitrary.x = 0.0;
-	if (fabs(normal->y) >= 0.9)
-		arbitrary.y = 1.0;
-	else
-		arbitrary.y = 0.0;
+		arbitrary = (t_vector){0.0, 0.0, 1.0};
 	*u_axis = vector_cross(normal, &arbitrary);
 	*u_axis = vector_normalize(u_axis);
 	*v_axis = vector_cross(normal, u_axis);
