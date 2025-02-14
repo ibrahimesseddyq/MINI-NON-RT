@@ -6,7 +6,7 @@
 /*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/14 16:42:24 by sessarhi          #+#    #+#             */
-/*   Updated: 2025/02/09 17:12:11 by sessarhi         ###   ########.fr       */
+/*   Updated: 2025/02/14 18:22:58 by sessarhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ FLOAT	ft_atof(const char *str)
 		str++;
 	if ((*str < '0' || *str > '9') && *str != '\0')
 		clean_exit("Error: atof invalid float number");
-	while (*str >= '0' && *str <= '9')
+	while (*str >= '0' && *str <= '9' && result != INFINITY)
 	{
 		result += ((*str++ - '0') * decimal);
 		decimal *= 0.1;
