@@ -6,7 +6,7 @@
 /*   By: ibes-sed <ibes-sed@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 22:24:06 by ibes-sed          #+#    #+#             */
-/*   Updated: 2025/02/12 20:52:54 by ibes-sed         ###   ########.fr       */
+/*   Updated: 2025/02/14 15:39:08 by ibes-sed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,16 +38,14 @@ void	setup_vector(t_color *vector, int switch_flag, unsigned char *pixel_ptr)
 {
 	if (switch_flag)
 	{
-		vector->r = pixel_ptr[2] / 255.0f;
-		vector->g = pixel_ptr[1] / 255.0f;
-		vector->b = pixel_ptr[0] / 255.0f;
+		vector->r = pixel_ptr[2] * 0.003921569;
+		vector->g = pixel_ptr[1] * 0.003921569;
+		vector->b = pixel_ptr[0] * 0.003921569;
+		return ;
 	}
-	else
-	{
-		vector->r = pixel_ptr[0] / 255.0f;
-		vector->g = pixel_ptr[1] / 255.0f;
-		vector->b = pixel_ptr[2] / 255.0f;
-	}
+	vector->r = pixel_ptr[0] * 0.003921569;
+	vector->g = pixel_ptr[1] * 0.003921569;
+	vector->b = pixel_ptr[2] * 0.003921569;
 }
 
 t_color	sample_texture(t_texture *texture, FLOAT u, FLOAT v, int switch_flag)
@@ -59,6 +57,8 @@ t_color	sample_texture(t_texture *texture, FLOAT u, FLOAT v, int switch_flag)
 
 	u = u - floor(u);
 	v = v - floor(v);
+	pixel_ptr = NULL;
+	color = (t_color){0, 0, 0};
 	x = (int)((1.0 - u) * (texture->width - 1));
 	y = (int)(v * (texture->height - 1));
 	x = fmin(fmax(x, 0), texture->width - 1);

@@ -92,22 +92,13 @@ void	draw(t_scene *scene)
 
 void	render(t_scene *scene)
 {
-	struct timeval	start;
-	struct timeval	end;
-	FLOAT			time_taken;
-
 	scene->mlx = mlx_init();
 	scene->win = mlx_new_window(scene->mlx, WIDTH, HEIGHT, "MiniRT");
 	scene->img.img = mlx_new_image(scene->mlx, WIDTH, HEIGHT);
 	scene->img.addr = mlx_get_data_addr(scene->img.img,
 			&scene->img.bits_per_pixel,
 			&scene->img.line_length, &scene->img.endian);
-	gettimeofday(&start, NULL);
 	draw(scene);
-	gettimeofday(&end, NULL);
-	time_taken = (end.tv_sec - start.tv_sec) * 1e6;
-	time_taken = (time_taken + (end.tv_usec - start.tv_usec)) * 1e-6;
-	printf("Render time: %.6f seconds\n", time_taken);
 	mlx_key_hook(scene->win, transformation, scene);
 	mlx_hook(scene->win, 17, 0, hook, scene);
 	mlx_loop(scene->mlx);

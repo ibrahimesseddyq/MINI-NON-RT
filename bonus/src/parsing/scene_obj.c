@@ -6,7 +6,7 @@
 /*   By: ibes-sed <ibes-sed@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/11 18:11:36 by sessarhi          #+#    #+#             */
-/*   Updated: 2025/02/13 02:41:12 by ibes-sed         ###   ########.fr       */
+/*   Updated: 2025/02/14 15:38:35 by ibes-sed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@ int	process_sp(char **inf, t_tscene *t_scene)
 	if (count_args((const char **)inf) != 7)
 		clean_exit("Error: Sphere has wrong number of arguments");
 	new = new_sphere();
-	new->texture_name = strdup(inf[5]);
-	new->normal_texture_name = strdup(inf[6]);
+	new->texture_name = ft_strdup(inf[5]);
+	new->normal_texture_name = ft_strdup(inf[6]);
 	new->has_color_texture = 1;
 	new->has_bump_texture = 1;
 	new->has_checkerboard = 0;
@@ -49,8 +49,8 @@ int	process_pl(char **inf, t_tscene *t_scene)
 	if (count_args((const char **)inf) != 7)
 		clean_exit("Error: Plane has wrong number of arguments");
 	new = new_plane();
-	new->texture_name = strdup(inf[5]);
-	new->normal_texture_name = strdup(inf[6]);
+	new->texture_name = ft_strdup(inf[5]);
+	new->normal_texture_name = ft_strdup(inf[6]);
 	if (!ft_strcmp(new->texture_name, "DEFAULT"))
 		new->has_color_texture = 0;
 	else if (!ft_strcmp(new->texture_name, "CHECK"))
@@ -77,8 +77,8 @@ int	process_cy(char **inf, t_tscene *t_scene)
 	new = new_cylinder();
 	if (count_args((const char **)inf) != 9)
 		clean_exit("Error: Cylinder has wrong number of arguments");
-	new->texture_name = strdup(inf[7]);
-	new->normal_texture_name = strdup(inf[8]);
+	new->texture_name = ft_strdup(inf[7]);
+	new->normal_texture_name = ft_strdup(inf[8]);
 	if (!ft_strcmp(new->texture_name, "DEFAULT"))
 		new->has_color_texture = 0;
 	else if (!ft_strcmp(new->texture_name, "CHECK"))
@@ -106,7 +106,7 @@ int	process_co(char **inf, t_tscene *t_scene)
 	if (count_args((const char **)inf) != 9)
 		clean_exit("Error: Cone has wrong number of arguments");
 	new = new_cone();
-	new->texture_name = strdup(inf[7]);
+	new->texture_name = ft_strdup(inf[7]);
 	if (!ft_strcmp(new->texture_name, "DEFAULT"))
 		new->has_color_texture = 0;
 	else if (!ft_strcmp(new->texture_name, "CHECK"))
@@ -115,7 +115,7 @@ int	process_co(char **inf, t_tscene *t_scene)
 		new->has_bump_texture = 0;
 	new->angle = ft_atof(inf[3]);
 	new->height = ft_atof(inf[4]);
-	new->normal_texture_name = strdup(inf[8]);
+	new->normal_texture_name = ft_strdup(inf[8]);
 	if (!parse_crd(inf[1], &new->vertex) || !parse_crd(inf[2], &new->axis)
 		|| !parse_rgb(inf[5], &new->color) || new->axis.x < -1
 		|| new->axis.x > 1 || new->axis.y < -1 || new->axis.y > 1
