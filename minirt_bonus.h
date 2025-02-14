@@ -6,7 +6,7 @@
 /*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 14:53:30 by sessarhi          #+#    #+#             */
-/*   Updated: 2025/02/12 18:44:50 by sessarhi         ###   ########.fr       */
+/*   Updated: 2025/02/13 12:12:36 by sessarhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,4 +113,5 @@ void				ft_copy_plane(t_tscene *tscene, t_scene *scene, int *id);
 void				ft_copy_sphere(t_tscene *tscene, t_scene *scene, int *id);
 void				ft_copy_cylinder(t_tscene *tscene, t_scene *scene, int *id);
 void				ft_copy_cone(t_tscene *tscene, t_scene *scene, int *id);
+char				*ft_strdup(const char *str);
 #endif

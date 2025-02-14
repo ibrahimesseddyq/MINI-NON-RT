@@ -6,7 +6,7 @@
 /*   By: ibes-sed <ibes-sed@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/24 17:44:32 by sessarhi          #+#    #+#             */
-/*   Updated: 2025/02/12 21:18:40 by ibes-sed         ###   ########.fr       */
+/*   Updated: 2025/02/14 15:38:59 by ibes-sed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,12 @@ int	trace_ray(t_ray *ray, t_scene *scene)
 	intersection.distance = INFINITY;
 	intersection.hit = false;
 	intersection.id = -1;
+	intersection.color = (t_color){0, 0, 0};
+	intersection.material = (t_material){0, 0, 0, 0};
+	intersection.normal = (t_vector){0, 0, 0};
+	intersection.point = (t_vector){0, 0, 0};
+	intersection.u = 0;
+	intersection.v = 0;
 	intersection.hit = cone_intersection(scene, &intersection, ray);
 	intersection.hit = sphere_intersection(scene, &intersection, ray);
 	intersection.hit = cylinder_intersection(scene, &intersection, ray);
@@ -73,10 +79,6 @@ int	trace_ray(t_ray *ray, t_scene *scene)
 
 void	render(t_scene *scene)
 {
-	struct timeval	start;
-	struct timeval	end;
-	FLOAT			time_taken;
-
 	scene->mlx = mlx_init();
 	scene->win = mlx_new_window(scene->mlx, WIDTH, HEIGHT, "MiniRT");
 	scene->img.img = mlx_new_image(scene->mlx, WIDTH, HEIGHT);
@@ -84,12 +86,7 @@ void	render(t_scene *scene)
 			&scene->img.bits_per_pixel, &scene->img.line_length,
 			&scene->img.endian);
 	init_textures(scene);
-	gettimeofday(&start, NULL);
 	draw(scene);
-	gettimeofday(&end, NULL);
-	time_taken = (end.tv_sec - start.tv_sec) * 1e6;
-	time_taken = (time_taken + (end.tv_usec - start.tv_usec)) * 1e-6;
-	printf("Render time: %.6f seconds\n", time_taken);
 	mlx_key_hook(scene->win, transformation, scene);
 	mlx_hook(scene->win, 17, 0, hook, scene);
 	mlx_loop(scene->mlx);

@@ -6,7 +6,7 @@
 /*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/15 21:09:07 by sessarhi          #+#    #+#             */
-/*   Updated: 2025/02/11 19:55:08 by sessarhi         ###   ########.fr       */
+/*   Updated: 2025/02/13 14:47:19 by sessarhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	process_co(char **inf, t_tscene *t_scene);
 
-void	parse_object(char	**inf, int *i, t_tscene *tscene, char *line)
+static void	parse_object(char	**inf, t_tscene *tscene)
 {
 	if (ft_strcmp(inf[0], "A") == 0 && !process_a(inf, tscene))
 		;
@@ -32,8 +32,6 @@ void	parse_object(char	**inf, int *i, t_tscene *tscene, char *line)
 		;
 	else
 		return (printf("Error \n"), clean_exit(""));
-	(void)line;
-	(void)*i;
 }
 
 void	splil_line(char *line, t_tscene *tscene)
@@ -44,12 +42,10 @@ void	splil_line(char *line, t_tscene *tscene)
 
 	i = 0;
 	elm = ft_split(line, '\n');
-	printf("elm [%s]\n", elm[i]);
 	while (elm[i])
 	{
 		inf = ft_split(elm[i], ' ');
-		printf("inf [%s]\n", elm[i]);
-		parse_object(inf, &i, tscene, line);
+		parse_object(inf, tscene);
 		i++;
 	}
 }

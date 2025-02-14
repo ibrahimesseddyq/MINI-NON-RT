@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   copy_scene_utils.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ibes-sed <ibes-sed@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 21:26:42 by ibes-sed          #+#    #+#             */
-/*   Updated: 2025/02/11 21:26:56 by ibes-sed         ###   ########.fr       */
+/*   Updated: 2025/02/13 15:15:34 by sessarhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ void	ft_copy_plane(t_tscene *tscene, t_scene *scene, int *id)
 	i = 0;
 	while (tscene->plane)
 	{
+		scene->plane->texture = (t_texture){0};
 		scene->plane[i].position = tscene->plane->position;
 		scene->plane[i].direction = tscene->plane->direction;
 		scene->plane[i].color = tscene->plane->color;
@@ -42,6 +43,7 @@ void	ft_copy_sphere(t_tscene *tscene, t_scene *scene, int *id)
 	i = 0;
 	while (tscene->sphere)
 	{
+		scene->sphere->texture = (t_texture){0};
 		scene->sphere[i].position = tscene->sphere->position;
 		scene->sphere[i].diameter = tscene->sphere->diameter;
 		scene->sphere[i].material = tscene->sphere->material;
@@ -94,21 +96,18 @@ void	ft_copy_cone(t_tscene *tscene, t_scene *scene, int *id)
 	i = 0;
 	while (tscene->cone)
 	{
+		scene->cone->texture = (t_texture){0};
 		scene->cone[i].vertex = tscene->cone->vertex;
-		scene->cone[i].axis
-			= vector_normalize(&tscene->cone->axis);
+		scene->cone[i].axis = vector_normalize(&tscene->cone->axis);
 		scene->cone[i].angle = tscene->cone->angle;
 		scene->cone[i].height = tscene->cone->height;
 		scene->cone[i].has_checkerboard = tscene->cone->has_checkerboard;
 		scene->cone[i].texture_name = tscene->cone->texture_name;
 		scene->cone[i].normal_texture_name = tscene->cone->normal_texture_name;
 		scene->cone[i].color = tscene->cone->color;
-		scene->cone[i].has_color_texture
-			= tscene->cone->has_color_texture;
-		scene->cone[i].has_bump_texture
-			= tscene->cone->has_bump_texture;
-		scene->cone[i].material
-			= tscene->cone->material;
+		scene->cone[i].has_color_texture = tscene->cone->has_color_texture;
+		scene->cone[i].has_bump_texture = tscene->cone->has_bump_texture;
+		scene->cone[i].material = tscene->cone->material;
 		scene->cone[i].id = (*id)++;
 		tscene->cone = tscene->cone->next;
 		i++;
