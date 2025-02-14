@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   read_line.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ibes-sed <ibes-sed@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 15:38:19 by sessarhi          #+#    #+#             */
-/*   Updated: 2025/02/09 15:28:11 by ibes-sed         ###   ########.fr       */
+/*   Updated: 2025/02/14 18:16:23 by sessarhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,12 +69,12 @@ void	prep_read(int *fd, char **buffer, char *file)
 	*fd = open(file, O_RDONLY);
 	if (*fd == -1)
 	{
-		printf("Error can't open %s\n", file);
+		printf("Error can't open %s", file);
 		clean_exit("");
 	}
 	*buffer = arena_alloc(*get_arena(), BUFFER_SIZE);
 	if (!*buffer)
-		clean_exit("Error malloc\n");
+		clean_exit("Error malloc");
 }
 
 void	process_flie(char **av, t_scene *scene)

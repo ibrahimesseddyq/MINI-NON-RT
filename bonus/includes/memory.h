@@ -6,7 +6,7 @@
 /*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/06 22:40:25 by ibes-sed          #+#    #+#             */
-/*   Updated: 2025/02/11 20:22:23 by sessarhi         ###   ########.fr       */
+/*   Updated: 2025/02/14 15:51:14 by sessarhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,7 @@
 # define MEMORY_H
 # include "includes.h"
 # define ARENA_ALIGNMENT 8
-//DEFAULT_CHUNK_SIZE (130 * 15 * 1024 * 1024)
 # define DEFAULT_CHUNK_SIZE 524288000
-//# MIN_CHUNK_SIZE (4 * 1024)
 # define MIN_CHUNK_SIZE 4096
 
 typedef struct s_arena_chunk

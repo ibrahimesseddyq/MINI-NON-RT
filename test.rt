@@ -1,5 +1,6 @@
 A 0.5 255,255,255
 <<<<<<< HEAD
+<<<<<<< HEAD
 C 30,0,0 -1,0,0 70
 L 20,0,0 1 255,255,255
 sp 0,0,0 20 0,0,255 0.7,0.5,0.8,5 CHECK ./bonus/xpm/earth_normal.xpm
@@ -14,3 +15,8 @@ cy 0,10,-10 0,1,0 10 8 0,0,255 0.7,0.5,0.8,5 ./bonus/xpm/earth_daymap.xpm ./bonu
 cy 0,10,10 0,1,0 10 8 0,0,255 0.7,0.5,0.8,5 ./bonus/xpm/earth_daymap.xpm ./bonus/xpm/earth_normal.xpm
 cy 0,10,0 0,1,0 10 8 0,0,255 0.7,0.5,0.8,5 ./bonus/xpm/earth_daymap.xpm ./bonus/xpm/earth_normal.xpm
 >>>>>>> 663a27c80fdb93c3bf559b01efc101155d342f33
+=======
+C 60,0,0 -1,0,0 70
+L 20,0,0 1 255,255,255
+sp 0,0,0 10 0,0,255 0.7,0.5,0.8,5 ./bonus/xpm/earth_daymap.xpm ./bonus/xpm/earth_normal.xpm
+>>>>>>> 6ced4784075a6be3096422c57ec977c55e0e617d

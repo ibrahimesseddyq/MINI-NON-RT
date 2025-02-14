@@ -6,7 +6,7 @@
 /*   By: ibes-sed <ibes-sed@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 22:24:06 by ibes-sed          #+#    #+#             */
-/*   Updated: 2025/02/14 15:39:08 by ibes-sed         ###   ########.fr       */
+/*   Updated: 2025/02/14 18:34:24 by ibes-sed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,15 @@ bool	load_texture(t_texture *texture, void *mlx, char *filename)
 {
 	int	width;
 	int	height;
+	int	fd;
 
+	if (!ft_strcmp(filename, "DEFAULT") || !ft_strcmp(filename, "CHECK"))
+		return (true);
+	fd = open(filename, O_RDONLY);
+	if (fd < 0)
+		return (false);
+	else
+		close(fd);
 	texture->data = mlx_xpm_file_to_image(mlx, filename, &width, &height);
 	if (!texture->data)
 		return (false);
@@ -85,8 +93,6 @@ bool	load_texture(t_texture *texture, void *mlx, char *filename)
 			&texture->bits_per_pixel,
 			&texture->line_length,
 			&texture->endian);
-	printf("texture->name: %s\n", filename);
-	printf("texture->addr: %d\n", *texture->addr);
 	if (!texture->addr)
 		return (false);
 	return (true);
