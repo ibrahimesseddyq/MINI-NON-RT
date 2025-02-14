@@ -6,7 +6,7 @@
 /*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 15:38:19 by sessarhi          #+#    #+#             */
-/*   Updated: 2025/02/13 13:30:33 by sessarhi         ###   ########.fr       */
+/*   Updated: 2025/02/14 18:15:14 by sessarhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,13 +31,13 @@ void	process_flie(char **av, t_scene *scene)
 	int_tsceen(&pi.tscene);
 	pi.fd = open(av[1], O_RDONLY);
 	if (pi.fd == -1)
-		return (printf("Error can't open %s\n", *av), clean_exit(""));
+		return (printf("Error can't open %s", *av), clean_exit(""));
 	pi.buffer = arena_alloc(*get_arena(), BUFFER_SIZE);
 	pi.ret = read(pi.fd, pi.buffer, BUFFER_SIZE);
 	while (pi.ret > 0)
 	{
 		if (!mange_line(pi.buffer, &pi.ret, &pi.backup))
-			clean_exit("error file empty or line too long\n");
+			clean_exit("error file empty or line too long");
 		pi.buffer[pi.ret] = '\0';
 		splil_line(pi.buffer, &pi.tscene);
 		restor_line(&pi.buffer, &pi.ret, &pi.backup);
