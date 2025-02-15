@@ -6,7 +6,7 @@
 /*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/26 22:32:49 by sessarhi          #+#    #+#             */
-/*   Updated: 2025/02/06 20:46:58 by sessarhi         ###   ########.fr       */
+/*   Updated: 2025/02/15 14:00:46 by sessarhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,12 @@ void	*arena_aligned_alloc(t_arena	*arena, size_t size, size_t align)
 
 void	*arena_alloc(t_arena	*arena, size_t size)
 {
-	return (arena_aligned_alloc(arena, size, ARENA_ALIGNMENT));
+	void	*ptr;
+
+	ptr = arena_alloc_from_chunk(arena->current, size, ARENA_ALIGNMENT);
+	if (!ptr)
+		clean_exit("Error: Arena chunk overflow");
+	return (ptr);
 }
 
 void	*arena_alloc_from_chunk(t_arena_chunk *chunk, size_t size, size_t align)
@@ -80,8 +85,8 @@ void	*arena_alloc_from_chunk(t_arena_chunk *chunk, size_t size, size_t align)
 	aligned = align_up(current, align);
 	padding = aligned - current;
 	total_size = padding + size;
-	if (chunk->used + total_size > chunk->size - sizeof(t_arena_chunk))
-		return (NULL);
+	if (chunk->used + total_size > chunk->size)
+		clean_exit("Error: Arena chunk overflow");
 	chunk->used += total_size;
 	return ((void *)aligned);
 }
