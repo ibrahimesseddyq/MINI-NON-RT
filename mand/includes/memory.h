@@ -14,9 +14,9 @@
 # define MEMORY_H
 
 # include "includes.h"
-
+# include "../../minirt.h"
 # define ARENA_ALIGNMENT 8
-# define DEFAULT_CHUNK_SIZE 524288000
+# define DEFAULT_CHUNK_SIZE 104857600
 # define MIN_CHUNK_SIZE 4096
 
 typedef struct s_arena_chunk

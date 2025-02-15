@@ -1,5 +1,5 @@
-NAME = minirt
-BONUS_NAME = minirt_bonus
+NAME =miniRT
+BONUS_NAME = miniRT_bonus
 CC = cc -o3 -g -fsanitize=address
 CFLAGS = -Wall -Wextra -Werror 
 MND = ./mand/src/
