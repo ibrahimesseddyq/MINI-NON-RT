@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ibes-sed <ibes-sed@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/24 17:44:32 by sessarhi          #+#    #+#             */
-/*   Updated: 2025/02/14 18:19:44 by sessarhi         ###   ########.fr       */
+/*   Updated: 2025/02/14 18:29:21 by ibes-sed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ t_color	get_checkerboard_color(t_color color1,
 	scaled_u = inter->u * size;
 	v_int = (int)floor(scaled_v);
 	u_int = (int)floor(scaled_u);
-	if ((u_int + v_int) % 2 == 0)
+	if ((abs(u_int) + abs(v_int)) % 2 == 0)
 	{
 		return (color1);
 	}

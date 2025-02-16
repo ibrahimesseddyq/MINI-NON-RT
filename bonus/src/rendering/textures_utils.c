@@ -6,7 +6,7 @@
 /*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 22:24:06 by ibes-sed          #+#    #+#             */
-/*   Updated: 2025/02/14 20:28:01 by sessarhi         ###   ########.fr       */
+/*   Updated: 2025/02/16 17:28:05 by sessarhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ bool	load_texture(t_texture *texture, void *mlx, char *filename)
 	int	height;
 	int	fd;
 
-	if (!ft_strcmp(filename, "CHECK") || !ft_strcmp(filename, "DEFAULT"))
+	if (!ft_strcmp(filename, "DEFAULT") || !ft_strcmp(filename, "CHECK"))
 		return (true);
 	fd = open(filename, O_RDONLY);
 	if (fd < 0)
