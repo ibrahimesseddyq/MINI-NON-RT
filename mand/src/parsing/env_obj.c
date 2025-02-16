@@ -3,14 +3,28 @@
 /*                                                        :::      ::::::::   */
 /*   env_obj.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ibes-sed <ibes-sed@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/11 18:09:02 by sessarhi          #+#    #+#             */
-/*   Updated: 2025/02/12 16:51:42 by sessarhi         ###   ########.fr       */
+/*   Updated: 2025/02/16 15:49:05 by ibes-sed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./../../../minirt.h"
+
+int	ft_contain_virg(char *str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i])
+	{
+		if (str[i] == ',')
+			return (1);
+		i++;
+	}
+	return (0);
+}
 
 int	process_a(char **inf, t_tscene *tscene)
 {
@@ -35,6 +49,8 @@ int	process_c(char **inf, t_tscene *t_scene)
 	if (t_scene->is_c_set == true)
 		return (printf("Error multiple Cameras\n"), 1);
 	t_scene->camera.fov = ft_atoi(inf[3]);
+	if (ft_contain_virg(inf[3]))
+		clean_exit("Error: Invalid Camera data");
 	if (!parse_crd(inf[1], &t_scene->camera.position)
 		|| !parse_crd(inf[2], &t_scene->camera.direction))
 		clean_exit("Error: Invalid Camera data");
