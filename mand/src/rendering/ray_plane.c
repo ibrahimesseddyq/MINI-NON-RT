@@ -6,7 +6,7 @@
 /*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/10 17:02:02 by sessarhi          #+#    #+#             */
-/*   Updated: 2025/01/26 17:27:36 by sessarhi         ###   ########.fr       */
+/*   Updated: 2025/02/15 13:55:52 by sessarhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ FLOAT	hit_plane(const t_vector *point,
 	t_vector	tmp;
 
 	denom = vector_dot(normal, &ray->direction);
-	if (fabs(denom) > 1e-6)
+	if (fabs(denom) > 1e-9)
 	{
 		tmp = vector_sub(point, &ray->origin);
 		t = vector_dot(&tmp, normal) / denom;

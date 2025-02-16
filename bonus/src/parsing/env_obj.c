@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_obj.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ibes-sed <ibes-sed@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/11 18:09:02 by sessarhi          #+#    #+#             */
-/*   Updated: 2025/02/16 15:55:51 by ibes-sed         ###   ########.fr       */
+/*   Updated: 2025/02/16 17:26:50 by sessarhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	process_a(char **inf, t_tscene *tscene)
 	if (!inf[1] || !inf[2] || inf[3])
 		return (1);
 	if (tscene->is_a_set == true)
-		return (printf("Error multiple Ambient lights\n"), 1);
+		clean_exit("Error multiple Ambient light");
 	tscene->ambient.ratio = ft_atof(inf[1]);
 	if (!parse_rgb(inf[2], &tscene->ambient.color)
 		|| tscene->ambient.ratio < 0 || tscene->ambient.ratio > 1)
@@ -47,7 +47,7 @@ int	process_c(char **inf, t_tscene *t_scene)
 	if (!inf[1] || !inf[2] || !inf[3] || inf[4])
 		return (1);
 	if (t_scene->is_c_set == true)
-		return (printf("Error multiple Cameras\n"), 1);
+		clean_exit("Error multiple Cameras");
 	t_scene->camera.fov = ft_atoi(inf[3]);
 	if (ft_contain_virg(inf[3]))
 		clean_exit("Error: Invalid Camera data");

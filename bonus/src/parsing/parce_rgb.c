@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parce_rgb.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ibes-sed <ibes-sed@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/15 12:18:32 by sessarhi          #+#    #+#             */
-/*   Updated: 2025/02/15 19:07:00 by ibes-sed         ###   ########.fr       */
+/*   Updated: 2025/02/16 17:31:55 by sessarhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ int	check_pnt(const char *str)
 			count++;
 		i++;
 	}
-	printf("count: %d\n", count);
 	return (count);
 }
 
