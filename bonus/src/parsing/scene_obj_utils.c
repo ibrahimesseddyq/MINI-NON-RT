@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   scene_obj_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ibes-sed <ibes-sed@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/06 22:26:51 by ibes-sed          #+#    #+#             */
-/*   Updated: 2025/02/15 19:10:53 by ibes-sed         ###   ########.fr       */
+/*   Updated: 2025/02/16 17:32:36 by sessarhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ int	count_args(const char **inf)
 	arg_count = 0;
 	while (inf[arg_count] != NULL)
 		arg_count++;
-	printf("arg_count: %d\n", arg_count);
 	return (arg_count);
 }
 
@@ -27,7 +26,6 @@ int	parse_material(const char *mat, t_material *material)
 {
 	char	**tab;
 
-	printf("mat: %s\n", mat);
 	if (check_pnt(mat) != 3)
 		return (false);
 	tab = ft_split(mat, ',');
@@ -41,6 +39,5 @@ int	parse_material(const char *mat, t_material *material)
 		|| material->n < 0 || material->ka < 0 || material->kd < 0
 		|| material->ks < 0)
 		clean_exit("Error: Material has wrong arguments");
-	printf("end`);");
 	return (true);
 }

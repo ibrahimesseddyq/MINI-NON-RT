@@ -6,7 +6,7 @@
 /*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 15:38:19 by sessarhi          #+#    #+#             */
-/*   Updated: 2025/02/14 18:16:23 by sessarhi         ###   ########.fr       */
+/*   Updated: 2025/02/15 14:02:05 by sessarhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,5 +101,6 @@ void	process_flie(char **av, t_scene *scene)
 			splil_line(buffer, &tscene);
 		}
 	}
+	close(fd);
 	copy_tscene(&tscene, scene);
 }

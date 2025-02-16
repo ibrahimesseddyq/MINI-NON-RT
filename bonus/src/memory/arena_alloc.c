@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   arena_alloc.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ibes-sed <ibes-sed@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 22:24:32 by ibes-sed          #+#    #+#             */
-/*   Updated: 2025/02/06 22:46:46 by ibes-sed         ###   ########.fr       */
+/*   Updated: 2025/02/15 14:01:21 by sessarhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,9 +59,14 @@ void	*arena_aligned_alloc(t_arena *arena, size_t size, size_t align)
 	return (ptr);
 }
 
-void	*arena_alloc(t_arena *arena, size_t size)
+void	*arena_alloc(t_arena	*arena, size_t size)
 {
-	return (arena_aligned_alloc(arena, size, ARENA_ALIGNMENT));
+	void	*ptr;
+
+	ptr = arena_alloc_from_chunk(arena->current, size, ARENA_ALIGNMENT);
+	if (!ptr)
+		clean_exit("Error: Arena chunk overflow");
+	return (ptr);
 }
 
 void	*arena_alloc_from_chunk(t_arena_chunk *chunk, size_t size, size_t align)
@@ -75,8 +80,8 @@ void	*arena_alloc_from_chunk(t_arena_chunk *chunk, size_t size, size_t align)
 	aligned = align_up(current, align);
 	padding = aligned - current;
 	total_size = padding + size;
-	if (chunk->used + total_size > chunk->size - sizeof(t_arena_chunk))
-		return (NULL);
+	if (chunk->used + total_size > chunk->size)
+		clean_exit("Error: arena chunk overflow");
 	chunk->used += total_size;
 	return ((void *)aligned);
 }
