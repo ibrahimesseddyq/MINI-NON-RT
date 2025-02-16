@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minirt_bonus.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ibes-sed <ibes-sed@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 14:53:30 by sessarhi          #+#    #+#             */
-/*   Updated: 2025/02/14 17:37:52 by sessarhi         ###   ########.fr       */
+/*   Updated: 2025/02/15 18:57:59 by ibes-sed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,4 +115,5 @@ void				ft_copy_cylinder(t_tscene *tscene, t_scene *scene, int *id);
 void				ft_copy_cone(t_tscene *tscene, t_scene *scene, int *id);
 char				*ft_strdup(const char *str);
 void				clean_textures(t_scene *scene);
+int					check_pnt(const char *str);
 #endif

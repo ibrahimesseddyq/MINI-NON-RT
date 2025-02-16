@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   ray_plane.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ibes-sed <ibes-sed@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/10 17:02:02 by sessarhi          #+#    #+#             */
 /*   Updated: 2025/02/14 10:42:22 by sessarhi         ###   ########.fr       */
@@ -19,6 +19,7 @@ FLOAT	hit_plane(const t_vector *point, const t_vector *normal,
 	FLOAT		denom;
 	t_vector	tmp;
 
+	bzero(&tmp, sizeof(t_vector));
 	denom = vector_dot(normal, &ray->direction);
 	if (fabs(denom) > 1e-6)
 	{

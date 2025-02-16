@@ -1,9 +1,6 @@
+C 30,0,0 -1,0,0 70
 A 0.5 255,255,255
-C 30,0,0 -1,0,0 100
 L 20,0,0 1 255,255,255
-cy 0,-10,0 0,1,0 10 8  0,0,255 0.7,0.5,0.8,5 ./bonus/xpm/earth_daymap.xpm ./bonus/xpm/earth_normal.xpm
-cy 0,-10,10 0,1,0 10 8 0,0,255 0.7,0.5,0.8,5 ./bonus/xpm/earth_daymap.xpm ./bonus/xpm/earth_normal.xpm
-cy 0,-10,-10 0,1,0 10 8 0,0,255 0.7,0.5,0.8,5 ./bonus/xpm/earth_daymap.xpm ./bonus/xpm/earth_normal.xpm
-cy 0,10,-10 0,1,0 10 8 0,0,255 0.7,0.5,0.8,5 ./bonus/xpm/earth_daymap.xpm ./bonus/xpm/earth_normal.xpm
-cy 0,10,10 0,1,0 10 8 0,0,255 0.7,0.5,0.8,5 ./bonus/xpm/earth_daymap.xpm ./bonus/xpm/earth_normal.xpm
-cy 0,10,0 0,1,0 10 8 0,0,255 0.7,0.5,0.8,5 ./bonus/xpm/earth_daymap.xpm ./bonus/xpm/earth_normal.xpm
+sp 0,0,0 20 0,0,255 0.7,0.5,0.8,5 CHECK ./bonus/xpm/earth_normal.xpm
+pl -20,0,0 1.0,0.0,0.0 0,0,225 0.5,0.5,0.5,40 ./bonus/xpm/8k_stars_milky_way.xpm DEFAULT
+

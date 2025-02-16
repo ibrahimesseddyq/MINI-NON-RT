@@ -6,7 +6,7 @@
 /*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/06 22:26:51 by ibes-sed          #+#    #+#             */
-/*   Updated: 2025/02/13 13:30:06 by sessarhi         ###   ########.fr       */
+/*   Updated: 2025/02/16 17:32:36 by sessarhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@ int	parse_material(const char *mat, t_material *material)
 {
 	char	**tab;
 
+	if (check_pnt(mat) != 3)
+		return (false);
 	tab = ft_split(mat, ',');
 	if (count_args((const char **)tab) != 4)
 		clean_exit("Error: Material has wrong number of arguments");
@@ -37,5 +39,5 @@ int	parse_material(const char *mat, t_material *material)
 		|| material->n < 0 || material->ka < 0 || material->kd < 0
 		|| material->ks < 0)
 		clean_exit("Error: Material has wrong arguments");
-	return (0);
+	return (true);
 }
