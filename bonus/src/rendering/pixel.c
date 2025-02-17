@@ -6,7 +6,7 @@
 /*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 22:23:37 by ibes-sed          #+#    #+#             */
-/*   Updated: 2025/02/15 13:44:26 by sessarhi         ###   ########.fr       */
+/*   Updated: 2025/02/17 18:36:10 by sessarhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,11 @@ bool	process_shadow_ray(t_scene *scene, t_vector *light_pos,
 int	pixel_color(t_scene *scene, t_intersection *isect, t_ray *ray)
 {
 	t_pixel_info	pinfos;
+	bool			is_inside;
 
+	is_inside = vector_dot(&isect->normal, &ray->direction) > 0;
+	if (is_inside)
+		isect->normal = vector_scale(&isect->normal, -1);
 	pinfos.scaled_vec = vector_scale(&ray->direction, -1);
 	pinfos.params.view_dir = vector_normalize(&pinfos.scaled_vec);
 	pinfos.ambient = color_scale(&scene->ambient.color,
@@ -83,7 +87,7 @@ int	pixel_color(t_scene *scene, t_intersection *isect, t_ray *ray)
 }
 
 t_color	process_lights(t_scene *scene, t_intersection *isect,
-	t_ray *ray, t_light_params *params)
+			t_ray *ray, t_light_params *params)
 {
 	t_light_calc	light_calc;
 	t_color			total_diffuse;
