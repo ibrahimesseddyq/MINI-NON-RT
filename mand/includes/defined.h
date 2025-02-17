@@ -6,7 +6,7 @@
 /*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/24 16:58:37 by sessarhi          #+#    #+#             */
-/*   Updated: 2025/02/15 20:00:08 by sessarhi         ###   ########.fr       */
+/*   Updated: 2025/02/17 14:20:29 by sessarhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 # define FLOAT double
 # define M_PI 3.14159265358979323846
 # define EPSILON 1e-6
-# define SHADOW_BIAS 0.0001f
+# define SHADOW_BIAS 1e-6
 # define SUCCESS 0
 # define ERROR -1
 
