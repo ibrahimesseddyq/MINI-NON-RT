@@ -6,7 +6,7 @@
 /*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 14:23:54 by sessarhi          #+#    #+#             */
-/*   Updated: 2025/02/17 15:39:47 by sessarhi         ###   ########.fr       */
+/*   Updated: 2025/02/17 18:43:24 by sessarhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,18 +34,23 @@ bool	check_shadow(t_scene *scene, t_ray *ray, t_intersection *intersection)
 	return (false);
 }
 
+static void	ckeckeifinsd(t_color_infos *coin, t_intersection *intersection)
+{
+	if (!coin->is_inside)
+		coin->offset_direction = 1;
+	else
+	{
+		intersection->normal = vector_scale(&intersection->normal, -1);
+		coin->offset_direction = -1;
+	}
+}
+
 int	pixel_color(t_scene *scene, t_intersection *intersection, t_ray *ray)
 {
 	t_color_infos	coin;
 
 	coin.is_inside = vector_dot(&intersection->normal, &ray->direction) > 0;
-	 if (!coin.is_inside)
-    	coin.offset_direction = 1;
-    else
-    {
-        intersection->normal = vector_scale(&intersection->normal, -1);
-        coin.offset_direction = -1;
-    }
+	ckeckeifinsd(&coin, intersection);
 	coin.tmp_vector = vector_scale(&intersection->normal,
 			SHADOW_BIAS * coin.offset_direction);
 	coin.ray_origin = vector_add(&intersection->point, &coin.tmp_vector);
