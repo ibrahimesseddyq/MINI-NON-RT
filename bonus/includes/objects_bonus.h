@@ -6,7 +6,7 @@
 /*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 12:56:16 by sessarhi          #+#    #+#             */
-/*   Updated: 2025/02/20 10:11:14 by sessarhi         ###   ########.fr       */
+/*   Updated: 2025/02/20 12:15:42 by sessarhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -552,6 +552,56 @@ typedef struct s_cy_inter
 	FLOAT		u;
 	FLOAT		v;
 }	t_cy_inter;
+
+typedef struct s_cap_calc
+{
+	t_vector	axis_normalized;
+	double		height;
+	double		base_radius;
+	t_point		base_center;
+	t_vector	scaled_axis;
+	t_vector	to_center;
+	double		denom;
+	t_vector	hi;
+	t_vector	hit_point;
+	t_vector	v;
+	double		t;
+}	t_cap_calc;
+
+typedef struct s_uv_cap_calc
+{
+	t_vector	axis;
+	t_point		base_center;
+	t_vector	scaled_axis;
+	t_vector	to_hit;
+	t_vector	up;
+	t_vector	right;
+	t_vector	forward;
+	double		height;
+	double		base_radius;
+	double		dx;
+	double		dy;
+	double		distance;
+}	t_uv_cap_calc;
+
+typedef struct s_uv_cone_calc
+{
+	t_vector	p;
+	t_vector	axis;
+	double		height;
+	double		cone_height;
+	t_vector	proj;
+	t_vector	planar;
+	t_vector	up;
+	t_vector	right;
+	t_vector	forward;
+}	t_uv_cone_calc;
+typedef struct s_cone_hit
+{
+	int		i;
+	double	t;
+	bool	is_cap;
+}	t_cone_hit;
 
 t_tsphere	*new_sphere(void);
 t_tcylinder	*new_cylinder(void);
