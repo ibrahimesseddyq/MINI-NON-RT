@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   advanced_vector.c                                  :+:      :+:    :+:   */
+/*   advanced_vector_bonus.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 22:24:52 by ibes-sed          #+#    #+#             */
-/*   Updated: 2025/02/11 20:00:26 by sessarhi         ###   ########.fr       */
+/*   Updated: 2025/02/20 10:11:25 by sessarhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "./../../includes/math.h"
+#include "./../../includes/math_bonus.h"
 
 FLOAT	vector_dot(const t_vector *a, const t_vector *b)
 {

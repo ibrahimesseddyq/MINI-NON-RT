@@ -1,29 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   includes.h                                         :+:      :+:    :+:   */
+/*   color_bonus.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/01 15:29:51 by sessarhi          #+#    #+#             */
-/*   Updated: 2025/02/09 16:51:02 by sessarhi         ###   ########.fr       */
+/*   Created: 2024/12/26 09:21:08 by sessarhi          #+#    #+#             */
+/*   Updated: 2025/02/20 10:10:41 by sessarhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef INCLUDES_H
-# define INCLUDES_H
+#ifndef COLOR_BONUS_H
+# define COLOR_BONUS_H
+# include "objects_bonus.h"
 
-# include <stdio.h>
-# include <unistd.h>
-# include <limits.h>
-# include <fcntl.h>
-# include <string.h>
-# include <sys/time.h> 
-# include <stddef.h>
-# include <stdint.h>
-# include <stdbool.h>
-# include <stdlib.h>
-# include <math.h>
-# include "./../../MLX/mlx.h"
-
+t_color	color_add(t_color *a, t_color *b);
+t_color	color_mul(t_color *a, t_color *b);
+t_color	rgbtocolor(int r, int g, int b);
+int		colortorgb(t_color *a);
+t_color	color_scale(t_color *a, FLOAT scale);
 #endif

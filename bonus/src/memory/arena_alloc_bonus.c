@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   arena_alloc.c                                      :+:      :+:    :+:   */
+/*   arena_alloc_bonus.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 22:24:32 by ibes-sed          #+#    #+#             */
-/*   Updated: 2025/02/15 14:01:21 by sessarhi         ###   ########.fr       */
+/*   Updated: 2025/02/20 10:11:34 by sessarhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/memory.h"
+#include "../../includes/memory_bonus.h"
 
 t_arena_chunk	*arena_allocate_chunk(t_arena *arena, size_t min_size)
 {

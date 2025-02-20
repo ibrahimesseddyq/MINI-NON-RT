@@ -1,20 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   math.h                                             :+:      :+:    :+:   */
+/*   math_bonus.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/24 17:01:10 by sessarhi          #+#    #+#             */
-/*   Updated: 2025/02/11 20:00:10 by sessarhi         ###   ########.fr       */
+/*   Updated: 2025/02/20 10:10:57 by sessarhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MATH_H
-# define MATH_H
-# include "defined.h"
-# include "includes.h"
-# include "objects.h"
+#ifndef MATH_BONUS_H
+# define MATH_BONUS_H
+# include "defined_bonus.h"
+# include "includes_bonus.h"
+# include "objects_bonus.h"
 
 typedef struct s_intersection
 {

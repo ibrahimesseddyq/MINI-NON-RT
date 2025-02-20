@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   arena_utils.c                                      :+:      :+:    :+:   */
+/*   arena_utils_bonus.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ibes-sed <ibes-sed@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 22:24:47 by ibes-sed          #+#    #+#             */
-/*   Updated: 2025/01/28 22:24:47 by ibes-sed         ###   ########.fr       */
+/*   Updated: 2025/02/20 10:11:44 by sessarhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/memory.h"
+#include "../../includes/memory_bonus.h"
 
 t_arena	**get_arena(void)
 {

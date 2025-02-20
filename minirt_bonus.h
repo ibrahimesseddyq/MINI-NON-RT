@@ -3,22 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   minirt_bonus.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ibes-sed <ibes-sed@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 14:53:30 by sessarhi          #+#    #+#             */
-/*   Updated: 2025/02/15 18:57:59 by ibes-sed         ###   ########.fr       */
+/*   Updated: 2025/02/20 10:54:54 by sessarhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINIRT_BONUS_H
 # define MINIRT_BONUS_H
 
-# include "./bonus/includes/objects.h"
-# include "./bonus/includes/defined.h"
-# include "./bonus/includes/math.h"
-# include "./bonus/includes/memory.h"
-# include "./bonus/includes/color.h"
-# include "./bonus/includes/includes.h"
+# include "./bonus/includes/objects_bonus.h"
+# include "./bonus/includes/defined_bonus.h"
+# include "./bonus/includes/math_bonus.h"
+# include "./bonus/includes/memory_bonus.h"
+# include "./bonus/includes/color_bonus.h"
+# include "./bonus/includes/includes_bonus.h"
 
 bool				parse_crd(const char *str, t_vector *vector);
 bool				parse_rgb(const char *str, t_color *color);
@@ -116,4 +116,5 @@ void				ft_copy_cone(t_tscene *tscene, t_scene *scene, int *id);
 char				*ft_strdup(const char *str);
 void				clean_textures(t_scene *scene);
 int					check_pnt(const char *str);
+int					is_norm(t_vector *v);
 #endif
