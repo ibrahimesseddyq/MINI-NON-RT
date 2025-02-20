@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   objects.h                                          :+:      :+:    :+:   */
+/*   objects_bonus.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 12:56:16 by sessarhi          #+#    #+#             */
-/*   Updated: 2025/02/13 19:08:35 by sessarhi         ###   ########.fr       */
+/*   Updated: 2025/02/20 10:11:14 by sessarhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef OBJECTS_H
-# define OBJECTS_H
+#ifndef OBJECTS_BONUS_H
+# define OBJECTS_BONUS_H
 # define ALT_KEY 65513
 # define LEFT_ROW_KEY 65361
 # define RIGHT_ROW_KEY 65363
@@ -36,8 +36,8 @@
 # define KEY_Z 119
 # define KEY_MINUS 65453
 # define KEY_PLUS 65451
-# include "defined.h"
-# include "includes.h"
+# include "defined_bonus.h"
+# include "includes_bonus.h"
 
 typedef t_vector				t_point;
 typedef struct s_tscene			t_tscene;

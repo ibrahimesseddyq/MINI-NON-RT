@@ -1,0 +1,5 @@
+A 0.5 255,255,255
+C 20,0,0 -1,0,0 70
+L 20,0,0 1 255,255,255
+pl -20,0,0 1.0,0.0,0.0 0,0,225 0.9,0.95,0.1,100 ./bonus/xpm/8k_stars_milky_way.xpm DEFAULT
+sp 0,0,0 20 0,0,255 0.8,0.7,0.95,10 bonus/xpm/earth_daymap.xpm ./bonus/xpm/earth_normal.xpm

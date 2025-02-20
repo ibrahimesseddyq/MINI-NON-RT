@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   coloring.c                                         :+:      :+:    :+:   */
+/*   coloring_bonus.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ibes-sed <ibes-sed@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/26 09:26:20 by sessarhi          #+#    #+#             */
-/*   Updated: 2025/02/07 22:43:06 by ibes-sed         ###   ########.fr       */
+/*   Updated: 2025/02/20 10:11:21 by sessarhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "./../../includes/color.h"
+#include "./../../includes/color_bonus.h"
 
 t_color	color_add(t_color *a, t_color *b)
 {

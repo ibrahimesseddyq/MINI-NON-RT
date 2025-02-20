@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   math.c                                             :+:      :+:    :+:   */
+/*   math_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/24 17:05:04 by sessarhi          #+#    #+#             */
-/*   Updated: 2025/02/11 19:59:18 by sessarhi         ###   ########.fr       */
+/*   Updated: 2025/02/20 10:11:30 by sessarhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "./../../includes/math.h"
+#include "./../../includes/math_bonus.h"
 
 t_vector	vector_add(const t_vector *a, const t_vector *b)
 {

@@ -6,7 +6,7 @@
 /*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 19:16:40 by sessarhi          #+#    #+#             */
-/*   Updated: 2025/02/13 13:31:02 by sessarhi         ###   ########.fr       */
+/*   Updated: 2025/02/20 10:55:58 by sessarhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,5 +72,5 @@ char	get_ascii(int key);
 int		my_atoi(int *keys, int start);
 int		hook(t_scene *scene);
 void	draw(t_scene *scene);
-
+int		is_norm(t_vector *v);
 #endif

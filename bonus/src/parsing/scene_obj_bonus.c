@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   scene_obj.c                                        :+:      :+:    :+:   */
+/*   scene_obj_bonus.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ibes-sed <ibes-sed@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/11 18:11:36 by sessarhi          #+#    #+#             */
-/*   Updated: 2025/02/16 15:55:35 by ibes-sed         ###   ########.fr       */
+/*   Updated: 2025/02/20 11:23:27 by sessarhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,8 @@ int	process_pl(char **inf, t_tscene *t_scene)
 		|| new->texture_name == NULL || new->direction.x < -1
 		|| new->direction.x > 1 || new->direction.y < -1
 		|| new->direction.y > 1 || new->direction.z < -1
-		|| new->direction.z > 1 || !parse_material(inf[4], &new->material))
+		|| new->direction.z > 1 || !parse_material(inf[4], &new->material)
+		|| vector_length(&new->direction) != 1)
 		clean_exit("Error: Plane has wrong arguments");
 	plane_add_front(&t_scene->plane, new);
 	t_scene->plane_size++;
@@ -86,14 +87,12 @@ int	process_cy(char **inf, t_tscene *t_scene)
 	new->height = ft_atof(inf[4]);
 	if (!parse_crd(inf[1], &new->position) || !parse_crd(inf[2],
 			&new->direction) || !parse_rgb(inf[5], &new->color)
-		|| new->direction.x < -1 || new->direction.x > 1 || new->direction.y
-		< -1 || new->direction.y > 1 || new->direction.z < -1
-		|| new->direction.z > 1 || new->diameter < 0 || new->height < 0
-		|| !parse_material(inf[6], &new->material))
+		|| new->diameter < 0 || new->height < 0
+		|| !parse_material(inf[6], &new->material)
+		|| is_norm(&new->direction))
 		clean_exit("Error: Cylinder has wrong arguments");
 	cylinder_add_front(&t_scene->cylinder, new);
-	t_scene->cylinder_size++;
-	return (0);
+	return (t_scene->cylinder_size++, 0);
 }
 
 int	process_co(char **inf, t_tscene *t_scene)
@@ -114,10 +113,9 @@ int	process_co(char **inf, t_tscene *t_scene)
 	new->height = ft_atof(inf[4]);
 	new->normal_texture_name = ft_strdup(inf[8]);
 	if (!parse_crd(inf[1], &new->vertex) || !parse_crd(inf[2], &new->axis)
-		|| !parse_rgb(inf[5], &new->color) || new->axis.x < -1
-		|| new->axis.x > 1 || new->axis.y < -1 || new->axis.y > 1
-		|| new->axis.z < -1 || new->axis.z > 1 || new->angle < 0
-		|| new->height < 0 || !parse_material(inf[6], &new->material))
+		|| !parse_rgb(inf[5], &new->color) || new->angle < 0
+		|| new->height < 0 || !parse_material(inf[6], &new->material)
+		|| is_norm(&new->axis))
 		clean_exit("Error: Cone has wrong arguments");
 	cone_add_front(&t_scene->cone, new);
 	t_scene->cone_size++;
