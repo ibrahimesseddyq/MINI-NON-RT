@@ -13,8 +13,8 @@ RM = rm -rf
 HDR = ./mand/includes/color.h  ./mand/includes/defined.h  ./mand/includes/includes.h  ./mand/includes/math.h  ./mand/includes/memory.h\
 	./mand/includes/objects.h  ./mand/includes/tmpobjects.h minirt.h
 
-BHDR = ./bonus/includes/color.h  ./bonus/includes/defined.h  ./bonus/includes/includes.h  ./bonus/includes/math.h  ./bonus/includes/memory.h\
-	./bonus/includes/objects.h  minirt.h
+BHDR = ./bonus/includes/color_bonus.h  ./bonus/includes/defined_bonus.h  ./bonus/includes/includes_bonus.h  ./bonus/includes/math_bonus.h  ./bonus/includes/memory_bonus.h\
+	./bonus/includes/objects_bonus.h  minirt_bonus.h
 
 
 SRC = minirt.c $(MND)parsing/parce_rgb.c $(MND)parsing/parse_crd.c $(MND)parsing/parsing.c $(MND)utils/ft_atof.c \
