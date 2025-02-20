@@ -40,7 +40,7 @@ BONUS_SRC = minirt_bonus.c		 $(BNS)parsing/parce_rgb_bonus.c	 	$(BNS)parsing/par
 	$(BNS)rendering/move_utils_bonus.c $(BNS)rendering/hooks_bonus.c $(BNS)rendering/draw_bonus.c $(BNS)rendering/calculate_surface_bonus.c $(BNS)parsing/env_obj_bonus.c \
 	$(BNS)parsing/scene_obj_utils_bonus.c $(BNS)parsing/scene_obj_bonus.c $(BNS)utils/ft_strdup_bonus.c $(BNS)rendering/render_bonus.c\
 	$(BNS)parsing/read_line_bonus.c $(BNS)parsing/copy_scene_data_bonus.c $(BNS)parsing/copy_scene_utils_bonus.c $(BNS)parsing/err_cleanup_bonus.c $(BNS)tmputils/light_utils_bonus.c\
-	
+	$(BNS)rendering/ray_cone_utils1_bonus.c  $(BNS)rendering/ray_cone_utils2_bonus.c\
 
 OBJ = $(SRC:.c=.o)
 BONUS_OBJ = $(BONUS_SRC:.c=.o)

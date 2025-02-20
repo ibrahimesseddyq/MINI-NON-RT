@@ -6,7 +6,7 @@
 /*   By: sessarhi <sessarhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 14:53:30 by sessarhi          #+#    #+#             */
-/*   Updated: 2025/02/20 10:54:54 by sessarhi         ###   ########.fr       */
+/*   Updated: 2025/02/20 12:16:55 by sessarhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,4 +117,13 @@ char				*ft_strdup(const char *str);
 void				clean_textures(t_scene *scene);
 int					check_pnt(const char *str);
 int					is_norm(t_vector *v);
+void				update_intersection(t_scene *scene,
+						t_intersection *intersection,
+						t_ray *ray, t_cone_hit *hit);
+void				calculate_uv_cap(t_scene *scene,
+						t_intersection *intersection, int i);
+void				init_uv_cone(t_uv_cone_calc *calc, t_scene *scene,
+						t_intersection *intersection, int i);
+double				hit_cone_cap(t_point *vertex, t_vector *axis,
+						double angle, t_ray *ray);
 #endif
